@@ -5,6 +5,7 @@
 ## Get started
 
 * [Installation](get-started/installation.md)
+* [Authentication](get-started/authentication.md)
 
 ## Concepts
 
