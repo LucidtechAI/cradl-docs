@@ -1,4 +1,4 @@
 # Installation
 
-How to install CLI
+How to install CLI/packages
 
