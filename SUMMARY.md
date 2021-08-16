@@ -30,3 +30,8 @@
 
 * [Questions?](questions.md)
 
+## Reference
+
+* [CLI](reference/cli.md)
+* [JavaScript](reference/javascript.md)
+
