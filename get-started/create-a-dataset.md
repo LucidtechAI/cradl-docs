@@ -78,5 +78,3 @@ $ las documents create receipt.pdf --dataset-id las:dataset:<dataset id> --groun
 {% endtab %}
 {% endtabs %}
 
-
-
