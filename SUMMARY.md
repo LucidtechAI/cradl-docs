@@ -29,6 +29,8 @@
 * [cURL](reference/curl.md)
 * [Python](reference/python.md)
 * [JavaScript](reference/javascript.md)
+* [Java](reference/java.md)
+* [.NET](reference/net.md)
 
 ## Administration
 
