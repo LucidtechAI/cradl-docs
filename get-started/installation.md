@@ -1,6 +1,8 @@
 # Installation
 
-How to install CLI/packages
+### How to install CLI/packages
+
+This guide assumes use of CLI/cURL/Python SDK. To install these, do the following:
 
 
 
