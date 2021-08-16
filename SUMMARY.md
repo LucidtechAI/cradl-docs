@@ -12,3 +12,7 @@
 * [Data bundles](concepts/data-bundles.md)
 * [Models](concepts/models.md)
 
+## Use cases
+
+* [Invoice model](use-cases/invoice-model.md)
+
