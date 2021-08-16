@@ -6,7 +6,5 @@
 
 ### Create data bundle / data report
 
-{% page-ref page="train-a-model.md" %}
-
 
 
