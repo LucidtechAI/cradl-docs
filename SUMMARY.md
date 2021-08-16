@@ -14,12 +14,8 @@
 ## Concepts
 
 * [Datasets](concepts/datasets.md)
-* [Models](concepts/models/README.md)
-  * [Data bundles](concepts/models/data-bundles.md)
-
----
-
-* [Predictions](predictions.md)
+* [Models](concepts/models.md)
+* [Predictions](concepts/predictions.md)
 
 ## Use cases
 
