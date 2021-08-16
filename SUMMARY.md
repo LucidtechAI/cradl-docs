@@ -18,3 +18,11 @@
 * [Invoice model](use-cases/invoice-model.md)
 * [Custom model](use-cases/custom-model.md)
 
+## Administration
+
+* [Quotas](administration/quotas.md)
+
+---
+
+* [Questions?](questions.md)
+
