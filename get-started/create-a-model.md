@@ -29,6 +29,12 @@ Where the different types a field can be is one of these:
 
 
 
+#### Width and height
+
+What on earth is this?
+
+
+
 Link to create model in Cradl
 
 ### Link model with training data
