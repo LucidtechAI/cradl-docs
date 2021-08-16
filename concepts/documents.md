@@ -1,6 +1,6 @@
 # Documents
 
-## An example document
+### An example document
 
-## Consent IDs
+### Consent IDs
 
