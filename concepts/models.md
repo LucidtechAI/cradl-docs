@@ -10,6 +10,10 @@
 
 Explain how you use data bundles/reports to check your training data
 
+What constitutes a good data bundle for training?
+
+How can I improve my data?
+
 #### Data quality score
 
 Explain variation and coverage
