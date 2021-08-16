@@ -6,12 +6,24 @@ In order to train a model we need to provide it with a lot of documents. The eas
 If you upload documents without assigning them to a dataset, or you want to change the dataset in the future, this is possible to change easily using the API. However, it is a lot easier to upload them directly to a dataset right away!
 {% endhint %}
 
-Insert direct link to Cradl that takes you to datasets
-
 {% tabs %}
 {% tab title="CLI" %}
-```python
-Example for creating dataset as an alternative for using the Cradl app
+```bash
+$ las datasets create --name "Receipts" --description "Initial training data"
+{
+  "datasetId": "las:dataset:<dataset id>",
+  "description": "Initial training data",
+  "name": "Receipts",
+  "numberOfDocuments": 0,
+  "createdTime": "2021-08-16T12:53:13.374930+0000",
+  "updatedTime": null,
+  "createdBy": "las:app-client:<appClient id>",
+  "updatedBy": null,
+  "retentionInDays": 1825,
+  "storageLocation": "EU",
+  "containsPersonallyIdentifiableInformation": true,
+  "version": 0
+}
 ```
 {% endtab %}
 
@@ -27,6 +39,8 @@ Example for creating dataset as an alternative for using the Cradl app
 ```
 {% endtab %}
 {% endtabs %}
+
+Insert direct link to Cradl that takes you to datasets
 
 ### Upload documents to dataset
 
