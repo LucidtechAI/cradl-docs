@@ -15,4 +15,5 @@
 ## Use cases
 
 * [Invoice model](use-cases/invoice-model.md)
+* [Custom model](use-cases/custom-model.md)
 
