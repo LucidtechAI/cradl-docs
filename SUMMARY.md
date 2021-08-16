@@ -34,6 +34,7 @@
 
 ## Administration
 
+* [GDPR](administration/gdpr.md)
 * [Quotas](administration/quotas.md)
 
 ---
