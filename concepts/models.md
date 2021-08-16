@@ -12,6 +12,11 @@ Explain how you use data bundles/reports to check your training data
 
 What constitutes a good data bundle for training?
 
+* Sufficient amount
+* Good variation
+* Representative data
+* Correct data
+
 How can I improve my data?
 
 #### Data quality score
