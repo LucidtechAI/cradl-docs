@@ -4,3 +4,7 @@
 
 ### Link model with training data
 
+{% page-ref page="train-a-model.md" %}
+
+
+
