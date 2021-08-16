@@ -1,2 +1,2 @@
-# Serve a model
+# Serve model
 

@@ -1,2 +1,2 @@
-# Train a model
+# Train model
 

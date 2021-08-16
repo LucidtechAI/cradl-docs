@@ -1,2 +1,2 @@
-# Create a model
+# Define model
 

@@ -6,10 +6,10 @@
 
 * [Installation](get-started/installation.md)
 * [Authentication](get-started/authentication.md)
-* [Create a dataset](get-started/create-a-dataset.md)
-* [Create a model](get-started/create-a-model.md)
-* [Train a model](get-started/train-a-model.md)
-* [Serve a model](get-started/serve-a-model.md)
+* [Create dataset](get-started/create-a-dataset.md)
+* [Define model](get-started/create-a-model.md)
+* [Train model](get-started/train-a-model.md)
+* [Serve model](get-started/serve-a-model.md)
 
 ## Concepts
 
