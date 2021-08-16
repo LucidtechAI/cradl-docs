@@ -32,8 +32,8 @@
 
 ## Reference
 
+* [CLI](reference/cli.md)
 * [cURL](reference/curl.md)
 * [Python](reference/python.md)
-* [CLI](reference/cli.md)
 * [JavaScript](reference/javascript.md)
 
