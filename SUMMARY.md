@@ -6,6 +6,7 @@
 
 * [Installation](get-started/installation.md)
 * [Authentication](get-started/authentication.md)
+* [Test your demo model](get-started/test-your-demo-model.md)
 * [Create dataset](get-started/create-a-dataset.md)
 * [Define model](get-started/create-a-model.md)
 * [Train model](get-started/train-a-model.md)
