@@ -2,5 +2,7 @@
 
 ### How do we treat your data?
 
-### How to use consent IDs
+### How do I ensure my customers' right to be forgotten?
+
+
 
