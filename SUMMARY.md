@@ -38,6 +38,7 @@
 * [GDPR](administration/gdpr.md)
 * [Quotas](administration/quotas.md)
 * [Security](administration/security.md)
+* [Legal](administration/legal.md)
 
 ---
 
