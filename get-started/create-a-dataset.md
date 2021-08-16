@@ -24,3 +24,7 @@
 
 ### Upload documents to dataset
 
+{% page-ref page="create-a-model.md" %}
+
+
+
