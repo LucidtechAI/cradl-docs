@@ -13,6 +13,7 @@
 
 ## Concepts
 
+* [Documents](concepts/documents.md)
 * [Datasets](concepts/datasets.md)
 * [Models](concepts/models.md)
 * [Predictions](concepts/predictions.md)
@@ -22,6 +23,13 @@
 * [Invoice model](use-cases/invoice-model.md)
 * [Custom model](use-cases/custom-model.md)
 
+## Reference
+
+* [CLI](reference/cli.md)
+* [cURL](reference/curl.md)
+* [Python](reference/python.md)
+* [JavaScript](reference/javascript.md)
+
 ## Administration
 
 * [Quotas](administration/quotas.md)
@@ -29,11 +37,4 @@
 ---
 
 * [Questions?](questions.md)
-
-## Reference
-
-* [CLI](reference/cli.md)
-* [cURL](reference/curl.md)
-* [Python](reference/python.md)
-* [JavaScript](reference/javascript.md)
 
