@@ -25,5 +25,32 @@ To attach a data bundle to a model you need to specify the modelId and one or mo
 
 
 
+## Data report
+
 ## Data quality
+
+
+
+
+
+### Data bundles
+
+Explain how you use data bundles/reports to check your training data
+
+What constitutes a good data bundle for training?
+
+* Sufficient amount
+* Good variation
+* Representative data
+* Correct data
+
+How can I improve my data?
+
+#### Data quality score
+
+Explain variation and coverage
+
+* How often should I run a report?
+* What is a good score, when do I stop?
+* Do I keep running these after a model is trained?
 

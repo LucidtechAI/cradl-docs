@@ -19,7 +19,7 @@ Every model has a specified `width`, `height` and `fieldConfig`. The `width` and
 The `fieldConfig` input is specified in a JSON formatted file.
 
 {% hint style="warning" %}
-The label names \(`"total_amount"` and`"due_date"`below\) must match the label names given in the training data.
+The label names \(`"total_amount"` and`"due_date"`in the example below\) must match the label names given in the training data.
 {% endhint %}
 
 ```text
@@ -116,13 +116,23 @@ where the &lt;field\_type&gt; is one of the following:
 
 ## Linking a data bundle before training
 
-Once a model is defined, you can attach one or more [Data bundles](training-data.md) to it to specify which data it should be trained on. You must create a data bundle of acceptable quality linked to your model before training is allowed. This is a safety measure to improve the quality of the trained model. Read more about data quality [here](training-data.md#data-quality).
+Once a model is defined, you can create one or more [Data bundles](training-data.md) linked to it to specify which data it should be trained on. You must create a data bundle of acceptable quality linked to your model before training is allowed. This is a safety measure to improve the quality of the trained model. Read more about data quality [here](training-data.md#data-quality).
 
 ## Training a model
 
-When you have created a model and successfully attached a data bundle to be used for training, you are ready to request training. **INSERT LINK TO TRAINING BUTTON.**
+When you have created a model and successfully created a data bundle to be used for training, you are ready to request training. **INSERT LINK TO TRAINING BUTTON.**
 
-The model will change status to **training**. This means that our team has begun training and validation of the model, and you will receive a notification from us once the model is ready for testing. This process may take several days depending on the complexity and novelty of your requested model. We typically warmstart our models from pre-trained models from 
+The model will change status to `training`. This means that our team has begun training and validation of the model, and you will receive a notification from us once the model is ready for testing. This process may take several days before an initial model is produced, depending on the complexity and novelty of your requested model. For example, if your model contains data that we haven't encountered before \(new characters, data types, document types etc.\) we may need to add extra attention to ensure the final product is satisfactory.
+
+Once a model's training is complete, it will change status to `active`. It is now ready to make [Predictions](predictions.md) and you may test it as you see fit before shipping it off to production.
+
+## Improving a model
+
+Any program can be improved - and machine learning models are no exception. You may see that every so often, the model makes an incorrect prediction on a certain field - perhaps some fields more often than others. Or the [confidence](predictions.md#confidence) levels of your predictions may seem a little low, especially as time goes by and the current data being fed to the model drifts from the data that the model was trained on. 
+
+Often, the key to improving a model is to supply more fresh data \(or simply more historical data\), or to improve the quality of already existing data. You may want to sample some of your training data to check whether the ground truth attached to the documents perfectly match the data on the documents, or check for more historical data in your source systems. 
+
+In any case, new and improved data should be uploaded and added to new dataset\(s\), and you need to create a new data bundle containing the new dataset\(s\) and request training. We will then initiate a new training session with more and/or better data, and you should expect further improvement on your existing model.
 
 ## Models
 
@@ -148,24 +158,5 @@ What is a field config and why do we need one?
 
 What on earth is this?
 
-### Data bundles
-
-Explain how you use data bundles/reports to check your training data
-
-What constitutes a good data bundle for training?
-
-* Sufficient amount
-* Good variation
-* Representative data
-* Correct data
-
-How can I improve my data?
-
-#### Data quality score
-
-Explain variation and coverage
-
-* How often should I run a report?
-* What is a good score, when do I stop?
-* Do I keep running these after a model is trained?
+### 
 
