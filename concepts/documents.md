@@ -69,34 +69,6 @@ Documents can be deleted one-by-one or using a group identifier \(`consentId` or
 >> las documents delete-all <dataset-id>
 ```
 
-
-
-
-
-
-
-What is a document?
-
-How do I format the ground truth for a document?
-
-How do I upload a document?
-
-Which formats are allowed?
-
-### Security and GDPR
-
-How is the security of my documents ensured?
-
-Are my documents being stored in compliance with GDPR?
-
-How do I ensure my customers' right to be forgotten?
-
-
-
-
-
-Our services help you control and automate the flow of your documents, and a _Document_ is therefore an important concept, and in this introduction you will see how a _Document_ can be created, controlled and used together with _Batches_, _Consents_, _Predictions_, and _Models_.
-
 ## 
 
 
