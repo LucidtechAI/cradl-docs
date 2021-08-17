@@ -6,6 +6,25 @@
 * How does it work, what does it actually do?
 * What is the difference between this and OCR templates?
 
+### Field config
+
+What is a field config and why do we need one?
+
+| Field type | Description |
+| :--- | :--- |
+| date | A date |
+| amount | **Difference between this and number?** |
+| alphanum | Any alphanumeric value |
+| alphanumext | **?** |
+| all | **Anything?** |
+| letter | **Only letters?** |
+| number | A number |
+| phone | A phone number |
+
+### Width and height
+
+What on earth is this?
+
 ### Data bundles
 
 Explain how you use data bundles/reports to check your training data
