@@ -6,19 +6,33 @@ A dataset in Cradl is a collection of [Documents](documents.md), typically from 
 
 Datasets are created independently of the documents they contain.
 
-```text
->> las datasets create --name "Invoices 2020" --description "From accounting system"
-```
-
 {% hint style="info" %}
 Give your datasets clear names and descriptions. This will be helpful when specifying which data to train a model from.
 {% endhint %}
+
+```text
+>> las datasets create --name "Invoices 2020" --description "From accounting system"
+{
+  "datasetId": "las:dataset:05ebcb0c1a8c458ebb47725a0e21d59b",
+  "description": "From accounting system",
+  "name": "Invoices 2020",
+  "numberOfDocuments": 0,
+  "storageLocation": "EU",
+  "containsPersonallyIdentifiableInformation": true,
+  "version": 0
+}
+```
+
+This creates an empty dataset 
 
 ## Adding documents to a dataset
 
 Documents can be assigned to a dataset either at creation or from an update. It is not possible to assign a document to multiple datasets.
 
-
+```text
+>> las documents create path/to/my/document.pdf --dataset-id <dataset-id>
+>> las documents update <document-id> --dataset-id <dataset-id>
+```
 
 ## Deleting a dataset
 
