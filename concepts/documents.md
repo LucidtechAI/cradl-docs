@@ -25,11 +25,15 @@ The returned`documentId` can be used together with a `modelId` to make a predict
 To use a document to train a model, the document must be described by ground truth metadata. The metadata can be provided when you create the _Document_, or attached at a later stage.
 
 ```text
->> las documents create path/to/document.pdf --fields amount=100.00 due_date='2021-05-20'
->> las documents update <document-id> --fields amount=100.00 due_date='2021-05-20'
+>> las documents create path/to/document.pdf --ground-truth-fields amount=100.00 due_date='2021-05-20'
+>> las documents create path/to/document.pdf --ground-truth-path path/to/json_file
+>> las documents update <document-id> --ground-truth-fields amount=100.00 due_date='2021-05-20'
+>> las documents update <document-id> --ground-truth-path path/to/json_file
 ```
 
 The document can now be added to a [Dataset](datasets.md), and from there on be used as training data.
+
+
 
 ## Documents with personal consents
 
