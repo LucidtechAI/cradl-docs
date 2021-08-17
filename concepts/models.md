@@ -1,6 +1,6 @@
 # Models
 
-A model in Cradl is a custom-made machine learning program, which can be used to make [Predictions](predictions.md) on [Documents](documents.md) to extract exactly the data that you need. Our models are tailored to the training data you supply as [Datasets](datasets.md), and are capable of extracting a range of data, whether that is date and total amount from receipts, specific payment data from invoices, or name and age from ID cards. 
+A model in Cradl is a custom-made machine learning program, which can be used to make [Predictions](predictions.md) on [Documents](documents.md) to extract exactly the data that you need. Our models are tailored to the training data you supply in [Datasets](datasets.md), and are capable of extracting a range of data, whether that is date and total amount from receipts, specific payment data from invoices, or name and age from ID cards. 
 
 ## What is a model?
 

@@ -16,9 +16,9 @@
 
 * [Documents](concepts/documents.md)
 * [Datasets](concepts/datasets.md)
+* [Data bundles](concepts/training-data.md)
 * [Models](concepts/models.md)
 * [Predictions](concepts/predictions.md)
-* [Data bundles](concepts/training-data.md)
 
 ## Use cases
 
