@@ -103,18 +103,20 @@ A field config is formatted as
 
 where the &lt;field\_type&gt; is one of the following:
 
-| Field type | Description |
+| **Field type** | **Description** |
 | :--- | :--- |
-| date | A date string on the format "DD-MM-YYYY" |
-| amount | An amount string on the format "123.45" |
-| alphanum | Any string with alphanumeric format |
-| alphanumext | **?** |
-| all | **Anything?** |
-| letter | **Only letters?** |
-| number | A number |
-| phone | A phone number |
+| `date` | A date string on the format "DD-MM-YYYY" |
+| `amount` | An amount string on the format "123.45" |
+| `alphanum` | Any string with alphanumeric format |
+| `alphanumext` | Any string with alphanumeric format, including some special characters |
+| `all` | Any string with alphanumeric format, including more special characters |
+| `letter` | Any string with latin characters only |
+| `number` | Any string with numbers only |
+| `phone` | Any phone number with or without country code |
 
-## 
+## Linking a data bundle before training
+
+Once a model is defined, you can attach one or more [Data bundles](training-data.md) to it to specify which data it should be trained on. You must have a data bundle of acceptable quality attached to your model to begin training. Read more about data quality [here](training-data.md#data-quality).
 
 ## Models
 
