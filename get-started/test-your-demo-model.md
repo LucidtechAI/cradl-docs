@@ -12,6 +12,17 @@ First let's list our available models to get a model id we can use:
 {% tab title="CLI" %}
 ```bash
 $ las models list
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```
+curl https://api.lucidtech.ai/v1/models -H 'Authorization: Bearer eyJra...' -H 'x-api-key: <api key>'
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "models": [
     {
@@ -41,8 +52,6 @@ $ las models list
   ]
 }
 ```
-{% endtab %}
-{% endtabs %}
 
 Upload a document:
 
