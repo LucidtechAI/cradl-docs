@@ -38,6 +38,11 @@ Documents can be assigned to a dataset either at creation or from an update. It 
 
 A dataset may not be deleted unless all documents contained in the dataset are deleted first.
 
+```text
+>> las documents delete-all --dataset-id <dataset-id>
+>> las datasets delete <dataset-id>
+```
+
 
 
 I want to know:
