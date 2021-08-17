@@ -58,16 +58,33 @@ In addition to grouping documents in datasets, documents can be assigned a `cons
 
 ## Deleting documents
 
-Documents can be deleted one-by-one or using a group identifier \(`consentId` or `datasetId`\).
+Documents can be deleted one-by-one:
 
 ```text
 >> las documents delete <document-id>
 ```
 
+Or using a group identifier \(`consentId` or `datasetId`\):
+
 ```text
->> las documents delete-all <consent-id> 
->> las documents delete-all <dataset-id>
+>> las documents delete-all --dataset-id <dataset-id>
+{
+  "documents": [...],
+  "nextToken": null,
+  "consentId": []
+}
+
 ```
+
+The delete-all command will delete up to 1000 documents per call. If there are more documents remaining, a non-null `nextToken` will be returned, which can be used in subsequent calls to continue deletion:
+
+```text
+>> las documents delete-all --next-token <next-token>
+```
+
+This can be continued until a null-valued `nextToken` is returned.
+
+
 
 ## 
 
