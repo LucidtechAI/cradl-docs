@@ -118,7 +118,11 @@ where the &lt;field\_type&gt; is one of the following:
 
 Once a model is defined, you can attach one or more [Data bundles](training-data.md) to it to specify which data it should be trained on. You must create a data bundle of acceptable quality linked to your model before training is allowed. This is a safety measure to improve the quality of the trained model. Read more about data quality [here](training-data.md#data-quality).
 
+## Training a model
 
+When you have created a model and successfully attached a data bundle to be used for training, you are ready to request training. **INSERT LINK TO TRAINING BUTTON.**
+
+The model will change status to **training**. This means that our team has begun training and validation of the model, and you will receive a notification from us once the model is ready for testing. This process may take several days depending on the complexity and novelty of your requested model. We typically warmstart our models from pre-trained models from 
 
 ## Models
 
