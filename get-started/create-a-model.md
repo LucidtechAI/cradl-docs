@@ -16,7 +16,7 @@ Let's create a field config file that looks something like this:
 {% endcode %}
 
 {% hint style="info" %}
-See models for detailed information about field config and other parameters
+See [models concepts](../concepts/models.md) for detailed information about field config and other parameters
 {% endhint %}
 
 Link to create model in Cradl
