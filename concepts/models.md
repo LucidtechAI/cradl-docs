@@ -8,7 +8,9 @@ Our models are state-of-the-art machine learning algorithms. This means that you
 
 The process of tailoring an algorithm to your specific use case is called _training_. Similar to how you would train a fresh employee to read out information from forms and documents, we teach our models how to extract data. This means we need to have a good set of _training data_ to begin teaching from, in the form of [Datasets](datasets.md). 
 
-
+{% hint style="warning" %}
+It is important that the [Training data](training-data.md) is correct and of high quality. If the training data has errors, you will be teaching the model to make those same errors. 
+{% endhint %}
 
 ## Creating a model
 

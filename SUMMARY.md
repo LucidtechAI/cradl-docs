@@ -18,6 +18,7 @@
 * [Datasets](concepts/datasets.md)
 * [Models](concepts/models.md)
 * [Predictions](concepts/predictions.md)
+* [Training data](concepts/training-data.md)
 
 ## Use cases
 
