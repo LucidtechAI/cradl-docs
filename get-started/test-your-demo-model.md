@@ -44,3 +44,46 @@ $ las models list
 {% endtab %}
 {% endtabs %}
 
+Upload a document:
+
+{% tabs %}
+{% tab title="CLI" %}
+```bash
+$ las documents create receipt.pdf
+{
+  "documentId": "las:document:<document id>,
+  ...
+}
+```
+{% endtab %}
+{% endtabs %}
+
+Then make a prediction on the document using the demo model:
+
+{% tabs %}
+{% tab title="CLI" %}
+```bash
+$ las predictions create las:document:<document id> las:model:<model id>
+{
+  "predictionId": "las:prediction:<prediction id>",
+  "modelId": "las:model:<model id>",
+  "documentId": "las:document:<document id>",
+  "predictions": [
+    {
+      "label": "total_amount",
+      "value": "5154.06",
+      "confidence": 0.9758162361908527
+    },
+    {
+      "label": "purchase_date",
+      "value": "2019-12-23",
+      "confidence": 0.96797316745869735
+    },
+  ],
+  "timestamp": 1629188787,
+  "inferenceTime": 2.7935566902160645
+}
+```
+{% endtab %}
+{% endtabs %}
+
