@@ -1,12 +1,30 @@
 # Installation
 
-### How to install CLI/packages
+This guide assumes use of CLI/cURL/Python SDK. To install these, follow the relevant steps.
 
-This guide assumes use of CLI/cURL/Python SDK. To install these, do the following:
+### CLI
 
+Our CLI tool simplifies making API calls, and will detect credentials automatically.
 
+Prerequisites:
 
-See references for detailed SDK use:
+* Working Python and pip install
+
+```bash
+$ pip install lucidtech-las-cli
+```
+
+### Python SDK
+
+Prerequisites:
+
+* Working Python and pip install
+
+```bash
+$ pip install lucidtech-las
+```
+
+See references section for detailed use of SDKs:
 
 
 
