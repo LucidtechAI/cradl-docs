@@ -1,15 +1,15 @@
 # Models
 
-A model in Cradl is a custom-made machine learning program, which can be used to make [Predictions](predictions.md) on [Documents](documents.md) to extract exactly the data that you need. Our models are tailored to the training data you supply in [Data bundles](training-data.md), and are capable of extracting a range of data, whether that is date and total amount from receipts, specific payment data from invoices, or name and age from ID cards. 
+A model in Cradl is a custom-made machine learning program, which can be used to make [Predictions](predictions.md) on [Documents](documents.md) to extract exactly the data that you need. The models are tailored to the training data you supply in [Data bundles](training-data.md), and are capable of extracting a range of data, whether that is date and total amount from receipts, specific payment data from invoices, or name and age from ID cards. 
 
 ## What is a model?
 
-Our models are state-of-the-art machine learning algorithms. This means that you don't need to make any assumptions about the layout of the documents to make predictions on, such as supplying keywords or creating templates. Given sufficient training examples, our models learn how to search for and extract data from documents, based solely on the supplied training data.
+Our models are state-of-the-art machine learning algorithms. This means that you don't need to make any assumptions about the layout of the documents to make predictions on, such as supplying keywords or creating templates. Given sufficient training examples, your model learns how to search for and extract data from documents, based solely on the supplied training data.
 
-The process of tailoring an algorithm to your specific use case is called _training_. Similar to how you would train a fresh employee to read out information from forms and documents, we teach our models how to extract data. This means we need to have a good set of _training data_ to begin teaching from, in the form of [Datasets](datasets.md) bundled together in a [Data bundle](training-data.md). 
+The process of tailoring an algorithm to your specific use case is called _training_. Similar to how you would train a fresh employee to read out information from forms and documents, we teach your models how to extract data. This means we need to have a good set of _training data_ to begin teaching from, in the form of [Datasets](datasets.md) bundled together in a [Data bundle](training-data.md). 
 
 {% hint style="warning" %}
-It is important that there is enough training data, and that the data are correct and of high quality. If the training data has errors, you will be teaching the model to make those same errors. Read more about [Data quality](training-data.md#data-quality) if you are in doubt whether your data will be good enough.
+It is important that there is enough training data, and that the data are correct and of high quality. If the training data has errors, you will be teaching your model to make those same errors. Read more about [Data quality](training-data.md#data-quality) if you are in doubt whether your data will be good enough.
 {% endhint %}
 
 ## Creating a model
@@ -83,7 +83,7 @@ For example, you could choose `1281 x 961` for A4 documents with fine print or `
 
 #### Field config
 
-The field config is a definition of which fields the models should extract and what the maximum character length of the extracted value per field should be. It should, if possible, give hints as to which type of data the field contains, which will allow for an extra layer of data validation when creating a [Data bundle](training-data.md). 
+The field config is a definition of which fields your model should extract and what the maximum character length of the extracted value per field should be. It should, if possible, give hints as to which type of data the field contains, which will allow for an extra layer of data validation when creating a [Data bundle](training-data.md). 
 
 A field config is formatted as 
 
@@ -116,21 +116,21 @@ where the &lt;field\_type&gt; is one of the following:
 
 ## Linking a data bundle before training
 
-Once a model is defined, you can create one or more [Data bundles](training-data.md) linked to it to specify which data it should be trained on. You must create a data bundle of acceptable quality linked to your model before training is allowed. This is a safety measure to improve the quality of the trained model. Read more about data quality [here](training-data.md#data-quality).
+Once your model is defined, you can create one or more [Data bundles](training-data.md) linked to it to specify which data it should be trained on. You must create a data bundle of acceptable quality linked to your model before training is allowed. This is a safety measure to improve the quality of the trained model. Read more about data quality [here](training-data.md#data-quality).
 
 ## Training a model
 
-When you have created a model and successfully created a data bundle to be used for training, you are ready to request training. **INSERT LINK TO TRAINING BUTTON.**
+When you have created your model and successfully created a data bundle to be used for training, you are ready to request training. **INSERT LINK TO TRAINING BUTTON.**
 
-The model will change status to `training`. This means that our team has begun training and validation of the model, and you will receive a notification from us once the model is ready for testing. This process may take several days before an initial model is produced, depending on the complexity and novelty of your requested model. For example, if your model contains data that we haven't encountered before \(new characters, data types, document types etc.\) we may need to add extra attention to ensure the final product is satisfactory.
+The model will change status to `training`. This means that our team has begun training and validation of your model, and you will receive a notification from us once the model is ready for testing. This process may take several days before an initial model is produced, depending on the complexity and novelty of your requested model. For example, if your model contains data that we haven't encountered before \(new characters, data types, document types etc.\) we may need to add extra attention to ensure the final product is satisfactory.
 
-Once a model's training is complete, it will change status to `active`. It is now ready to make [Predictions](predictions.md) and you may test it as you see fit before shipping it off to production.
+Once your model's training is complete, it will change status to `active`. It is now ready to make [Predictions](predictions.md) and you may test it as you see fit before shipping it off to production.
 
 ## Improving a model
 
-Any program can be improved - and machine learning models are no exception. You may see that every so often, the model makes an incorrect prediction on a certain field - perhaps some fields more often than others. Or the [confidence](predictions.md#confidence) levels of your predictions may seem a little low, especially as time goes by and the current data being fed to the model drifts from the data that the model was trained on. 
+Any program can be improved - and machine learning models are no exception. You may see that every so often, your model makes an incorrect prediction on a certain field - perhaps some fields more often than others. Or the [confidence](predictions.md#confidence) levels of your predictions may seem a little low, especially as time goes by and the current data being fed to your model drifts from the data that the model was trained on. 
 
-Often, the key to improving a model is to supply more fresh data \(or simply more historical data\), or to improve the quality of already existing data. You may want to sample some of your training data to check whether the ground truth attached to the documents perfectly match the data on the documents, or check for more historical data in your source systems. 
+Often, the key to improving your model is to supply more fresh data \(or simply more historical data\), or to improve the quality of already existing data. You may want to sample some of your training data to check whether the ground truth attached to the documents perfectly match the data on the documents, or check for more historical data in your source systems. 
 
 In any case, new and improved data should be uploaded and added to new dataset\(s\), and you need to create a new data bundle containing the new dataset\(s\) and request training. We will then initiate a new training session with more and/or better data, and you should expect further improvement on your existing model.
 
