@@ -4,7 +4,7 @@ A dataset in Cradl is a collection of [Documents](documents.md), typically from 
 
 ## Creating a dataset
 
-Datasets are created independently of the documents they contain.
+Datasets are created independently of the documents they contain. This can be done directly in the Cradl datasets interface or programmatically.
 
 {% hint style="info" %}
 Give your datasets clear names and descriptions. This will be helpful when specifying which data to train a model from.
@@ -23,7 +23,7 @@ Give your datasets clear names and descriptions. This will be helpful when speci
 }
 ```
 
-This creates an empty dataset 
+This creates an empty dataset for documents to be added to. The `datasetId` can be used to specify that this dataset is to be used when training a [Model](models.md). The `version` field is used to identify changes to a dataset, by adding/removing/updating contained documents.
 
 ## Adding documents to a dataset
 
