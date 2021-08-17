@@ -6,10 +6,10 @@ A model in Cradl is a custom-made machine learning program, which can be used to
 
 Our models are state-of-the-art machine learning algorithms. This means that you don't need to make any assumptions about the layout of the documents to make predictions on, such as supplying keywords or creating templates. Given sufficient training examples, our models learn how to search for and extract data from documents, based solely on the supplied training data.
 
-The process of tailoring an algorithm to your specific use case is called _training_. Similar to how you would train a fresh employee to read out information from forms and documents, we teach our models how to extract data. This means we need to have a good set of _training data_ to begin teaching from, in the form of [Datasets](datasets.md). 
+The process of tailoring an algorithm to your specific use case is called _training_. Similar to how you would train a fresh employee to read out information from forms and documents, we teach our models how to extract data. This means we need to have a good set of _training data_ to begin teaching from, in the form of [Datasets](datasets.md) bundled together in a [Data bundle](training-data.md). 
 
 {% hint style="warning" %}
-It is important that the [Training data](training-data.md) is correct and of high quality. If the training data has errors, you will be teaching the model to make those same errors. 
+It is important that the training is correct and of high quality. If the training data has errors, you will be teaching the model to make those same errors. Read more about [Data quality](training-data.md#data-quality) if you are in doubt whether your data will be sufficient.
 {% endhint %}
 
 ## Creating a model

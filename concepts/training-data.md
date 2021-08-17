@@ -1,4 +1,4 @@
-# Training data
+# Data bundles
 
 ## Data quality
 
