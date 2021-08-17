@@ -50,7 +50,26 @@ The JSON format of the above ground truth file is found below.
 
 ## Documents with personal consents
 
+In addition to grouping documents in datasets, documents can be assigned a `consentId` to facilitate deletion of single-user data. If your application requires users to register data usage consent, you should label this consent by a user-unique ID, and label all user data uploaded to Cradl with a corresponding `consentId` at creation time.
+
+```text
+>> las documents create path/to/document.pdf --consent-id <user-unique-id>
+```
+
 ## Deleting documents
+
+Documents can be deleted one-by-one or using a group identifier \(`consentId` or `datasetId`\).
+
+```text
+>> las documents delete <document-id>
+```
+
+```text
+>> las documents delete-all <consent-id> 
+>> las documents delete-all <dataset-id>
+```
+
+
 
 
 
