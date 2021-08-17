@@ -5,6 +5,12 @@
 * What is a model?
 * How does it work, what does it actually do?
 * What is the difference between this and OCR templates?
+* What do I need to train a model?
+* Can I train a model several times?
+* How can I improve the model?
+* How long does it take?
+* Time vs cost?
+* How can I test the improvement after training?
 
 ### Field config
 
