@@ -67,6 +67,55 @@ Using this JSON file, you can define a model.
 
 The model is now defined, and in an `inactive` state. Once you start training, it will change status to `training`, and when it is deployed after training, it will be in an `active` state. Additionally, you may supply a `preprocessConfig` which describes how to preprocess images entering the model.
 
+### Choosing model parameters
+
+#### Height and width
+
+The `height` and `width` parameters of the model define the shape of images that the model accepts. If you use differently sized image, or a PDF, as input to the model, it will be resized to `height x width` before entering the model.
+
+The size of the images has implications for training time, response time and accuracy of the model, since larger images require more computation to process, while higher resolution \(up to a certain point\) can improve the reading quality of the model - especially if your images contain fine print that would be illegible at lower resolutions.
+
+{% hint style="warning" %}
+We recommend that you choose image sizes as `(multiple of 320) + 1`, as this will map optimally with the underlying model structure, making training more efficient. 
+
+For example, you could choose `1281 x 961` for A4 documents with fine print or `321 x 321` for square documents with larger print. 
+{% endhint %}
+
+#### Field config
+
+The field config is a definition of which fields the models should extract and what the maximum character length of the extracted value per field should be. It should, if possible, give hints as to which type of data the field contains, which will allow for an extra layer of data validation when creating a [Data bundle](training-data.md). 
+
+A field config is formatted as 
+
+```text
+{
+  "field_name_1": {
+    "type": "<field_type>",
+    "maxLength": <integer max length of data>
+  },
+  "field_name_2": {
+    "type": "<field_type>",
+    "maxLength": <integer max length of data>
+  },
+  ...
+}
+```
+
+where the &lt;field\_type&gt; is one of the following:
+
+| Field type | Description |
+| :--- | :--- |
+| date | A date string on the format "DD-MM-YYYY" |
+| amount | An amount string on the format "123.45" |
+| alphanum | Any string with alphanumeric format |
+| alphanumext | **?** |
+| all | **Anything?** |
+| letter | **Only letters?** |
+| number | A number |
+| phone | A phone number |
+
+## 
+
 ## Models
 
 * What is a model?
@@ -83,16 +132,9 @@ The model is now defined, and in an `inactive` state. Once you start training, i
 
 What is a field config and why do we need one?
 
-| Field type | Description |
-| :--- | :--- |
-| date | A date |
-| amount | **Difference between this and number?** |
-| alphanum | Any alphanumeric value |
-| alphanumext | **?** |
-| all | **Anything?** |
-| letter | **Only letters?** |
-| number | A number |
-| phone | A phone number |
+|  |
+| :--- |
+
 
 ### Width and height
 
