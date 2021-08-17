@@ -36,18 +36,10 @@ Documents can be assigned to a dataset either at creation or from an update. It 
 
 ## Deleting a dataset
 
-A dataset may not be deleted unless all documents contained in the dataset are deleted first.
+A dataset may not be deleted unless all documents contained in the dataset are deleted first. Instructions on how to delete all documents from a dataset are found on the [Documents](documents.md#deleting-documents) page.
 
 ```text
 >> las documents delete-all --dataset-id <dataset-id>
 >> las datasets delete <dataset-id>
 ```
-
-
-
-I want to know:
-
-* What is a dataset?
-* Why do you want to use one?
-* Should you group documents in a specific way?
 
