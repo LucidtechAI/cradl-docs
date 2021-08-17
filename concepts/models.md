@@ -14,7 +14,29 @@ It is important that there is enough training data, and that the data are correc
 
 ## Creating a model
 
-Every model has a specified `width`, `height` and `fieldConfig`. The `width` and `height` describe the image resolution used for input,  while the `fieldConfig` specifies which fields to extract, and what type of data the field represents.
+Every model has a specified `width`, `height` and `fieldConfig`. The `width` and `height` describe the image resolution used for input,  while the `fieldConfig` specifies which fields to extract, and what type of data the field represents. 
+
+The `fieldConfig` input is specified in a JSON formatted file.
+
+{% hint style="warning" %}
+The label names \(`"total_amount"` and`"due_date"`below\) must match the label names given in the training data.
+{% endhint %}
+
+```text
+>> cat path/to_field_config.json
+{
+  "total_amount": {
+    "type": "amount",
+    "maxLength": 10
+  },
+  "due_date": {
+    "type": "date",
+    "maxLength": 10
+  }
+}
+```
+
+Using this JSON file, you can define a model.
 
 ```text
 >> las models create 321 321 path/to/field_config.json --name "Invoice" --description "v1"
@@ -39,11 +61,11 @@ Every model has a specified `width`, `height` and `fieldConfig`. The `width` and
       "maxLength": 10
     }
   },
-  "status": "inactive",
+  "status": "inactive"
 }
 ```
 
-
+The model is now defined, and in an `inactive` state. Once you start training, it will change status to `training`, and when it is deployed after training, it will be in an `active` state. Additionally, you may supply a `preprocessConfig` which describes how to preprocess images entering the model.
 
 ## Models
 
