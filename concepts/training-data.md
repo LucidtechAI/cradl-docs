@@ -27,9 +27,11 @@ To attach a data bundle to a model you need to specify the `modelId` and one or 
 
 ```
 
-
+The data bundle will immediately begin to generate a [Data Report](training-data.md#data-report). This process may take a few minutes, depending on the size of the datasets being used. While this process is running, the data bundle will have status `processing`. When the data report is complete, the data bundle will be in a `ready` state.
 
 ## Data report
+
+The data report can be viewed in the Cradl app.
 
 ## Data quality
 
