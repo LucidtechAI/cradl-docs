@@ -1,10 +1,14 @@
 # Documents
 
-A _Document_ in Cradl represents a single data point which can be used for training or prediction. It consists of a .pdf or a .jpeg file. It must be coupled with metadata describing the contents of the document that should be extracted if it is to be used for training. Collections of _Documents_ for training are called [Datasets](datasets.md).
+A document in Cradl represents a single data point which can be used for training or prediction. It consists of a file, possibly coupled with metadata describing the data that should be extracted from the document when used for training. Collections of document for training are called [Datasets](datasets.md).
 
-## Creating a _Document_
+## Creating a Document
 
 Documents can either be uploaded directly to Cradl in the documents interface, or programmatically.
+
+{% hint style="info" %}
+Allowed formats for documents are .pdf or .jpeg.
+{% endhint %}
 
 ```text
 >> las documents create path/to/my/document.pdf
