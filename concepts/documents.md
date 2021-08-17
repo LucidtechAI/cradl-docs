@@ -7,7 +7,7 @@ A document in Cradl represents a single data point which can be used for trainin
 Documents can either be uploaded directly to Cradl in the documents interface, or programmatically.
 
 {% hint style="info" %}
-Allowed formats for documents are .pdf or .jpeg.
+Allowed formats for documents are PDF, JPEG, PNG and TIFF.
 {% endhint %}
 
 ```text
