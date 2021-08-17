@@ -22,7 +22,7 @@ The returned`documentId` can be used together with a `modelId` to make a predict
 
 ## Using a document as training data
 
-To use a document to train a model, the document must be described by ground truth metadata. The metadata can be provided when you create the _Document_, or attached at a later stage.
+To use a document to train a model, the document must be described by ground truth metadata. The metadata can be provided when you create the _Document_.
 
 ```text
 >> las documents create path/to/document.pdf --ground-truth-fields amount=100.00 due_date='2021-05-20'
@@ -33,7 +33,20 @@ To use a document to train a model, the document must be described by ground tru
 
 The document can now be added to a [Dataset](datasets.md), and from there on be used as training data.
 
+The JSON format of the above ground truth file is found below.
 
+```python
+[
+    {
+      "label": "amount",
+      "value": "100.00"
+    },
+    {
+      "label": "due_date",
+      "value": "2021-05-20"
+    }
+]
+```
 
 ## Documents with personal consents
 
