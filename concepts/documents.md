@@ -26,7 +26,7 @@ The returned`documentId` can be used together with a `modelId` to make a [predic
 
 ## Setting a ground truth
 
-To use a document for training a model, the document must be described by a ground truth. The ground truth can be provided when you create the document, or it can be added as an update to an existing document.
+Before using a document to training a model, the document must be described by a ground truth. The ground truth can be provided when you create the document, or it can be added as an update to an existing document.
 
 {% tabs %}
 {% tab title="CLI" %}
