@@ -7,7 +7,7 @@ A _dataset_ in Cradl is a collection of [Documents](documents.md), preferably fr
 Datasets are created independently of the documents they contain. This can be done directly in the Cradl datasets UI or programmatically.
 
 {% hint style="info" %}
-Give your datasets clear names and descriptions. This will be helpful when specifying which data to train a model from.
+Give your datasets clear names and descriptions. This will be helpful when keeping track of which data you train your model from.
 {% endhint %}
 
 {% tabs %}
