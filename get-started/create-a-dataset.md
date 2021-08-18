@@ -58,7 +58,34 @@ After we've created a dataset, we can start uploading documents and assign them 
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-$ las documents create receipt.pdf --dataset-id las:dataset:<dataset id> --ground-truth-fields total_amount=300.00 date=2020-02-28
+las documents create receipt.pdf --dataset-id las:dataset:<dataset id> --ground-truth-fields total_amount=300.00 date=2020-02-28
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST 'https://api.lucidtech.ai/v1/documents' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "content": "JVBERi0xLjQ...",
+    "contentType": "application/pdf",
+    "groundTruth: [
+      {
+      "label": "total_amount",
+      "value": "300.00"
+      },
+      {
+        "label": "date",
+        "value": "2020-02-28"
+      }
+    ]
+}'
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "documentId": "las:document:<document id>",
   "contentType": "application/pdf",
@@ -80,8 +107,6 @@ $ las documents create receipt.pdf --dataset-id las:dataset:<dataset id> --groun
   ]
 }
 ```
-{% endtab %}
-{% endtabs %}
 
 {% hint style="success" %}
 If you upload documents without assigning them to a dataset, or if you want to change the dataset in the future, this is possible to do easily using the API. However, it is a lot easier to upload them directly to a dataset right away!
