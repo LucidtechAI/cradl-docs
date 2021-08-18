@@ -35,7 +35,7 @@ The data bundle will immediately begin to generate a [Data Report](training-data
 
 ## Data report
 
-The data report can be viewed in the Cradl app. It scores the data contained in the data bundle, based on several measures of data quality. Scores are first given to each label present in the underlying datasets,  based on the following statistical measures:
+The data report can be viewed in the Cradl app. It scores the data contained in the data bundle, based on several measures of data quality. Scores are first given to each label present in the documents of the underlying datasets,  based on the following statistical measures:
 
 | Measure | Description |
 | :--- | :--- |
