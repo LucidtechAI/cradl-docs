@@ -18,13 +18,23 @@ Let's create a field config file that looks something like this:
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-$ las models create --name "Receipt model" 1281 801 field_config.json
+las models create --name "Receipt model" 1281 801 field_config.json
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
-```
-
+```bash
+curl -X POST 'https://api.cradl.ai/v1/models' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "fieldConfig": {
+      "total_amount": { "type": "amount", "maxLength": 20, "description": "" },
+      "purchase_date": { "type": "date", "maxLength": 10, "description": "" }
+    },
+    "height": 1281,
+    "width": 801,
+    "name": "Receipt model"
+}'
 ```
 {% endtab %}
 {% endtabs %}
