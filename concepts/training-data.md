@@ -6,6 +6,8 @@ A data bundle in Cradl is a collection of one or more [Datasets](datasets.md) at
 
 To attach a data bundle to a model you need to specify the `modelId` and one or more `datasetIds`, optionally giving it a name and description. See [Creating a model](models.md#creating-a-model) and [Creating a dataset](datasets.md#creating-a-dataset) for how to create models and datasets.
 
+{% tabs %}
+{% tab title="CLI" %}
 ```text
 >> las models create-data-bundle <modelId> <datasetId_1> <datasetId_2> --name "Invoice model bundle v1" --description "Data bundle from first two datasets"  
 {
@@ -26,6 +28,8 @@ To attach a data bundle to a model you need to specify the `modelId` and one or 
 }
 
 ```
+{% endtab %}
+{% endtabs %}
 
 The data bundle will immediately begin to generate a [Data Report](training-data.md#data-report). This process may take a few minutes, depending on the size of the datasets being used. While this process is running, the data bundle will have status `processing`. When the data report is complete, the data bundle will be in a `ready` state.
 

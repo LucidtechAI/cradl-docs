@@ -22,6 +22,8 @@ The `fieldConfig` input is specified in a JSON formatted file.
 The label names \(`"total_amount"` and`"due_date"`in the example below\) must match the label names given in the training data.
 {% endhint %}
 
+{% tabs %}
+{% tab title="CLI" %}
 ```text
 >> cat path/to_field_config.json
 {
@@ -35,9 +37,13 @@ The label names \(`"total_amount"` and`"due_date"`in the example below\) must ma
   }
 }
 ```
+{% endtab %}
+{% endtabs %}
 
 Using this JSON file, you can define a model.
 
+{% tabs %}
+{% tab title="CLI" %}
 ```text
 >> las models create 321 321 path/to/field_config.json --name "Invoice" --description "v1"
 {
@@ -64,6 +70,8 @@ Using this JSON file, you can define a model.
   "status": "inactive"
 }
 ```
+{% endtab %}
+{% endtabs %}
 
 The model is now defined, and in an `inactive` state. Once you start training, it will change status to `training`, and when it is deployed after training, it will be in an `active` state. Additionally, you may supply a `preprocessConfig` which describes how to preprocess images entering the model.
 
@@ -87,6 +95,8 @@ The field config is a definition of which fields your model should extract and w
 
 A field config is formatted as 
 
+{% tabs %}
+{% tab title="field\_config.json" %}
 ```text
 {
   "field_name_1": {
@@ -100,6 +110,8 @@ A field config is formatted as
   ...
 }
 ```
+{% endtab %}
+{% endtabs %}
 
 where the &lt;field\_type&gt; is one of the following:
 
