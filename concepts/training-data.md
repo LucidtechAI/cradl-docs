@@ -39,8 +39,8 @@ The data report can be viewed in the Cradl app. It scores the data contained in 
 
 | Measure | Description |
 | :--- | :--- |
-| Completeness | The occurrence frequency of values. |
-| Validity | The percentage of valid values among the label's values. |
+| Completeness | Percentage of documents with values for the label. |
+| Validity | Percentage of valid values among the label's occurring values. |
 | Coverage | The product of Completeness and Validity, i.e. the relative occurrence frequency of valid values for the label. |
 | Uniqueness | The percentage of values not among the top 10 most frequently occurring. |
 | Uniformity | The contribution to Shannon entropy from values not among the top 10 most frequently occurring, in proportion to the maximally obtainable Shannon entropy for the label's data. |
