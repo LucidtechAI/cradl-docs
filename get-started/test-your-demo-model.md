@@ -58,14 +58,29 @@ Upload a document:
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-$ las documents create receipt.pdf
+las documents create receipt.pdf
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```
+curl -X POST 'https://api.lucidtech.ai/v1//documents' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "content": "JVBERi0xLjQ...",
+    "contentType": "application/pdf"
+}'
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "documentId": "las:document:<document id>,
   ...
 }
 ```
-{% endtab %}
-{% endtabs %}
 
 Then make a prediction on the document using the demo model:
 
