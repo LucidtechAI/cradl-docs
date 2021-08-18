@@ -24,7 +24,7 @@ Allowed formats for documents are PDF, JPEG, PNG and TIFF.
 
 The returned`documentId` can be used together with a `modelId` to make a [prediction](predictions.md#making-a-prediction) on the document. 
 
-## Using a document as training data
+## Setting a ground truth
 
 To use a document for training a model, the document must be described by a ground truth. The ground truth can be provided when you create the document, or it can be added as an update to an existing document.
 
