@@ -58,6 +58,10 @@ The document can now be added to a [Dataset](datasets.md), and from there on be 
 {% endtab %}
 {% endtabs %}
 
+{% hint style="info" %}
+The label name is used as a key in several places. Ensure that you are consistent in using the same label names across documents and models.
+{% endhint %}
+
 ## Documents with personal consents
 
 In addition to grouping documents in datasets, documents can be assigned a `consentId` to facilitate deletion of single-user data. If your application requires users to register data use consent, you should label this consent by a user-unique ID, and label all user data uploaded to Cradl with a corresponding `consentId` at creation time.
