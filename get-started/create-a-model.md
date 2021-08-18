@@ -52,7 +52,25 @@ Before we go to the next step of training our newly created model, it is wise to
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-$ las models create-data-bundle --name "Initial data report" las:model:<model id> las:dataset:<dataset id>
+las models create-data-bundle --name "Initial data report" las:model:<model id> las:dataset:<dataset id>
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST 'https://api.cradl.ai/v1/models/<model id>/dataBundles' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "datasetIds": [
+        "las:dataset:<dataset id>"
+    ],
+    "name": "Initial data report"
+}'
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "dataBundleId": "las:model-data-bundle:<data bundle id>",
   "modelId": "las:model:<model id>",
@@ -75,15 +93,18 @@ $ las models create-data-bundle --name "Initial data report" las:model:<model id
   ...
 }
 ```
-{% endtab %}
-{% endtabs %}
 
-A data report takes a few minutes to process. After it has been processed we can look at the summary to get an idea of how good our data is.
+A data report takes a few minutes to process. After it has been processed \(its status has changed from `processing` to `ready`\) we can look at the summary to get an idea of how good our data is.
 
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-$ las models list-data-bundles las:model:<model id>
+las models list-data-bundles las:model:<model id> 
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "dataBundles": [
     {
@@ -132,11 +153,7 @@ $ las models list-data-bundles las:model:<model id>
     }
   ]
 }
-
-    
 ```
-{% endtab %}
-{% endtabs %}
 
 {% hint style="success" %}
 See [data quality section](../concepts/training-data.md#data-quality) for detailed information about data quality and how to improve it
