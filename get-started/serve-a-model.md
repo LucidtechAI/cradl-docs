@@ -7,19 +7,52 @@ To make a prediction using a model, we need to provide a document id and a model
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-$ las documents create receipt.pdf
+las documents create receipt.pdf
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST 'https://api.cradl.ai/v1/documents' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "content": "JVBERi0xLjQ...",
+    "contentType": "application/pdf",
+}'
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "documentId": "las:document:<document id>,
   ...
 }
 ```
-{% endtab %}
-{% endtabs %}
+
+Using the document id from above, together with our model id:
 
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-$ las predictions create las:document:<document id> las:model:<model id>
+las predictions create las:document:<document id> las:model:<model id>
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST 'https://api.cradl.ai/v1/predictions' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "documentId": "las:document:<document id>",
+    "modelId": "las:model:<model id>"
+}'
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "predictionId": "las:prediction:<prediction id>",
   "modelId": "las:model:<model id>",
@@ -39,10 +72,7 @@ $ las predictions create las:document:<document id> las:model:<model id>
   "timestamp": 1629188787,
   "inferenceTime": 2.7935566902160645
 }
-
 ```
-{% endtab %}
-{% endtabs %}
 
 {% hint style="info" %}
 See the [confidence section](../concepts/predictions.md#confidence) to read more about confidence levels and how you can use them to feel confident in the predictions
