@@ -17,7 +17,7 @@ las models list
 
 {% tab title="cURL" %}
 ```
-curl https://api.lucidtech.ai/v1/models -H 'Authorization: Bearer eyJra...' -H 'x-api-key: <api key>'
+curl https://api.lucidtech.ai/v1/models -H 'Authorization: Bearer eyJra...'
 ```
 {% endtab %}
 {% endtabs %}
