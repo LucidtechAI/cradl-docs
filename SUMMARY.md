@@ -20,11 +20,6 @@
 * [Models](concepts/models.md)
 * [Predictions](concepts/predictions.md)
 
-## Use cases
-
-* [Invoice model](use-cases/invoice-model.md)
-* [Custom model](use-cases/custom-model.md)
-
 ## Reference
 
 * [CLI](reference/cli.md)
