@@ -39,12 +39,12 @@ The data report can be viewed in the Cradl app. It scores the data contained in 
 
 | Measure | Description |
 | :--- | :--- |
-| Completeness | Percentage of documents with values for the label. |
-| Validity | Percentage of valid values among the label's occurring values. |
-| Coverage | Completeness \* Validity, Percentage of documents with values for the label. |
-| Uniqueness | The percentage of values not among the top 10 most frequently occurring. |
-| Uniformity | The contribution to Shannon entropy from values not among the top 10 most frequently occurring, in proportion to the maximally obtainable Shannon entropy for the label's data. |
-| Variation | The mean of Uniqueness and Uniformity. |
+| Completeness | Percentage of documents with values. |
+| Validity | Percentage of valid values among occurring values. |
+| Coverage | Percentage of documents with valid values. |
+| Uniqueness | Percentage of values outside the top 10 most frequent. |
+| Uniformity | Proportion of information entropy in values outside the top 10 most frequently occurring, relative to maximum obtainable entropy. |
+| Variation | Mean of Uniqueness and Uniformity. |
 
 After scoring each label individually for Coverage and Variation are then aggregated to cross-label statistics by taking the mean, and the mean score of these aggregate statistics constitutes the overall score for the data bundle.
 
