@@ -10,6 +10,8 @@ Datasets are created independently of the documents they contain. This can be do
 Give your datasets clear names and descriptions. This will be helpful when specifying which data to train a model from.
 {% endhint %}
 
+{% tabs %}
+{% tab title="CLI" %}
 ```text
 >> las datasets create --name "Invoices 2020" --description "From accounting system"
 {
@@ -22,6 +24,8 @@ Give your datasets clear names and descriptions. This will be helpful when speci
   "version": 0
 }
 ```
+{% endtab %}
+{% endtabs %}
 
 This creates an empty dataset for documents to be added to. The `datasetId` can be used to specify that this dataset is to be used when training a [Model](models.md). The `version` field is used to identify changes to a dataset, by adding/removing/updating contained documents.
 
@@ -29,17 +33,25 @@ This creates an empty dataset for documents to be added to. The `datasetId` can 
 
 Documents can be assigned to a dataset either at creation or from an update. It is not possible to assign a document to multiple datasets.
 
+{% tabs %}
+{% tab title="CLI" %}
 ```text
 >> las documents create path/to/my/document.pdf --dataset-id <dataset-id>
 >> las documents update <document-id> --dataset-id <dataset-id>
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Deleting a dataset
 
 A dataset may not be deleted unless all documents contained in the dataset are deleted first. Instructions on how to delete all documents from a dataset are found on the [Documents](documents.md#deleting-documents) page.
 
+{% tabs %}
+{% tab title="CLI" %}
 ```text
 >> las documents delete-all --dataset-id <dataset-id>
 >> las datasets delete <dataset-id>
 ```
+{% endtab %}
+{% endtabs %}
 
