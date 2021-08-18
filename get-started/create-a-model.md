@@ -102,6 +102,12 @@ A data report takes a few minutes to process. After it has been processed \(its 
 las models list-data-bundles las:model:<model id> 
 ```
 {% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl 'https://api.cradl.ai/v1/models/<model id>/dataBundles'
+```
+{% endtab %}
 {% endtabs %}
 
 ```javascript
