@@ -63,8 +63,8 @@ las documents create receipt.pdf
 {% endtab %}
 
 {% tab title="cURL" %}
-```
-curl -X POST 'https://api.lucidtech.ai/v1//documents' \
+```bash
+curl -X POST 'https://api.lucidtech.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -87,7 +87,24 @@ Then make a prediction on the document using the demo model:
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-$ las predictions create las:document:<document id> las:model:<model id>
+las predictions create las:document:<document id> las:model:<model id>
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST 'https://api.lucidtech.ai/v1/predictions' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "documentId": "las:document:<document id>",
+    "modelId": "las:model:<model id>"
+}'
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "predictionId": "las:prediction:<prediction id>",
   "modelId": "las:model:<model id>",
@@ -108,6 +125,4 @@ $ las predictions create las:document:<document id> las:model:<model id>
   "inferenceTime": 2.7935566902160645
 }
 ```
-{% endtab %}
-{% endtabs %}
 
