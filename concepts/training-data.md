@@ -11,8 +11,8 @@ To create a data bundle for a model you must specify the `modelId` and one or mo
 ```text
 >> las models create-data-bundle <modelId> <datasetId_1> <datasetId_2> --name "Invoice model bundle v1" --description "Data bundle from first two datasets"  
 {
-  "dataBundleId": "las:model-data-bundle:dd0880f2ada445b595213ece5eaa6860",
-  "modelId": "las:model:c613156351954b26a30e66412a218aef",
+  "dataBundleId": <dataBundleId>,
+  "modelId": <modelId>,
   "name": "Invoice model bundle v1",
   "description": "Data bundle from first two datasets",
   "datasets": [
@@ -33,6 +33,18 @@ To create a data bundle for a model you must specify the `modelId` and one or mo
 
 The data bundle will immediately begin to generate a [Data Report](training-data.md#data-report). This process may take a few minutes, depending on the size of the datasets being used. While this process is running, the data bundle will have status `processing`. When the data report is complete, the data bundle will be in a `ready` state.
 
+## Updating a data bundle
+
+Whenever you have updated a dataset, by adding, removing or updating documents, you must update the affected data bundles in order to use the updated data for training.
+
+{% tabs %}
+{% tab title="CLI" %}
+```text
+las models update-data-bundle <modelId> <dataBundleId>
+```
+{% endtab %}
+{% endtabs %}
+
 ## Data report
 
 The data report can be viewed in the Cradl app. It scores the data contained in the data bundle, based on several measures of data quality. First, each label present in the underlying documents is scored based on the following statistical measures:
@@ -48,11 +60,7 @@ The data report can be viewed in the Cradl app. It scores the data contained in 
 
 After scoring each label individually, the Coverage and Variation scores are aggregated to cross-label mean statistics. The overall score for the data bundle is the mean of these aggregate Coverage and Variation statistics.
 
-If the overall score is acceptable, you can request training for your model with the data in the bundle as training data. If the data are rejected, you will need to improve the data in one or more of the ways outlined in the section on [Data quality](training-data.md#data-quality).
-
-Whenever you update an underlying dataset, by adding/removing/updating documents, you should re-run the data report for affected data bundles. Re-running a data report without changing the underlying data has no effect.
-
-Once your model is trained, you do not need to continue running data reports unless you wish to re-train your model using different data.
+If the overall score is acceptable \(suggested value is 70%-100%\), you can request training for your model with the data in the bundle as training data. If not, you should improve your data in one or more of the ways outlined in the section on [Data quality](training-data.md#data-quality).
 
 ## Data quality
 
