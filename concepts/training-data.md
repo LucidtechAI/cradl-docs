@@ -46,7 +46,7 @@ The data report can be viewed in the Cradl app. It scores the data contained in 
 | Uniformity | The contribution to Shannon entropy from values not among the top 10 most frequently occurring, in proportion to the maximally obtainable Shannon entropy for the label's data. |
 | Variation | The mean of Uniqueness and Uniformity. |
 
-The scores for Coverage and Variation are then aggregated to cross-label statistics by taking the mean, and the mean score of these aggregate statistics constitutes the overall score for the data bundle.
+After scoring each label individually for Coverage and Variation are then aggregated to cross-label statistics by taking the mean, and the mean score of these aggregate statistics constitutes the overall score for the data bundle.
 
 If the overall score is at an acceptable level, you may request training for your model with the data in the bundle as training data. If the data are rejected, you will need to improve the data in one or more of the ways outlined in the section on [Data quality](training-data.md#data-quality).
 
