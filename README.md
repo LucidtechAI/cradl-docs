@@ -1,12 +1,12 @@
-# Overview
+# Welcome to Cradl
 
-### What is Cradl
+Cradl is a platform where developers can **create custom machine learning models for document data extraction**. Using your already-existing data, make your own tailor-made model for reading structured data out of unstructured documents. Define, train and serve your model on Cradl - no machine learning expertise required!
 
-Cradl is a platform where developers can create custom ML models for document data extraction.
+### 
 
-### Quick high level overview explaining datasets, models
+Ready to get started? Try our quickstart guide below, or read more about concepts to get a feel for how the platform works.
 
-Too read more detailed information about concepts:
+
 
 
 
