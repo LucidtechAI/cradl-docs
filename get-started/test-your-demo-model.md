@@ -11,7 +11,7 @@ First let's list our available models to get a model id we can use:
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-$ las models list
+las models list
 ```
 {% endtab %}
 

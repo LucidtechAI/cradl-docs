@@ -9,7 +9,30 @@ It is important to have correct ground truth values for each document, in order 
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-$ las datasets create --name "Receipts" --description "Initial training data"
+las datasets create --name "Receipts" --description "Initial training data"
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST 'https://api.lucidtech.ai/v1/datasets' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "name": "Receipts",
+    "description": "Initial training data"
+}'
+```
+{% endtab %}
+
+{% tab title="Python" %}
+```
+
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "datasetId": "las:dataset:<dataset id>",
   "description": "Initial training data",
@@ -25,20 +48,6 @@ $ las datasets create --name "Receipts" --description "Initial training data"
   "version": 0
 }
 ```
-{% endtab %}
-
-{% tab title="cURL" %}
-```
-
-```
-{% endtab %}
-
-{% tab title="Python" %}
-```
-
-```
-{% endtab %}
-{% endtabs %}
 
 Insert direct link to Cradl that takes you to datasets
 
