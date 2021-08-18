@@ -1,6 +1,6 @@
 # Documents
 
-A document in Cradl represents a single data point which can be used for training or prediction. It consists of a file, possibly coupled with metadata describing what should be extracted from the document when used for training. Collections of documents for training are called [Datasets](datasets.md).
+A document in Cradl represents a single data point which can be used for training or [predictions](predictions.md). It consists of a file, possibly coupled with metadata describing what should be extracted from the document when used for training. Collections of documents for training are called [Datasets](datasets.md).
 
 ## Creating a Document
 
