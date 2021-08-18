@@ -10,6 +10,8 @@ Documents can either be uploaded directly to Cradl in the documents interface, o
 Allowed formats for documents are PDF, JPEG, PNG and TIFF.
 {% endhint %}
 
+{% tabs %}
+{% tab title="CLI" %}
 ```text
 >> las documents create path/to/my/document.pdf
 {
@@ -17,6 +19,8 @@ Allowed formats for documents are PDF, JPEG, PNG and TIFF.
   "contentType": "application/pdf"
 }
 ```
+{% endtab %}
+{% endtabs %}
 
 The returned`documentId` can be used together with a `modelId` to make a prediction on the document. See [Predictions](predictions.md) for more details.
 
@@ -24,17 +28,23 @@ The returned`documentId` can be used together with a `modelId` to make a predict
 
 To use a document to train a model, the document must be described by ground truth metadata. The metadata can be provided when you create the _Document_.
 
+{% tabs %}
+{% tab title="CLI" %}
 ```text
 >> las documents create path/to/document.pdf --ground-truth-fields amount=100.00 due_date='2021-05-20'
->> las documents create path/to/document.pdf --ground-truth-path path/to/json_file
+>> las documents create path/to/document.pdf --ground-truth-path path/to/ground_truth.json
 >> las documents update <document-id> --ground-truth-fields amount=100.00 due_date='2021-05-20'
->> las documents update <document-id> --ground-truth-path path/to/json_file
+>> las documents update <document-id> --ground-truth-path path/to/ground_truth.json
 ```
+{% endtab %}
+{% endtabs %}
 
 The document can now be added to a [Dataset](datasets.md), and from there on be used as training data.
 
 The JSON format of the above ground truth file is found below.
 
+{% tabs %}
+{% tab title="ground\_truth.json" %}
 ```python
 [
     {
@@ -47,25 +57,37 @@ The JSON format of the above ground truth file is found below.
     }
 ]
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Documents with personal consents
 
 In addition to grouping documents in datasets, documents can be assigned a `consentId` to facilitate deletion of single-user data. If your application requires users to register data usage consent, you should label this consent by a user-unique ID, and label all user data uploaded to Cradl with a corresponding `consentId` at creation time.
 
+{% tabs %}
+{% tab title="CLI" %}
 ```text
 >> las documents create path/to/document.pdf --consent-id <user-unique-id>
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Deleting documents
 
 Documents can be deleted one-by-one:
 
+{% tabs %}
+{% tab title="CLI" %}
 ```text
 >> las documents delete <document-id>
 ```
+{% endtab %}
+{% endtabs %}
 
 Or using a group identifier \(`consentId` or `datasetId`\):
 
+{% tabs %}
+{% tab title="CLI" %}
 ```text
 >> las documents delete-all --dataset-id <dataset-id>
 {
@@ -74,6 +96,8 @@ Or using a group identifier \(`consentId` or `datasetId`\):
 }
 
 ```
+{% endtab %}
+{% endtabs %}
 
 The delete-all command will delete all documents with the given group identifier.
 
