@@ -45,6 +45,6 @@ $ las predictions create las:document:<document id> las:model:<model id>
 {% endtabs %}
 
 {% hint style="info" %}
-See [models concepts](../concepts/models.md) to read more about confidence levels and how you can use them to feel confident in the predictions
+See the [confidence section](../concepts/predictions.md#confidence) to read more about confidence levels and how you can use them to feel confident in the predictions
 {% endhint %}
 
