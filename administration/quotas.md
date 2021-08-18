@@ -1,6 +1,6 @@
 # Quotas
 
-When using Lucidtech APIs you might encounter limits in how many total resources you may create and how many you may create every month. If you want to increase this limit please contact us at [support@lucidtech.ai](mailto:support@lucidtech.ai).
+When using the Cradle API you might encounter limits in how many total resources you may create and how many you may create every month. If you want to increase this limit please contact us at [support@cradl.ai](mailto:support@lucidtech.ai).
 
 ### Current default quotas
 
