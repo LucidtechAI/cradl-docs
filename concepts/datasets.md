@@ -27,11 +27,11 @@ Give your datasets clear names and descriptions. This will be helpful when keepi
 {% endtab %}
 {% endtabs %}
 
-This creates an empty dataset for documents to be added to. The `datasetId` can be used to specify that this dataset is to be used when training a [Model](models.md). The `version` field is used to identify changes to a dataset, by adding/removing/updating contained documents.
+Above, an empty dataset is created for documents to be added to. The `datasetId` is used to include a dataset in [Data bundle](training-data.md) of training data, and to [add documents to the dataset](datasets.md#adding-documents-to-a-dataset). The `version` field is used to identify changes to a dataset, i.e. when adding/removing/updating contained documents.
 
 ## Adding documents to a dataset
 
-Documents can be assigned to a dataset either at creation or from an update. It is not possible to assign a document to multiple datasets.
+Documents can be assigned to a dataset either at creation time or in an update. It is not possible to assign a document to multiple datasets.
 
 {% tabs %}
 {% tab title="CLI" %}
