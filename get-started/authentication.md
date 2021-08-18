@@ -4,7 +4,7 @@ Lucidtech APIs require you to authenticate using the [OAuth2 protocol](https://t
 
 ### Credentials
 
-You should already have acquired a client id, client secret and api key before continuing. The client id and client secret will be used to get an access token from the auth endpoint and the api key will be used together with the access token to authorize to the API.
+You should already have acquired a client id, and client secret before continuing. The client id and client secret will be used to get an access token from the auth endpoint to authorize to the API.
 
 Unless specified otherwise in the credentials file you have received, the endpoint for authentication is [https://auth.lucidtech.ai](https://auth.lucidtech.ai) and the endpoint for the API is [https://api.lucidtech.ai](https://api.lucidtech.ai)
 
@@ -47,17 +47,15 @@ The access token will expire after some time, currently after 3600 seconds \(1 h
 
 ### Calling the API
 
-Upon successfully acquiring access token from previous step, we are ready to call the API. To do that we need to provide two headers. One header 'x-api-key' with our api key and one header 'Authorization' with the newly acquired access token.
+Upon successfully acquiring access token from previous step, we are ready to call the API. To do that we need to provide tne header 'Authorization' with the newly acquired access token.
 
 | Header name | Header value |
 | :--- | :--- |
 | Authorization | Bearer &lt;your access token here&gt; |
-| x-api-key | &lt;your api key here&gt; |
 
 ```bash
-$ api_key="<your api key here>"
 $ access_token="<you access token here>"
-$ curl https://api.lucidtech.ai/v1/documents -H "x-api-key: $api_key" -H "Authorization: Bearer $access_token"
+$ curl https://api.lucidtech.ai/v1/documents -H "Authorization: Bearer $access_token"
 ```
 
 ### Using the CLI or an SDK
@@ -73,7 +71,6 @@ The credentials.cfg file should look like the following:
 
 ```text
 [default]
-api_key = <your api key here>
 client_id = <your client id here>
 client_secret = <your client secret here>
 auth_endpoint = auth.lucidtech.ai
