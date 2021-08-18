@@ -39,7 +39,7 @@ The data report can be viewed in the Cradl app. It scores the data contained in 
 
 | Measure | Description |
 | :--- | :--- |
-| Completeness | The relative occurrence frequency of values for the label. |
+| Completeness | The occurrence frequency of values. |
 | Validity | The percentage of valid values among the label's values. |
 | Coverage | The product of Completeness and Validity, i.e. the relative occurrence frequency of valid values for the label. |
 | Uniqueness | The percentage of values not among the top 10 most frequently occurring. |
