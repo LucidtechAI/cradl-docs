@@ -4,7 +4,7 @@ A _data bundle_ in Cradl is a collection of one or more [Datasets](datasets.md) 
 
 ## Creating a data bundle
 
-To attach a data bundle to a model you need to specify the `modelId` and one or more `datasetIds`, optionally giving it a name and description. See [Creating a model](models.md#creating-a-model) and [Creating a dataset](datasets.md#creating-a-dataset) for how to create models and datasets.
+To create a data bundle for a model you must specify the `modelId` and one or more `datasetIds`, optionally giving it a name and description. See [Creating a model](models.md#creating-a-model) and [Creating a dataset](datasets.md#creating-a-dataset) for how to create models and datasets.
 
 {% tabs %}
 {% tab title="CLI" %}
