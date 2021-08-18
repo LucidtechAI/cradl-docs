@@ -49,6 +49,10 @@ The scores for Coverage and Variation are then aggregated to cross-label statist
 
 If the overall score is at an acceptable level, you may request training for your model with the data in the bundle as training data. If the data are rejected, you will need to improve the data in one or more of the ways outlined in the section on [Data quality](training-data.md#data-quality).
 
+Whenever you update an underlying dataset, by adding/removing/updating documents, you should re-run the data report for affected data bundles. Re-running a data report without changing the underlying data has no effect.
+
+Once your model is trained, you do not need to continue running data reports unless you wish to re-train your model using different data.
+
 ## Data quality
 
 Having a good set of training data is the most important factor when making a machine learning model - and Cradl's models are no exception to this rule. Your data must check all of the following boxes if you want to successfully train a model that is accurate and able to generalize to previously unseen examples.
@@ -75,6 +79,24 @@ Machine learning algorithms are very impressionable by nature, and may skew thei
 Building on the above example, suppose you have extracted an additional 10 000 invoices from your archival system, all of which contain a`company_name`field, for a total of 10 800 invoices with`company_name`. This is a sufficient quantity of `company_name` examples - however, if all the additional 10 000 invoices were issued by the same company, over 90% of your examples would be from a single company. It is then far too easy for your model to predict only that company's name - after all, that strategy is successful 90% of the time, which is hard to beat. 
 
 In this case, your data report would fail on the Uniqueness statistic, and you would need to either find more varied examples containing`company_name` data, or leave the`company_name` field out of your model until enough data is collected to properly train the model.
+{% endhint %}
+
+#### Representative data
+
+A more subtle way of having skewed data is not obtaining training data that represents the range of documents you want the model to read. If, for instance, your training data contains documents issued in English, Norwegian and German, you should not expect your model to be able to read Chinese - or perhaps even Dutch - documents, since the formatting and standards may vary from country to country. This is not limited to geographical differences; for instance, if you train a model to read personal data from drivers' licences, you shouldn't expect it to be able to read the same kind of data from passports without supplying a sufficient amount of passport data.
+
+Since our models do now know in advance what sort of documents they will be used for reading, it is up to you to supply sufficient data for your use cases.
+
+#### Correct data
+
+Last, but not least: The training data you supply must, in large part, be correct, so that your model does not inherit the errors made in the underlying data. Our models learn by example, and if they are shown faulty examples, they will inherit those faults. Thus, the more errors are present in the data, the lower the quality of the predictions from the trained model.
+
+To ensure that your data is correct, you should inspect the data beforehand by taking samples and checking that the information presented in the ground truth of a document is, in fact, present on the document.
+
+{% hint style="info" %}
+#### Example
+
+You want to extract the due date of invoices, but due to clerical errors, some of the data entered into your archival system is in fact the date of issuance, which is different from the due date. If these errors are present in only a few documents, it will not pose a large issue when training. However, if this is a systematical error, you need to either discard the erroneous data and obtain new, correct data - or correct the erroneous data before training.
 {% endhint %}
 
 ### Data bundles
