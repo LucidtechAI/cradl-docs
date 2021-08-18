@@ -22,7 +22,7 @@ Allowed formats for documents are PDF, JPEG, PNG and TIFF.
 {% endtab %}
 {% endtabs %}
 
-The returned`documentId` can be used together with a `modelId` to make a prediction on the document. See [Predictions](predictions.md) for more details.
+The returned`documentId` can be used together with a `modelId` to make a [prediction](predictions.md#making-a-prediction) on the document. 
 
 ## Using a document as training data
 
