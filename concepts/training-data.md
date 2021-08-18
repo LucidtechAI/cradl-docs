@@ -46,7 +46,7 @@ The data report can be viewed in the Cradl app. It scores the data contained in 
 | **Uniformity** | Proportion of information entropy in values outside the top 10 most frequent, relative to maximum obtainable entropy. |
 | **Variation** | Mean of Uniqueness and Uniformity. |
 
-After scoring each label individually for Coverage and Variation are then aggregated to cross-label statistics by taking the mean, and the mean score of these aggregate statistics constitutes the overall score for the data bundle.
+After scoring each label individually, the Coverage and Variation scores are aggregated to cross-label statistics by taking the mean. The mean of the aggregate Coverage and Variation statistics is the overall score for the data bundle.
 
 If the overall score is at an acceptable level, you may request training for your model with the data in the bundle as training data. If the data are rejected, you will need to improve the data in one or more of the ways outlined in the section on [Data quality](training-data.md#data-quality).
 
