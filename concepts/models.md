@@ -97,7 +97,7 @@ A field config is formatted as
 
 {% tabs %}
 {% tab title="field\_config.json" %}
-```text
+```python
 {
   "field_name_1": {
     "type": "<field_type>",
