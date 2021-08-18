@@ -1,6 +1,6 @@
 # Data bundles
 
-A data bundle in Cradl is a collection of one or more [Datasets](datasets.md) attached to a [Model](models.md). When training a model, you must specify a data bundle that the model should use as training data. Since the quality of the trained model depends on the quality of the provided data, we require that any data bundles used for training must pass a statistical test in the form of a [Data Report](training-data.md#data-report) before being used as training data.
+A _data bundle_ in Cradl is a collection of one or more [Datasets](datasets.md) attached to a [Model](models.md). Before training a model, you must specify a data bundle that the model should use as training data. Since the quality of the trained model depends on the quality of the training data, we require that any data bundles used for training must pass a statistical test in the form of a [Data Report](training-data.md#data-report) before training can begin.
 
 ## Creating a data bundle
 
