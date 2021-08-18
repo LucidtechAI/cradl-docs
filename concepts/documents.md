@@ -72,7 +72,7 @@ In addition to grouping documents in datasets, documents can be assigned a `cons
 
 ## Deleting documents
 
-Documents can be deleted one-by-one:
+Documents may be deleted one-by-one:
 
 {% tabs %}
 {% tab title="CLI" %}
