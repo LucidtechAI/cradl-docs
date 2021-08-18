@@ -21,6 +21,12 @@ Let's create a field config file that looks something like this:
 $ las models create --name "Receipt model" 1281 801 field_config.json
 ```
 {% endtab %}
+
+{% tab title="cURL" %}
+```
+
+```
+{% endtab %}
 {% endtabs %}
 
 {% hint style="info" %}
