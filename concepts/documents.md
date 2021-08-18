@@ -26,7 +26,7 @@ The returned`documentId` can be used together with a `modelId` to make a [predic
 
 ## Using a document as training data
 
-To use a document to train a model, the document must be described by ground truth metadata. The metadata can be provided when you create the _Document_.
+To use a document for training a model, the document must be described by a ground truth. The ground truth can be provided when you create the document, or it can be added as an update to an existing document.
 
 {% tabs %}
 {% tab title="CLI" %}
@@ -39,9 +39,7 @@ To use a document to train a model, the document must be described by ground tru
 {% endtab %}
 {% endtabs %}
 
-The document can now be added to a [Dataset](datasets.md), and from there on be used as training data.
-
-The JSON format of the above ground truth file is found below.
+The document can now be added to a [Dataset](datasets.md), and from there on be used as training data. The JSON format for a ground truth is an array of objects containing `label` and `value` fields. Labels and values must be strings.
 
 {% tabs %}
 {% tab title="ground\_truth.json" %}
@@ -62,7 +60,7 @@ The JSON format of the above ground truth file is found below.
 
 ## Documents with personal consents
 
-In addition to grouping documents in datasets, documents can be assigned a `consentId` to facilitate deletion of single-user data. If your application requires users to register data usage consent, you should label this consent by a user-unique ID, and label all user data uploaded to Cradl with a corresponding `consentId` at creation time.
+In addition to grouping documents in datasets, documents can be assigned a `consentId` to facilitate deletion of single-user data. If your application requires users to register data use consent, you should label this consent by a user-unique ID, and label all user data uploaded to Cradl with a corresponding `consentId` at creation time.
 
 {% tabs %}
 {% tab title="CLI" %}
