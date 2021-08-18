@@ -4,7 +4,7 @@ A prediction in Cradle represents an application of an active, trained [Model](m
 
 ## Making a prediction
 
-Once a model is trained and active, it can be applied to documents.
+Once a model is trained and active, it can be applied to documents by making a prediction.
 
 {% tabs %}
 {% tab title="CLI" %}
