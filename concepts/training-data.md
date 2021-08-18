@@ -37,17 +37,14 @@ The data bundle will immediately begin to generate a [Data Report](training-data
 
 The data report can be viewed in the Cradl app. It scores the data contained in the data bundle, based on several measures of data quality. Scores are first given to each label present in the underlying datasets,  based on the following statistical measures:
 
-Completeness: The relative occurrence frequency of values for the label.
-
-Validity: The percentage of valid values among the label's values.
-
-Coverage: The product of Completeness and Validity, i.e. the relative occurrence frequency of valid values for the label.
-
-Uniqueness: The percentage of values not among the top 10 most frequently occurring.
-
-Uniformity: The contribution to Shannon entropy from values not among the top 10 most frequently occurring, in proportion to the maximally obtainable Shannon entropy for the label's data.
-
-Variation: The mean of Uniqueness and Uniformity.
+| Measure | Description |
+| :--- | :--- |
+| Completeness | The relative occurrence frequency of values for the label. |
+| Validity | The percentage of valid values among the label's values. |
+| Coverage | The product of Completeness and Validity, i.e. the relative occurrence frequency of valid values for the label. |
+| Uniqueness | The percentage of values not among the top 10 most frequently occurring. |
+| Uniformity | The contribution to Shannon entropy from values not among the top 10 most frequently occurring, in proportion to the maximally obtainable Shannon entropy for the label's data. |
+| Variation | The mean of Uniqueness and Uniformity. |
 
 The scores for Coverage and Variation are then aggregated to cross-label statistics by taking the mean, and the mean score of these aggregate statistics constitutes the overall score for the data bundle.
 
