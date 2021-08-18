@@ -1,12 +1,12 @@
 # Authentication
 
-Lucidtech APIs require you to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our SDKs will typically handle authentication for you but should you wish to use the REST API, you would need to do this yourself. Here is a brief introduction to get you started.
+The Cradl API requires you to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our SDKs will typically handle authentication for you but should you wish to use the REST API, you would need to do this yourself. Here is a brief introduction to get you started.
 
 ### Credentials
 
 You should already have acquired a client id, and client secret before continuing. The client id and client secret will be used to get an access token from the auth endpoint to authorize to the API.
 
-Unless specified otherwise in the credentials file you have received, the endpoint for authentication is [https://auth.lucidtech.ai](https://auth.lucidtech.ai) and the endpoint for the API is [https://api.lucidtech.ai](https://api.lucidtech.ai)
+Unless specified otherwise in the credentials file you have received, the endpoint for authentication is [https://auth.cradle.ai](https://auth.cradl.ai) and the endpoint for the API is [https://api.cradl.ai](https://api.cradl.ai)
 
 ### Getting an access token
 
@@ -21,14 +21,14 @@ To acquire an access token we need to ask the auth endpoint with our client id a
 Read more about Base64Encode [here](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side)
 {% endhint %}
 
-Since we are dealing with `client_credentials` we need to specify this in the url as a query parameter. The final URL to make the request to is [https://auth.lucidtech.ai/oauth2/token?grant\_type=client\_credentials](https://auth.lucidtech.ai/oauth2/token?grant_type=client_credentials)
+Since we are dealing with `client_credentials` we need to specify this in the url as a query parameter. The final URL to make the request to is [https://auth.cradl.ai/oauth2/token?grant\_type=client\_credentials](https://auth.cradl.ai/oauth2/token?grant_type=client_credentials)
 
 Here is an example getting access token using curl in bash.
 
 ```bash
 $ credentials="<your client id here>:<your client secret here>"
 $ base64_encoded_credentials=`echo -n $credentials | base64 -w 0`
-$ curl -X POST https://auth.lucidtech.ai/oauth2/token?grant_type=client_credentials -H "Content-Type: application/x-www-form-urlencoded" -H "Authorization: Basic $base64_encoded_credentials"
+$ curl -X POST https://auth.cradl.ai/oauth2/token?grant_type=client_credentials -H "Content-Type: application/x-www-form-urlencoded" -H "Authorization: Basic $base64_encoded_credentials"
 ```
 
 If everything is working as expected, the response should look similar to the following
@@ -55,7 +55,7 @@ Upon successfully acquiring access token from previous step, we are ready to cal
 
 ```bash
 $ access_token="<you access token here>"
-$ curl https://api.lucidtech.ai/v1/documents -H "Authorization: Bearer $access_token"
+$ curl https://api.cradl.ai/v1/documents -H "Authorization: Bearer $access_token"
 ```
 
 ### Using the CLI or an SDK
@@ -74,6 +74,6 @@ The credentials.cfg file should look like the following:
 client_id = <your client id here>
 client_secret = <your client secret here>
 auth_endpoint = auth.lucidtech.ai
-api_endpoint = https://api.lucidtech.ai/v1
+api_endpoint = https://api.cradl.ai/v1
 ```
 

@@ -15,7 +15,7 @@ las datasets create --name "Receipts" --description "Initial training data"
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST 'https://api.lucidtech.ai/v1/datasets' \
+curl -X POST 'https://api.cradl.ai/v1/datasets' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -64,7 +64,7 @@ las documents create receipt.pdf --dataset-id las:dataset:<dataset id> --ground-
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST 'https://api.lucidtech.ai/v1/documents' \
+curl -X POST 'https://api.cradl.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{

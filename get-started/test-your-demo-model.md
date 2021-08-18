@@ -17,7 +17,7 @@ las models list
 
 {% tab title="cURL" %}
 ```
-curl https://api.lucidtech.ai/v1/models -H 'Authorization: Bearer eyJra...'
+curl https://api.cradl.ai/v1/models -H 'Authorization: Bearer eyJra...'
 ```
 {% endtab %}
 {% endtabs %}
@@ -64,7 +64,7 @@ las documents create receipt.pdf
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST 'https://api.lucidtech.ai/v1/documents' \
+curl -X POST 'https://api.cradl.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -93,7 +93,7 @@ las predictions create las:document:<document id> las:model:<model id>
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST 'https://api.lucidtech.ai/v1/predictions' \
+curl -X POST 'https://api.cradl.ai/v1/predictions' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
