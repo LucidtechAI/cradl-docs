@@ -92,9 +92,9 @@ In this case, your data report get a low score on the Uniqueness statistic, and 
 
 #### Representative data
 
-A more subtle way of having skewed data is not obtaining training data that represents the range of documents you want the model to read. If, for instance, your training data contains documents issued in English, Norwegian and German, you should not expect your model to be able to read Chinese - or perhaps even Dutch - documents, since the formatting and standards may vary from country to country. This is not limited to geographical differences; for instance, if you train a model to read personal data from drivers' licences, you shouldn't expect it to be able to read the same kind of data from passports without supplying a sufficient amount of passport data.
+Another way you data may be skewed is if it doesn't represent the range of documents you actually want the model to read. If, for instance, your training data contains documents issued in English and German, it will be hard for your model to read Chinese - or perhaps even Dutch - documents, since language, formatting and standards vary from country to country. This is not limited to geographical differences; if you train a model to read personal data from drivers' licences, you can't expect it to read data from passports without supplying a good amount of passport data as well.
 
-Since our models do now know in advance what sort of documents they will be used for reading, it is up to you to supply sufficient data for your use cases.
+Since our models don't now know in advance what sort of documents they will be used for reading, it is up to you to supply sufficient data for your use cases.
 
 #### Correct data
 
