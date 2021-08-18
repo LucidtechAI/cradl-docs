@@ -64,7 +64,7 @@ If the overall score is acceptable \(suggested value is 70%-100%\), you can requ
 
 ## Data quality
 
-Having a good set of training data is the most important factor when making a machine learning model - and Cradl's models are no exception to this rule. Your data must check all of the following boxes if you want to successfully train a model that is accurate and able to generalize to previously unseen examples.
+Having a good set of training data is the most important factor when building a machine learning model, and Cradl models are no exception. Your data must check all of the following boxes if you want to successfully train a model that is accurate and able to generalize to previously unseen examples.
 
 #### Sufficient quantity
 
