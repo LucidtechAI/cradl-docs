@@ -53,7 +53,7 @@ Insert direct link to Cradl that takes you to datasets
 
 ### Upload documents to a dataset
 
-After we've created a dataset, we can start uploading documents and assign them to it directly.
+After we've created a dataset, we can start uploading [_documents_](../concepts/documents.md) and assign them to it directly.
 
 {% tabs %}
 {% tab title="CLI" %}

@@ -139,6 +139,6 @@ $ las models list-data-bundles las:model:<model id>
 {% endtabs %}
 
 {% hint style="success" %}
-See [models concepts](../concepts/models.md) for detailed information about data quality and how to improve it
+See [data quality section](../concepts/training-data.md#data-quality) for detailed information about data quality and how to improve it
 {% endhint %}
 
