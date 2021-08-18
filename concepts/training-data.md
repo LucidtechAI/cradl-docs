@@ -98,34 +98,13 @@ Since our models don't now know in advance what sort of documents they will be u
 
 #### Correct data
 
-Last, but not least: The training data you supply must, in large part, be correct, so that your model does not inherit the errors made in the underlying data. Our models learn by example, and if they are shown faulty examples, they will inherit those faults. Thus, the more errors are present in the data, the lower the quality of the predictions from the trained model.
+Last, but not least: The ground truths for the training data you supply must be correct, so that your model does not inherit any errors from the underlying data. Our models learn by example, and if they are shown faulty examples, they may inherit those faults. The more errors are present in the data, the lower the quality of the predictions from the trained model.
 
-To ensure that your data is correct, you should inspect the data beforehand by taking samples and checking that the information presented in the ground truth of a document is, in fact, present on the document.
+To ensure that your data is correct, you should inspect it beforehand by taking samples and checking that the information presented in the ground truth of a document is, in fact, correct and present on the document.
 
 {% hint style="info" %}
 #### Example
 
-You want to extract the due date of invoices, but due to clerical errors, some of the data entered into your archival system is in fact the date of issuance, which is different from the due date. If these errors are present in only a few documents, it will not pose a large issue when training. However, if this is a systematical error, you need to either discard the erroneous data and obtain new, correct data - or correct the erroneous data before training.
+You want to extract the due date of invoices, but due to clerical errors, some of the data entered into your archive system is actually the date of payment, which may be different from the due date. If such errors are present in only a few documents, it will not pose a large issue when training. However, if this is a systematic error, you should either discard the erroneous data and obtain new, correct data, or correct the erroneous data before training.
 {% endhint %}
-
-### Data bundles
-
-Explain how you use data bundles/reports to check your training data
-
-What constitutes a good data bundle for training?
-
-* Sufficient amount
-* Good variation
-* Representative data
-* Correct data
-
-How can I improve my data?
-
-#### Data quality score
-
-Explain variation and coverage
-
-* How often should I run a report?
-* What is a good score, when do I stop?
-* Do I keep running these after a model is trained?
 
