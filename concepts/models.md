@@ -146,29 +146,3 @@ Often, the key to improving your model is to supply more fresh data \(or simply 
 
 In any case, new and improved data should be uploaded and added to new dataset\(s\), and you need to create a new data bundle containing the new dataset\(s\) and request training. We will then initiate a new training session with more and/or better data, and you should expect further improvement on your existing model.
 
-## Models
-
-* What is a model?
-* How does it work, what does it actually do?
-* What is the difference between this and OCR templates?
-* What do I need to train a model?
-* Can I train a model several times?
-* How can I improve the model?
-* How long does it take?
-* Time vs cost?
-* How can I test the improvement after training?
-
-### Field config
-
-What is a field config and why do we need one?
-
-|  |
-| :--- |
-
-
-### Width and height
-
-What on earth is this?
-
-### 
-

@@ -55,11 +55,3 @@ The choice of automation threshold should be informed by your error acceptance r
 
 Confidence values are affected by the training process. If your training data contains errors in the ground truths, the model will be less confident in its predictions. The mechanism behind this is quite intuitive: if your model makes a correct prediction while training, but the ground truth \(erroneously\) says otherwise, the model will become less confident, just as a human trainee would be less confident in making predictions if their supervisor proclaimed they'd made a mistake when in fact they had not.
 
-## Confidence
-
-* What does confidence mean?
-* What is the difference between 0.8 and 0.9?
-* What is a good confidence level?
-* Why is confidence better for shorter fields than longer?
-* Should I use different confidence threshholds for different labels?
-

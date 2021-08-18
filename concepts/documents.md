@@ -103,9 +103,3 @@ Or using a group identifier \(`consentId` or `datasetId`\):
 
 The delete-all command will delete all documents with the given group identifier.
 
-
-
-## 
-
-
-
