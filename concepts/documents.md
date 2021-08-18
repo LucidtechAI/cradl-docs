@@ -70,19 +70,12 @@ Or using a group identifier \(`consentId` or `datasetId`\):
 >> las documents delete-all --dataset-id <dataset-id>
 {
   "documents": [...],
-  "nextToken": null,
-  "consentId": []
+  "consentId": [...]
 }
 
 ```
 
-The delete-all command will delete up to 1000 documents per call. If there are more documents remaining, a non-null `nextToken` will be returned, which can be used in subsequent calls to continue deletion:
-
-```text
->> las documents delete-all --next-token <next-token>
-```
-
-This can be continued until a null-valued `nextToken` is returned.
+The delete-all command will delete all documents with the given group identifier.
 
 
 
