@@ -93,7 +93,7 @@ curl -X PATCH 'https://api.cradl.ai/v1/documents/<documentId>' \
 {% endtab %}
 {% endtabs %}
 
-The document can now be added to a [Dataset](datasets.md), and from there on be used as training data. The JSON format for a ground truth is an array of objects containing `label` and `value` fields. Labels and values must be strings.
+The document can now be added to a [Dataset](datasets.md), and from there on be used as training data. The JSON format for a ground truth file is an array of objects containing `label` and `value` fields. Labels and values must be strings.
 
 {% tabs %}
 {% tab title="ground\_truth.json" %}
