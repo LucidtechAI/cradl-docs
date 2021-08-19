@@ -29,7 +29,7 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
 --data-raw '{
     "content": "JVBERi0xLjQ...",
     "contentType": "application/pdf"
-}'
+ }'
 ```
 {% endtab %}
 {% endtabs %}
@@ -47,6 +47,26 @@ Before using a document to training a model, the document must be described by a
 >> las documents create path/to/document.pdf --ground-truth-path path/to/ground_truth.json
 >> las documents update <document-id> --ground-truth-fields amount=100.00 due_date='2021-05-20'
 >> las documents update <document-id> --ground-truth-path path/to/ground_truth.json
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```
+curl -X PATCH 'https://api.cradl.ai/v1/documents/<documentId>' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "groundTruth": [
+      {
+        "label": "amount",
+        "value": "100.00"
+      },
+      {
+        "label": "due_date",
+        "value": "2021-05-20"
+      }
+    ]
+  }'
 ```
 {% endtab %}
 {% endtabs %}
