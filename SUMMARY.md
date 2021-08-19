@@ -24,7 +24,6 @@
 
 * [CLI](reference/cli.md)
 * [REST API](reference/rest-api.md)
-* [cURL](reference/curl.md)
 * [Python](reference/python.md)
 * [JavaScript](reference/javascript.md)
 * [Java](reference/java.md)
