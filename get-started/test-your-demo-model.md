@@ -20,6 +20,15 @@ las models list
 curl https://api.cradl.ai/v1/models -H 'Authorization: Bearer eyJra...'
 ```
 {% endtab %}
+
+{% tab title="Python" %}
+```python
+from las import Client
+
+client = Client()
+client.list_models()
+```
+{% endtab %}
 {% endtabs %}
 
 ```javascript
@@ -73,6 +82,12 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
 }'
 ```
 {% endtab %}
+
+{% tab title="Python" %}
+```python
+client.create_document(b'<bytes data>', 'application/pdf')
+```
+{% endtab %}
 {% endtabs %}
 
 ```javascript
@@ -100,6 +115,12 @@ curl -X POST 'https://api.cradl.ai/v1/predictions' \
     "documentId": "las:document:<document id>",
     "modelId": "las:model:<model id>"
 }'
+```
+{% endtab %}
+
+{% tab title="Python" %}
+```python
+client.create_prediction(document_id='<document id>', model_id='<model id>')
 ```
 {% endtab %}
 {% endtabs %}
