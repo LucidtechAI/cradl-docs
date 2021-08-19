@@ -1,4 +1,6 @@
 # CLI
 
--h
+```bash
+las -h
+```
 
