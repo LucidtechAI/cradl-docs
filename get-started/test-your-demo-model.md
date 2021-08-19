@@ -3,7 +3,7 @@
 After getting access to Cradl, you should have a demo model that is pre-trained available, that we can use for testing purposes.
 
 {% hint style="warning" %}
-Note that the demo model has been pre-trained for a specific use-case, using documents that are not necessarily representative of your own data. Hence the resulting predictions on your own documents during testing may not yield a great result.
+Note that the demo model has been pre-trained for a specific use-case, using documents that are not necessarily representative of your own data. Hence we'll also use the provided datasets with relevant documents during testing.
 {% endhint %}
 
 First let's list our available models to get a model id we can use:
@@ -62,42 +62,84 @@ models = client.list_models()
 }
 ```
 
-Upload a document:
+List the available datasets:
 
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las documents create receipt.pdf
+las datasets list
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST 'https://api.cradl.ai/v1/documents' \
---header 'Content-Type: application/json' \
---header 'Authorization: Bearer eyJra...' \
---data-raw '{
-    "content": "JVBERi0xLjQ...",
-    "contentType": "application/pdf"
-}'
+curl 'https://api.cradl.ai/v1/datasets' --header 'Authorization: Bearer eyJra...'
 ```
 {% endtab %}
 
 {% tab title="Python" %}
 ```python
-document = client.create_document(b'<bytes data>', 'application/pdf')
+datasets = client.list_datasets()
 ```
 {% endtab %}
 {% endtabs %}
 
 ```javascript
 {
-  "documentId": "las:document:<document id>,
-  ...
+  "datasets": [
+    {
+      "datasetId": "las:dataset:<dataset id>",
+      "description": null,
+      "name": "Dataset generated: 2021-08-12T09:18:36.474767",
+      "numberOfDocuments": 3354,
+      "createdTime": "2021-08-12T07:18:40.533029+0000",
+      "updatedTime": "2021-08-12T07:26:04.964639+0000",
+      "createdBy": "las:app-client:<app-client id>",
+      "updatedBy": null,
+      "retentionInDays": 1825,
+      "storageLocation": "EU",
+      "containsPersonallyIdentifiableInformation": true,
+      "version": 3354
+    }
+  ]
 }
 ```
 
-Then make a prediction on the document using the demo model:
+List the first page of documents from the dataset so that we can pick a document to use:
+
+{% tabs %}
+{% tab title="CLI" %}
+```bash
+las documents list --dataset-id las:dataset:<dataset id>
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl 'https://api.cradl.ai/v1/documents?datasetId=las:dataset:<dataset id>'
+```
+{% endtab %}
+
+{% tab title="Python" %}
+```python
+documents = client.list_documents(dataset_id='las:dataset:<dataset id>')
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
+{
+  "documents": [
+    {
+      "documentId": "las:document:<document id>",
+      ...
+    },
+    ...
+  ]
+}
+```
+
+Once we have a document selected, we can make a prediction using the model on it:
 
 {% tabs %}
 {% tab title="CLI" %}
