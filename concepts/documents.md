@@ -122,8 +122,21 @@ In addition to grouping documents in datasets, documents can be assigned a `cons
 
 {% tabs %}
 {% tab title="CLI" %}
-```text
->> las documents create path/to/document.pdf --consent-id <user-unique-id>
+```bash
+las documents create path/to/document.pdf --consent-id <user-unique-id>
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST 'https://api.cradl.ai/v1/documents' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "content": "JVBERi0xLjQ...",
+    "contentType": "application/pdf",
+    "consentId": <user-unique-id>
+ }'
 ```
 {% endtab %}
 {% endtabs %}
