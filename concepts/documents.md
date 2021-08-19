@@ -12,17 +12,13 @@ Allowed formats for documents are PDF, JPEG, PNG and TIFF.
 
 {% tabs %}
 {% tab title="CLI" %}
-```text
->> las documents create path/to/my/document.pdf
-{
-  "documentId": "las:document:84ed1bb2d2634072bd3134274ed56ebe",
-  "contentType": "application/pdf"
-}
+```bash
+las documents create path/to/my/document.pdf
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
-```
+```bash
 curl -X POST 'https://api.cradl.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
@@ -34,6 +30,13 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
 {% endtab %}
 {% endtabs %}
 
+```javascript
+{
+  "documentId": "las:document:84ed1bb2d2634072bd3134274ed56ebe",
+  "contentType": "application/pdf"
+}
+```
+
 The returned`documentId` can be used together with a `modelId` to make a [prediction](predictions.md#making-a-prediction) on the document. 
 
 ## Setting a ground truth
@@ -42,16 +45,16 @@ Before using a document to training a model, the document must be described by a
 
 {% tabs %}
 {% tab title="CLI" %}
-```text
->> las documents create path/to/document.pdf --ground-truth-fields amount=100.00 due_date='2021-05-20'
->> las documents create path/to/document.pdf --ground-truth-path path/to/ground_truth.json
->> las documents update <document-id> --ground-truth-fields amount=100.00 due_date='2021-05-20'
->> las documents update <document-id> --ground-truth-path path/to/ground_truth.json
+```bash
+las documents create path/to/document.pdf --ground-truth-fields amount=100.00 due_date='2021-05-20'
+las documents create path/to/document.pdf --ground-truth-path path/to/ground_truth.json
+las documents update <document-id> --ground-truth-fields amount=100.00 due_date='2021-05-20'
+las documents update <document-id> --ground-truth-path path/to/ground_truth.json
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
-```
+```bash
 curl -X POST 'https://api.cradl.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
