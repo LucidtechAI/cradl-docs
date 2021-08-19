@@ -1,7 +1,5 @@
 # Choose training data
 
-### Create a data bundle / data report
-
 Before we go to the next step of training our newly created model, it is wise to make sure that our training data is varied and has good coverage of all the various fields we want to train our model for. We can do this by selecting datasets with our training data, and create a data quality report on them.
 
 {% tabs %}
