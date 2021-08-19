@@ -133,11 +133,11 @@ The label name is used as a key in several places. Ensure that you are consisten
 {% endhint %}
 
 {% tabs %}
-{% tab title="receipt.png" %}
+{% tab title="example\_1.png" %}
 ![](../.gitbook/assets/lucidcap.png)
 {% endtab %}
 
-{% tab title="receipt\_ground\_truth.json" %}
+{% tab title="example\_1\_ground\_truth.json" %}
 ```javascript
 [
   {
@@ -160,11 +160,11 @@ The label name is used as a key in several places. Ensure that you are consisten
 ```
 {% endtab %}
 
-{% tab title="bill\_of\_lading.png" %}
+{% tab title="example\_2.png" %}
 ![](../.gitbook/assets/bill_of_lading.png)
 {% endtab %}
 
-{% tab title="bill\_of\_lading\_ground\_truth.json" %}
+{% tab title="example\_2\_ground\_truth.json" %}
 ```javascript
 [
   {
