@@ -43,8 +43,13 @@ Using this JSON file, you can define a model.
 
 {% tabs %}
 {% tab title="CLI" %}
-```text
->> las models create 321 321 path/to/field_config.json --name "Invoice" --description "v1"
+```bash
+las models create 321 321 path/to/field_config.json --name "Invoice" --description "v1"
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "modelId": "las:model:d9b89270448642a6817fc83896cbbd6b",
   "name": "Invoice",
@@ -69,8 +74,6 @@ Using this JSON file, you can define a model.
   "status": "inactive"
 }
 ```
-{% endtab %}
-{% endtabs %}
 
 The model is now defined, and in an `inactive` state. Once you start training, it will change status to `training`, and when it is deployed after training, it will be in an `active` state. Additionally, you may supply a `preprocessConfig` which describes how to preprocess images entering the model.
 
