@@ -17,6 +17,7 @@ las models create-data-bundle <modelId> <datasetId_1> <datasetId_2> --name "Invo
 ```bash
 curl -X POST 'https://api.cradl.ai/v1/models/<modelId>/dataBundles' \
 --header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
 --data-raw '{
     "datasetIds": [
         "<datasetId_1>",
@@ -56,8 +57,15 @@ Whenever you have updated a dataset, by adding, removing or updating documents, 
 
 {% tabs %}
 {% tab title="CLI" %}
-```text
+```bash
 las models update-data-bundle <modelId> <dataBundleId>
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X PATCH 'https://api.cradl.ai/v1/models/<modelId>/dataBundles/<dataBundleId>' \
+--header 'Authorization: Bearer eyJra...' \
 ```
 {% endtab %}
 {% endtabs %}
