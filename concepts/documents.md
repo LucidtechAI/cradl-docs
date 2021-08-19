@@ -28,6 +28,12 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
  }'
 ```
 {% endtab %}
+
+{% tab title="Python" %}
+```
+document = client.create_document(b'<bytes data>', 'application/pdf')
+```
+{% endtab %}
 {% endtabs %}
 
 ```javascript
@@ -89,6 +95,17 @@ curl -X PATCH 'https://api.cradl.ai/v1/documents/<documentId>' \
       }
     ]
   }'
+```
+{% endtab %}
+
+{% tab title="Python" %}
+```
+ground_truth = [
+  { 'label': 'total_amount', 'value': '100.00' },
+  { 'label': 'due_date', 'value': '2020-02-28' }
+]
+document = client.create_document(b'<bytes data>', 'application/pdf', ground_truth=ground_truth)
+document = client.update_document(<document_id>, ground_truth=ground_truth)
 ```
 {% endtab %}
 {% endtabs %}
