@@ -54,8 +54,8 @@ curl -X POST 'https://api.cradl.ai/v1/models' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "fieldConfig": {
-      "total_amount": { "type": "amount", "maxLength": 20 },
-      "purchase_date": { "type": "date", "maxLength": 10 },
+      "total_amount": { "type": "amount", "maxLength": 10 },
+      "due_date": { "type": "date", "maxLength": 10 },
     },
     "height": 321,
     "width": 321,
