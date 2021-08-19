@@ -60,8 +60,24 @@ curl -X POST 'https://api.cradl.ai/v1/models' \
     "height": 321,
     "width": 321,
     "name": "Invoice",
-    "description": "v1",
+    "description": "v1"
 }'
+```
+{% endtab %}
+
+{% tab title="Python" %}
+```python
+field_config = {
+  'total_amount': { 'type': 'amount', 'maxLength': 10, 'description': '' },
+  'due_date': { 'type': 'date', 'maxLength': 10, 'description': '' }
+}
+model = client.create_model(
+  width=321, 
+  height=321, 
+  field_config=field_config,
+  name="Invoice",
+  description="v1",
+)
 ```
 {% endtab %}
 {% endtabs %}
