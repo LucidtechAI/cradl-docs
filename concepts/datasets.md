@@ -50,9 +50,29 @@ Documents can be assigned to a dataset either at creation time or in an update. 
 
 {% tabs %}
 {% tab title="CLI" %}
-```text
->> las documents create path/to/my/document.pdf --dataset-id <dataset-id>
->> las documents update <document-id> --dataset-id <dataset-id>
+```bash
+las documents create path/to/my/document.pdf --dataset-id <dataset-id>
+las documents update <document-id> --dataset-id <dataset-id>
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST 'https://api.cradl.ai/v1/documents' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "content": "JVBERi0xLjQ...",
+    "contentType": "application/pdf",
+    "datasetId": <datasetId>
+}'
+
+curl -X PATCH 'https://api.cradl.ai/v1/documents/<documentId>' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "datasetId": <datasetId>
+  }'
 ```
 {% endtab %}
 {% endtabs %}
