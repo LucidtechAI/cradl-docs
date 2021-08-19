@@ -9,7 +9,23 @@ Once a model is trained and active, it can be applied to documents by making a p
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-$ las predictions create <document id> <model id>
+las predictions create <document id> <model id>
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST 'https://api.cradl.ai/v1/predictions' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "documentId": "las:document:<document id>",
+    "modelId": "las:model:<model id>"
+}'
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "predictionId": "<prediction id>",
   "modelId": "<model id>",
@@ -30,8 +46,6 @@ $ las predictions create <document id> <model id>
   "inferenceTime": 2.7935566902160645
 }
 ```
-{% endtab %}
-{% endtabs %}
 
 The above example shows an application to an example document. Each label in the model has a predicted value, together with a confidence value ranging from 0 \(worst\) to 1 \(best\).
 
