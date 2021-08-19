@@ -147,8 +147,16 @@ Documents may be deleted one-by-one:
 
 {% tabs %}
 {% tab title="CLI" %}
-```text
->> las documents delete <document-id>
+```bash
+las documents delete <document-id>
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
 ```
 {% endtab %}
 {% endtabs %}
@@ -164,6 +172,19 @@ Or using a group identifier \(`consentId` or `datasetId`\):
   "consentId": [...]
 }
 
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```
+curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "content": "JVBERi0xLjQ...",
+    "contentType": "application/pdf",
+    "datasetId": <datasetId>
+ }'
 ```
 {% endtab %}
 {% endtabs %}
