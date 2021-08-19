@@ -74,7 +74,7 @@ The credentials.cfg file should look like the following:
   "default": {
     "client_id": "<your client id here>",
     "clientSecret": "<your client secret here>",
-    "authEndpoint": "auth.lucidtech.ai",
+    "authEndpoint": "auth.cradl.ai",
     "apiEndpoint": "api.cradl.ai/v1"
   }
 }
