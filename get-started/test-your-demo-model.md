@@ -26,7 +26,7 @@ curl https://api.cradl.ai/v1/models -H 'Authorization: Bearer eyJra...'
 from las import Client
 
 client = Client()
-client.list_models()
+models = client.list_models()
 ```
 {% endtab %}
 {% endtabs %}
@@ -85,7 +85,7 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
 
 {% tab title="Python" %}
 ```python
-client.create_document(b'<bytes data>', 'application/pdf')
+document = client.create_document(b'<bytes data>', 'application/pdf')
 ```
 {% endtab %}
 {% endtabs %}
@@ -120,7 +120,7 @@ curl -X POST 'https://api.cradl.ai/v1/predictions' \
 
 {% tab title="Python" %}
 ```python
-client.create_prediction(document_id='<document id>', model_id='<model id>')
+prediction = client.create_prediction(document_id='<document id>', model_id='<model id>')
 ```
 {% endtab %}
 {% endtabs %}
