@@ -1,6 +1,6 @@
 # Create dataset
 
-In order to train a model we need to provide it with a lot of documents. The easiest way to do this, is to bundle multiple documents together in the form of [_datasets_](../concepts/datasets.md). Before we start uploading documents, let's create a dataset to hold all of them together.
+In order to train a model we need to provide it with a lot of documents. The easiest way to do this, is to bundle multiple documents together in the form of [datasets](../concepts/datasets.md). Before we start uploading documents, let's create a dataset to hold all of them together.
 
 {% hint style="warning" %}
 It is important to have correct ground truth values for each document, in order to train your model to give correct predictions for each field you want to extract!
@@ -26,8 +26,8 @@ curl -X POST 'https://api.cradl.ai/v1/datasets' \
 {% endtab %}
 
 {% tab title="Python" %}
-```
-
+```python
+dataset = client.create_dataset(name='Initial training data')
 ```
 {% endtab %}
 {% endtabs %}
@@ -53,7 +53,7 @@ Insert direct link to Cradl that takes you to datasets
 
 ### Upload documents to a dataset
 
-After we've created a dataset, we can start uploading [_documents_](../concepts/documents.md) and assign them to it directly.
+After we've created a dataset, we can start uploading [documents](../concepts/documents.md) and assign them to it directly.
 
 {% tabs %}
 {% tab title="CLI" %}
@@ -81,6 +81,16 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
       }
     ]
 }'
+```
+{% endtab %}
+
+{% tab title="Python" %}
+```python
+ground_truth = [
+  { 'label': 'total_amount', 'value': '300.00' },
+  { 'label': 'date', 'value': '2020-02-28' }
+]
+document = client.create_document(b'<bytes data>', 'application/pdf', ground_truth=ground_truth)
 ```
 {% endtab %}
 {% endtabs %}
