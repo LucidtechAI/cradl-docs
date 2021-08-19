@@ -2,7 +2,7 @@
 
 Welcome to Cradl, the platform where developers can **create custom machine learning models for reading document data**. Use your data to build your own tailor-made model for extracting structured data from semi-structured documents. Define, train and serve your model on Cradl - **no machine learning expertise required.**
 
-![](.gitbook/assets/image-1-.png)
+![](.gitbook/assets/image-2-.png)
 
 ### Structured data extraction
 
