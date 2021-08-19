@@ -83,9 +83,24 @@ A dataset may not be deleted unless all documents contained in the dataset are d
 
 {% tabs %}
 {% tab title="CLI" %}
-```text
->> las documents delete-all --dataset-id <dataset-id>
->> las datasets delete <dataset-id>
+```bash
+las documents delete-all --dataset-id <dataset-id>
+las datasets delete <dataset-id>
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X DELETE 'https://api.cradl.ai/v1/documents' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "datasetId": <datasetId>
+ }'
+ 
+ curl -X DELETE 'https://api.cradl.ai/v1/datasets/<datasetId>' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
 ```
 {% endtab %}
 {% endtabs %}
