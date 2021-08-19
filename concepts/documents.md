@@ -165,18 +165,13 @@ Or using a group identifier \(`consentId` or `datasetId`\):
 
 {% tabs %}
 {% tab title="CLI" %}
-```text
->> las documents delete-all --dataset-id <dataset-id>
-{
-  "documents": [...],
-  "consentId": [...]
-}
-
+```bash
+las documents delete-all --dataset-id <dataset-id>
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
-```
+```bash
 curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
@@ -186,6 +181,13 @@ curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
 ```
 {% endtab %}
 {% endtabs %}
+
+```javascript
+{
+  "documents": [...],
+  "consentId": [...]
+}
+```
 
 The delete-all command will delete all documents with the given group identifier.
 
