@@ -28,6 +28,12 @@ curl -X POST 'https://api.cradl.ai/v1/datasets' \
 }'
 ```
 {% endtab %}
+
+{% tab title="Python" %}
+```python
+dataset = client.create_dataset(name='Invoices 2020', description='From accounting system')
+```
+{% endtab %}
 {% endtabs %}
 
 ```javascript
