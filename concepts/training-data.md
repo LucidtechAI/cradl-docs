@@ -8,13 +8,33 @@ To create a data bundle for a model you must specify the `modelId` and one or mo
 
 {% tabs %}
 {% tab title="CLI" %}
-```text
->> las models create-data-bundle <modelId> <datasetId_1> <datasetId_2> --name "Invoice model bundle v1" --description "Data bundle from first two datasets"  
+```bash
+las models create-data-bundle <modelId> <datasetId_1> <datasetId_2> --name "Invoice training data v1" --description "Training data from first two datasets"  
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST 'https://api.cradl.ai/v1/models/<modelId>/dataBundles' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "datasetIds": [
+        "<datasetId_1>",
+        "<datasetId_2>"
+    ],
+    "name": "Invoice model training data v1",
+    "description": "Training data from first two datasets"
+}'
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "dataBundleId": <dataBundleId>,
   "modelId": <modelId>,
-  "name": "Invoice model bundle v1",
-  "description": "Data bundle from first two datasets",
+  "name": "Invoice model training data v1",
+  "description": "Training data from first two datasets",
   "datasets": [
     {
       ...
@@ -26,10 +46,7 @@ To create a data bundle for a model you must specify the `modelId` and one or mo
   "summary": null,
   "status": "processing",
 }
-
 ```
-{% endtab %}
-{% endtabs %}
 
 The data bundle will immediately begin to generate a [Data Report](training-data.md#data-report). This process may take a few minutes, depending on the size of the datasets being used. While this process is running, the data bundle will have status `processing`. When the data report is complete, the data bundle will be in a `ready` state.
 
