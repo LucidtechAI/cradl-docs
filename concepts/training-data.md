@@ -80,7 +80,7 @@ curl -X PATCH 'https://api.cradl.ai/v1/models/<modelId>/dataBundles/<dataBundleI
 ```
 {% endtab %}
 
-{% tab title="" %}
+{% tab title="Python" %}
 ```python
 data_bundle = client.update_data_bundle(
     model_id=<model_id>, 
