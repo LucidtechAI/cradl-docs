@@ -69,7 +69,7 @@ curl -X POST 'https://api.cradl.ai/v1/models' \
 ```python
 field_config = {
   'total_amount': { 'type': 'amount', 'maxLength': 10, 'description': '' },
-  'due_date': { 'type': 'date', 'maxLength': 10, 'description': '' }
+  'due_date': { 'type': 'date', 'maxLength': 10, 'description': '' },
 }
 model = client.create_model(
   width=321, 
