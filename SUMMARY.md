@@ -10,7 +10,7 @@
 * [Create dataset](get-started/create-a-dataset.md)
 * [Define model](get-started/create-a-model.md)
 * [Train model](get-started/train-a-model.md)
-* [Make predictions](get-started/serve-a-model.md)
+* [Serve model](get-started/serve-a-model.md)
 
 ## Concepts
 

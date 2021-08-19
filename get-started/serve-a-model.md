@@ -1,4 +1,4 @@
-# Make predictions
+# Serve model
 
 After a model has been trained, it can be used and tested to make [predictions](../concepts/predictions.md). Assuming good quality input data has been used for training, you should see excellent predictions for your documents.
 
