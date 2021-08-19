@@ -113,26 +113,90 @@ document = client.update_document(<document_id>, ground_truth=ground_truth)
 
 The document can now be added to a [Dataset](datasets.md), and from there on be used as training data. The JSON format for a ground truth file is an array of objects containing `label` and `value` fields. Labels and values must be strings.
 
+{% hint style="warning" %}
+The label name is used as a key in several places. Ensure that you are consistent in using the same label names across documents and models.
+{% endhint %}
+
 {% tabs %}
 {% tab title="ground\_truth.json" %}
 ```python
 [
-    {
-      "label": "amount",
-      "value": "100.00"
-    },
-    {
-      "label": "due_date",
-      "value": "2021-05-20"
-    }
+  {
+    "label": "amount",
+    "value": "100.00"
+  },
+  {
+    "label": "due_date",
+    "value": "2021-05-20"
+  }
 ]
 ```
 {% endtab %}
 {% endtabs %}
 
-{% hint style="info" %}
-The label name is used as a key in several places. Ensure that you are consistent in using the same label names across documents and models.
-{% endhint %}
+{% tabs %}
+{% tab title="receipt.png" %}
+![](../.gitbook/assets/lucidcap.png)
+{% endtab %}
+
+{% tab title="receipt\_ground\_truth.json" %}
+```javascript
+[
+  {
+    "label": "category",
+    "value": "taxi"
+  },
+  {
+    "label": "currency",
+    "value": "EUR"
+  },
+  {
+    "label": "date",
+    "value": "2019-12-31"
+  },
+  {
+    "label": "total_amount",
+    "value": "43.90"
+  }
+]
+```
+{% endtab %}
+
+{% tab title="bill\_of\_lading.png" %}
+![](../.gitbook/assets/bill_of_lading.png)
+{% endtab %}
+
+{% tab title="bill\_of\_lading\_ground\_truth.json" %}
+```javascript
+[
+  {
+    "label": "lading_number",
+    "value": "s00158002"
+  },
+  {
+    "label": "point_of_loading",
+    "value": "Chicago, United States"
+  },
+  {
+    "label": "place_of_delivery",
+    "value": "Sydney, Australia"
+  },
+  {
+    "label": "date",
+    "value": "2015-06-23"
+  },
+  {
+    "label": "carrier",
+    "value": "Lucid Logistics"
+  },
+  {
+    "label": "weight",
+    "value": "20000"
+  }
+]
+```
+{% endtab %}
+{% endtabs %}
 
 ## Documents with personal consents
 
