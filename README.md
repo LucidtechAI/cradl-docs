@@ -1,6 +1,6 @@
 # Welcome to Cradl
 
-Welcome to Cradl, the platform where developers can **create custom machine learning models for reading document data**. Use your already-existing data to build your own tailor-made model for extracting structured data from semi-structured documents. Define, train and serve your model on Cradl - **no machine learning expertise required.**
+Welcome to Cradl, the platform where developers can **create custom machine learning models for reading document data**. Use your data to build your own tailor-made model for extracting structured data from semi-structured documents. Define, train and serve your model on Cradl - **no machine learning expertise required.**
 
 ### Structured data extraction
 
