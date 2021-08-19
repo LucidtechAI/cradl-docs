@@ -64,8 +64,8 @@ Our CLI and SDKs will handle acquiring the access token for you. The only thing 
 
 | Operating System | Location |
 | :--- | :--- |
-| Linux/Mac | ~/.lucidtech/credentials.cfg or $HOME/.lucidtech/credentials.cfg |
-| Windows | %USERPROFILE%\.lucidtech\credentials.cfg _or_ %HOME%\.lucidtech\credentials.cfg |
+| Linux/Mac | ~/.cradl/credentials.cfg or $HOME/.cradl/credentials.cfg |
+| Windows | %USERPROFILE%\.cradl\credentials.cfg _or_ %HOME%\.cradl\credentials.cfg |
 
 The credentials.cfg file should look like the following:
 
