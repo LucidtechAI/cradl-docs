@@ -65,7 +65,7 @@ las models update-data-bundle <modelId> <dataBundleId>
 {% tab title="cURL" %}
 ```bash
 curl -X PATCH 'https://api.cradl.ai/v1/models/<modelId>/dataBundles/<dataBundleId>' \
---header 'Authorization: Bearer eyJra...' \
+--header 'Authorization: Bearer eyJra...'
 ```
 {% endtab %}
 {% endtabs %}
