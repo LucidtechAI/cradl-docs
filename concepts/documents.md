@@ -30,7 +30,7 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
 {% endtab %}
 
 {% tab title="Python" %}
-```
+```python
 document = client.create_document(b'<bytes data>', 'application/pdf')
 ```
 {% endtab %}
@@ -99,12 +99,13 @@ curl -X PATCH 'https://api.cradl.ai/v1/documents/<documentId>' \
 {% endtab %}
 
 {% tab title="Python" %}
-```
+```python
 ground_truth = [
   { 'label': 'total_amount', 'value': '100.00' },
   { 'label': 'due_date', 'value': '2020-02-28' }
 ]
 document = client.create_document(b'<bytes data>', 'application/pdf', ground_truth=ground_truth)
+# or
 document = client.update_document(<document_id>, ground_truth=ground_truth)
 ```
 {% endtab %}
@@ -156,6 +157,12 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
  }'
 ```
 {% endtab %}
+
+{% tab title="Python" %}
+```python
+document = client.create_document(b'<bytes data>', 'application/pdf', consent_id=<consent_id>)
+```
+{% endtab %}
 {% endtabs %}
 
 ## Deleting documents
@@ -174,6 +181,12 @@ las documents delete <document-id>
 curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
+```
+{% endtab %}
+
+{% tab title="Python" %}
+```
+document = client.delete_document(<document_id>)
 ```
 {% endtab %}
 {% endtabs %}
@@ -195,6 +208,12 @@ curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
 --data-raw '{
     "datasetId": <datasetId>
  }'
+```
+{% endtab %}
+
+{% tab title="Python" %}
+```python
+document = client.delete_documents(dataset_id=<dataset_id>, delete_all=True)
 ```
 {% endtab %}
 {% endtabs %}
