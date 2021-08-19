@@ -12,8 +12,13 @@ Give your datasets clear names and descriptions. This will be helpful when keepi
 
 {% tabs %}
 {% tab title="CLI" %}
-```text
->> las datasets create --name "Invoices 2020" --description "From accounting system"
+```bash
+las datasets create --name "Invoices 2020" --description "From accounting system"
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
 {
   "datasetId": "las:dataset:05ebcb0c1a8c458ebb47725a0e21d59b",
   "description": "From accounting system",
@@ -24,8 +29,6 @@ Give your datasets clear names and descriptions. This will be helpful when keepi
   "version": 0
 }
 ```
-{% endtab %}
-{% endtabs %}
 
 Above, an empty dataset is created for documents to be added to. The `datasetId` is used to include a dataset in [Data bundle](training-data.md) of training data, and to [add documents to the dataset](datasets.md#adding-documents-to-a-dataset). The `version` field is used to identify changes to a dataset, i.e. when adding/removing/updating contained documents.
 
