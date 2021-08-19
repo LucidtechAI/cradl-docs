@@ -28,6 +28,17 @@ curl -X POST 'https://api.cradl.ai/v1/models/<modelId>/dataBundles' \
 }'
 ```
 {% endtab %}
+
+{% tab title="Python" %}
+```python
+data_bundle = client.create_data_bundle(
+    model_id=<model id>, 
+    dataset_ids=[<dataset_id_1>, <dataset_id_2>], 
+    name="Invoice model training data v1",
+    description="Training data from first two datasets",
+)
+```
+{% endtab %}
 {% endtabs %}
 
 ```javascript
