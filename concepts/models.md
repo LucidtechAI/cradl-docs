@@ -39,12 +39,29 @@ The label names \(`"total_amount"` and`"due_date"`in the example below\) must ma
 {% endtab %}
 {% endtabs %}
 
-Using this JSON file, you can define a model.
+Using this JSON layout, you can define a model.
 
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
 las models create 321 321 path/to/field_config.json --name "Invoice" --description "v1"
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST 'https://api.cradl.ai/v1/models' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "fieldConfig": {
+      "total_amount": { "type": "amount", "maxLength": 20 },
+      "purchase_date": { "type": "date", "maxLength": 10 },
+    },
+    "height": 321,
+    "width": 321,
+    "name": "Invoice",
+    "description": "v1",
+}'
 ```
 {% endtab %}
 {% endtabs %}
