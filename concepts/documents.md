@@ -109,17 +109,9 @@ document = client.create_document(b'<bytes data>', 'application/pdf', ground_tru
 document = client.update_document(<document_id>, ground_truth=ground_truth)
 ```
 {% endtab %}
-{% endtabs %}
 
-The document can now be added to a [Dataset](datasets.md), and from there on be used as training data. The JSON format for a ground truth file is an array of objects containing `label` and `value` fields. Labels and values must be strings.
-
-{% hint style="warning" %}
-The label name is used as a key in several places. Ensure that you are consistent in using the same label names across documents and models.
-{% endhint %}
-
-{% tabs %}
 {% tab title="ground\_truth.json" %}
-```python
+```
 [
   {
     "label": "amount",
@@ -133,6 +125,12 @@ The label name is used as a key in several places. Ensure that you are consisten
 ```
 {% endtab %}
 {% endtabs %}
+
+The document can now be added to a [Dataset](datasets.md), and from there on be used as training data. The JSON format for a ground truth file is an array of objects containing `label` and `value` fields. Labels and values must be strings.
+
+{% hint style="warning" %}
+The label name is used as a key in several places. Ensure that you are consistent in using the same label names across documents and models.
+{% endhint %}
 
 {% tabs %}
 {% tab title="receipt.png" %}
