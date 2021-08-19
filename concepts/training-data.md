@@ -45,7 +45,7 @@ curl -X POST 'https://api.cradl.ai/v1/models/<modelId>/dataBundles' \
     }
   ],
   "summary": null,
-  "status": "processing",
+  "status": "processing"
 }
 ```
 
