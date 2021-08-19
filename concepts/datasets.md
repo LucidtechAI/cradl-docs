@@ -16,6 +16,18 @@ Give your datasets clear names and descriptions. This will be helpful when keepi
 las datasets create --name "Invoices 2020" --description "From accounting system"
 ```
 {% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST 'https://api.cradl.ai/v1/datasets' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "name": "Invoices 2020",
+    "description": "From accounting system"
+}'
+```
+{% endtab %}
 {% endtabs %}
 
 ```javascript
