@@ -64,16 +64,19 @@ Our CLI and SDKs will handle acquiring the access token for you. The only thing 
 
 | Operating System | Location |
 | :--- | :--- |
-| Linux/Mac | ~/.cradl/credentials.cfg or $HOME/.cradl/credentials.cfg |
-| Windows | %USERPROFILE%\.cradl\credentials.cfg _or_ %HOME%\.cradl\credentials.cfg |
+| Linux/Mac | ~/.cradl/credentials.json or $HOME/.cradl/credentials.json |
+| Windows | %USERPROFILE%\.cradl\credentials.json _or_ %HOME%\.cradl\credentials.json |
 
 The credentials.cfg file should look like the following:
 
-```text
-[default]
-client_id = <your client id here>
-client_secret = <your client secret here>
-auth_endpoint = auth.lucidtech.ai
-api_endpoint = https://api.cradl.ai/v1
+```javascript
+{
+  "default": {
+    "client_id": "<your client id here>",
+    "clientSecret": "<your client secret here>",
+    "authEndpoint": "auth.lucidtech.ai",
+    "apiEndpoint": "api.cradl.ai/v1"
+  }
+}
 ```
 
