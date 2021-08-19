@@ -181,8 +181,6 @@ curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
-    "content": "JVBERi0xLjQ...",
-    "contentType": "application/pdf",
     "datasetId": <datasetId>
  }'
 ```
