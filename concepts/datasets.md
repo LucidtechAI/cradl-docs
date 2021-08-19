@@ -81,6 +81,14 @@ curl -X PATCH 'https://api.cradl.ai/v1/documents/<documentId>' \
   }'
 ```
 {% endtab %}
+
+{% tab title="Python" %}
+```python
+document = client.create_document(b'<bytes data>', 'application/pdf', datasetId=<datasetId>)
+#  or
+document = client.update_document(<document_id>, datasetId=<datasetId>)
+```
+{% endtab %}
 {% endtabs %}
 
 ## Deleting a dataset
@@ -107,6 +115,12 @@ curl -X DELETE 'https://api.cradl.ai/v1/documents' \
  curl -X DELETE 'https://api.cradl.ai/v1/datasets/<datasetId>' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
+```
+{% endtab %}
+
+{% tab title="Python" %}
+```python
+client.delete_dataset(dataset_id=<dataset_id>, delete_documents=True)
 ```
 {% endtab %}
 {% endtabs %}

@@ -186,7 +186,7 @@ curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
 
 {% tab title="Python" %}
 ```
-document = client.delete_document(<document_id>)
+client.delete_document(<document_id>)
 ```
 {% endtab %}
 {% endtabs %}
@@ -213,7 +213,7 @@ curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
 
 {% tab title="Python" %}
 ```python
-document = client.delete_documents(dataset_id=<dataset_id>, delete_all=True)
+client.delete_documents(dataset_id=<dataset_id>, delete_all=True)
 ```
 {% endtab %}
 {% endtabs %}
