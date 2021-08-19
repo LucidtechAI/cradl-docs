@@ -22,6 +22,12 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
 }'
 ```
 {% endtab %}
+
+{% tab title="Python" %}
+```python
+document = client.create_document(b'<bytes data>', 'application/pdf')
+```
+{% endtab %}
 {% endtabs %}
 
 ```javascript
@@ -48,6 +54,12 @@ curl -X POST 'https://api.cradl.ai/v1/predictions' \
     "documentId": "las:document:<document id>",
     "modelId": "las:model:<model id>"
 }'
+```
+{% endtab %}
+
+{% tab title="Python" %}
+```python
+prediction = client.create_prediction(document_id='las:document:<document id>', model_id='las:model:<model id>')
 ```
 {% endtab %}
 {% endtabs %}

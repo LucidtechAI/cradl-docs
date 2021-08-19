@@ -37,6 +37,16 @@ curl -X POST 'https://api.cradl.ai/v1/models' \
 }'
 ```
 {% endtab %}
+
+{% tab title="Python" %}
+```python
+field_config = {
+  'total_amount': { 'type': 'amount', 'maxLength': 20, 'description': '' },
+  'purchase_date': { 'type': 'date', 'maxLength': 10, 'description': '' }
+}
+model = client.create_model(width=1281, height=801, field_config=field_config, name='Receipt model')
+```
+{% endtab %}
 {% endtabs %}
 
 {% hint style="info" %}
@@ -66,6 +76,12 @@ curl -X POST 'https://api.cradl.ai/v1/models/<model id>/dataBundles' \
     ],
     "name": "Initial data report"
 }'
+```
+{% endtab %}
+
+{% tab title="Python" %}
+```python
+data_bundle = client.create_data_bundle(model_id='las:model:<model id>', dataset_ids=['las:dataset:<dataset id>'], name='Initial data report')
 ```
 {% endtab %}
 {% endtabs %}
@@ -106,6 +122,12 @@ las models list-data-bundles las:model:<model id>
 {% tab title="cURL" %}
 ```bash
 curl 'https://api.cradl.ai/v1/models/<model id>/dataBundles'
+```
+{% endtab %}
+
+{% tab title="Python" %}
+```python
+data_bundle = client.list_data_bundles(model_id='las:model:<model id>')
 ```
 {% endtab %}
 {% endtabs %}
