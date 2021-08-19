@@ -85,7 +85,7 @@ curl -X PATCH 'https://api.cradl.ai/v1/documents/<documentId>' \
 {% tab title="Python" %}
 ```python
 document = client.create_document(b'<bytes data>', 'application/pdf', datasetId=<datasetId>)
-#  or
+# or
 document = client.update_document(<document_id>, datasetId=<datasetId>)
 ```
 {% endtab %}
