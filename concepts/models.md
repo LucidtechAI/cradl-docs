@@ -23,9 +23,8 @@ The label names \(`"total_amount"` and`"due_date"`in the example below\) must ma
 {% endhint %}
 
 {% tabs %}
-{% tab title="CLI" %}
-```text
->> cat path/to_field_config.json
+{% tab title="field\_config.json" %}
+```javascript
 {
   "total_amount": {
     "type": "amount",
