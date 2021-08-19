@@ -23,6 +23,12 @@ curl -X POST 'https://api.cradl.ai/v1/predictions' \
 }'
 ```
 {% endtab %}
+
+{% tab title="Python" %}
+```
+prediction = client.create_prediction(document_id=<document id>, model_id=<model id>)
+```
+{% endtab %}
 {% endtabs %}
 
 ```javascript
