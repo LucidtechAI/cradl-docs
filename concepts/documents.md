@@ -20,6 +20,18 @@ Allowed formats for documents are PDF, JPEG, PNG and TIFF.
 }
 ```
 {% endtab %}
+
+{% tab title="cURL" %}
+```
+curl -X POST 'https://api.cradl.ai/v1/documents' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "content": "JVBERi0xLjQ...",
+    "contentType": "application/pdf"
+}'
+```
+{% endtab %}
 {% endtabs %}
 
 The returned`documentId` can be used together with a `modelId` to make a [prediction](predictions.md#making-a-prediction) on the document. 
