@@ -130,6 +130,6 @@ data_bundle = client.list_data_bundles(model_id=<modelId>)
 ```
 
 {% hint style="success" %}
-See [data quality section](../concepts/training-data.md#data-quality) for detailed information about data quality and how to improve it
+See [data quality section](../concepts/training-data.md#data-quality) for detailed information about data quality and how to improve it.
 {% endhint %}
 
