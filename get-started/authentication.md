@@ -64,8 +64,8 @@ Our CLI and SDKs will handle access tokens for you. The only thing you need to d
 
 | OS | Location |
 | :--- | :--- |
-| Linux/Mac | ~/.cradl/credentials.json or $HOME/.cradl/credentials.json |
-| Windows | %USERPROFILE%.cradl\credentials.json _or_ %HOME%.cradl\credentials.json |
+| Linux/Mac | ~/.cradl/credentials.cfg or $HOME/.cradl/credentials.cfg |
+| Windows | %USERPROFILE%.cradl\credentials.cfg _or_ %HOME%.cradl\credentials.cfg |
 
 The credentials.cfg file should look like the following:
 
