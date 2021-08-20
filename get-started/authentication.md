@@ -37,10 +37,10 @@ The credentials.json file should look like the following:
 #### Environment variables
 
 ```bash
-LAS_CLIENT_ID=''
-LAS_CLIENT_SECRET=''
-LAS_AUTH_ENDPOINT=''
-LAS_API_ENDPOINT=''
+LAS_CLIENT_ID="<your client id here>"
+LAS_CLIENT_SECRET="<your client secret here>"
+LAS_AUTH_ENDPOINT="auth.cradl.ai"
+LAS_API_ENDPOINT="api.cradl.ai/v1"
 ```
 
 ## Getting an access token manually
