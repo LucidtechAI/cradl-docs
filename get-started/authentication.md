@@ -10,7 +10,7 @@ The endpoint for authentication is [https://auth.cradle.ai](https://auth.cradl.a
 
 ## Using the CLI or SDKs
 
-Our CLI and SDKs will handle access tokens for us. The only thing we need to do is to put the credentials in a file in the correct location on our computer, and most Cradl SDKs will discover them. Alternatively you may use environmen variablses.
+Our CLI and SDKs will handle access tokens for us. The only thing we need to do is to put the credentials in a file in the correct location on our computer, and most Cradl SDKs will discover them. Alternatively you may use environment variables.
 
 #### credentials.json
 
