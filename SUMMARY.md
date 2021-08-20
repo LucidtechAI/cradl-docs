@@ -11,7 +11,7 @@
 * [Create dataset](get-started/create-a-dataset.md)
 * [Select and inspect training data](get-started/choose-training-data.md)
 * [Train model](get-started/train-a-model.md)
-* [Serve model](get-started/serve-a-model.md)
+* [Use model](get-started/serve-a-model.md)
 
 ## Concepts
 

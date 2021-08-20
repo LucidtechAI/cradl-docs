@@ -1,6 +1,6 @@
-# Serve model
+# Use model
 
-After a model has been trained, it can be used and tested to make [predictions](../concepts/predictions.md). Assuming good quality input data has been used for training, you should see excellent predictions for your documents.
+After your model has been trained, it can be used and tested to make [predictions](../concepts/predictions.md). Assuming good quality input data has been used for training, you should see excellent predictions for your documents.
 
 To make a prediction using a model, we need to provide a document id and a model id. We already have the id of our model, so let's upload a document to make a prediction on:
 
@@ -37,7 +37,11 @@ document = client.create_document(b'<bytes data>', 'application/pdf')
 }
 ```
 
-Using the document id from above, together with our model id:
+Using the document id from above, together with our model id, we get a prediction which includes the predicted values for each label, together with a confidence level suggesting how confident the model is of its prediction.
+
+{% hint style="info" %}
+See the [confidence section](../concepts/predictions.md#confidence) to read more about confidence levels and how you can use them to feel confident in your model's predictions.
+{% endhint %}
 
 {% tabs %}
 {% tab title="CLI" %}
@@ -85,8 +89,4 @@ prediction = client.create_prediction(document_id='las:document:<document id>', 
   "inferenceTime": 2.7935566902160645
 }
 ```
-
-{% hint style="info" %}
-See the [confidence section](../concepts/predictions.md#confidence) to read more about confidence levels and how you can use them to feel confident in the predictions
-{% endhint %}
 
