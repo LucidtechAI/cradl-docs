@@ -2,7 +2,7 @@
 
 ### **Create dataset**
 
-After defining our model, we'd like to get it trained and ready for work. To train a model, we need to provide it with a sufficiently many example [documents](../concepts/documents.md).  Documents can be bundled together in [datasets](../concepts/datasets.md), so before we start uploading documents, let's create a dataset.
+After defining our model, we'd like to get it trained and ready for work. To train a model, we need to provide it with a sufficiently many example [documents](../concepts/documents.md). Documents can be grouped together in [datasets](../concepts/datasets.md), so before we start uploading documents, let's create a dataset.
 
 {% tabs %}
 {% tab title="CLI" %}
@@ -49,9 +49,7 @@ dataset = client.create_dataset(name='Initial training data')
 
 ### Upload documents to a dataset
 
-We can now start uploading [documents](../concepts/documents.md) and assign them to our dataset. 
-Since we want to use the documents for training, we'll also provide [ground truth values](../concepts/documents.md#setting-ground-truths) that will define the correct output for the model on each document. 
-We'll have to make sure that the field name in the ground truth match those in the field config we made for our model.
+We can now start uploading [documents](../concepts/documents.md) and assign them to our dataset. Since we want to use the documents for training, we'll also provide [ground truth values](../concepts/documents.md#setting-ground-truths) that will define the correct output for the model on each document. We'll have to make sure that the field name in the ground truth match those in the field config we made for our model.
 
 {% hint style="warning" %}
 It is important to have **correct** ground truths for each document we want to use for training. They are what will guide our model to making correct predictions. If there are mistakes in the ground truths, our model will learn to make those mistakes.
