@@ -100,7 +100,7 @@ The data report can be viewed in the Cradl app. It scores the data contained in 
 | **Validity** | Percentage of valid values among occurring values. |
 | **Coverage** | Percentage of documents with valid values. |
 | **Uniqueness** | Percentage of values outside the top 10 most frequent. |
-| **Uniformity** | Proportion of information entropy in values outside the top 10 most frequent, relative to maximum obtainable entropy. |
+| **Uniformity** | Proportion of information entropy in values outside the top 10 most frequent, relative to maximum obtainable entropy. Put simply, this measures how much different information is present in the values. |
 | **Variation** | Mean of Uniqueness and Uniformity. |
 
 After scoring each label individually, the Coverage and Variation scores are aggregated to cross-label mean statistics. The overall score for the data bundle is the mean of these aggregate Coverage and Variation statistics.
