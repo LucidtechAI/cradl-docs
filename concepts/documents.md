@@ -43,11 +43,11 @@ document = client.create_document(b'<bytes data>', 'application/pdf')
 }
 ```
 
-The returned`documentId` can be used together with a `modelId` to make a [prediction](predictions.md#making-a-prediction) on the document. 
+The returned`documentId` can be used together with a `modelId` to make a [prediction](predictions.md#making-a-prediction) on the document once a model has been trained. You can also [set a ground truth](documents.md#setting-ground-truths) for the document and add it to a [Dataset](datasets.md) to use it as training data.
 
 ## Setting ground truths
 
-Before using a document when training a model, the document must be described by a ground truth. The ground truth can be provided when you create the document, or it can be added as an update to an existing document.
+When using a document when training a model, the document must be described by a ground truth. The ground truth can be provided when you create the document, or it can be added as an update to an existing document.
 
 {% tabs %}
 {% tab title="CLI" %}
@@ -126,7 +126,7 @@ document = client.update_document(<document_id>, ground_truth=ground_truth)
 {% endtab %}
 {% endtabs %}
 
-The document can now be added to a [Dataset](datasets.md), and from there on be used as training data. The JSON format for a ground truth file is an array of objects containing `label` and `value` fields. Labels and values must be strings.
+ The JSON format for a ground truth file is an array of objects containing `label` and `value` fields. Labels and values must be strings.
 
 {% hint style="warning" %}
 The label name is used as a key in several places. Ensure that you are consistent in using the same label names across documents and models.

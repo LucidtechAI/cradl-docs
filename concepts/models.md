@@ -161,7 +161,7 @@ where the &lt;field\_type&gt; is one of the following:
 | `number` | Any string with numbers only |
 | `phone` | Any phone number with or without country code |
 
-## Linking a data bundle before training
+## Selecting training data
 
 Once your model is defined, you can create one or more [Data bundles](training-data.md) linked to it to specify which data it should be trained on. You must create a data bundle of acceptable quality linked to your model before training is allowed. This is a safety measure to improve the quality of the trained model. Read more about data quality [here](training-data.md#data-quality).
 
