@@ -43,11 +43,11 @@ document = client.create_document(b'<bytes data>', 'application/pdf')
 }
 ```
 
-The returned`documentId` can be used together with a `modelId` to make a [prediction](predictions.md#making-a-prediction) on the document once a model has been trained. You can also [set a ground truth](documents.md#setting-ground-truths) for the document and add it to a [Dataset](datasets.md) to use it as training data.
+The returned`documentId` can be used together with a `modelId` to make a [prediction](predictions.md#making-a-prediction) on the document once a model has been trained. You can also [set a ground truth](documents.md#setting-ground-truths) for the document and add it to a [Dataset](datasets.md) to use it as training data for a model.
 
 ## Setting ground truths
 
-When using a document when training a model, the document must be described by a ground truth. The ground truth can be provided when you create the document, or it can be added as an update to an existing document.
+To use a document as training data, it must have an attached ground truth; since our models learn by example, you must provide both the example input \(the file\) and its expected output \(the ground truth\). The ground truth can be provided when you create the document, or it can be added as an update to an existing document.
 
 {% tabs %}
 {% tab title="CLI" %}
