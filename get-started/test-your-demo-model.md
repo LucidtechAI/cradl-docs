@@ -139,7 +139,7 @@ documents = client.list_documents(dataset_id='las:dataset:<dataset id>')
 }
 ```
 
-Once we have a document selected, we can make a prediction using the model on it:
+Once we have a document selected, we can apply the model to it to make a prediction:
 
 {% tabs %}
 {% tab title="CLI" %}
