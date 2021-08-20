@@ -51,7 +51,7 @@ After successfully acquiring an access token from the previous step, we are read
 
 | Header name | Header value |
 | :--- | :--- |
-| Authorization | Bearer &lt;your access token here&gt; |
+| Authorization | `Bearer <your access token here>` |
 
 ```bash
 $ access_token="<you access token here>"
@@ -60,7 +60,7 @@ $ curl https://api.cradl.ai/v1/documents -H "Authorization: Bearer $access_token
 
 ## Using the CLI or an SDK
 
-Our CLI and SDKs will handle acquiring the access token for you. The only thing you need to do is to put the credentials in a file in the correct location on your computer, and most SDKs will discover them. The credentials file should be placed in the following location based on the OS you are running:
+Our CLI and SDKs will handle access tokens for you. The only thing you need to do is to put the credentials in a file in the correct location on your computer, and most SDKs will discover them. The credentials file should be placed in the following location based on the OS you are running:
 
 | Operating System | Location |
 | :--- | :--- |
