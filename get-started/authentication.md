@@ -1,12 +1,12 @@
 # Authentication
 
-The Cradl API requires you to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our CLI tool and SDKs will handle authentication for you, but if you wish to use the REST API, you will need to do this yourself. 
+The Cradl API requires us to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our CLI tool and SDKs will handle authentication for us, but if we wish to use the REST API, we will need to do this ourselves. 
 
 ## Credentials
 
 **You should acquire a client id and client secret from the Cradl UI before continuing.** The client id and client secret are used to acquire access tokens to authorize API use.
 
-Unless specified otherwise in the credentials file you have received, the endpoint for authentication is [https://auth.cradle.ai](https://auth.cradl.ai) and the endpoint for the API is [https://api.cradl.ai](https://api.cradl.ai).
+The endpoint for authentication is [https://auth.cradle.ai](https://auth.cradl.ai) and the endpoint for the API is [https://api.cradl.ai](https://api.cradl.ai).
 
 ## Using the CLI or SDKs
 
