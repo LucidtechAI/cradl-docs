@@ -2,7 +2,7 @@
 
 #### **Create dataset**
 
-After defining our model, we'd like to get it trained and ready for work. To train a model, we need to provide it with a sufficiently many [documents](../concepts/documents.md). The documents are bundled together in the form of [datasets](../concepts/datasets.md), so before we start uploading documents, let's create a dataset to hold all of them together.
+After defining our model, we'd like to get it trained and ready for work. To train a model, we need to provide it with a sufficiently many example [documents](../concepts/documents.md). The documents are bundled together in the form of [datasets](../concepts/datasets.md), so before we start uploading documents, let's create a dataset to hold all of them together.
 
 {% hint style="warning" %}
 It is important to have correct ground truth values for each document, in order to train your model to give correct predictions for each field you want to extract! These ground truth fields should match the field config defined for your model.
