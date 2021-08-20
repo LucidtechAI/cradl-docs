@@ -1,16 +1,16 @@
 # Authentication
 
-The Cradl API requires you to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our CLI tool and SDKs will handle authentication automatically, but if you wish to use the REST API, you will need to authenticate manually. 
+Cradl requires you to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our CLI and SDKs will handle authentication automatically, but if you wish to use the REST API, you will need to authenticate manually. 
 
 ## Credentials
 
-**You should acquire a client id and client secret by creating an App Client in the Cradl UI before continuing.** The client id and client secret are used to acquire access tokens for authorized API use.
+**You should acquire a client id and client secret by creating an App client in the Cradl UI before continuing.** The client id and client secret are used to acquire access tokens for authorizing usage of Cradl.
 
 The endpoint for authentication is [https://auth.cradl.ai](https://auth.cradl.ai) and the endpoint for the API is [https://api.cradl.ai](https://api.cradl.ai).
 
 ## Using the CLI or SDKs
 
-Our CLI and SDKs will handle access tokens for you. The only thing you need to do is to put the credentials in a file in the correct location on your computer, and most Cradl SDKs will discover them. Alternatively, you may use environment variables.
+Our CLI and SDKs will handle access tokens for us. The only thing we need to do is to put the credentials in a file as specified below, and our SDKs will use them automatically. Alternatively, you may use environment variables.
 
 #### credentials.json
 
@@ -45,7 +45,7 @@ LAS_API_ENDPOINT="api.cradl.ai/v1"
 
 ## Getting an access token manually
 
-To acquire an access token, we query the auth endpoint for access using our client id and client secret. This is done by performing a HTTP POST request to the token endpoint /oauth2/token with two headers provided. One header is 'Authorization' with base64 encoded client\_id and client secret and one header is 'Content-Type' which will always contain the same value: `application/x-www-form-urlencoded`.
+To acquire an access token, we query the auth endpoint for access using our client id and client secret. This is done by performing an HTTP POST request to the token endpoint /oauth2/token with two headers provided. One header is 'Authorization' with base64 encoded client\_id and client secret and one header is 'Content-Type' which will always contain the same value: `application/x-www-form-urlencoded`.
 
 | Header name | Header value |
 | :--- | :--- |
@@ -77,7 +77,7 @@ If everything is working as expected, the response should look similar to the fo
 ```
 
 {% hint style="warning" %}
-The access token will expire after some time, currently 3600 seconds \(1 hour\). When the token expires, you need to get a new access token using the same procedure.
+The access token will expire after some time, currently after one hour \(3600 seconds \). When the token expires, you need to get a new access token using the same procedure.
 {% endhint %}
 
 ## Calling the API
@@ -92,4 +92,3 @@ After successfully acquiring an access token from the previous step, we are read
 $ access_token="<you access token here>"
 $ curl https://api.cradl.ai/v1/documents -H "Authorization: Bearer $access_token"
 ```
-

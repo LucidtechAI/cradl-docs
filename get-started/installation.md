@@ -2,9 +2,9 @@
 
 This guide assumes use of our **CLI** tool, **cURL,** or our **Python SDK**. To install these, follow the relevant steps below.
 
-## CLI
+## Command Line Interface (CLI)
 
-Our CLI tool simplifies making API calls, and will detect credentials automatically.
+Our CLI allows you to access Cradl from the command line.
 
 **Prerequisites:** Python and pip
 
@@ -26,7 +26,7 @@ You can find the Open API specification file [here](https://raw.githubuserconten
 
 ## Other SDKs
 
-See references section for detailed use of every SDK
+We also have SDK's in Java, JavaScript and .NET. See references section for detailed use of every SDK
 
 {% page-ref page="../reference/javascript.md" %}
 
