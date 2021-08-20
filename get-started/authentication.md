@@ -8,9 +8,31 @@ The Cradl API requires you to authenticate using the [OAuth2 protocol](https://t
 
 Unless specified otherwise in the credentials file you have received, the endpoint for authentication is [https://auth.cradle.ai](https://auth.cradl.ai) and the endpoint for the API is [https://api.cradl.ai](https://api.cradl.ai).
 
-## Getting an access token
+## Using the CLI or SDKs
 
-To acquire an access token, we ask the auth endpoint for access using our client id and client secret. This is done by performing a HTTP POST request to the token endpoint /oauth2/token with two headers provided. One header is 'Authorization' with base64 encoded client\_id and client secret and one header is 'Content-Type' which will always contain the same value: `application/x-www-form-urlencoded`.
+Our CLI and SDKs will handle access tokens for you. The only thing you need to do is to put the credentials in a file in the correct location on your computer, and most Cradl SDKs will discover them. The credentials file should be placed in the following location, depending on your OS:
+
+| OS | Location |
+| :--- | :--- |
+| Linux/Mac | ~/.cradl/credentials.cfg or $HOME/.cradl/credentials.cfg |
+| Windows | %USERPROFILE%.cradl\credentials.cfg _or_ %HOME%.cradl\credentials.cfg |
+
+The credentials.cfg file should look like the following:
+
+```javascript
+{
+  "default": {
+    "client_id": "<your client id here>",
+    "clientSecret": "<your client secret here>",
+    "authEndpoint": "auth.cradl.ai",
+    "apiEndpoint": "api.cradl.ai/v1"
+  }
+}
+```
+
+## Getting an access token yourself
+
+To acquire an access token, query the auth endpoint for access using your client id and client secret. This is done by performing a HTTP POST request to the token endpoint /oauth2/token with two headers provided. One header is 'Authorization' with base64 encoded client\_id and client secret and one header is 'Content-Type' which will always contain the same value: `application/x-www-form-urlencoded`.
 
 | Header name | Header value |
 | :--- | :--- |
@@ -56,27 +78,5 @@ After successfully acquiring an access token from the previous step, we are read
 ```bash
 $ access_token="<you access token here>"
 $ curl https://api.cradl.ai/v1/documents -H "Authorization: Bearer $access_token"
-```
-
-## Using the CLI or an SDK
-
-Our CLI and SDKs will handle access tokens for you. The only thing you need to do is to put the credentials in a file in the correct location on your computer, and most SDKs will discover them. The credentials file should be placed in the following location based on the OS you are running:
-
-| OS | Location |
-| :--- | :--- |
-| Linux/Mac | ~/.cradl/credentials.cfg or $HOME/.cradl/credentials.cfg |
-| Windows | %USERPROFILE%.cradl\credentials.cfg _or_ %HOME%.cradl\credentials.cfg |
-
-The credentials.cfg file should look like the following:
-
-```javascript
-{
-  "default": {
-    "client_id": "<your client id here>",
-    "clientSecret": "<your client secret here>",
-    "authEndpoint": "auth.cradl.ai",
-    "apiEndpoint": "api.cradl.ai/v1"
-  }
-}
 ```
 
