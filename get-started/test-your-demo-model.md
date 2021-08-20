@@ -149,7 +149,7 @@ Once we have a document selected, we can apply the model to it to make a predict
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las predictions create las:document:<document id> las:model:<model id>
+las predictions create <document id> <model id>
 ```
 {% endtab %}
 
@@ -159,8 +159,8 @@ curl -X POST 'https://api.cradl.ai/v1/predictions' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
-    "documentId": "las:document:<document id>",
-    "modelId": "las:model:<model id>"
+    "documentId": "<document id>",
+    "modelId": "<model id>"
 }'
 ```
 {% endtab %}
@@ -174,9 +174,9 @@ prediction = client.create_prediction(document_id='<document id>', model_id='<mo
 
 ```javascript
 {
-  "predictionId": "las:prediction:<prediction id>",
-  "modelId": "las:model:<model id>",
-  "documentId": "las:document:<document id>",
+  "predictionId": "l<prediction id>",
+  "modelId": "<model id>",
+  "documentId": "<document id>",
   "predictions": [
     {
       "label": "total_amount",
