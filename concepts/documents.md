@@ -1,6 +1,6 @@
 # Documents
 
-A _document_ in Cradl consists of a file and some meta data. A document serves two purposes, both as a single data point when training a [model](models.md) or as input when making a [prediction](predictions.md). If the document is going to be used for training the meta data needs to contain a ground truth. To help you organize your documents from different sources we recommend you to group them in separate [Datasets](datasets.md).
+A _document_ in Cradl consists of a file with metadata. Documents serve two purposes: as data points when training [models](models.md) and as inputs when making [predictions](predictions.md). A document's metadata must contain a ground truth if the document is going to be used for training. To help you organize your documents from different sources we recommend that you group them in separate [Datasets](datasets.md).
 
 ## Creating a Document
 
