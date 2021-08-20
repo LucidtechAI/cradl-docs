@@ -1,6 +1,6 @@
 # Authentication
 
-The Cradl API requires us to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our CLI tool and SDKs will handle authentication for us, but if we wish to use the REST API, we will need to do this ourselves. 
+The Cradl API requires you to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our CLI tool and SDKs will handle authentication automatically, but if you wish to use the REST API, you will need to authenticate manually. 
 
 ## Credentials
 
