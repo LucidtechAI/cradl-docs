@@ -84,7 +84,7 @@ model = client.create_model(
 
 ```javascript
 {
-  "modelId": "las:model:d9b89270448642a6817fc83896cbbd6b",
+  "modelId": <modelId>,
   "name": "Invoice",
   "description": "v1",
   "height": 321,

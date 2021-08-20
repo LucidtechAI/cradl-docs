@@ -54,8 +54,8 @@ To use a document as training data, it must have an attached ground truth; since
 ```bash
 las documents create path/to/document.pdf --ground-truth-fields amount=100.00 due_date='2021-05-20'
 las documents create path/to/document.pdf --ground-truth-path path/to/ground_truth.json
-las documents update <document-id> --ground-truth-fields amount=100.00 due_date='2021-05-20'
-las documents update <document-id> --ground-truth-path path/to/ground_truth.json
+las documents update <documentId> --ground-truth-fields amount=100.00 due_date='2021-05-20'
+las documents update <documentId> --ground-truth-path path/to/ground_truth.json
 ```
 {% endtab %}
 
@@ -205,7 +205,7 @@ A `consentId` must be formatted as `"las:consent:[a-f0-9]{32}"`.
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las documents create path/to/document.pdf --consent-id <consent-id>
+las documents create path/to/document.pdf --consent-id <consentId>
 ```
 {% endtab %}
 
@@ -217,14 +217,14 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
 --data-raw '{
     "content": "JVBERi0xLjQ...",
     "contentType": "application/pdf",
-    "consentId": <consent-id>
+    "consentId": <consentId>
  }'
 ```
 {% endtab %}
 
 {% tab title="Python" %}
 ```python
-document = client.create_document(b'<bytes data>', 'application/pdf', consent_id=<consent_id>)
+document = client.create_document(b'<bytes data>', 'application/pdf', consent_id=<consentId>)
 ```
 {% endtab %}
 {% endtabs %}
@@ -236,7 +236,7 @@ Documents may be deleted one-by-one:
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las documents delete <document-id>
+las documents delete <documentId>
 ```
 {% endtab %}
 
@@ -250,7 +250,7 @@ curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
 
 {% tab title="Python" %}
 ```text
-client.delete_document(<document_id>)
+client.delete_document(<documentId>)
 ```
 {% endtab %}
 {% endtabs %}
@@ -260,7 +260,7 @@ Or using a group identifier \(`consentId` or `datasetId`\):
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las documents delete-all --dataset-id <dataset-id>
+las documents delete-all --dataset-id <datasetId>
 ```
 {% endtab %}
 
@@ -277,7 +277,7 @@ curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
 
 {% tab title="Python" %}
 ```python
-client.delete_documents(dataset_id=<dataset_id>, delete_all=True)
+client.delete_documents(dataset_id=<datasetId>, delete_all=True)
 ```
 {% endtab %}
 {% endtabs %}
