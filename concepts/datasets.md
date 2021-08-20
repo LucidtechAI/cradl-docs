@@ -52,7 +52,7 @@ Give your datasets clear names and descriptions. This will be helpful when keepi
 
 ## Adding documents to a dataset
 
-Documents can be assigned to a dataset either at creation time or in an update. It is not possible to assign a document to multiple datasets.
+Documents can be assigned to a dataset either at creation time or in an update. A document can be attached to at most one dataset.
 
 {% tabs %}
 {% tab title="CLI" %}
