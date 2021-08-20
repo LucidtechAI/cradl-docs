@@ -62,7 +62,7 @@ $ curl https://api.cradl.ai/v1/documents -H "Authorization: Bearer $access_token
 
 Our CLI and SDKs will handle access tokens for you. The only thing you need to do is to put the credentials in a file in the correct location on your computer, and most SDKs will discover them. The credentials file should be placed in the following location based on the OS you are running:
 
-| Operating System | Location |
+| OS | Location |
 | :--- | :--- |
 | Linux/Mac | ~/.cradl/credentials.json or $HOME/.cradl/credentials.json |
 | Windows | %USERPROFILE%.cradl\credentials.json _or_ %HOME%.cradl\credentials.json |
