@@ -34,7 +34,7 @@ dataset = client.create_dataset(name='Invoices 2020', description='From accounti
 
 ```javascript
 {
-  "datasetId": "las:dataset:05ebcb0c1a8c458ebb47725a0e21d59b",
+  "datasetId": <datasetId>,
   "description": "From accounting system",
   "name": "Invoices 2020",
   "numberOfDocuments": 0,
