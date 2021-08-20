@@ -10,7 +10,7 @@ Unless specified otherwise in the credentials file you have received, the endpoi
 
 ## Getting an access token
 
-To acquire an access token we need to ask the auth endpoint with our client id and client secret for access. This is done by performing a HTTP POST request to the token endpoint /oauth2/token with two headers provided. One header should be 'Authorization' with base64 encoded client\_id and client secret and one header should be 'Content-Type' which will always contain the same value: `application/x-www-form-urlencoded`
+To acquire an access token, we ask the auth endpoint for access with our client id and client secret. This is done by performing a HTTP POST request to the token endpoint /oauth2/token with two headers provided. One header should be 'Authorization' with base64 encoded client\_id and client secret and one header should be 'Content-Type' which will always contain the same value: `application/x-www-form-urlencoded`
 
 | Header name | Header value |
 | :--- | :--- |
