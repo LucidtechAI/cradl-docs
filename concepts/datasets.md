@@ -1,6 +1,6 @@
 # Datasets
 
-A _dataset_ in Cradl is a collection of [Documents](documents.md), preferably from a single source. When you have uploaded a sufficient amount of documents in your datasets they can be bundled together in [Data bundles](training-data.md) for unspection and ultimately training a [Model](models.md).
+A _dataset_ in Cradl is a collection of [Documents](documents.md), preferably from a single source. When you have uploaded a sufficient amount of documents in your datasets they can be bundled together in [Data bundles](training-data.md) for training a [Model](models.md).
 
 ## Creating a dataset
 
