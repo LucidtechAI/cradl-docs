@@ -32,13 +32,13 @@ dataset = client.create_dataset(name='Initial training data')
 
 ```javascript
 {
-  "datasetId": "las:dataset:<dataset id>",
+  "datasetId": <datasetId>,
   "description": "Initial training data",
   "name": "Receipts",
   "numberOfDocuments": 0,
   "createdTime": "2021-08-16T12:53:13.374930+0000",
   "updatedTime": null,
-  "createdBy": "las:app-client:<appClient id>",
+  "createdBy": <appClientId>,
   "updatedBy": null,
   "retentionInDays": 1825,
   "storageLocation": "EU",
@@ -58,7 +58,7 @@ It is important to have **correct** ground truths for each document we want to u
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las documents create receipt.pdf --dataset-id las:dataset:<dataset id> --ground-truth-fields total_amount=300.00 date=2020-02-28
+las documents create receipt.pdf --dataset-id <datasetId> --ground-truth-fields total_amount=300.00 date=2020-02-28
 ```
 {% endtab %}
 
@@ -70,6 +70,7 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
 --data-raw '{
     "content": "JVBERi0xLjQ...",
     "contentType": "application/pdf",
+    "datasetId": <datasetId>,
     "groundTruth: [
       {
       "label": "total_amount",
@@ -90,21 +91,21 @@ ground_truth = [
   { 'label': 'total_amount', 'value': '300.00' },
   { 'label': 'date', 'value': '2020-02-28' }
 ]
-document = client.create_document(b'<bytes data>', 'application/pdf', ground_truth=ground_truth)
+document = client.create_document(b'<bytes data>', 'application/pdf', ground_truth=ground_truth, dataset_id=<datasetId>)
 ```
 {% endtab %}
 {% endtabs %}
 
 ```javascript
 {
-  "documentId": "las:document:<document id>",
+  "documentId": <documentId>,
   "contentType": "application/pdf",
   "retentionInDays": 1825,
   "createdTime": "2021-08-16T13:34:13.724393+0000",
   "updatedTime": null,
-  "createdBy": "las:app-client:<appClient id>",
+  "createdBy": <appClientId>,
   "updatedBy": null,
-  "datasetId": "las:dataset:<dataset id>",
+  "datasetId": <datasetId>,
   "groundTruth": [
     {
       "label": "total_amount",
