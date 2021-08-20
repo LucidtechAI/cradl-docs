@@ -4,13 +4,13 @@ When using the Cradle API you might encounter limits in how many total resources
 
 ### Current default quotas
 
-| Resource | Limit |
-| :--- | :--- |
-| AppClient | 3 |
-| Dataset | 100 |
-| Data bundles | 25 per month |
-| Document | 1000 per month |
-| Model | 3 |
-| Prediction | 1000 per month |
-| User | 50 |
+| Resource | Monthly Limit | Total limit |
+| :--- | :--- | :--- |
+| AppClient |  | 3 |
+| Dataset |  | 100 |
+| Data bundles | 25 |  |
+| Document | 20 000 uploads | 5 000 stored |
+| Model |  | 3 |
+| Prediction | 1 000 |  |
+| User |  | 50 |
 
