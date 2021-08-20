@@ -2,15 +2,17 @@
 
 ### Create model
 
-Let's create a model that fits our data and use case. A model requires some configuration in order to know what it should look for and train to predict values for. We can do this using a **field config**. Here we can define the name of our fields, and what type of values we expect them to return.
+After testing the demo model, we're ready to get started on our very own model. We'll begin by creating a model that fits our data and use case. 
 
-Let's pretend that we have some receipts that we'd like to get the total amount, and date from. We can create a field config file that looks something like this:
+A model requires some configuration so it knows what values it's supposed to predict. This is summarized in a **field config**. Here, a field config specifies the name of our fields and what type of values we expect the fields to predict.
+
+Let's pretend that we have some receipts and that we'd like to extract the total amount and date from them. We can create a field config file that looks something like this:
 
 {% code title="field\_config.json" %}
 ```javascript
 {
-  "total_amount": { "type": "amount", "maxLength": 20, "description": "" },
-  "date": { "type": "date", "maxLength": 10, "description": "" }
+  "total_amount": { "type": "amount", "maxLength": 20},
+  "date": { "type": "date", "maxLength": 10}
 }
 ```
 {% endcode %}
@@ -28,8 +30,8 @@ curl -X POST 'https://api.cradl.ai/v1/models' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "fieldConfig": {
-      "total_amount": { "type": "amount", "maxLength": 20, "description": "" },
-      "purchase_date": { "type": "date", "maxLength": 10, "description": "" }
+      "total_amount": { "type": "amount", "maxLength": 20},
+      "purchase_date": { "type": "date", "maxLength": 10}
     },
     "height": 1281,
     "width": 801,
@@ -41,8 +43,8 @@ curl -X POST 'https://api.cradl.ai/v1/models' \
 {% tab title="Python" %}
 ```python
 field_config = {
-  'total_amount': { 'type': 'amount', 'maxLength': 20, 'description': '' },
-  'purchase_date': { 'type': 'date', 'maxLength': 10, 'description': '' }
+  'total_amount': { 'type': 'amount', 'maxLength': 20},
+  'purchase_date': { 'type': 'date', 'maxLength': 10}
 }
 model = client.create_model(width=1281, height=801, field_config=field_config, name='Receipt model')
 ```
@@ -50,8 +52,6 @@ model = client.create_model(width=1281, height=801, field_config=field_config, n
 {% endtabs %}
 
 {% hint style="info" %}
-See [models concepts](../concepts/models.md) for detailed information about field config and other parameters used to define and create a model
+See [models concepts](../concepts/models.md) for detailed information about field configs and other parameters used to define and create a model.
 {% endhint %}
-
-Link to create model in Cradl
 
