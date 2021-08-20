@@ -15,9 +15,9 @@
 
 ## Concepts
 
+* [Models](concepts/models.md)
 * [Documents](concepts/documents.md)
 * [Datasets](concepts/datasets.md)
-* [Models](concepts/models.md)
 * [Data bundles](concepts/training-data.md)
 * [Predictions](concepts/predictions.md)
 
