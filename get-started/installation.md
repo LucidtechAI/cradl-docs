@@ -26,5 +26,11 @@ You can find the Open API specification file [here](https://raw.githubuserconten
 
 ## Other SDKs
 
-See references section for detailed use of every SDK:
+See references section for detailed use of every SDK
+
+{% page-ref page="../reference/javascript.md" %}
+
+{% page-ref page="../reference/java.md" %}
+
+{% page-ref page="../reference/net.md" %}
 
