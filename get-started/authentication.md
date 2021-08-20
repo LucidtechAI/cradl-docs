@@ -64,7 +64,7 @@ If everything is working as expected, the response should look similar to the fo
 ```
 
 {% hint style="warning" %}
-The access token will expire after some time, currently after 3600 seconds \(1 hour\). When the token expires, you need to get a new access token using the same procedure.
+The access token will expire after some time, currently 3600 seconds \(1 hour\). When the token expires, you need to get a new access token using the same procedure.
 {% endhint %}
 
 ## Calling the API
