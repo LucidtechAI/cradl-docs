@@ -46,8 +46,8 @@ dataset = client.create_dataset(name='Invoices 2020', description='From accounti
 
 The `datasetId` is used to include datasets in [Data bundles](training-data.md) and to [add documents to datasets](datasets.md#adding-documents-to-a-dataset). The `version` field is used to identify changes to a dataset, i.e. when adding/removing/updating contained documents.
 
-{% hint style="info" %}
-Give your datasets clear names and descriptions. This will be helpful when keeping track of which data you  your model from.
+{% hint style="warning" %}
+Give your datasets clear names and descriptions. This will be helpful when keeping track of which data you train your model from.
 {% endhint %}
 
 ## Adding documents to a dataset
