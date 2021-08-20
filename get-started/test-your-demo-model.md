@@ -1,8 +1,8 @@
 # Test your demo model
 
-After getting access to Cradl, you should have a pre-trained demo model available, that we can use for testing purposes.
+After getting access to Cradl, you should have a pre-trained demo model available, so let's get acquainted with Cradl using this test model!
 
-{% hint style="warning" %}
+{% hint style="info" %}
 The demo model has been pre-trained for a specific use-case, using documents that are not necessarily representative of your own data. Therefore, we'll be using the provided datasets with relevant documents during testing.
 {% endhint %}
 
