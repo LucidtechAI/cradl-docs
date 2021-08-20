@@ -10,14 +10,18 @@ The endpoint for authentication is [https://auth.cradle.ai](https://auth.cradl.a
 
 ## Using the CLI or SDKs
 
-Our CLI and SDKs will handle access tokens for us. The only thing we need to do is to put the credentials in a file in the correct location on our computer, and most Cradl SDKs will discover them. The credentials file should be placed in the following location, depending on the OS:
+Our CLI and SDKs will handle access tokens for us. The only thing we need to do is to put the credentials in a file in the correct location on our computer, and most Cradl SDKs will discover them. Alternatively you may use environmen variablses.
+
+#### credentials.json
+
+The credentials file should be placed in the following location, depending on the OS:
 
 | OS | Location |
 | :--- | :--- |
-| Linux/Mac | ~/.cradl/credentials.cfg or $HOME/.cradl/credentials.cfg |
-| Windows | %USERPROFILE%.cradl\credentials.cfg _or_ %HOME%.cradl\credentials.cfg |
+| Linux/Mac | ~/.cradl/credentials.json or $HOME/.cradl/credentials.json |
+| Windows | %USERPROFILE%.cradl\credentials.json _or_ %HOME%.cradl\credentials.json |
 
-The credentials.cfg file should look like the following:
+The credentials.json file should look like the following:
 
 ```javascript
 {
@@ -28,6 +32,15 @@ The credentials.cfg file should look like the following:
     "apiEndpoint": "api.cradl.ai/v1"
   }
 }
+```
+
+#### Environment variables
+
+```bash
+LAS_CLIENT_ID=''
+LAS_CLIENT_SECRET=''
+LAS_AUTH_ENDPOINT=''
+LAS_API_ENDPOINT=''
 ```
 
 ## Getting an access token manually
