@@ -7,7 +7,7 @@ To tell the model which data to use, we select datasets containing our training 
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las models create-data-bundle --name "Initial data report" las:model:<model id> las:dataset:<dataset id>
+las models create-data-bundle --name "Initial data report" <modelId> <datasetId>
 ```
 {% endtab %}
 
@@ -16,8 +16,9 @@ las models create-data-bundle --name "Initial data report" las:model:<model id> 
 curl -X POST 'https://api.cradl.ai/v1/models/<model id>/dataBundles' \
 --header 'Content-Type: application/json' \
 --data-raw '{
+    "modelId": <modelId>,
     "datasetIds": [
-        "las:dataset:<dataset id>"
+        <datasetId>
     ],
     "name": "Initial data report"
 }'
@@ -26,7 +27,7 @@ curl -X POST 'https://api.cradl.ai/v1/models/<model id>/dataBundles' \
 
 {% tab title="Python" %}
 ```python
-data_bundle = client.create_data_bundle(model_id='las:model:<model id>', dataset_ids=['las:dataset:<dataset id>'], name='Initial data report')
+data_bundle = client.create_data_bundle(model_id=<modelId>, dataset_ids=[<datasetId>], name='Initial data report')
 ```
 {% endtab %}
 {% endtabs %}
@@ -38,7 +39,7 @@ data_bundle = client.create_data_bundle(model_id='las:model:<model id>', dataset
   "name": "Initial data report",
   "datasets": [
     {
-      "datasetId": "las:dataset:<dataset id>",
+      "datasetId": <datasetId>,
       "numberOfDocuments": 3354,
       "createdTime": "2021-08-12T07:18:40.533029+0000",
       "retentionInDays": 1825,
@@ -60,19 +61,19 @@ A data report may take a few minutes to process. After it has been processed \(i
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las models list-data-bundles las:model:<model id> 
+las models list-data-bundles <modelId> 
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl 'https://api.cradl.ai/v1/models/<model id>/dataBundles'
+curl 'https://api.cradl.ai/v1/models/<modelId>/dataBundles'
 ```
 {% endtab %}
 
 {% tab title="Python" %}
 ```python
-data_bundle = client.list_data_bundles(model_id='las:model:<model id>')
+data_bundle = client.list_data_bundles(model_id=<modelId>)
 ```
 {% endtab %}
 {% endtabs %}
@@ -81,7 +82,7 @@ data_bundle = client.list_data_bundles(model_id='las:model:<model id>')
 {
   "dataBundles": [
     {
-      "dataBundleId": "las:model-data-bundle:<data bundle id>",
+      "dataBundleId": <dataBundleId>,
       "datasets": [...],
       "status": "ready",
       ...,
