@@ -2,7 +2,7 @@
 
 ### Create model
 
-After testing the demo model, we're ready to build on our very own model. We'll begin by creating a model that fits our data and use case. 
+After testing the demo model, we're ready to build on our very own model. We'll begin by creating a model that fits our data and use case.
 
 A model requires some configuration so it knows what values it's supposed to predict. This is summarized in a **field config**. Here, a field config specifies the name of our fields and what type of values we expect the fields to predict.
 
