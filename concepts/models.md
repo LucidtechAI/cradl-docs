@@ -116,7 +116,7 @@ The model is now defined, and in an `inactive` state. Once you start training, i
 
 The `height` and `width` parameters of the model define the shape of images that the model accepts. If you use a differently sized image, or a PDF, as input to the model, it will be resized to `height x width` before entering the model.
 
-The size of the images has implications for training time, response time and accuracy of the model, since larger images require more computation to process, while higher resolution *can* improve the reading quality of the model - especially if your images contain fine print that would be illegible at lower resolutions.
+The size of the images has implications for training time, response time and accuracy of the model. This is because larger images require more computation to process, while higher resolution *may* improve the reading quality of the model - especially if your images contain fine print that would be illegible at lower resolutions.
 
 {% hint style="warning" %}
 We recommend that you choose image sizes as `(multiple of 320) + 1`, as this will map optimally with the underlying model structure, making training more efficient.
