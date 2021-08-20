@@ -44,7 +44,7 @@ dataset = client.create_dataset(name='Invoices 2020', description='From accounti
 }
 ```
 
-Above, an empty dataset is created for documents to be added to. The `datasetId` is used to include a dataset in [Data bundle](training-data.md) of training data, and to [add documents to the dataset](datasets.md#adding-documents-to-a-dataset). The `version` field is used to identify changes to a dataset, i.e. when adding/removing/updating contained documents.
+Above, an empty dataset is created. You can use the `datasetId` to include a dataset in [Data bundle](training-data.md) of training data, and to [add documents to the dataset](datasets.md#adding-documents-to-a-dataset). The `version` field is used to identify changes to a dataset, i.e. when adding/removing/updating contained documents.
 
 {% hint style="info" %}
 Give your datasets clear names and descriptions. This will be helpful when keeping track of which data you  your model from.

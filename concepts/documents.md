@@ -200,10 +200,12 @@ The label name is used as a key in several places. Make sure you are consistent 
 
 In addition to grouping documents in datasets, documents can be assigned a `consentId` to facilitate deletion of single-user data. If your application requires users to register data use consent, you should label this consent by a user-unique ID, and label all user data uploaded to Cradl with a corresponding `consentId` at creation time.
 
+A `consentId` must be formatted as `"las:consent:[a-f0-9]{32}"`.
+
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las documents create path/to/document.pdf --consent-id <user-unique-id>
+las documents create path/to/document.pdf --consent-id <consent-id>
 ```
 {% endtab %}
 
@@ -215,7 +217,7 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
 --data-raw '{
     "content": "JVBERi0xLjQ...",
     "contentType": "application/pdf",
-    "consentId": <user-unique-id>
+    "consentId": <consent-id>
  }'
 ```
 {% endtab %}
