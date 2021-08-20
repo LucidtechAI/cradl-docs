@@ -32,7 +32,7 @@ document = client.create_document(b'<bytes data>', 'application/pdf')
 
 ```javascript
 {
-  "documentId": "las:document:<document id>,
+  "documentId": <documentId>,
   ...
 }
 ```
@@ -46,7 +46,7 @@ See the [confidence section](../concepts/predictions.md#confidence) to read more
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las predictions create las:document:<document id> las:model:<model id>
+las predictions create <documentId> <modelId>
 ```
 {% endtab %}
 
@@ -55,24 +55,24 @@ las predictions create las:document:<document id> las:model:<model id>
 curl -X POST 'https://api.cradl.ai/v1/predictions' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "documentId": "las:document:<document id>",
-    "modelId": "las:model:<model id>"
+    "documentId": <documentId>,
+    "modelId": <modelId>
 }'
 ```
 {% endtab %}
 
 {% tab title="Python" %}
 ```python
-prediction = client.create_prediction(document_id='las:document:<document id>', model_id='las:model:<model id>')
+prediction = client.create_prediction(document_id=<documentId>, model_id=<modelId>)
 ```
 {% endtab %}
 {% endtabs %}
 
 ```javascript
 {
-  "predictionId": "las:prediction:<prediction id>",
-  "modelId": "las:model:<model id>",
-  "documentId": "las:document:<document id>",
+  "predictionId": <predictionId>,
+  "modelId": <modelId>,
+  "documentId": <documentId>,
   "predictions": [
     {
       "label": "total_amount",
