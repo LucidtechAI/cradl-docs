@@ -1,6 +1,6 @@
 # Documents
 
-A _document_ in Cradl is a single data point to be used for [model training](models.md) or [Predictions](predictions.md). A document consists of a file with optional ground truth metadata. The ground truth metadata is used for training your model. Documents can be grouped in [Datasets](datasets.md).
+A _document_ in Cradl is a single data point to be used for [model training](models.md) or [Predictions](predictions.md). A document consists of a file with optional ground truth metadata. The ground truth metadata is used when training your model. Documents can be grouped in [Datasets](datasets.md).
 
 ## Creating a Document
 
