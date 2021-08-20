@@ -1,6 +1,6 @@
 # Data bundles
 
-A _data bundle_ in Cradl is a collection of one or more [Datasets](datasets.md) attached to a [Model](models.md). Before training a model, you must specify a data bundle that the model should use as training data. Since the quality of the trained model depends on the quality of the training data, we require that any data bundles used for training must pass a statistical test in the form of a [Data Report](training-data.md#data-report) before training can begin.
+A _data bundle_ in Cradl is a model-specific collection of one or more [Datasets](datasets.md). Before training a model, you must specify a data bundle that the model will use as training data. Since the quality of the trained model depends on the quality of the training data, we require that any data bundles used for training must pass a statistical test in the form of a [Data Report](training-data.md#data-report) before training can begin.
 
 ## Creating a data bundle
 
@@ -137,13 +137,13 @@ In this case, your data report get a low score on the Uniqueness statistic, and 
 
 #### Representative data
 
-Another way you data may be skewed is if it doesn't represent the range of documents you actually want the model to read. If, for instance, your training data contains documents issued in English and German, it will be hard for your model to read Chinese - or perhaps even Dutch - documents, since language, formatting and standards vary from country to country. This is not limited to geographical differences; if you train a model to read personal data from drivers' licences, you can't expect it to read data from passports without supplying a good amount of passport data as well.
+Another way your data may be skewed is if it doesn't represent the range of documents you actually want the model to read. If, for instance, your training data contains documents issued in English and German, it will be hard for your model to read Chinese - or perhaps even Dutch - documents, since language, formatting and standards vary from country to country. This is not limited to geographical differences; if you train a model to read personal data from drivers' licences, you can't expect it to read data from passports without supplying a good amount of passport data as well.
 
 Since our models don't now know in advance what sort of documents they will be used for reading, it is up to you to supply sufficient data for your use cases.
 
 #### Correct data
 
-Last, but not least: The ground truths for the training data you supply must be correct, so that your model does not inherit any errors from the underlying data. Our models learn by example, and if they are shown faulty examples, they may inherit those faults. The more errors are present in the data, the lower the quality of the predictions from the trained model.
+Last, but not least: The ground truths for the training data you supply must be correct, so that your model does not inherit any errors from the underlying data. Our models learn by example, and if they are shown faulty examples, they may inherit those faults. If you have many errors in your data, you can expect the trained model to make predictions with lower quality.
 
 To ensure that your data is correct, you should inspect it beforehand by taking samples and checking that the information presented in the ground truth of a document is, in fact, correct and present on the document.
 
