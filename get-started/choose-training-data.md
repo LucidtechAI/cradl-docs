@@ -1,4 +1,4 @@
-# Choose training data
+# Select and inspect training data
 
 We have now defined a model and created a dataset. The next step is to train the model, but first we need to tell it what data to use when training. At this point, it would also be wise to take a step back and make sure that our training data is of good quality, so that the outcome of the training will be satisfactory. Good quality training data is varied and has lots of examples for all the fields we want the model to extract. 
 

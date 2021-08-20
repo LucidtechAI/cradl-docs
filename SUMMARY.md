@@ -9,7 +9,7 @@
 * [Test your demo model](get-started/test-your-demo-model.md)
 * [Define model](get-started/create-a-model.md)
 * [Create dataset](get-started/create-a-dataset.md)
-* [Choose training data](get-started/choose-training-data.md)
+* [Select and inspect training data](get-started/choose-training-data.md)
 * [Train model](get-started/train-a-model.md)
 * [Serve model](get-started/serve-a-model.md)
 
