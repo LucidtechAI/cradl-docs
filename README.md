@@ -13,8 +13,3 @@ Cradl's approach to extracting structured data is _learning by example, not by i
 ### Getting started
 
 Ready to get started? Try our quickstart guide below, or read more about concepts to get a feel for how the platform works.
-
-
-
-
-
