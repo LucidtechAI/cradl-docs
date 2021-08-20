@@ -111,7 +111,7 @@ document = client.update_document(<document_id>, ground_truth=ground_truth)
 {% endtab %}
 
 {% tab title="ground\_truth.json" %}
-```
+```text
 [
   {
     "label": "amount",
@@ -126,7 +126,7 @@ document = client.update_document(<document_id>, ground_truth=ground_truth)
 {% endtab %}
 {% endtabs %}
 
- The JSON format for a ground truth file is an array of objects containing `label` and `value` keys. See below for examples. Values in the objects must be strings.
+The JSON format for a ground truth file is an array of objects containing `label` and `value` keys. See below for examples. Values in the objects must be strings.
 
 {% hint style="warning" %}
 The label name is used as a key in several places. Make sure you are consistent in using the same label names across documents and models.
@@ -249,7 +249,7 @@ curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
 {% endtab %}
 
 {% tab title="Python" %}
-```
+```text
 client.delete_document(<document_id>)
 ```
 {% endtab %}
