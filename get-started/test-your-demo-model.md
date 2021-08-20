@@ -35,7 +35,7 @@ models = client.list_models()
 {
   "models": [
     {
-      "modelId": "las:model:<model id>",
+      "modelId": <modelId>,
       "name": "Demo model",
       "description": null,
       "height": 1281,
@@ -93,7 +93,7 @@ datasets = client.list_datasets()
 {
   "datasets": [
     {
-      "datasetId": "las:dataset:<dataset id>",
+      "datasetId": <datasetId>,
       "description": null,
       "name": "Dataset generated: 2021-08-12T09:18:36.474767",
       "numberOfDocuments": 3354,
@@ -115,7 +115,7 @@ Let us now list the first page of documents from the dataset so we can pick a do
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las documents list --dataset-id las:dataset:<dataset id>
+las documents list --dataset-id <datasetId>
 ```
 {% endtab %}
 
@@ -136,7 +136,7 @@ documents = client.list_documents(dataset_id='las:dataset:<dataset id>')
 {
   "documents": [
     {
-      "documentId": "las:document:<document id>",
+      "documentId": <documentId>,
       ...
     },
     ...
@@ -149,7 +149,7 @@ Once we have a document selected, we can apply the model to it to make a predict
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las predictions create <document id> <model id>
+las predictions create <documentId> <modelId>
 ```
 {% endtab %}
 
@@ -159,8 +159,8 @@ curl -X POST 'https://api.cradl.ai/v1/predictions' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
-    "documentId": "<document id>",
-    "modelId": "<model id>"
+    "documentId": <documentId>,
+    "modelId": <modelId>
 }'
 ```
 {% endtab %}
@@ -174,9 +174,9 @@ prediction = client.create_prediction(document_id='<document id>', model_id='<mo
 
 ```javascript
 {
-  "predictionId": "l<prediction id>",
-  "modelId": "<model id>",
-  "documentId": "<document id>",
+  "predictionId": <predictionId>,
+  "modelId": <modelId>,
+  "documentId": <documentId>,
   "predictions": [
     {
       "label": "total_amount",
