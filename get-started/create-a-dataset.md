@@ -52,7 +52,7 @@ dataset = client.create_dataset(name='Initial training data')
 After creating a dataset, we can start uploading [documents](../concepts/documents.md) and assign them to it. Since we want to use the documents for training, we'll also assign [ground truth values](../concepts/documents.md#setting-ground-truths) to them. That way, the model will know what the desired output looks like while it's training. We'll make sure that the ground truth field names must match those in the field config we made for our model.
 
 {% hint style="warning" %}
-It is important to have **correct** ground truths for each document you want to use for training. They are what will guide your model to making correct predictions. If there are mistakes in the ground truths, the model will learn to make those mistakes.
+It is important to have **correct** ground truths for each document we want to use for training. They are what will guide our model to making correct predictions. If there are mistakes in the ground truths, our model will learn to make those mistakes.
 {% endhint %}
 
 {% tabs %}

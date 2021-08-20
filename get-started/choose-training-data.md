@@ -1,6 +1,8 @@
 # Choose training data
 
-Before we go to the next step of training our newly created model, it is wise to make sure that our training data is varied and has good coverage of all the various fields we want to train our model for. We can do this by selecting datasets with our training data, and create a data quality report on them.
+We have now defined a model and created a dataset. The next step is to train the model, but first we need to tell it what data to use when training. At this point, it would also be wise to take a step back and make sure that our training data is of good quality, so that the outcome of the training will be satisfactory. Good quality training data is varied and has lots of examples for all the fields we want the model to extract. 
+
+To tell the model which data to use, we select datasets containing our training data and attach them to the model in the form of a [data bundle](../concepts/training-data.md). Doing so will automatically create a [data quality report](../concepts/training-data.md#data-report) on the training data.
 
 {% tabs %}
 {% tab title="CLI" %}
@@ -53,7 +55,7 @@ data_bundle = client.create_data_bundle(model_id='las:model:<model id>', dataset
 }
 ```
 
-A data report takes a few minutes to process. After it has been processed \(its status has changed from `processing` to `ready`\) we can look at the summary to get an idea of how good our data is.
+A data report may take a few minutes to process. After it has been processed \(its status has changed from `processing` to `ready`\) we can look at the summary to get an idea of how good our data is.
 
 {% tabs %}
 {% tab title="CLI" %}
