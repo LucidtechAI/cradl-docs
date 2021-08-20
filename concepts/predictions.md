@@ -1,6 +1,6 @@
 # Predictions
 
-A prediction in Cradle represents an application of an active, trained [Model](models.md) to a [Document](documents.md) with the purpose of extracting data from the document. It supplies the extracted data together with confidence values representing the probability that the extracted data is correct.
+A prediction in Cradle results from an application of an active, trained [Model](models.md) to a [Document](documents.md). It supplies the extracted data together with confidence values representing the probability that the extracted data is correct.
 
 ## Making a prediction
 
