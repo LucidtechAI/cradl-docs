@@ -105,7 +105,7 @@ datasets = client.list_datasets()
 }
 ```
 
-List the first page of documents from the dataset so that we can pick a document to use:
+Let us now list the first page of documents from the dataset so we can pick a document to use:
 
 {% tabs %}
 {% tab title="CLI" %}
