@@ -52,6 +52,6 @@ model = client.create_model(width=1281, height=801, field_config=field_config, n
 {% endtabs %}
 
 {% hint style="info" %}
-See [models concepts](../concepts/models.md) for detailed information about field configs and other parameters used to define and create a model.
+See [models concepts](../concepts/models.md) for more information about field configs and other parameters used to create a model.
 {% endhint %}
 
