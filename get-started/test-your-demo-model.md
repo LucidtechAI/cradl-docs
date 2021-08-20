@@ -50,6 +50,11 @@ models = client.list_models()
           "maxLength": 30,
           "type": "amount",
           "description": "Total amount"
+        },
+        "purchase_date": {
+          "maxLength": 10,
+          "type": "date",
+          "description": "Purchase date"
         }
       },
       "status": "active",
