@@ -10,20 +10,20 @@ Unless specified otherwise in the credentials file you have received, the endpoi
 
 ## Getting an access token
 
-To acquire an access token, we ask the auth endpoint for access with our client id and client secret. This is done by performing a HTTP POST request to the token endpoint /oauth2/token with two headers provided. One header should be 'Authorization' with base64 encoded client\_id and client secret and one header should be 'Content-Type' which will always contain the same value: `application/x-www-form-urlencoded`
+To acquire an access token, we ask the auth endpoint for access using our client id and client secret. This is done by performing a HTTP POST request to the token endpoint /oauth2/token with two headers provided. One header is 'Authorization' with base64 encoded client\_id and client secret and one header is 'Content-Type' which will always contain the same value: `application/x-www-form-urlencoded`.
 
 | Header name | Header value |
 | :--- | :--- |
-| Authorization | Basic Base64Encode\(client\_id:client\_secret\) |
-| Content-Type | application/x-www-form-urlencoded |
+| Authorization | `Basic Base64Encode(client_id:client_secret)` |
+| Content-Type | `application/x-www-form-urlencoded` |
 
 {% hint style="info" %}
-Read more about Base64Encode [here](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side)
+Read more about Base64Encode [here](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side).
 {% endhint %}
 
-Since we are dealing with `client_credentials` we need to specify this in the url as a query parameter. The final URL to make the request to is [https://auth.cradl.ai/oauth2/token?grant\_type=client\_credentials](https://auth.cradl.ai/oauth2/token?grant_type=client_credentials)
+Since we are dealing with `client_credentials` we need to specify this in the URL as a query parameter. The final URL to make the request to is [https://auth.cradl.ai/oauth2/token?grant\_type=client\_credentials](https://auth.cradl.ai/oauth2/token?grant_type=client_credentials)
 
-Here is an example getting access token using curl in bash.
+Here is an example getting access token using cURL in bash.
 
 ```bash
 $ credentials="<your client id here>:<your client secret here>"
