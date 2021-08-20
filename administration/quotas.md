@@ -5,7 +5,7 @@ When using the Cradle API you might encounter limits in how many total resources
 ### Current default quotas
 
 | Resource | Monthly Limit | Total limit |
-| :--- | :--- | :--- |
+| :--- | :---: | :---: |
 | AppClient |  | 3 |
 | Dataset |  | 100 |
 | Data bundles | 25 |  |
