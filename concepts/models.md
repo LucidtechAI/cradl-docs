@@ -1,6 +1,6 @@
 # Models
 
-A model in Cradl is a custom-made machine learning program that can be trained to make [Predictions](predictions.md) on [Documents](documents.md) to extract exactly the data that you need. The models are tailored to the training data you supply in [Data bundles](training-data.md), and can extract a diverse range of data, whether date and total amount from receipts, specific payment data from invoices, or name and age from ID cards.
+A model in Cradl is a custom machine learning model that can be trained to make [Predictions](predictions.md) on [Documents](documents.md) to extract exactly the data you need. The models will be tailored to the training data you supply in [Data bundles](training-data.md), and can extract a diverse range of data depending on your needs. Some examples: date and total amount from receipts, specific payment data from invoices, or name and age from ID cards.
 
 ## What is a model?
 
@@ -9,7 +9,7 @@ Our models are state-of-the-art machine learning algorithms. This means that you
 The process of tailoring an algorithm to your specific use case is called _training_. Similar to how you would train a fresh employee to read out information from forms and documents, we teach your models how to extract data. This means we need to have a good set of _training data_ to begin teaching from, in the form of [Datasets](datasets.md) bundled together in a [Data bundle](training-data.md).
 
 {% hint style="warning" %}
-It is important that there is enough training data, and that the data are correct and of high quality. If the training data has errors, you will be teaching your model to make those same errors. Read more about [Data quality](training-data.md#data-quality) if you are in doubt whether your data will be good enough.
+It is important to have enough high quality training data. If the training data has errors, you will be teaching your model to make those same errors. Read more about [Data quality](training-data.md#data-quality) if you are in doubt whether your data will be good enough.
 {% endhint %}
 
 ## Creating a model
@@ -116,7 +116,7 @@ The model is now defined, and in an `inactive` state. Once you start training, i
 
 The `height` and `width` parameters of the model define the shape of images that the model accepts. If you use a differently sized image, or a PDF, as input to the model, it will be resized to `height x width` before entering the model.
 
-The size of the images has implications for training time, response time and accuracy of the model, since larger images require more computation to process, while higher resolution \(up to a certain point\) can improve the reading quality of the model - especially if your images contain fine print that would be illegible at lower resolutions.
+The size of the images has implications for training time, response time and accuracy of the model. This is because larger images require more computation to process, while higher resolution *may* improve the reading quality of the model - especially if your images contain fine print that would be illegible at lower resolutions.
 
 {% hint style="warning" %}
 We recommend that you choose image sizes as `(multiple of 320) + 1`, as this will map optimally with the underlying model structure, making training more efficient.
@@ -163,13 +163,17 @@ where the &lt;field\_type&gt; is one of the following:
 
 ## Selecting training data
 
-Once your model is defined, you can create one or more [Data bundles](training-data.md) linked to it to specify which data it should be trained on. You must create a data bundle of acceptable quality linked to your model before training is allowed. This is a safety measure to improve the quality of the trained model. Read more about data quality [here](training-data.md#data-quality).
+Once your model is defined, you can create one or more [Data bundles](training-data.md) to specify which data it should be trained on. You must create a data bundle of acceptable quality before training is allowed. Read more about data quality [here](training-data.md#data-quality).
+
+{% hint style="info" %}
+A Data bundle is model-specific, which means that it is defined as a nested resource under a specific model.
+{% endhint %}
 
 ## Training a model
 
 When you have created your model and successfully created a data bundle to be used for training, you are ready to request training. Training can be [requested in the Cradl UI](../get-started/train-a-model.md).
 
-The model will change status to `training`. This means that our team has begun training and validation of your model, and you will receive a notification from us once the model is ready for testing. This process may take several days before an initial model is produced, depending on the complexity and novelty of your requested model. For example, if your model contains data that we haven't encountered before \(new characters, data types, document types etc.\) we may need to add extra attention to ensure the final product is satisfactory.
+The model will change status to `training`. This means that our team has begun training and validation of your model, and you will receive a notification from us once the model is ready for testing. This process may take several days before an initial model is produced, depending on the complexity and novelty of your requested model. For example, if your model contains data that we haven't encountered before \(new characters, data types, document types etc.\) we may need to add extra attention to ensure that the final product is satisfactory.
 
 Once your model's training is complete, it will change status to `active`. It is now ready to make [Predictions](predictions.md) and you may test it as you see fit before shipping it off to production.
 
@@ -177,7 +181,7 @@ Once your model's training is complete, it will change status to `active`. It is
 
 Any program can be improved - and machine learning models are no exception. You may see that every so often, your model makes an incorrect prediction on a certain field - perhaps some fields more often than others. Or the [confidence](predictions.md#confidence) levels of your predictions may seem a little low, especially as time goes by and the current data being fed to your model drifts from the data that the model was trained on.
 
-Often, the key to improving your model is to supply more fresh data \(or simply more historical data\), or to improve the quality of already existing data. You may want to sample some of your training data to check whether the ground truth attached to the documents perfectly match the data on the documents, or check for more historical data in your source systems.
+Often, the key to improving your model is to supply more fresh data \(or simply more historical data\), or to improve the quality of already existing data. You may want to sample some of your training data to check whether the ground truth attached to the documents match the data on the documents, or check for more historical data in your source systems.
 
-In any case, new and improved data should be uploaded and added to new dataset\(s\), and you need to create a new data bundle containing the new dataset\(s\) and request training. We will then initiate a new training session with more and/or better data, and you should expect further improvement on your existing model.
+In any case, new and improved data should be uploaded and added to new dataset\(s\), which again is added to a new data bundle that will be used to request training. We will then initiate a new training session with more and/or better data, and you should expect further improvement on your existing model.
 
