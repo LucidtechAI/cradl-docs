@@ -119,6 +119,6 @@ document = client.create_document(b'<bytes data>', 'application/pdf', ground_tru
 ```
 
 {% hint style="success" %}
-If you upload documents without assigning them to a dataset, or if you want to change the dataset in the future, this is possible to do easily using the API. However, it is a lot easier to upload them directly to a dataset right away!
+If you upload documents without assigning them to a dataset, or if you want to assign them to a different dataset in the future, you can do so easily using the API. However, it is even easier to assign them directly to a dataset right away!
 {% endhint %}
 
