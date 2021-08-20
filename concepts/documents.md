@@ -1,6 +1,6 @@
 # Documents
 
-A _document_ in Cradl is a single data point to be used for [model training](models.md) or [Predictions](predictions.md). A document consists of a file with optional ground truth metadata. The ground truth metadata is required for training your model. Documents can be grouped in [Datasets](datasets.md).
+A _document_ in Cradl consists of a file with metadata. Documents serve two purposes: as data points when training [models](models.md) and as inputs when making [predictions](predictions.md). A document's metadata must contain a ground truth if the document is going to be used for training. To help you organize your documents from different sources we recommend that you group them in separate [Datasets](datasets.md).
 
 ## Creating a Document
 
@@ -43,9 +43,9 @@ document = client.create_document(b'<bytes data>', 'application/pdf')
 }
 ```
 
-The returned`documentId` can be used together with a `modelId` to make a [prediction](predictions.md#making-a-prediction) on the document once a model has been trained. You can also [set a ground truth](documents.md#setting-ground-truths) for the document and add it to a [Dataset](datasets.md) to use it as training data for a model.
+The returned `documentId` can be used together with a `modelId` to make a [prediction](predictions.md#making-a-prediction) on the document once a model has been trained. You can also [set a ground truth](documents.md#setting-ground-truths) for the document and add it to a [Dataset](datasets.md) to use it as training data for a model.
 
-## Setting ground truths
+## Assigning ground truth to to a document
 
 To use a document as training data, it must have an attached ground truth; since our models learn by example, you must provide both the example input \(the file\) and its expected output \(the ground truth\). The ground truth can be provided when you create the document, or it can be added as an update to an existing document.
 
