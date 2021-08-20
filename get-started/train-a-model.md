@@ -1,6 +1,6 @@
 # Train model
 
-Training of models may only be requested through the Cradl app for now. The API will have this feature publically available soon!
+Training of models may only be requested through the Cradl UI for now. The API will have this feature publically available soon!
 
 Under your selected model, just go to the **Training** tab and click the **New training** button:
 
