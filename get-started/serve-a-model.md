@@ -2,7 +2,7 @@
 
 After your model has been trained, it can be used and tested to make [predictions](../concepts/predictions.md). Assuming [good quality](../concepts/training-data.md#data-quality) input data has been used for training, you should see excellent predictions for your documents.
 
-To make a prediction using a model, we need to provide a document id and a model id. We already have the id of our model, so let's upload a document to make a prediction on:
+To make a prediction using a model, we need to provide a document id and a model id. We already have the id of our model, so let's upload a document to make a prediction on. 
 
 {% tabs %}
 {% tab title="CLI" %}
