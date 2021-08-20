@@ -23,7 +23,7 @@ Read more about Base64Encode [here](https://en.wikipedia.org/wiki/Basic_access_a
 
 Since we are dealing with `client_credentials` we need to specify this in the URL as a query parameter. The final URL to make the request to is [https://auth.cradl.ai/oauth2/token?grant\_type=client\_credentials](https://auth.cradl.ai/oauth2/token?grant_type=client_credentials)
 
-Here is an example getting access token using cURL in bash.
+Below is an example of getting an access token using cURL in bash.
 
 ```bash
 $ credentials="<your client id here>:<your client secret here>"
@@ -31,7 +31,7 @@ $ base64_encoded_credentials=`echo -n $credentials | base64 -w 0`
 $ curl -X POST https://auth.cradl.ai/oauth2/token?grant_type=client_credentials -H "Content-Type: application/x-www-form-urlencoded" -H "Authorization: Basic $base64_encoded_credentials"
 ```
 
-If everything is working as expected, the response should look similar to the following
+If everything is working as expected, the response should look similar to the following:
 
 ```javascript
 {
@@ -42,12 +42,12 @@ If everything is working as expected, the response should look similar to the fo
 ```
 
 {% hint style="warning" %}
-The access token will expire after some time, currently after 3600 seconds \(1 hour\). When the token expires you will need to get a new access token using the same procedure.
+The access token will expire after some time, currently after 3600 seconds \(1 hour\). When the token expires, you need to get a new access token using the same procedure.
 {% endhint %}
 
 ## Calling the API
 
-Upon successfully acquiring access token from previous step, we are ready to call the API. To do that we need to provide tne header 'Authorization' with the newly acquired access token.
+After successfully acquiring an access token from the previous step, we are ready to call the API. To do so we need to provide an 'Authorization' header with the newly acquired access token.
 
 | Header name | Header value |
 | :--- | :--- |
