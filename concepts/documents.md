@@ -126,10 +126,10 @@ document = client.update_document(<document_id>, ground_truth=ground_truth)
 {% endtab %}
 {% endtabs %}
 
- The JSON format for a ground truth file is an array of objects containing `label` and `value` fields. Labels and values must be strings.
+ The JSON format for a ground truth file is an array of objects containing `label` and `value` keys. See below for examples. Values in the objects must be strings.
 
 {% hint style="warning" %}
-The label name is used as a key in several places. Ensure that you are consistent in using the same label names across documents and models.
+The label name is used as a key in several places. Make sure you are consistent in using the same label names across documents and models.
 {% endhint %}
 
 {% tabs %}
