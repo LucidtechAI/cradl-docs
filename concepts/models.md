@@ -14,7 +14,7 @@ It is important that there is enough training data, and that the data are correc
 
 ## Creating a model
 
-Every model has a specified `width`, `height` and `fieldConfig`. The `width` and `height` describe the image resolution used for input,  while the `fieldConfig` specifies which fields to extract, and what type of data the field represents. 
+Every model has a specified `width`, `height` and `fieldConfig`. The `width` and `height` describe the image resolution used for input. The `fieldConfig` specifies which fields to extract and what type of data the field represents. 
 
 The `fieldConfig` input is specified in a JSON formatted file.
 
