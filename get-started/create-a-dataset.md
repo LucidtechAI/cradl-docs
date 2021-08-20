@@ -1,6 +1,6 @@
 # Create dataset
 
-### **Create dataset**
+## **Create dataset**
 
 After defining our model, we'd like to get it trained and ready for work. To train a model, we need to provide it with a sufficiently many example [documents](../concepts/documents.md). Documents can be grouped together in [datasets](../concepts/datasets.md), so before we start uploading documents, let's create a dataset.
 
@@ -47,7 +47,7 @@ dataset = client.create_dataset(name='Initial training data')
 }
 ```
 
-### Upload documents to a dataset
+## Upload documents to a dataset
 
 We can now start uploading [documents](../concepts/documents.md) and assign them to our dataset. Since we want to use the documents for training, we'll also provide [ground truth values](../concepts/documents.md#setting-ground-truths) that will define the correct output for the model on each document. We'll have to make sure that the field names in the ground truth match those in the field config we made for our model.
 

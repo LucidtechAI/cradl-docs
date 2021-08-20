@@ -1,6 +1,6 @@
 # Select and inspect training data
 
-We have now defined a model and created a dataset. The next step is to train the model, but first we need to tell it what data to use when training. At this point, it would also be wise to take a step back and make sure that our training data is of good quality, so that the outcome of the training will be satisfactory. Good quality training data is varied and has lots of examples for all the fields we want the model to extract. 
+We have now defined a model and created a dataset. The next step is to train the model, but first we need to tell it what data to use when training. At this point, it would also be wise to take a step back and make sure that our training data is of good quality, so that the outcome of the training will be satisfactory. Good quality training data is varied and has lots of examples for all the fields we want the model to extract.
 
 To tell the model which data to use, we select datasets containing our training data and attach them to the model in the form of a [data bundle](../concepts/training-data.md). Doing so will automatically create a [data quality report](../concepts/training-data.md#data-report) on the training data.
 
@@ -61,7 +61,7 @@ A data report may take a few minutes to process. After it has been processed \(i
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las models list-data-bundles <modelId> 
+las models list-data-bundles <modelId>
 ```
 {% endtab %}
 

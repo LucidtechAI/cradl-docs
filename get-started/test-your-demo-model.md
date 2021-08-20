@@ -16,7 +16,7 @@ las models list
 {% endtab %}
 
 {% tab title="cURL" %}
-```
+```text
 curl https://api.cradl.ai/v1/models -H 'Authorization: Bearer eyJra...'
 ```
 {% endtab %}

@@ -1,6 +1,6 @@
 # Define model
 
-### Create model
+## Create model
 
 After testing the demo model, we're ready to build on our very own model. We'll begin by creating a model that fits our data and use case.
 

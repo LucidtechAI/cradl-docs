@@ -2,7 +2,7 @@
 
 This guide assumes use of our **CLI** tool, **cURL,** or our **Python SDK**. To install these, follow the relevant steps below.
 
-## Command Line Interface (CLI)
+## Command Line Interface \(CLI\)
 
 Our CLI allows you to access Cradl from the command line.
 

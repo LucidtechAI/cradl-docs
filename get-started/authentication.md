@@ -1,6 +1,6 @@
 # Authentication
 
-Cradl requires you to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our CLI and SDKs will handle authentication automatically, but if you wish to use the REST API, you will need to authenticate manually. 
+Cradl requires you to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our CLI and SDKs will handle authentication automatically, but if you wish to use the REST API, you will need to authenticate manually.
 
 ## Credentials
 
@@ -12,7 +12,7 @@ The endpoint for authentication is [https://auth.cradl.ai](https://auth.cradl.ai
 
 Our CLI and SDKs will handle access tokens for us. The only thing we need to do is to put the credentials in a file as specified below, and our SDKs will use them automatically. Alternatively, you may use environment variables.
 
-#### credentials.json
+### credentials.json
 
 The credentials file should be placed in the following location, depending on the OS:
 
@@ -34,7 +34,7 @@ The credentials.json file should look like the following:
 }
 ```
 
-#### Environment variables
+### Environment variables
 
 ```bash
 LAS_CLIENT_ID="<your client id here>"
@@ -92,3 +92,4 @@ After successfully acquiring an access token from the previous step, we are read
 $ access_token="<you access token here>"
 $ curl https://api.cradl.ai/v1/documents -H "Authorization: Bearer $access_token"
 ```
+

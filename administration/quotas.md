@@ -4,18 +4,13 @@ When using the Cradle API you might encounter limits in how many total resources
 
 ### Current default quotas
 
-| Resource | Monthly limit | Total limit |
-| :--- | :--- | :--- |
-| AppClient | No limit | 3 |
-| Asset | No limit | 50 |
-| Dataset | No limit | 100 |
-| Document | 1000 | No limit |
-| Model | No limit | 3 |
-| Prediction | 1000 | No limit |
-| Secret | No limit | 5 |
-| Transition | No limit | 10 |
-| Transition Execution | 5000 | No limit |
-| User | No limit | 50 |
-| Workflow | No limit | 5 |
-| Workflow Execution | 500 | No limit |
+| Resource | Limit |
+| :--- | :--- |
+| AppClient | 3 |
+| Dataset | 100 |
+| Data bundles | 25 per month |
+| Document | 1000 per month |
+| Model | 3 |
+| Prediction | 1000 per month |
+| User | 50 |
 
