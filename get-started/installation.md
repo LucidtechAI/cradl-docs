@@ -6,9 +6,7 @@ This guide assumes use of our **CLI** tool, **cURL,** or our **Python SDK**. To 
 
 Our CLI tool simplifies making API calls, and will detect credentials automatically.
 
-Prerequisites:
-
-* Working Python and pip install
+Prerequisite: Working Python and pip install
 
 ```bash
 $ pip install lucidtech-las-cli
@@ -16,9 +14,7 @@ $ pip install lucidtech-las-cli
 
 ## Python SDK
 
-Prerequisites:
-
-* Working Python and pip install
+Prerequisite: Working Python and pip install
 
 ```bash
 $ pip install lucidtech-las
