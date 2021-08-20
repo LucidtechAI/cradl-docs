@@ -1,10 +1,10 @@
 # Documents
 
-A _document_ in Cradl represents a single data point which can be used for training or [Predictions](predictions.md). It consists of a file, with optional metadata containing the ground truth of what should be extracted from the document when used for training. Collections of documents for training are called [Datasets](datasets.md).
+A _document_ in Cradl represents a single data point to be used for [model training](models.md) or [Predictions](predictions.md). A document consists of a file with optional ground truth metadata. The ground truth metadata is used for training your model. Documents can be grouped in [Datasets](datasets.md).
 
 ## Creating a Document
 
-Documents can either be uploaded directly to Cradl in the documents interface, or programmatically.
+Documents can be created via Cradl's [various API clients](../get-started/installation.md).
 
 {% hint style="success" %}
 Allowed formats for documents are PDF, JPEG, PNG and TIFF.
