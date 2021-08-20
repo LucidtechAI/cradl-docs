@@ -4,13 +4,13 @@ The Cradl API requires us to authenticate using the [OAuth2 protocol](https://to
 
 ## Credentials
 
-**You should acquire a client id and client secret from the Cradl UI before continuing.** The client id and client secret are used to acquire access tokens to authorize API use.
+**You should acquire a client id and client secret by creating an App client in the Cradl UI before continuing.** The client id and client secret are used to acquire access tokens to authorize API use.
 
 The endpoint for authentication is [https://auth.cradle.ai](https://auth.cradl.ai) and the endpoint for the API is [https://api.cradl.ai](https://api.cradl.ai).
 
 ## Using the CLI or SDKs
 
-Our CLI and SDKs will handle access tokens for you. The only thing you need to do is to put the credentials in a file in the correct location on your computer, and most Cradl SDKs will discover them. The credentials file should be placed in the following location, depending on your OS:
+Our CLI and SDKs will handle access tokens for us. The only thing we need to do is to put the credentials in a file in the correct location on our computer, and most Cradl SDKs will discover them. The credentials file should be placed in the following location, depending on the OS:
 
 | OS | Location |
 | :--- | :--- |
@@ -30,7 +30,7 @@ The credentials.cfg file should look like the following:
 }
 ```
 
-## Getting an access token yourself
+## Getting an access token manually
 
 To acquire an access token, query the auth endpoint for access using your client id and client secret. This is done by performing a HTTP POST request to the token endpoint /oauth2/token with two headers provided. One header is 'Authorization' with base64 encoded client\_id and client secret and one header is 'Content-Type' which will always contain the same value: `application/x-www-form-urlencoded`.
 
