@@ -33,7 +33,7 @@ curl -X POST 'https://api.cradl.ai/v1/models/<modelId>/dataBundles' \
 ```python
 data_bundle = client.create_data_bundle(
     model_id=<model_id>, 
-    dataset_ids=[<dataset_id_1>, <dataset_id_2>], 
+    dataset_ids=[<datasetId_1>, <datasetId_2>], 
     name="Invoice model training data v1",
     description="Training data from first two datasets",
 )
@@ -83,8 +83,8 @@ curl -X PATCH 'https://api.cradl.ai/v1/models/<modelId>/dataBundles/<dataBundleI
 {% tab title="Python" %}
 ```python
 data_bundle = client.update_data_bundle(
-    model_id=<model_id>, 
-    data_bundle_id=<data_bundle_id>,
+    model_id=<modelId>, 
+    data_bundle_id=<dataBundleId>,
 )
 ```
 {% endtab %}
