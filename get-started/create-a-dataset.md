@@ -4,10 +4,6 @@
 
 After defining our model, we'd like to get it trained and ready for work. To train a model, we need to provide it with a sufficiently many example [documents](../concepts/documents.md). The documents are bundled together in the form of [datasets](../concepts/datasets.md), so before we start uploading documents, let's create a dataset to hold all of them together.
 
-{% hint style="warning" %}
-It is important to have correct ground truth values for each document, in order to train your model to give correct predictions for each field you want to extract! These ground truth fields should match the field config defined for your model.
-{% endhint %}
-
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
@@ -51,11 +47,13 @@ dataset = client.create_dataset(name='Initial training data')
 }
 ```
 
-Insert direct link to Cradl that takes you to datasets
-
 ### Upload documents to a dataset
 
-After we've created a dataset, we can start uploading [documents](../concepts/documents.md) and assign them to it directly.
+After creating a dataset, we can start uploading [documents](../concepts/documents.md) and assign them to it. Since we want to use these documents for training, we'll also assign [ground truth values](../concepts/documents.md#setting-ground-truths) to them. That way, the model will know what the desired output looks like while it's training. The ground truth field names must match those in the field config defined for your model.
+
+{% hint style="warning" %}
+It is important to have **correct** ground truths for each document you want to use for training. They are what will guide your model to making correct predictions. If the ground truths contain mistakes, the model will learn to make those mistakes.
+{% endhint %}
 
 {% tabs %}
 {% tab title="CLI" %}
