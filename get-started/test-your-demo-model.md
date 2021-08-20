@@ -3,10 +3,10 @@
 After getting access to Cradl, you should have a pre-trained demo model available, that we can use for testing purposes.
 
 {% hint style="warning" %}
-Note that the demo model has been pre-trained for a specific use-case, using documents that are not necessarily representative of your own data. Hence we'll also use the provided datasets with relevant documents during testing.
+The demo model has been pre-trained for a specific use-case, using documents that are not necessarily representative of your own data. Therefore, we'll be using the provided datasets with relevant documents during testing.
 {% endhint %}
 
-First let's list our available models to get a model id we can use:
+First, let's list our available models to get a model id we can use:
 
 {% tabs %}
 {% tab title="CLI" %}
@@ -62,7 +62,7 @@ models = client.list_models()
 }
 ```
 
-List the available datasets:
+Next, list the available datasets:
 
 {% tabs %}
 {% tab title="CLI" %}
