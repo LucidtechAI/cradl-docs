@@ -1,6 +1,6 @@
 # Datasets
 
-A _dataset_ in Cradl is a collection of [Documents](documents.md), preferably from a single source, to be used for training. Datasets are collected in [Data bundles](training-data.md) that can be used to train [Models](models.md).
+A _dataset_ in Cradl is a collection of [Documents](documents.md), preferably from a single source. When you have uploaded a sufficient amount of documents in your datasets they can be bundled together in [Data bundles](training-data.md) for unspection and ultimately training a [Model](models.md).
 
 ## Creating a dataset
 
@@ -52,7 +52,7 @@ Give your datasets clear names and descriptions. This will be helpful when keepi
 
 ## Adding documents to a dataset
 
-Documents can be assigned to a dataset either at creation time or in an update. A document can be attached to at most one dataset.
+Documents can be assigned to a dataset either at creation time or in an update.
 
 {% tabs %}
 {% tab title="CLI" %}
@@ -91,16 +91,19 @@ document = client.update_document(<documentId>, datasetId=<datasetId>)
 {% endtab %}
 {% endtabs %}
 
+{% hint style="warning" %}
+A document cannot be added to more than one dataset.
+{% endhint %}
+
+
 ## Deleting a dataset
 
-A dataset may not be deleted unless all documents contained in the dataset are deleted first. Instructions on how to delete all documents from a dataset are found on the [Documents](documents.md#deleting-documents) page.
+A dataset may not be deleted unless all documents contained in the dataset are deleted first. Our SDK's and CLI supports doing this in one single command, for instructions on how to delete all documents from a dataset see the [Documents](documents.md#deleting-documents) page.
 
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las documents delete-all --dataset-id <datasetId>
-las datasets delete <datasetId>
-```
+las datasets delete --delete-documents
 {% endtab %}
 
 {% tab title="cURL" %}
