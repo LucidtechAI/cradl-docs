@@ -17,6 +17,8 @@ Let's pretend that we have some receipts and that we'd like to extract the total
 ```
 {% endcode %}
 
+Next we'll use the field config to create an un-trained model:
+
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
