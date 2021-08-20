@@ -103,7 +103,7 @@ A dataset may not be deleted unless all documents contained in the dataset are d
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las datasets delete --delete-documents
+las datasets delete <datasetId> --delete-documents
 {% endtab %}
 
 {% tab title="cURL" %}
