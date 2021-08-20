@@ -4,7 +4,7 @@ The Cradl API requires you to authenticate using the [OAuth2 protocol](https://t
 
 ### Credentials
 
-You should already have acquired a client id, and client secret before continuing. The client id and client secret will be used to get an access token from the auth endpoint to authorize to the API.
+You should already have acquired a client id and client secret before continuing. The client id and client secret will be used to get an access token from the auth endpoint to authorize to the API.
 
 Unless specified otherwise in the credentials file you have received, the endpoint for authentication is [https://auth.cradle.ai](https://auth.cradl.ai) and the endpoint for the API is [https://api.cradl.ai](https://api.cradl.ai)
 
