@@ -9,7 +9,7 @@ Once a model is trained and active, it can be applied to documents by making a p
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las predictions create <document id> <model id>
+las predictions create <documentId> <modelId>
 ```
 {% endtab %}
 
@@ -18,24 +18,24 @@ las predictions create <document id> <model id>
 curl -X POST 'https://api.cradl.ai/v1/predictions' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "documentId": "las:document:<document id>",
-    "modelId": "las:model:<model id>"
+    "documentId": "las:document:<documentId>",
+    "modelId": "las:model:<modelId>"
 }'
 ```
 {% endtab %}
 
 {% tab title="Python" %}
 ```python
-prediction = client.create_prediction(document_id=<document id>, model_id=<model id>)
+prediction = client.create_prediction(document_id=<documentId>, model_id=<modelId>)
 ```
 {% endtab %}
 {% endtabs %}
 
 ```javascript
 {
-  "predictionId": "<prediction id>",
-  "modelId": "<model id>",
-  "documentId": "<document id>",
+  "predictionId": "<predictionId>",
+  "modelId": "<modelId>",
+  "documentId": "<documentId>",
   "predictions": [
     {
       "label": "total_amount",
