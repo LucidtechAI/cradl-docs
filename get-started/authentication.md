@@ -70,9 +70,9 @@ If everything is working as expected, the response should look similar to the fo
 
 ```javascript
 {
-  "access_token":"eyJ...",
-  "expires_in":3600,
-  "token_type":"Bearer"
+  "access_token": "eyJ...",
+  "expires_in": 3600,
+  "token_type": "Bearer"
 }
 ```
 
