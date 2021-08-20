@@ -57,8 +57,8 @@ Documents can be assigned to a dataset either at creation time or in an update. 
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las documents create path/to/my/document.pdf --dataset-id <dataset-id>
-las documents update <document-id> --dataset-id <dataset-id>
+las documents create path/to/my/document.pdf --dataset-id <datasetId>
+las documents update <documentId> --dataset-id <datasetId>
 ```
 {% endtab %}
 
@@ -86,7 +86,7 @@ curl -X PATCH 'https://api.cradl.ai/v1/documents/<documentId>' \
 ```python
 document = client.create_document(b'<bytes data>', 'application/pdf', datasetId=<datasetId>)
 # or
-document = client.update_document(<document_id>, datasetId=<datasetId>)
+document = client.update_document(<documentId>, datasetId=<datasetId>)
 ```
 {% endtab %}
 {% endtabs %}
@@ -98,8 +98,8 @@ A dataset may not be deleted unless all documents contained in the dataset are d
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las documents delete-all --dataset-id <dataset-id>
-las datasets delete <dataset-id>
+las documents delete-all --dataset-id <datasetId>
+las datasets delete <datasetId>
 ```
 {% endtab %}
 
@@ -120,7 +120,7 @@ curl -X DELETE 'https://api.cradl.ai/v1/documents' \
 
 {% tab title="Python" %}
 ```python
-client.delete_dataset(dataset_id=<dataset_id>, delete_documents=True)
+client.delete_dataset(dataset_id=<datasetId>, delete_documents=True)
 ```
 {% endtab %}
 {% endtabs %}
