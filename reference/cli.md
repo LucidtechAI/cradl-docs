@@ -1,6 +1,9 @@
-# CLI
+## Command Line Interface \(CLI\)
+
+Our CLI allows you to access Cradl from the command line.
+
+**Prerequisites:** Python and pip
 
 ```bash
-las -h
+$ pip install lucidtech-las-cli
 ```
-

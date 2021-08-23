@@ -19,14 +19,14 @@ The credentials file should be placed in the following location, depending on th
 | OS | Location |
 | :--- | :--- |
 | Linux/Mac | ~/.cradl/credentials.json or $HOME/.cradl/credentials.json |
-| Windows | %USERPROFILE%.cradl\credentials.json _or_ %HOME%.cradl\credentials.json |
+| Windows | %USERPROFILE%\.cradl\credentials.json _or_ %HOME%\.cradl\credentials.json |
 
 The credentials.json file should look like the following:
 
 ```javascript
 {
   "default": {
-    "client_id": "<your client id here>",
+    "clientId": "<your client id here>",
     "clientSecret": "<your client secret here>",
     "authEndpoint": "auth.cradl.ai",
     "apiEndpoint": "api.cradl.ai/v1"
@@ -37,10 +37,10 @@ The credentials.json file should look like the following:
 ### Environment variables
 
 ```bash
-LAS_CLIENT_ID="<your client id here>"
-LAS_CLIENT_SECRET="<your client secret here>"
-LAS_AUTH_ENDPOINT="auth.cradl.ai"
-LAS_API_ENDPOINT="api.cradl.ai/v1"
+CRADL_CLIENT_ID="<your client id here>"
+CRADL_CLIENT_SECRET="<your client secret here>"
+CRADL_AUTH_ENDPOINT="auth.cradl.ai"
+CRADL_API_ENDPOINT="api.cradl.ai/v1"
 ```
 
 ## Getting an access token manually

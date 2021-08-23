@@ -103,14 +103,14 @@ datasets = client.list_datasets()
       "updatedBy": null,
       "retentionInDays": 1825,
       "storageLocation": "EU",
-      "containsPersonallyIdentifiableInformation": true,
+      "containsPersonallyIdentifiableInformation": false,
       "version": 3354
     }
   ]
 }
 ```
 
-Let us now list the first page of documents from the dataset so we can pick a document to use:
+Let us now list the first page of documents from the dataset so that we can pick a document to use:
 
 {% tabs %}
 {% tab title="CLI" %}
