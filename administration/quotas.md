@@ -9,7 +9,7 @@ When using the Cradle API you might encounter limits in how many total resources
 | AppClient |  | 3 |
 | Dataset |  | 100 |
 | Data bundles | 25 |  |
-| Document | 20 000 uploads | 5 000 stored |
+| Document | 20 000 |  |
 | Model |  | 3 |
 | Prediction | 1 000 |  |
 | User |  | 50 |
