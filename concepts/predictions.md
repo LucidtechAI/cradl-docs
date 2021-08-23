@@ -1,6 +1,6 @@
 # Predictions
 
-A prediction in Cradle results from an application of an active, trained [Model](models.md) to a [Document](documents.md). It supplies the extracted data together with confidence values representing the probability that the extracted data is correct.
+A prediction in Cradle results from an application of an active, trained [Model](models.md) on a [Document](documents.md). It supplies the extracted data together with confidence values representing the probability that the extracted data onis correct.
 
 ## Making a prediction
 
@@ -57,7 +57,7 @@ The above example shows an application to an example document. Each label in the
 
 ## Confidence
 
-Every field the model extracts has a corresponding confidence value. The confidence is different from a traditional OCR confidence in that it not only estimates the probability that the characters are interpreted correctly, but also that it has extracted the correct information \(e.g. the total amount and not the VAT amount\). 
+Every field the model extracts has a corresponding confidence value. Our confidence is different from a traditional OCR confidence in that it not only estimates the probability that the characters are interpreted correctly, but also that it has extracted the correct information \(e.g. the total amount and not the VAT amount\). 
 
 #### What does a good confidence value look like?
 
