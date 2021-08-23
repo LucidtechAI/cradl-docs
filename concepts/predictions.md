@@ -57,7 +57,7 @@ The above example shows an application to an example document. Each label in the
 
 ## Confidence
 
-Every field the model extracts has a corresponding confidence value. The confidence is different from a traditional OCR confidence in that it not only estimates the probability that the characters are interpreted correctly, but also that it has extracted the correct information \(e.g. the total amount and not the VAT amount\). 
+Every field the model extracts has a corresponding confidence value. Our confidence is different from a traditional OCR confidence in that it not only estimates the probability that the characters are interpreted correctly, but also that it has extracted the correct information \(e.g. the total amount and not the VAT amount\). 
 
 #### What does a good confidence value look like?
 
