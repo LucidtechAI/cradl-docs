@@ -189,9 +189,9 @@ where the `<field_type>` is one of the following:
     <tr>
       <td style="text-align:left"><b><code>alphanum</code></b>
       </td>
-      <td style="text-align:left">String of alphanumeric characters</td>
+      <td style="text-align:left">String of alphanumeric characters (including space)</td>
       <td style="text-align:left">
-        <p><code>0123456789</code>
+        <p><code> 0123456789</code>
         </p>
         <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
@@ -204,10 +204,10 @@ where the `<field_type>` is one of the following:
     <tr>
       <td style="text-align:left"><b><code>alphanumext</code></b>
       </td>
-      <td style="text-align:left">String of alphanumeric characters with common special characters</td>
+      <td style="text-align:left">String of alphanumeric characters with common special characters (including space)</td>
       <td
       style="text-align:left">
-        <p><code>0123456789</code>
+        <p><code> 0123456789</code>
         </p>
         <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
@@ -222,10 +222,10 @@ where the `<field_type>` is one of the following:
     <tr>
       <td style="text-align:left"><b><code>all</code></b>
       </td>
-      <td style="text-align:left">String of alphanumeric characters with more special characters</td>
+      <td style="text-align:left">String of alphanumeric characters with more special characters (including space)</td>
       <td
       style="text-align:left">
-        <p><code>0123456789</code>
+        <p><code> 0123456789</code>
         </p>
         <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
@@ -240,8 +240,8 @@ where the `<field_type>` is one of the following:
     <tr>
       <td style="text-align:left"><b><code>letter</code></b>
       </td>
-      <td style="text-align:left">String of latin characters</td>
-      <td style="text-align:left"><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
+      <td style="text-align:left">String of latin characters (including space)</td>
+      <td style="text-align:left"><code> ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
       </td>
       <td style="text-align:left"><code>Any</code>
       </td>
@@ -249,8 +249,8 @@ where the `<field_type>` is one of the following:
     <tr>
       <td style="text-align:left"><b><code>number</code></b>
       </td>
-      <td style="text-align:left">String of digits</td>
-      <td style="text-align:left"><code>0123456789</code>
+      <td style="text-align:left">String of digits (including space)</td>
+      <td style="text-align:left"><code> 0123456789</code>
       </td>
       <td style="text-align:left"><code>Any</code>
       </td>
