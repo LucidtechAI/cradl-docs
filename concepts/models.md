@@ -116,7 +116,7 @@ The model is now defined, and in an `inactive` state. Once you start training, i
 
 The `height` and `width` parameters of the model define the shape of images that the model accepts. If you use a differently sized image, or a PDF, as input to the model, it will be resized to `height x width` before entering the model.
 
-The size of the images has implications for training time, response time and accuracy of the model. This is because larger images require more computation to process, while higher resolution *may* improve the reading quality of the model - especially if your images contain fine print that would be illegible at lower resolutions.
+The size of the images has implications for training time, response time and accuracy of the model. This is because larger images require more computation to process, while higher resolution _may_ improve the reading quality of the model - especially if your images contain fine print that would be illegible at lower resolutions.
 
 {% hint style="warning" %}
 We recommend that you choose image sizes as `(multiple of 320) + 1`, as this will map optimally with the underlying model structure, making training more efficient.
@@ -180,7 +180,7 @@ where the `<field_type>` is one of the following:
       <td style="text-align:left"><code>-.0123456789</code>
       </td>
       <td style="text-align:left">
-        <p><code> 123.45</code>
+        <p> <code>123.45</code>
         </p>
         <p><code>-123.45</code>
         </p>
@@ -189,9 +189,9 @@ where the `<field_type>` is one of the following:
     <tr>
       <td style="text-align:left"><b><code>alphanum</code></b>
       </td>
-      <td style="text-align:left">String of alphanumeric characters</td>
+      <td style="text-align:left">String of alphanumeric characters (including space)</td>
       <td style="text-align:left">
-        <p><code>0123456789</code>
+        <p><code> 0123456789</code>
         </p>
         <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
@@ -204,10 +204,10 @@ where the `<field_type>` is one of the following:
     <tr>
       <td style="text-align:left"><b><code>alphanumext</code></b>
       </td>
-      <td style="text-align:left">String of alphanumeric characters with common special characters</td>
-      <td
-      style="text-align:left">
-        <p><code>0123456789</code>
+      <td style="text-align:left">String of alphanumeric characters with common special characters (including
+        space)</td>
+      <td style="text-align:left">
+        <p><code> 0123456789</code>
         </p>
         <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
@@ -215,17 +215,17 @@ where the `<field_type>` is one of the following:
         </p>
         <p><code>&amp;,-./\</code>
         </p>
-        </td>
-        <td style="text-align:left"><code>Any</code>
-        </td>
+      </td>
+      <td style="text-align:left"><code>Any</code>
+      </td>
     </tr>
     <tr>
       <td style="text-align:left"><b><code>all</code></b>
       </td>
-      <td style="text-align:left">String of alphanumeric characters with more special characters</td>
-      <td
-      style="text-align:left">
-        <p><code>0123456789</code>
+      <td style="text-align:left">String of alphanumeric characters with more special characters (including
+        space)</td>
+      <td style="text-align:left">
+        <p><code> 0123456789</code>
         </p>
         <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
@@ -233,15 +233,15 @@ where the `<field_type>` is one of the following:
         </p>
         <p><code>!&quot;#$%&amp;&apos;()*+,-./\:;&lt;=&gt;?@[]^_{|}&#xA7;</code>
         </p>
-        </td>
-        <td style="text-align:left"><code>Any</code>
-        </td>
+      </td>
+      <td style="text-align:left"><code>Any</code>
+      </td>
     </tr>
     <tr>
       <td style="text-align:left"><b><code>letter</code></b>
       </td>
-      <td style="text-align:left">String of latin characters</td>
-      <td style="text-align:left"><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
+      <td style="text-align:left">String of latin characters (including space)</td>
+      <td style="text-align:left"><code> ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
       </td>
       <td style="text-align:left"><code>Any</code>
       </td>
@@ -249,8 +249,8 @@ where the `<field_type>` is one of the following:
     <tr>
       <td style="text-align:left"><b><code>number</code></b>
       </td>
-      <td style="text-align:left">String of digits</td>
-      <td style="text-align:left"><code>0123456789</code>
+      <td style="text-align:left">String of digits (including space)</td>
+      <td style="text-align:left"><code> 0123456789</code>
       </td>
       <td style="text-align:left"><code>Any</code>
       </td>
