@@ -22,7 +22,7 @@ Next we'll use the field config to create an un-trained model:
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las models create --name "Receipt model" 1281 801 field_config.json
+las models create --name "Receipt model" --width 1281 --height 801 --field-config-path field_config.json
 ```
 {% endtab %}
 
@@ -54,6 +54,6 @@ model = client.create_model(width=1281, height=801, field_config=field_config, n
 {% endtabs %}
 
 {% hint style="info" %}
-See [models concepts](../concepts/models.md) for more information about field configs and other parameters used to create a model.
+See [models concepts](../concepts/models.md) for more information about field configs, and what the width and height parameters mean when creating a model.
 {% endhint %}
 
