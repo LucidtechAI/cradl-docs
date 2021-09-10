@@ -9,7 +9,7 @@ To create a data bundle for a model you must specify the `modelId` and one or mo
 {% tabs %}
 {% tab title="CLI" %}
 ```bash
-las models create-data-bundle <modelId> <datasetId_1> <datasetId_2> --name "Invoice training data v1" --description "Training data from first two datasets" 
+las models create-data-bundle <modelId> <datasetId_1> <datasetId_2> --name "Invoice training data v1" --description "Training data from first two datasets"  
 ```
 {% endtab %}
 
@@ -116,21 +116,21 @@ Having a good set of training data is the most important factor when building a 
 Humans have a life of experience and context to help us conceptualize and speed up our learning process when faced with new tasks. We can therefore learn from fewer examples than the most powerful machine learning algorithms today. In Cradl, we have set a minimum of 10 000 documents to allow training. In fact, to achieve good results we recommend that each label have 10 000 associated ground truths.
 
 {% hint style="info" %}
-##¤# Example
+#### Example
 
 Your datasets contain a total of 10 000 invoices, of which 800 contain a value for a field called`company_name` in the ground truth.
 
 While the number of documents in total is good, we would not be able to guarantee good results for predictions on the `company_name` field due to few examples.
 {% endhint %}
 
-##¤# Good variation
+#### Good variation
 
-Machine learning algorithms are impressionable by nature, and can skew their predictions if the training data is skewed. One example of skewness is lack of variation: having too many similar examples in the training data. The variation of your data is quantified in the Variation statistic of the [Data report](training-data.md#data-report).
+Machine learning algorithms are impressionable by nature, and can skew their predictions if the training data is skewed. One example of skewness is lack of variation: having too many similar examples in the training data. The variation of your data is quantified in the Variation statistic of the [Data report](training-data.md#data-report). 
 
 {% hint style="info" %}
 #### Example
 
-Building on the above example, suppose you have extracted an additional 10 000 invoices from your archive, all of which contain a`company_name`field, so you now have a total of 10 800 invoices with`company_name`values. This is a good number of `company_name` examples, but if all the additional 10 000 invoices were issued by just one company, over 90% of your examples would be from a single company. It is then easy for your model to predict only that company's name - after all, this strategy is successful 90% of the time, which is hard to beat.
+Building on the above example, suppose you have extracted an additional 10 000 invoices from your archive, all of which contain a`company_name`field, so you now have a total of 10 800 invoices with`company_name`values. This is a good number of `company_name` examples, but if all the additional 10 000 invoices were issued by just one company, over 90% of your examples would be from a single company. It is then easy for your model to predict only that company's name - after all, this strategy is successful 90% of the time, which is hard to beat. 
 
 In this case, your data report get a low score on the Uniqueness statistic, and you should either find more varied examples containing`company_name` data, or leave the`company_name` field out of your model until you have collected enough data to properly train the model.
 {% endhint %}

@@ -19,7 +19,7 @@ The credentials file should be placed in the following location, depending on th
 | OS | Location |
 | :--- | :--- |
 | Linux/Mac | ~/.cradl/credentials.json or $HOME/.cradl/credentials.json |
-| Windows | %USERPROFILE%\.cradl\credentials.json _or_ %HOME%.cradl\credentials.json |
+| Windows | %USERPROFILE%\.cradl\credentials.json _or_ %HOME%\.cradl\credentials.json |
 
 The credentials.json file should look like the following:
 
