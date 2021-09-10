@@ -95,6 +95,7 @@ document = client.update_document(<documentId>, datasetId=<datasetId>)
 A document cannot be added to more than one dataset.
 {% endhint %}
 
+
 ## Deleting a dataset
 
 A dataset may not be deleted unless all documents contained in the dataset are deleted first. Our CLI and SDKs support doing this in a single command. For instructions on how to delete all documents from a dataset see the [Documents](documents.md#deleting-documents) page.

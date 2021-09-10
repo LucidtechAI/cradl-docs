@@ -116,7 +116,7 @@ The model is now defined, and in an `inactive` state. Once you start training, i
 
 The `height` and `width` parameters of the model define the shape of images that the model accepts. If you use a differently sized image, or a PDF, as input to the model, it will be resized to `height x width` before entering the model.
 
-The size of the images has implications for training time, response time and accuracy of the model. This is because larger images require more computation to process, while higher resolution _may_ improve the reading quality of the model - especially if your images contain fine print that would be illegible at lower resolutions.
+The size of the images has implications for training time, response time and accuracy of the model. This is because larger images require more computation to process, while higher resolution *may* improve the reading quality of the model - especially if your images contain fine print that would be illegible at lower resolutions.
 
 {% hint style="warning" %}
 We recommend that you choose image sizes as `(multiple of 320) + 1`, as this will map optimally with the underlying model structure, making training more efficient.
@@ -126,7 +126,7 @@ For example, you could choose `1281 x 961` for A4 documents with fine print or `
 
 #### Field config
 
-The field config is a definition of which fields your model should extract and what the maximum character length of the extracted value per field should be. It gives hints to the data type of the field, allowing for an extra layer of data validation when creating a [Data bundle](training-data.md). **Note:** By specifying a `date` or `amount` type, outputs from the model will be automatically formatted.
+The field config is a definition of which fields your model should extract and what the maximum character length of the extracted value per field should be. It gives hints about the data type of the field, allowing for an extra layer of data validation when creating a [Data bundle](training-data.md). **Note:** By specifying a `date` or `amount` type, outputs from the model will be automatically formatted.
 
 A field config is formatted as
 
