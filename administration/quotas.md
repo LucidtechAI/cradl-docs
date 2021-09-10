@@ -2,7 +2,7 @@
 
 When using the Cradle API you might encounter limits in how many total resources you may create, in total or monthly. If you want to increase this limit, please contact us at [support@cradl.ai](mailto:support@lucidtech.ai).
 
-### Current default quotas
+## Current default quotas
 
 | Resource | Monthly Limit | Total limit |
 | :--- | :---: | :---: |
