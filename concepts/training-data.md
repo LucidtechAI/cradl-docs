@@ -118,14 +118,14 @@ Humans have a life of experience and context to help us conceptualize and speed 
 {% hint style="info" %}
 #### Example
 
-Your datasets contain a total of 10 000 invoices, of which 800 contain a value for a field called`company_name` in the ground truth. 
+Your datasets contain a total of 10 000 invoices, of which 800 contain a value for a field called `company_name` in the ground truth.
 
 While the number of documents in total is good, we would not be able to guarantee good results for predictions on the `company_name` field due to few examples.
 {% endhint %}
 
 #### Good variation
 
-Machine learning algorithms are impressionable by nature, and can skew their predictions if the training data is skewed. One example of skewness is lack of variation: having too many similar examples in the training data.  The variation of your data is quantified in the Variation statistic of the [Data report](training-data.md#data-report). 
+Machine learning algorithms are impressionable by nature, and can skew their predictions if the training data is skewed. One example of skewness is lack of variation: having too many similar examples in the training data. The variation of your data is quantified in the Variation statistic of the [Data bundle](training-data.md#data-report). 
 
 {% hint style="info" %}
 #### Example

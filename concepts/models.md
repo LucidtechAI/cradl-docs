@@ -126,7 +126,7 @@ For example, you could choose `1281 x 961` for A4 documents with fine print or `
 
 #### Field config
 
-The field config is a definition of which fields your model should extract and what the maximum character length of the extracted value per field should be. It should, if possible, give hints as to which type of data the field contains, which will allow for an extra layer of data validation when creating a [Data bundle](training-data.md).
+The field config is a definition of which fields your model should extract and what the maximum character length of the extracted value per field should be. It gives hints about the data type of the field, allowing for an extra layer of data validation when creating a [Data bundle](training-data.md). **Note:** By specifying a `date` or `amount` type, outputs from the model will be automatically formatted.
 
 A field config is formatted as
 
@@ -148,18 +148,124 @@ A field config is formatted as
 {% endtab %}
 {% endtabs %}
 
-where the &lt;field\_type&gt; is one of the following:
+where the `<field_type>` is one of the following:
 
-| **Field type** | **Description** |
-| :--- | :--- |
-| `date` | A date string on the format "DD-MM-YYYY" |
-| `amount` | An amount string on the format "123.45" |
-| `alphanum` | Any string with alphanumeric format |
-| `alphanumext` | Any string with alphanumeric format, including some special characters |
-| `all` | Any string with alphanumeric format, including more special characters |
-| `letter` | Any string with latin characters only |
-| `number` | Any string with numbers only |
-| `phone` | Any phone number with or without country code |
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"><b>Field type</b>
+      </th>
+      <th style="text-align:left"><b>Data format</b>
+      </th>
+      <th style="text-align:left"><b>Characters in output</b>
+      </th>
+      <th style="text-align:left"><b>Output format</b>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b><code>date</code></b>
+      </td>
+      <td style="text-align:left">Any valid date format</td>
+      <td style="text-align:left"><code>-0123456789</code>
+      </td>
+      <td style="text-align:left"><code>YYYY-MM-DD</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b><code>amount</code></b>
+      </td>
+      <td style="text-align:left">Decimal number</td>
+      <td style="text-align:left"><code>-.0123456789</code>
+      </td>
+      <td style="text-align:left">
+        <p><code> 123.45</code>
+        </p>
+        <p><code>-123.45</code>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b><code>alphanum</code></b>
+      </td>
+      <td style="text-align:left">String of alphanumeric characters</td>
+      <td style="text-align:left">
+        <p><code>0123456789</code>
+        </p>
+        <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
+        </p>
+        <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
+        </p>
+      </td>
+      <td style="text-align:left"><code>Any</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b><code>alphanumext</code></b>
+      </td>
+      <td style="text-align:left">String of alphanumeric characters with common special characters</td>
+      <td
+      style="text-align:left">
+        <p><code>0123456789</code>
+        </p>
+        <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
+        </p>
+        <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
+        </p>
+        <p><code>&amp;,-./\</code>
+        </p>
+        </td>
+        <td style="text-align:left"><code>Any</code>
+        </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b><code>all</code></b>
+      </td>
+      <td style="text-align:left">String of alphanumeric characters with more special characters</td>
+      <td
+      style="text-align:left">
+        <p><code>0123456789</code>
+        </p>
+        <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
+        </p>
+        <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
+        </p>
+        <p><code>!&quot;#$%&amp;&apos;()*+,-./\:;&lt;=&gt;?@[]^_{|}&#xA7;</code>
+        </p>
+        </td>
+        <td style="text-align:left"><code>Any</code>
+        </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b><code>letter</code></b>
+      </td>
+      <td style="text-align:left">String of latin characters</td>
+      <td style="text-align:left"><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
+      </td>
+      <td style="text-align:left"><code>Any</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b><code>number</code></b>
+      </td>
+      <td style="text-align:left">String of digits</td>
+      <td style="text-align:left"><code>0123456789</code>
+      </td>
+      <td style="text-align:left"><code>Any</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b><code>phone</code></b>
+      </td>
+      <td style="text-align:left">Phone number, country code optional</td>
+      <td style="text-align:left"><code>+0123456789</code>
+      </td>
+      <td style="text-align:left"><code>Same as input format, w/o whitespace</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## Selecting training data
 
