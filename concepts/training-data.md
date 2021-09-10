@@ -125,7 +125,7 @@ While the number of documents in total is good, we would not be able to guarante
 
 #### Good variation
 
-Machine learning algorithms are impressionable by nature, and can skew their predictions if the training data is skewed. One example of skewness is lack of variation: having too many similar examples in the training data. The variation of your data is quantified in the Variation statistic of the [Data report](training-data.md#data-report). 
+Machine learning algorithms are impressionable by nature, and can skew their predictions if the training data is skewed. One example of skewness is lack of variation: having too many similar examples in the training data. The variation of your data is quantified in the Variation statistic of the [Data bundle](training-data.md#data-report). 
 
 {% hint style="info" %}
 #### Example
