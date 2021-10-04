@@ -1,0 +1,47 @@
+## Upload many documents to a dataset with `datasets sync`
+Uploading documents one by one is useful for small tests, but for thousands of documents it can be a slow and painful experience.
+To make the process smoother we recommend to use `datasets sync` in the CLI. This allows you to upload your dataset in a fast and consistent way, without worrying about looping over all the documents yourself.
+
+The only thing required is a json-file that contains all the ground-truths, let us call it `upload-specification.json`. Below is an example of how this file would look if we only want to upload two documents.
+```json
+{
+    "path/to/document1.pdf": {
+        "ground_truth": [
+            {
+                "label": "total_amount",
+                "value": "100.00"
+            },
+            {
+                "label": "due_date",
+                "value": "2021-10-30"
+            },
+            {
+                "label": "vendor_name",
+                "value": "Company X"
+            }
+        ]
+    },
+    "path/to/document2.png": {
+        "ground_truth": [
+            {
+                "label": "total_amount",
+                "value": "200.00"
+            },
+            {
+                "label": "due_date",
+                "value": "2021-11-30"
+            },
+            {
+                "label": "vendor_name",
+                "value": "Company Y"
+            }
+        ]
+    }
+}
+```
+The file is just a dictionary with the path to each document you want to upload as the keys, and their corresponding ground-truth as values.
+We are now ready to upload all the documents and their ground-truth by using the `sync` command in the `datasets` module.
+```shell
+las datasets sync <datasetId> upload-specification.json
+```
+This function automatically caches your progress, so if something interrupts the call it can be called again and take off right where it ended, without having to worry about the same documents being uploaded twice.
