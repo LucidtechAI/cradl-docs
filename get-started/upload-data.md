@@ -77,8 +77,9 @@ document = client.create_document(b'<bytes data>', 'application/pdf', ground_tru
 If you upload documents without assigning them to a dataset, or if you want to assign them to a different dataset in the future, you can do so easily using the API.
 {% endhint %}
 
-## Upload many documents to a dataset
-If we want to create a big dataset the method above is somewhat cumbersome since it involves looping over a bunch of documents and adding an individual ground truth to each of them. With the CLI we have wrapped all this logic to make sure that all your documents and ground-truths get uploaded fast and consistently with only one command.
+## Upload many documents to a dataset with `dataset sync`
+Uploading documents one by one is useful for small tests, but for thousands of documents it can be a slow and painful experience.
+To make the process smoother we recommend to use `datasets sync` in the CLI. This allows you to upload your dataset in a fast and consistent way, without worrying about looping over any documents yourself.
 
 The only thing required is a json-file that contains all the ground-truths, let us name it `upload-specification.json`. Below is an example of how this file would look if we only want to upload two documents.
 ```json
@@ -117,10 +118,9 @@ The only thing required is a json-file that contains all the ground-truths, let 
   }
 }
 ```
+The file is just a dictionary with the path to each document you want to upload as the keys, and their corresponding ground-truth as values. 
 We are now ready to upload all the documents and their ground-truth by using the `sync` command in the `datasets` module.
 ```shell
  las datasets sync <datasetId> upload-specification.json
 ```
-
-
-
+This function automatically caches your progress, so if something interrupts the call it can be called again and take off right where we ended, without having to worry about the same documents being uploaded twice.
