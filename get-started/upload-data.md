@@ -1,7 +1,7 @@
 # Upload data
 
 
-## Upload documents one-by-one to a dataset
+## Upload documents one by one to a dataset
 
 After the dataset is created we can start uploading [documents](../concepts/documents.md) and assign them to our dataset. Since we want to use the documents for training, we'll also provide [ground truth values](../concepts/documents.md#setting-ground-truths) that will define the correct output for the model on each document. We'll have to make sure that the field names in the ground truth match those in the field config we made for our model.
 
@@ -79,12 +79,12 @@ If you upload documents without assigning them to a dataset, or if you want to a
 
 ## Upload many documents to a dataset with `dataset sync`
 Uploading documents one by one is useful for small tests, but for thousands of documents it can be a slow and painful experience.
-To make the process smoother we recommend to use `datasets sync` in the CLI. This allows you to upload your dataset in a fast and consistent way, without worrying about looping over any documents yourself.
+To make the process smoother we recommend to use `datasets sync` in the CLI. This allows you to upload your dataset in a fast and consistent way, without worrying about looping over all the documents yourself.
 
-The only thing required is a json-file that contains all the ground-truths, let us name it `upload-specification.json`. Below is an example of how this file would look if we only want to upload two documents.
+The only thing required is a json-file that contains all the ground-truths, let us call it `upload-specification.json`. Below is an example of how this file would look if we only want to upload two documents.
 ```json
 {
-  "path/to/document1": {
+  "path/to/document1.pdf": {
     "ground_truth": [
       {
         "label": "total_amount",
@@ -100,7 +100,7 @@ The only thing required is a json-file that contains all the ground-truths, let 
       }
     ]
   },
-  "path/to/document2": {
+  "path/to/document2.png": {
     "ground_truth": [
       {
         "label": "total_amount",
@@ -123,4 +123,4 @@ We are now ready to upload all the documents and their ground-truth by using the
 ```shell
  las datasets sync <datasetId> upload-specification.json
 ```
-This function automatically caches your progress, so if something interrupts the call it can be called again and take off right where we ended, without having to worry about the same documents being uploaded twice.
+This function automatically caches your progress, so if something interrupts the call it can be called again and take off right where it ended, without having to worry about the same documents being uploaded twice.
