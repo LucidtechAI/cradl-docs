@@ -45,7 +45,7 @@ If some of your documents are missing ground-truths they will simply be skipped.
 {% endhint %}
 
 
-### Upload a folder with all the meta-data in one file
+### Upload a folder with all the meta data in one file
 The other alternative is to specify a file that contains all the paths and ground truths to the documents we want to upload, let us call it `upload-specification.json`. 
 Below is an example of how this file would look if we only want to upload two documents.
 ```json
