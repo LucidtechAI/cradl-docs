@@ -1,6 +1,6 @@
-## Upload many documents to a dataset with `datasets sync`
+## Upload many documents to a dataset with `datasets create-documents`
 Uploading documents one by one is useful for small tests, but for thousands of documents it can be a slow and painful experience.
-To make the process smoother we recommend to use `datasets sync` in the [CLI](../reference/cli.md) . This allows you to upload your dataset in a fast and consistent way, without worrying about looping over all the documents yourself.
+To make the process smoother we recommend to use `datasets create-documents` in the [CLI](../reference/cli.md) . This allows you to upload your dataset in a fast and consistent way, without worrying about looping over all the documents yourself.
 
 ### Upload a folder with document and ground truth pairs
 In order to upload all the documents in a folder the following convention must be utilized:
@@ -36,7 +36,7 @@ my/new/training/data
 When you have structured your data according to these 3 points you are ready to start uploading your data.
 
 ```shell
-las datasets sync <datasetId> my/new/training/data
+las datasets create-documents <datasetId> my/new/training/data
 ```
 
 {% hint style="info" %}
@@ -84,8 +84,8 @@ Below is an example of how this file would look if we only want to upload two do
 }
 ```
 The file is just a dictionary with the path to each document you want to upload as the keys, and their corresponding ground truth as values.
-We are now ready to upload all the documents and their ground-truth by using the `sync` command in the `datasets` module.
+We are now ready to upload all the documents and their ground-truth by using the `create-documents` command in the `datasets` module.
 ```shell
-las datasets sync <datasetId> upload-specification.json
+las datasets create-documents <datasetId> upload-specification.json
 ```
 This function automatically caches your progress, so if something interrupts the call it can be called again and take off right where it ended, without having to worry about the same documents being uploaded twice.

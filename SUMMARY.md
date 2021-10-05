@@ -11,7 +11,7 @@
 * [Create dataset](get-started/create-a-dataset.md)
 * [Upload data](get-started/upload-data.md)
   * [One at the time](get-started/upload-data-one-by-one.md)
-  * [Sync a directory](get-started/upload-data-sync.md)
+  * [Multiple documents](get-started/upload-data-create-documents.md)
   * [From the app](get-started/upload-data-app.md)
 * [Select and inspect training data](get-started/choose-training-data.md)
 * [Train model](get-started/train-a-model.md)
