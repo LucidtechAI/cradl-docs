@@ -74,7 +74,7 @@ document = client.create_document(b'<bytes data>', 'application/pdf', ground_tru
 If you upload documents without assigning them to a dataset, or if you want to assign them to a different dataset in the future, you can do so easily using the API.
 {% endhint %}
 
-## Upload many documents to a dataset with `datasets create-documents`
+## Upload multiple documents to a dataset
 Uploading documents one by one is useful for small tests, but for thousands of documents it can be a slow and painful experience.
 To make the process smoother we recommend to use `datasets create-documents` in the [CLI](../reference/cli.md) . This allows you to upload your dataset in a fast and consistent way, without worrying about looping over all the documents yourself.
 
