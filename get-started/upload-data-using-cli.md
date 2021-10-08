@@ -76,7 +76,7 @@ If you upload documents without assigning them to a dataset, or if you want to a
 
 ## Upload multiple documents to a dataset
 Uploading documents one by one can be useful for testing purposes, but is not recommended for large scale training datasets.
-To make the process smoother we recommend to use `datasets create-documents` in the [CLI](../reference/cli.md) . This allows you to upload your dataset in a fast and consistent way, without worrying about looping over all the documents yourself.
+For large-scale datasets we recommend using the `datasets create-documents` command from the [CLI](../reference/cli.md) . This allows you to upload your dataset in a fast and consistent way, without worrying about looping over all the documents yourself.
 
 ### Upload a folder with document and ground truth pairs
 In order to upload all the documents in a folder the following convention must be utilized:
