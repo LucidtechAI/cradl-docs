@@ -89,7 +89,7 @@ jobs:
           rm -rf js-sdk
           rm -rf net-sdk
           rm package-lock.json
-          rm node_modules/ -rf 
+          rm -rf node_modules
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
