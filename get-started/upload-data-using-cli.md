@@ -161,7 +161,7 @@ Below is an example of how this file would look if we only want to upload two do
 }
 ```
 The file is just a dictionary with the path to each document you want to upload as the keys, and their corresponding ground truth as values.
-We are now ready to upload all the documents and their ground-truth by using the `create-documents` command in the `datasets` module.
+We are now ready to upload all the documents and ground truths with the `create-documents` command.
 ```shell
 las datasets create-documents <datasetId> upload-specification.json
 ```
