@@ -2,7 +2,7 @@
 
 ## **Create dataset**
 
-After defining our model, we'd like to get it trained and ready for work. To train a model, we need to provide it with sufficiently many example [documents](../concepts/documents.md). Documents can be grouped together in [datasets](../concepts/datasets.md), so before we start uploading documents, let's create a dataset.
+After defining our model, the next step is to train it. This requires that we provide the model with a sufficient number of example [documents](../concepts/documents.md). Documents can be grouped together in [datasets](../concepts/datasets.md), so before we start uploading documents, let's create a dataset.
 
 {% tabs %}
 {% tab title="CLI" %}
