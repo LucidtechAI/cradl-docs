@@ -165,4 +165,4 @@ We are now ready to upload all the documents and ground truths with the `create-
 ```shell
 las datasets create-documents <datasetId> upload-specification.json
 ```
-This function automatically caches your progress, so if something interrupts the call it can be called again and take off right where it ended, without having to worry about the same documents being uploaded twice.
+This command handles interruptions gracefully and can be safely restarted without having to worry about duplicate documents being uploaded.
