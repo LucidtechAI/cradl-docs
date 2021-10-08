@@ -21,11 +21,8 @@ var models = client.ListModels();
 var documents = client.ListDocuments();
 var workflows = client.ListWorkflows();
 ```
-If you are new to LAS we recommend you to check out the [key concepts](../../introduction) 
+If you are new to LAS we recommend you to check out the [key concepts](../../concepts) 
 for a better understanding of what is possible with LAS.
-
-If you are in the need of explicit examples on how to create complex workflows, 
-check out the [tutorials](../../tutorials) 
 
 The .NET SDK is open-source, and the code can be found [here](https://github.com/LucidtechAI/las-sdk-net).
 Contributions are more than welcome.
