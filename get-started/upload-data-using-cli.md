@@ -81,7 +81,7 @@ For large-scale datasets we recommend using the `datasets create-documents` comm
 ### Upload a folder with document and ground truth pairs
 In order to upload all the documents in a folder, the following naming convention must be used:
 
-1. each document in the folder must come with a ground truth as either a `.json|.yaml|.yml` file.
+1. each document in the folder must have a corresponding ground truth file in JSON or YAML format.
 2. the ground truth is provided in the following format:
 ```json
 [
