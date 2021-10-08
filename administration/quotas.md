@@ -7,10 +7,10 @@ When using the Cradle API you might encounter limits in how many total resources
 | Resource | Monthly Limit | Total limit |
 | :--- | :---: | :---: |
 | AppClient |  | 3 |
-| Dataset |  | 100 |
+| Dataset |  | 5 |
 | Data bundles | 25 |  |
-| Document | 20 000 |  |
-| Model |  | 3 |
-| Prediction | 1 000 |  |
-| User |  | 50 |
+| Document | 100 000 |  |
+| Model |  | 5 |
+| Prediction | 500 |  |
+| User |  | 5 |
 
