@@ -24,11 +24,16 @@
 ## Reference
 
 * [CLI](reference/cli.md)
-* [REST API](reference/rest-api.md)
-* [Python](reference/python.md)
-* [JavaScript](reference/javascript.md)
-* [Java](reference/java.md)
-* [.NET](reference/net.md)
+* [Rest API](reference/restapi/README.md)
+  * [latest](reference/restapi/latest/README.md)
+* [Python SDK](reference/python/README.md)
+  * [latest](reference/python/latest.md)
+* [.NET SDK](reference/dotnet/README.md)
+  * [latest](reference/dotnet/latest.md)
+* [JavaScript SDK](reference/js/README.md)
+  * [latest](reference/js/latest.md)
+* [Java SDK](reference/java/README.md)
+  * [latest](reference/java/latest.md)
 
 ## Administration
 
