@@ -1834,6 +1834,7 @@ class ai::lucidtech::las::sdk::CreateDocumentOptions
 `public `[`CreateDocumentOptions`] [`setConsentId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_document_options_1aea843844d1cabdb367b6ef2fbad74763)`(String consentId)` | 
 `public `[`CreateDocumentOptions`] [`setBatchId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_document_options_1a6a4643ab2ab9ae0d195e95b6e5858abb)`(String batchId)` | 
 `public `[`CreateDocumentOptions`] [`setGroundTruth`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_document_options_1a11e5ef2f36fa14e6e048d74d406881f5)`(JSONArray groundTruth)` | 
+`public `[`CreateDocumentOptions`] [`setRetentionInDays`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_document_options_1aaf2f77a3677707090b71be74af54a826)`(Integer retentionInDays)` | 
 `public JSONObject `[`addOptions`]`(JSONObject body)` | 
 
 ## Members
@@ -1843,6 +1844,8 @@ class ai::lucidtech::las::sdk::CreateDocumentOptions
 #### `public `[`CreateDocumentOptions`] [`setBatchId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_document_options_1a6a4643ab2ab9ae0d195e95b6e5858abb)`(String batchId)` 
 
 #### `public `[`CreateDocumentOptions`] [`setGroundTruth`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_document_options_1a11e5ef2f36fa14e6e048d74d406881f5)`(JSONArray groundTruth)` 
+
+#### `public `[`CreateDocumentOptions`] [`setRetentionInDays`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_document_options_1aaf2f77a3677707090b71be74af54a826)`(Integer retentionInDays)` 
 
 #### `public JSONObject `[`addOptions`]`(JSONObject body)` 
 
@@ -2027,16 +2030,19 @@ class ai::lucidtech::las::sdk::DeleteDocumentsOptions
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
 `public `[`DeleteDocumentsOptions`] [`setConsentId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1aaf5142e3fd86dbecf7a7993aa9321405)`(String[] consentId)` | 
+`public `[`DeleteDocumentsOptions`] [`setDatasetId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1a39123acb8b4e7ec42e74ed508728576f)`(String[] datasetId)` | 
 `public `[`DeleteDocumentsOptions`] [`setBatchId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1af8605c4bfd5d14e69d363f6805ca4459)`(String[] batchId)` | 
-`public List< NameValuePair > `[`toList`]`()` | 
+`public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` | 
 
 ## Members
 
 #### `public `[`DeleteDocumentsOptions`] [`setConsentId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1aaf5142e3fd86dbecf7a7993aa9321405)`(String[] consentId)` 
 
+#### `public `[`DeleteDocumentsOptions`] [`setDatasetId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1a39123acb8b4e7ec42e74ed508728576f)`(String[] datasetId)` 
+
 #### `public `[`DeleteDocumentsOptions`] [`setBatchId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1af8605c4bfd5d14e69d363f6805ca4459)`(String[] batchId)` 
 
-#### `public List< NameValuePair > `[`toList`]`()` 
+#### `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` 
 
 # class `ai::lucidtech::las::sdk::DeleteResourcesOptions` 
 
@@ -2046,7 +2052,6 @@ class ai::lucidtech::las::sdk::DeleteDocumentsOptions
 --------------------------------|---------------------------------------------
 `public T `[`setMaxResults`]`(int maxResults)` | 
 `public T `[`setNextToken`]`(String nextToken)` | 
-`public List< NameValuePair > `[`toList`]`()` | 
 `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` | 
 `protected Integer `[`maxResults`] | 
 `protected String `[`nextToken`] | 
@@ -2059,8 +2064,6 @@ class ai::lucidtech::las::sdk::DeleteDocumentsOptions
 #### `public T `[`setMaxResults`]`(int maxResults)` 
 
 #### `public T `[`setNextToken`]`(String nextToken)` 
-
-#### `public List< NameValuePair > `[`toList`]`()` 
 
 #### `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` 
 
@@ -2221,16 +2224,19 @@ class ai::lucidtech::las::sdk::ListDocumentsOptions
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
 `public `[`ListDocumentsOptions`] [`setConsentId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_documents_options_1a60cbafbb5cb2443c0add044cf7b88abc)`(String consentId)` | 
+`public `[`ListDocumentsOptions`] [`setDatasetId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_documents_options_1ad11acdf5e0a5e815f217413a4dd17342)`(String datasetId)` | 
 `public `[`ListDocumentsOptions`] [`setBatchId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_documents_options_1ac52ae5b69f46e04451a645abce1e7ac7)`(String batchId)` | 
-`public List< NameValuePair > `[`toList`]`()` | 
+`public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` | 
 
 ## Members
 
 #### `public `[`ListDocumentsOptions`] [`setConsentId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_documents_options_1a60cbafbb5cb2443c0add044cf7b88abc)`(String consentId)` 
 
+#### `public `[`ListDocumentsOptions`] [`setDatasetId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_documents_options_1ad11acdf5e0a5e815f217413a4dd17342)`(String datasetId)` 
+
 #### `public `[`ListDocumentsOptions`] [`setBatchId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_documents_options_1ac52ae5b69f46e04451a645abce1e7ac7)`(String batchId)` 
 
-#### `public List< NameValuePair > `[`toList`]`()` 
+#### `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` 
 
 # class `ai::lucidtech::las::sdk::ListLogsOptions` 
 
@@ -2247,7 +2253,7 @@ class ai::lucidtech::las::sdk::ListLogsOptions
 `public `[`ListLogsOptions`] [`setTransitionExecutionId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_logs_options_1a28aad7497a2818097a8026ee36146f6d)`(String transitionExecutionId)` | 
 `public `[`ListLogsOptions`] [`setWorkflowId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_logs_options_1a8640336f1d080459996287e1fdd3be23)`(String workflowId)` | 
 `public `[`ListLogsOptions`] [`setWorkflowExecutionId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_logs_options_1a57c6a3b3e889a2fd5511aeaf2f90497f)`(String workflowExecutionId)` | 
-`public List< NameValuePair > `[`toList`]`()` | 
+`public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` | 
 
 ## Members
 
@@ -2259,7 +2265,7 @@ class ai::lucidtech::las::sdk::ListLogsOptions
 
 #### `public `[`ListLogsOptions`] [`setWorkflowExecutionId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_logs_options_1a57c6a3b3e889a2fd5511aeaf2f90497f)`(String workflowExecutionId)` 
 
-#### `public List< NameValuePair > `[`toList`]`()` 
+#### `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` 
 
 # class `ai::lucidtech::las::sdk::ListModelsOptions` 
 
@@ -2297,7 +2303,6 @@ class ai::lucidtech::las::sdk::ListPredictionsOptions
 --------------------------------|---------------------------------------------
 `public T `[`setMaxResults`]`(int maxResults)` | 
 `public T `[`setNextToken`]`(String nextToken)` | 
-`public List< NameValuePair > `[`toList`]`()` | 
 `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` | 
 `protected void `[`addOption`]`(List< NameValuePair > parameters,String key,String value)` | 
 `protected void `[`addOption`]`(List< NameValuePair > parameters,String key,String[] value)` | 
@@ -2309,8 +2314,6 @@ class ai::lucidtech::las::sdk::ListPredictionsOptions
 #### `public T `[`setMaxResults`]`(int maxResults)` 
 
 #### `public T `[`setNextToken`]`(String nextToken)` 
-
-#### `public List< NameValuePair > `[`toList`]`()` 
 
 #### `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` 
 
@@ -2349,7 +2352,6 @@ class ai::lucidtech::las::sdk::ListSortablesOptions
 --------------------------------|---------------------------------------------
 `public T `[`setSortBy`]`(String sortBy)` | 
 `public T `[`setOrder`]`(`[`Order`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_order)` order)` | 
-`public List< NameValuePair > `[`toList`]`()` | 
 `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` | 
 `protected String `[`sortBy`] | 
 `protected `[`Order`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_order) [`order`] | 
@@ -2359,8 +2361,6 @@ class ai::lucidtech::las::sdk::ListSortablesOptions
 #### `public T `[`setSortBy`]`(String sortBy)` 
 
 #### `public T `[`setOrder`]`(`[`Order`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_order)` order)` 
-
-#### `public List< NameValuePair > `[`toList`]`()` 
 
 #### `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` 
 
@@ -2383,7 +2383,6 @@ class ai::lucidtech::las::sdk::ListTransitionExecutionsOptions
 `public `[`ListTransitionExecutionsOptions`] [`setExecutionId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_transition_executions_options_1a6fed26e978e0eec35e8a3dc4297010b7)`(String executionId)` | 
 `public `[`ListTransitionExecutionsOptions`] [`setStatus`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_transition_executions_options_1aaffb59561c7c6f2ba7249948783b83f0)`(List< `[`TransitionExecutionStatus`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_transition_execution_status)` > status)` | 
 `public `[`ListTransitionExecutionsOptions`] [`setStatus`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_transition_executions_options_1af793df3ada1088f6dc7f83117ec02be1)`(`[`TransitionExecutionStatus`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_transition_execution_status)` status)` | 
-`public List< NameValuePair > `[`toList`]`()` | 
 `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` | 
 
 ## Members
@@ -2395,8 +2394,6 @@ class ai::lucidtech::las::sdk::ListTransitionExecutionsOptions
 #### `public `[`ListTransitionExecutionsOptions`] [`setStatus`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_transition_executions_options_1aaffb59561c7c6f2ba7249948783b83f0)`(List< `[`TransitionExecutionStatus`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_transition_execution_status)` > status)` 
 
 #### `public `[`ListTransitionExecutionsOptions`] [`setStatus`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_transition_executions_options_1af793df3ada1088f6dc7f83117ec02be1)`(`[`TransitionExecutionStatus`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_transition_execution_status)` status)` 
-
-#### `public List< NameValuePair > `[`toList`]`()` 
 
 #### `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` 
 
@@ -2412,13 +2409,13 @@ class ai::lucidtech::las::sdk::ListTransitionsOptions
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
 `public `[`ListTransitionsOptions`] [`setTransitionType`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_transitions_options_1a63e360ea5c442b76317e5c0f01ed29d8)`(`[`TransitionType`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_transition_type)` transitionType)` | 
-`public List< NameValuePair > `[`toList`]`()` | 
+`public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` | 
 
 ## Members
 
 #### `public `[`ListTransitionsOptions`] [`setTransitionType`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_transitions_options_1a63e360ea5c442b76317e5c0f01ed29d8)`(`[`TransitionType`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_transition_type)` transitionType)` 
 
-#### `public List< NameValuePair > `[`toList`]`()` 
+#### `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` 
 
 # class `ai::lucidtech::las::sdk::ListUsersOptions` 
 
@@ -2447,7 +2444,6 @@ class ai::lucidtech::las::sdk::ListWorkflowExecutionsOptions
 --------------------------------|---------------------------------------------
 `public `[`ListWorkflowExecutionsOptions`] [`setStatus`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_workflow_executions_options_1aaf7e9a62ee579d8949fd62d36d0e65db)`(List< `[`WorkflowExecutionStatus`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_execution_status)` > status)` | 
 `public `[`ListWorkflowExecutionsOptions`] [`setStatus`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_workflow_executions_options_1a0b2f966d52b2aeef2b37ac7c5e5eb520)`(`[`WorkflowExecutionStatus`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_execution_status)` status)` | 
-`public List< NameValuePair > `[`toList`]`()` | 
 `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` | 
 
 ## Members
@@ -2455,8 +2451,6 @@ class ai::lucidtech::las::sdk::ListWorkflowExecutionsOptions
 #### `public `[`ListWorkflowExecutionsOptions`] [`setStatus`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_workflow_executions_options_1aaf7e9a62ee579d8949fd62d36d0e65db)`(List< `[`WorkflowExecutionStatus`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_execution_status)` > status)` 
 
 #### `public `[`ListWorkflowExecutionsOptions`] [`setStatus`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_workflow_executions_options_1a0b2f966d52b2aeef2b37ac7c5e5eb520)`(`[`WorkflowExecutionStatus`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_execution_status)` status)` 
-
-#### `public List< NameValuePair > `[`toList`]`()` 
 
 #### `public List< NameValuePair > `[`addOptions`]`(List< NameValuePair > parameters)` 
 

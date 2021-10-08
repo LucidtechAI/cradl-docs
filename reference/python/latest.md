@@ -211,7 +211,7 @@ Creates a dataset, calls the POST /datasets endpoint.
 
 
 
-#### create_document(content: Union[bytes, bytearray, str, pathlib.Path, io.IOBase], content_type: str, \*, consent_id: Optional[str] = None, batch_id: Optional[str] = None, dataset_id: Optional[str] = None, ground_truth: Optional[Sequence[Dict[str, str]]] = None)
+#### create_document(content: Union[bytes, bytearray, str, pathlib.Path, io.IOBase], content_type: Optional[str] = None, \*, consent_id: Optional[str] = None, batch_id: Optional[str] = None, dataset_id: Optional[str] = None, ground_truth: Optional[Sequence[Dict[str, str]]] = None, retention_in_days: Optional[int] = None)
 Creates a document, calls the POST /documents endpoint.
 
 ```python
@@ -1095,6 +1095,34 @@ Get asset, calls the GET /assets/{assetId} endpoint.
 * **Returns**
 
     Asset response from REST API with content
+
+
+
+* **Return type**
+
+    dict
+
+
+
+* **Raises**
+
+    `InvalidCredentialsException`, `TooManyRequestsException`, `LimitExceededException`, `requests.exception.RequestException`
+
+
+
+#### get_dataset(dataset_id: str)
+Get dataset, calls the GET /datasets/{datasetId} endpoint.
+
+
+* **Parameters**
+
+    **dataset_id** (*str*) – Id of the dataset
+
+
+
+* **Returns**
+
+    Dataset response from REST API
 
 
 
@@ -2648,7 +2676,7 @@ use: las:transition:commons-failed
 
 
 
-### class las.Credentials(client_id: str, client_secret: str, api_key: str, auth_endpoint: str, api_endpoint: str)
+### class las.Credentials(client_id: str, client_secret: str, auth_endpoint: str, api_endpoint: str, cached_profile: Optional[str] = None, cache_path: pathlib.Path = PosixPath('/home/runner/.lucidtech/token-cache.json'))
 Bases: `object`
 
 Used to fetch and store credentials and to generate/cache an access token.
@@ -2661,9 +2689,6 @@ Used to fetch and store credentials and to generate/cache an access token.
 
 
     * **client_secret** – The client secret
-
-
-    * **api_key** – The api key
 
 
     * **auth_endpoint** – The auth endpoint
