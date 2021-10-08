@@ -4,6 +4,44 @@ You can find the Open API specification file [here](https://raw.githubuserconten
 
 ## Changelog <a id="changelog"></a>
 
+### 2021-09-23 <a id="2021-09-23"></a>
+
+- Added retentionInDays to PATCH /documents/:id
+
+### 2021-09-22 <a id="2021-09-22"></a>
+
+- Added groundTruthSummary to /datasets
+
+### 2021-09-17 <a id="2021-09-17"></a>
+
+- Fixed a bug preventing resources to be deleted sometimes when calling DELETE /documents/:id or DELETE /assets/:id
+- Fixed a bug causing negative values to be returned for several fields (e.g. numberOfDocuments, numberOfDataBundles)
+
+### 2021-09-08 <a id="2021-09-08"></a>
+
+- Updated Login UI
+- API key is no longer needed
+
+### 2021-08-18 <a id="2021-08-18"></a>
+
+- Fixed a bug preventing a transition execution from starting for transitions with the docker type
+- Added GET /datasets/:id
+- Extended the period in which temporary credentials are valid upon first time invitation to Typenode or Flyt from 30 days to 90 days
+- Listing endpoints like DELETE /documents and GET /documents should now respond faster
+- Added more descriptive error message for 404 responses
+- Added createdBy, updatedTime, updatedBy to /appClients
+- Added createdTime, createdBy, updatedTime, updatedBy to /users
+- Added createdTime, createdBy, updatedTime, updatedBy to /assets
+- Added createdTime, createdBy, updatedTime, updatedBy to /documents
+- Added createdBy, updatedBy to /models
+- Added createdBy, updatedBy to /models/:id/dataBundles
+- Added createdTime, createdBy, updatedTime, updatedBy to /secrets
+- Added createdTime, createdBy, updatedTime, updatedBy to /transitions
+- Added createdTime, createdBy, updatedTime, updatedBy to /workflows
+- Added createdBy, updatedBy to /datasets
+- Added updatedTime, updatedBy to /organizations
+- Added retentionInDays to /documents. For documents with a datasetId, the minimum retentionInDays of the dataset and the document is chosen
+
 ### 2021-07-08 <a id="2021-07-08"></a>
 
 * Extended the period in which temporary credentials are valid upon first time invitation to Typenode or Flyt from 7 days to 30 days
