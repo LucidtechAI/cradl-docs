@@ -1,6 +1,6 @@
 ## Upload documents one by one to a dataset
 
-After the dataset is created we can start uploading [documents](../concepts/documents.md) and assign them to our dataset. Since we want to use the documents for training, we'll also provide [ground truth values](../concepts/documents.md#setting-ground-truths) that will define the correct output for the model on each document. We'll have to make sure that the field names in the ground truth match those in the field config we made for our model.
+After the dataset is created we can start uploading [documents](../concepts/documents.md) and assign them to our dataset. Since we want to use the documents for training, we'll also provide [ground truth values](../concepts/documents.md#setting-ground-truths) that will define the correct output for the model on each document. Note that the labels in the ground truth must match the field names we defined in our model.
 
 {% hint style="warning" %}
 It is important to have **correct** ground truth values for every document we use for training. Errors in the ground truth can degrade the training process as the model may learn to make the same mistakes.
@@ -70,8 +70,8 @@ document = client.create_document(b'<bytes data>', 'application/pdf', ground_tru
 }
 ```
 
-{% hint style="success" %}
-If you upload documents without assigning them to a dataset, or if you want to assign them to a different dataset in the future, you can do so easily using the API.
+{% hint style="info" %}
+You can also assign your documents to a new dataset later through the API.
 {% endhint %}
 
 ## Upload multiple documents to a dataset
@@ -160,7 +160,7 @@ Below is an example of how this file would look if we only want to upload two do
     }
 }
 ```
-The file is just a dictionary with the path to each document you want to upload as the keys, and their corresponding ground truth as values.
+In this file, documents and ground truths are represented in a dictionary. The keys are assumed to be a path to a document you want to upload and each value is assumed to be the corresponding ground truth.
 We are now ready to upload all the documents and ground truths with the `create-documents` command.
 ```shell
 las datasets create-documents <datasetId> upload-specification.json
