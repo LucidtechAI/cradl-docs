@@ -12,7 +12,7 @@ First, we need to configure the behavior of the model.
  - Add fields
    - **Field name**: The name of the field you want to extract, keep in mind that field names should match the names in your dataset.
    - **Description**: Give the field an optional description. 
-   - **Vocabulary**: The set of symbols that is allowed in a prediction of this field. Shorter vocabularies reduces training time. 
+   - **Vocabulary**: The set of symbols that is allowed in a prediction of this field. Shorter vocabularies reduces training and inference time. Read more about vocabulary [here](https://docs.cradl.ai/concepts/models#choosing-model-parameters)
    - **Max length**: The maximum number of symbols that a prediction of this field can contain. Shorter sequences reduces training time.
 
 ![Add fields in Cradl](../.gitbook/assets/fields.png)
