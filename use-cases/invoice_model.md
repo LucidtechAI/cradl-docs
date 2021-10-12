@@ -10,10 +10,14 @@ First, we need to configure the behavior of the model.
  - In Cradl, go to **Models > New model**.
  - Give your model a name, and add an optional description.
  - Add fields
-   - **Field name**: The name of the field you want to extract from your invoices, keep in mind that field names should match the names in your dataset.
-   - **Description**: An optional description for the field. 
-   - **Vocabulary**: The set of symbols that is allowed in a prediction of this field. Smaller vocabularies reduces training time. 
-   - **Max length**: The maximum number of symbols that a prediction of this field can contain. Shorter sequences reduces training time.
+     
+   **Field name**: The name of the field you want to extract from your invoices, keep in mind that field names should match the names in your dataset.
+   
+   **Description**: An optional description for the field. 
+   
+   **Vocabulary**: The set of symbols that is allowed in a prediction of this field. Smaller vocabularies reduces training time. 
+   
+   **Max length**: The maximum number of symbols that a prediction of this field can contain. Shorter sequences reduces training time.
 
 ![Add fields in Cradl](../.gitbook/assets/fields.png)
 
@@ -52,7 +56,7 @@ First, we need to configure the behavior of the model.
 - Go to **Datasets > YourDataset > Upload data**.
 - Select files and press **Start upload**.
   
-![invoice-east-repair.pdf](../.gitbook/assets/upload-documents-cradl.png)
+![upload data](../.gitbook/assets/upload-documents-cradl.png)
 
 ## 3. Train your model
 To make sure that your dataset is compatible with the model we have to create a [data bundle](../concepts/training-data.md) 
@@ -64,4 +68,5 @@ To make sure that your dataset is compatible with the model we have to create a 
 - Inspect the summary to make sure that the training data is of sufficiently good quality to start training.
 - Go to **Models > YourModel > Training > New training** and choose the data bundle you created in the previous step.
 
-Congratulations! Your model is training. Keep an eye on the status of your model, when it has changed to *active* you can test it and start using it as you wish.
+Congratulations! Your model will now be tailored to your data. 
+You will be notified when your model is done training and ready to use. 
