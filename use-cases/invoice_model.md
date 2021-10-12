@@ -1,11 +1,12 @@
 # Invoice OCR model
+In this guide you will learn how to train a OCR model that is customized to *your* invoices, and extracts the information *you* need.
 
 ### Prerequisites
-1. Data to train on, a minimum of 5000 pairs of invoices and ground truths. See [the next section](#2.GatherTrainingData)  for a concrete example.
+1. Data to train on, a minimum of 5000 pairs of invoices and ground truths. See [the next section](#2.GatherTrainingData) for a concrete example.
 2. A free Cradl account. [Sign up here](https://cradl.ai). 
  
 ## 1. Configure your model
-First, we need to configure the behavior of the model.   
+First, we need to configure the behavior of the model. 
  - In the Cradl Platform, go to **Models > New model**.
  - Give your model a name, and add an optional description.
  - Add fields
@@ -48,7 +49,7 @@ First, we need to configure the behavior of the model.
 - Upload your data in Cradl
 - Go to **Datasets > New dataset**.
 - Give your dataset a name, and add an optional description. 
-- If your data contains personal data (any information relating to an identified or identifiable natural person directly or indirectly), you need to agree to our Data Processer Agreement. 
+- If your data contains personal data (any information relating to an identified or identifiable natural person directly or indirectly), you need to agree to our [Data Processer Agreement](../administration/legal.md). 
 - Select files and press **Start upload**.
 ![invoice-east-repair.pdf](../.gitbook/assets/upload-documents-cradl.png)
 
