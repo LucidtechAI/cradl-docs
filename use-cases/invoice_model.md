@@ -2,17 +2,17 @@
 In this guide you will learn how to train a OCR model that is customized to *your* invoices, and extracts the information *you* need.
 
 ### Prerequisites
-1. Data to train on, a minimum of 5000 pairs of invoices and ground truths. See [the next section](#2.GatherTrainingData) for a concrete example.
+1. **Data**, a minimum of 5000 pairs of invoices and ground truths. See [the next section](#2.-gather-training-data) for a concrete example.
 2. A free Cradl account. [Sign up here](https://cradl.ai). 
  
 ## 1. Configure your model
 First, we need to configure the behavior of the model. 
- - In the Cradl Platform, go to **Models > New model**.
+ - In Cradl, go to **Models > New model**.
  - Give your model a name, and add an optional description.
  - Add fields
-   - **Field name**: The name of the field you want to extract, keep in mind that field names should match the names in your dataset.
-   - **Description**: Give the field an optional description. 
-   - **Vocabulary**: The set of symbols that is allowed in a prediction of this field. Shorter vocabularies reduces training time. 
+   - **Field name**: The name of the field you want to extract from your invoices, keep in mind that field names should match the names in your dataset.
+   - **Description**: An optional description for the field. 
+   - **Vocabulary**: The set of symbols that is allowed in a prediction of this field. Smaller vocabularies reduces training time. 
    - **Max length**: The maximum number of symbols that a prediction of this field can contain. Shorter sequences reduces training time.
 
 ![Add fields in Cradl](../.gitbook/assets/fields.png)
@@ -46,11 +46,11 @@ First, we need to configure the behavior of the model.
 
 {% endtabs %}
 
-- Upload your data in Cradl
 - Go to **Datasets > New dataset**.
 - Give your dataset a name, and add an optional description. 
-- If your data contains personal data (any information relating to an identified or identifiable natural person directly or indirectly), you need to agree to our [Data Processer Agreement](../administration/legal.md). 
+- If your data contains personal data (any information relating to an identified or identifiable natural person directly or indirectly), you need to agree to our [Data Processing Agreement](../administration/legal.md). 
 - Select files and press **Start upload**.
+  
 ![invoice-east-repair.pdf](../.gitbook/assets/upload-documents-cradl.png)
 
 ## 3. Train your model
@@ -63,4 +63,4 @@ Before you can start training you have to create a *data bundle* to make sure th
 - Inspect the summary to make sure that the training data is of sufficiently good quality to start training.
 - Go to **Models > YourModel > Training > New training** and choose the data bundle you created in the previous step.
 
-You have now started to train your model, and when the status of your model has gone from *training* to *active* you can test it and see the result.
+Congratulations! Your model is training. Keep an eye on the status of your model, when it has changed to *active* you can test it and start using it as you wish.
