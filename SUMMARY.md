@@ -16,6 +16,8 @@
 * [Train model](get-started/train-a-model.md)
 * [Use model](get-started/serve-a-model.md)
 
+## Use Cases
+* [Invoice Model](use-cases/invoice_model.md)
 ## Concepts
 
 * [Models](concepts/models.md)
