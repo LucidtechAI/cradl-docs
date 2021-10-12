@@ -49,6 +49,7 @@ First, we need to configure the behavior of the model.
 - Go to **Datasets > New dataset**.
 - Give your dataset a name, and add an optional description. 
 - If your data contains personal data (any information relating to an identified or identifiable natural person directly or indirectly), you need to agree to our [Data Processing Agreement](../administration/legal.md). 
+- Go to **Datasets > YourDataset > Upload data**.
 - Select files and press **Start upload**.
   
 ![invoice-east-repair.pdf](../.gitbook/assets/upload-documents-cradl.png)
