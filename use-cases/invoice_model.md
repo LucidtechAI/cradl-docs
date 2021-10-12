@@ -69,4 +69,4 @@ To make sure that your dataset is compatible with the model we have to create a 
 - Go to **Models > YourModel > Training > New training** and choose the data bundle you created in the previous step.
 
 Congratulations! Your model will now be tailored to your data. 
-You will be notified when your model is done training and ready to use. 
+You will be notified when your model is trained and ready to use. 
