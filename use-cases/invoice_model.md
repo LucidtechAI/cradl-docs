@@ -1,4 +1,4 @@
-# Invoice OCR model
+# Invoice model
 In this guide you will learn how to train a model that is customized to *your* invoices, and extracts the information *you* need.
 
 ### Prerequisites
