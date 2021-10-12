@@ -55,7 +55,7 @@ First, we need to configure the behavior of the model.
 ![invoice-east-repair.pdf](../.gitbook/assets/upload-documents-cradl.png)
 
 ## 3. Train your model
-Before you can start training you have to create a *data bundle* to make sure that your dataset is compatible with the model you want to train. 
+To make sure that your dataset is compatible with the model we have to create a [data bundle](../concepts/training-data.md) 
 
 - Go to **Models > YourModel > Data bundles > Select Data** 
 - Give your data bundle a name, and add an optional description.
