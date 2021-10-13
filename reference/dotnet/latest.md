@@ -35,15 +35,12 @@
 `public object `[`GetAsset`](#a00043_1a8e338146001a43c4b0ca59d3f4afb901)`(string assetId)` | Get asset from the REST API, calls the GET /assets/{assetId} endpoint.
 `public object `[`UpdateAsset`](#a00043_1a63e88e264995507702cfde3285150eae)`(string assetId,byte?[] content,Dictionary< string, string?>? attributes)` | Updates an asset, calls the PATCH /assets/{assetId} endpoint.
 `public object `[`DeleteAsset`](#a00043_1a98d632656a3ecdf936a31d7a5f67ad54)`(string assetId)` | Delete an asset, calls the DELETE /assets/{assetId} endpoint.
-`public object `[`CreateDocument`](#a00043_1a79a3c991aa414ee4cc419f255b68b68e)`(byte[] content,string contentType,string? consentId,string? batchId,List< Dictionary< string, string >>? groundTruth,string? datasetId)` | Creates a document handle, calls the POST /documents endpoint
-`public object `[`ListDocuments`](#a00043_1ae27c667e46f477518eb9318c6df7e168)`(string? batchId,string? consentId,int? maxResults,string? nextToken,string? datasetId)` | Get documents from the REST API, calls the GET /documents endpoint.
+`public object `[`CreateDocument`](#a00043_1ae4d0d8142ff3a2caa9b67e9cccdebf91)`(byte[] content,string contentType,string? consentId,List< Dictionary< string, string >>? groundTruth,string? datasetId)` | Creates a document handle, calls the POST /documents endpoint
+`public object `[`ListDocuments`](#a00043_1ac62bb08bb19205bddfcb36b07264c9ce)`(string? consentId,int? maxResults,string? nextToken,string? datasetId)` | Get documents from the REST API, calls the GET /documents endpoint.
 `public object `[`GetDocument`](#a00043_1a1638a8fd9c03e35934af0c16d05cf90b)`(string documentId)` | Get document from the REST API, calls the GET /documents/{documentId} endpoint.
 `public object `[`UpdateDocument`](#a00043_1a1dc913a4653a26fb14622b3537f51141)`(string documentId,List< Dictionary< string, string >>? groundTruth,string? datasetId)` | Update ground truth of the document, calls the POST /documents/{documentId} endpoint. This enables the API to learn from past mistakes.
-`public object `[`DeleteDocuments`](#a00043_1acd6023809e716b0af2aee364843ae088)`(string? batchId,string? consentId,int? maxResults,string? nextToken,string? datasetId,bool deleteAll)` | Delete documents with specified consentId, calls DELETE /documents endpoint.
+`public object `[`DeleteDocuments`](#a00043_1a25a8a26259a44104ed70ac0544266873)`(string? consentId,int? maxResults,string? nextToken,string? datasetId,bool deleteAll)` | Delete documents with specified consentId, calls DELETE /documents endpoint.
 `public object `[`DeleteDocument`](#a00043_1aafd4deeebea97d6b937dbfe6227cd09d)`(string documentId)` | Delete a document, calls the DELETE /documents/{documentId} endpoint. <br/>#### Parameters<br/>* `documentId` Id of the document<br/><br/><br/><br/><br/><br/>#### Returns<br/>Document response from REST API
-`public object `[`CreateBatch`](#a00043_1a67cccdf0e1af3c8ce8b660bf1074f38f)`(string? name,string? description)` | Create a batch handle, calls the POST /batches endpoint.
-`public object `[`UpdateBatch`](#a00043_1aad6c5cc8c157268c36c04e922bf01672)`(string batchId,Dictionary< string, string?>? attributes)` | Updates an existing batch, calls the PATCH /batches/{batchId} endpoint.
-`public object `[`DeleteBatch`](#a00043_1afca5b7b95d5c60661417e824b7b8d898)`(string batchId,bool deleteDocuments)` | Delete a batch, calls the DELETE /batches/{batchId} endpoint.
 `public object `[`CreateDataset`](#a00043_1a5bc08562dca015280bb40201458c0e53)`(string? name,string? description)` | Create a dataset handle, calls the POST /datasets endpoint.
 `public object `[`ListDatasets`](#a00043_1a0d2fe04da4566e86f5988c10aba8fee7)`(int? maxResults,string? nextToken)` | List datasets available, calls the GET /datasets endpoint.
 `public object `[`UpdateDataset`](#a00043_1abb805616b3c28f137f57a6458dcec18b)`(string datasetId,Dictionary< string, string?>? attributes)` | Updates an existing dataset, calls the PATCH /datasets/{datasetId} endpoint.
@@ -259,7 +256,7 @@ Delete an asset, calls the DELETE /assets/{assetId} endpoint.
 #### Returns
 Asset response from REST API
 
-#### `public object `[`CreateDocument`](#a00043_1a79a3c991aa414ee4cc419f255b68b68e)`(byte[] content,string contentType,string? consentId,string? batchId,List< Dictionary< string, string >>? groundTruth,string? datasetId)` 
+#### `public object `[`CreateDocument`](#a00043_1ae4d0d8142ff3a2caa9b67e9cccdebf91)`(byte[] content,string contentType,string? consentId,List< Dictionary< string, string >>? groundTruth,string? datasetId)` 
 
 Creates a document handle, calls the POST /documents endpoint
 
@@ -268,8 +265,6 @@ Creates a document handle, calls the POST /documents endpoint
 
 * `contentType` A mime type for the document handle 
 
-* `batchId` Specifies the batch to which the document will be associated with 
-
 * `consentId` An identifier to mark the owner of the document handle 
 
 * `datasetId` Specifies the dataset to which the document will be associated with 
@@ -277,21 +272,19 @@ Creates a document handle, calls the POST /documents endpoint
 * `groundTruth` A list of items {label: value}, representing the ground truth values for the document 
 
 #### Returns
-A deserialized object that can be interpreted as a Dictionary with the fields with batchId, documentId, contentType and consentId
+A deserialized object that can be interpreted as a Dictionary with the fields with documentId, contentType and consentId
 
-#### `public object `[`ListDocuments`](#a00043_1ae27c667e46f477518eb9318c6df7e168)`(string? batchId,string? consentId,int? maxResults,string? nextToken,string? datasetId)` 
+#### `public object `[`ListDocuments`](#a00043_1ac62bb08bb19205bddfcb36b07264c9ce)`(string? consentId,int? maxResults,string? nextToken,string? datasetId)` 
 
 Get documents from the REST API, calls the GET /documents endpoint.
 
 Create a document handle for a jpeg image 
 ```cpp
 Client client = new Client();
-var response = client.ListDocuments('<batchId>');
+var response = client.ListDocuments('<datasetId>');
 ```
 
 #### Parameters
-* `batchId` The batch id that contains the documents of interest 
-
 * `consentId` An identifier to mark the owner of the document handle 
 
 * `datasetId` The dataset id that contains the documents of interest 
@@ -301,7 +294,7 @@ var response = client.ListDocuments('<batchId>');
 * `nextToken` Token to retrieve the next page
 
 #### Returns
-Documents from REST API contained in batch
+Documents from REST API
 
 #### `public object `[`GetDocument`](#a00043_1a1638a8fd9c03e35934af0c16d05cf90b)`(string documentId)` 
 
@@ -324,7 +317,7 @@ Document information from REST API
 Update ground truth of the document, calls the POST /documents/{documentId} endpoint. This enables the API to learn from past mistakes.
 
 #### Parameters
-* `documentId` Path to document to upload, Same as provided to [CreateDocument](#a00043_1a79a3c991aa414ee4cc419f255b68b68e)
+* `documentId` Path to document to upload, Same as provided to [CreateDocument](#a00043_1ae4d0d8142ff3a2caa9b67e9cccdebf91)
 
 * `groundTruth` A list of ground truth items 
 
@@ -333,7 +326,7 @@ Update ground truth of the document, calls the POST /documents/{documentId} endp
 #### Returns
 A deserialized object that can be interpreted as a Dictionary with the fields documentId, consentId, uploadUrl, contentType and ground truth.
 
-#### `public object `[`DeleteDocuments`](#a00043_1acd6023809e716b0af2aee364843ae088)`(string? batchId,string? consentId,int? maxResults,string? nextToken,string? datasetId,bool deleteAll)` 
+#### `public object `[`DeleteDocuments`](#a00043_1a25a8a26259a44104ed70ac0544266873)`(string? consentId,int? maxResults,string? nextToken,string? datasetId,bool deleteAll)` 
 
 Delete documents with specified consentId, calls DELETE /documents endpoint.
 
@@ -343,8 +336,6 @@ var response = client.DeleteConsent('<consentId>');
 ```
 
 #### Parameters
-* `batchId` Delete documents with provided batchId 
-
 * `consentId` Delete documents with provided consentId 
 
 * `datasetId` Delete documents with provided datasetId 
@@ -364,50 +355,6 @@ Delete a document, calls the DELETE /documents/{documentId} endpoint.
 
 #### Returns
 Document response from REST API
-
-#### `public object `[`CreateBatch`](#a00043_1a67cccdf0e1af3c8ce8b660bf1074f38f)`(string? name,string? description)` 
-
-Create a batch handle, calls the POST /batches endpoint.
-
-Create a new batch with the provided description. on the document specified by '<batchId>' 
-```cpp
-Client client = new Client();
-var response = client.CreateBatch("Data gathered from the Mars Rover Invoice Scan Mission");
-```
-
-#### Parameters
-* `name` Name of the batch
-
-* `description` A brief description of the purpose of the batch 
-
-#### Returns
-A deserialized object that can be interpreted as a Dictionary with the fields batchId and description. batchId can be used as an input when posting documents to make them a part of this batch.
-
-#### `public object `[`UpdateBatch`](#a00043_1aad6c5cc8c157268c36c04e922bf01672)`(string batchId,Dictionary< string, string?>? attributes)` 
-
-Updates an existing batch, calls the PATCH /batches/{batchId} endpoint.
-
-#### Parameters
-* `batchId` Id of the batch
-
-* `attributes` Additional attributes
-
-#### Returns
-Batch response from REST API
-
-#### `public object `[`DeleteBatch`](#a00043_1afca5b7b95d5c60661417e824b7b8d898)`(string batchId,bool deleteDocuments)` 
-
-Delete a batch, calls the DELETE /batches/{batchId} endpoint.
-
-`[Client](#a00043) client = new [Client()](#a00043_1a0ba3cc00461a4ee4d4a346d9600efa4a); var response = client.DeleteBatch("&lt;batchId&gt;"); `
-
-#### Parameters
-* `batchId` Id of the batch
-
-* `deleteDocuments` Set to true to delete documents in batch before deleting batch
-
-#### Returns
-Batch response from REST API
 
 #### `public object `[`CreateDataset`](#a00043_1a5bc08562dca015280bb40201458c0e53)`(string? name,string? description)` 
 
@@ -485,7 +432,7 @@ var response = client.CreatePrediction('<documentId>',"las:model:99cac468f7cf47d
 ```
 
 #### Parameters
-* `documentId` Path to document to upload Same as provided to [CreateDocument](#a00043_1a79a3c991aa414ee4cc419f255b68b68e)
+* `documentId` Path to document to upload Same as provided to [CreateDocument](#a00043_1ae4d0d8142ff3a2caa9b67e9cccdebf91)
 
 * `modelId` Id of the model to use for inference 
 
