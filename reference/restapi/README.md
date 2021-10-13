@@ -11,7 +11,7 @@ You can find the Open API specification file [here](https://raw.githubuserconten
 - Removed outdated CORS allowed headers
 - Added digits and string types to /models fieldConfig
 - Added size limit on input to POST /workflows/:id/executions
-- New email templates for signup, invite and verification code
+- Updated email for signup, invite and verification code
 
 ### 2021-09-23
 
