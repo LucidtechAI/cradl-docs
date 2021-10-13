@@ -10,7 +10,9 @@ First, we need to configure the behavior of the model.
  - In Cradl, go to **Models > New model**.
  - Give your model a name, and add an optional description.
  - Add fields
+
    **Field name**: The name of the field you want to extract. You are free to choose any name you like for your field, but keep in mind that the field names need to match the names in your dataset.
+
    **Description**: An optional description for the field. 
    
    **Vocabulary**: The set of symbols that is allowed in a prediction of this field. Smaller vocabularies reduces training time. 
