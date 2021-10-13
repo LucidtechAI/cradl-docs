@@ -103,44 +103,6 @@ Creates an asset, calls the POST /assets endpoint.
 
 
 
-#### create_batch(\*\*optional_args)
-Creates a batch, calls the POST /batches endpoint.
-
-```python
->>> from las.client import Client
->>> client = Client()
->>> client.create_batch(description='<description>')
-```
-
-
-* **Parameters**
-
-    
-    * **name** (*Optional**[**str**]*) – Name of the batch
-
-
-    * **description** (*Optional**[**str**]*) – Description of the batch
-
-
-
-* **Returns**
-
-    Batch response from REST API
-
-
-
-* **Return type**
-
-    dict
-
-
-
-* **Raises**
-
-    `InvalidCredentialsException`, `TooManyRequestsException`, `LimitExceededException`, `requests.exception.RequestException`
-
-
-
 #### create_data_bundle(model_id, dataset_ids, \*\*optional_args)
 Creates a data bundle, calls the POST /models/{modelId}/dataBundles endpoint.
 
@@ -211,7 +173,7 @@ Creates a dataset, calls the POST /datasets endpoint.
 
 
 
-#### create_document(content: Union[bytes, bytearray, str, pathlib.Path, io.IOBase], content_type: Optional[str] = None, \*, consent_id: Optional[str] = None, batch_id: Optional[str] = None, dataset_id: Optional[str] = None, ground_truth: Optional[Sequence[Dict[str, str]]] = None, retention_in_days: Optional[int] = None)
+#### create_document(content: Union[bytes, bytearray, str, pathlib.Path, io.IOBase], content_type: Optional[str] = None, \*, consent_id: Optional[str] = None, dataset_id: Optional[str] = None, ground_truth: Optional[Sequence[Dict[str, str]]] = None, retention_in_days: Optional[int] = None)
 Creates a document, calls the POST /documents endpoint.
 
 ```python
@@ -231,9 +193,6 @@ Creates a document, calls the POST /documents endpoint.
 
 
     * **consent_id** (*Optional**[**str**]*) – Id of the consent that marks the owner of the document
-
-
-    * **batch_id** (*Optional**[**str**]*) – Id of the associated batch
 
 
     * **dataset_id** (*Optional**[**str**]*) – Id of the associated dataset
@@ -611,44 +570,6 @@ Delete the asset with the provided asset_id, calls the DELETE /assets/{assetId} 
 
 
 
-#### delete_batch(batch_id: str, delete_documents=False)
-Delete the batch with the provided batch_id, calls the DELETE /batches/{batchId} endpoint.
-
-```python
->>> from las.client import Client
->>> client = Client()
->>> client.delete_batch('<batch_id>')
-```
-
-
-* **Parameters**
-
-    
-    * **batch_id** (*str*) – Id of the batch
-
-
-    * **delete_documents** (*bool*) – Set to true to delete documents in batch before deleting batch
-
-
-
-* **Returns**
-
-    Batch response from REST API
-
-
-
-* **Return type**
-
-    dict
-
-
-
-* **Raises**
-
-    `InvalidCredentialsException`, `TooManyRequestsException`, `LimitExceededException`, `requests.exception.RequestException`
-
-
-
 #### delete_data_bundle(model_id: str, data_bundle_id: str)
 Delete the data bundle with the provided data_bundle_id,
 calls the DELETE /models/{modelId}/dataBundles/{dataBundleId} endpoint.
@@ -748,7 +669,7 @@ Delete the document with the provided document_id, calls the DELETE /documents/{
 
 
 
-#### delete_documents(\*, batch_id: Optional[Union[str, List[str]]] = None, consent_id: Optional[Union[str, List[str]]] = None, dataset_id: Optional[Union[str, List[str]]] = None, max_results: Optional[int] = None, next_token: Optional[str] = None, delete_all: Optional[bool] = False)
+#### delete_documents(\*, consent_id: Optional[Union[str, List[str]]] = None, dataset_id: Optional[Union[str, List[str]]] = None, max_results: Optional[int] = None, next_token: Optional[str] = None, delete_all: Optional[bool] = False)
 Delete documents with the provided consent_id, calls the DELETE /documents endpoint.
 
 ```python
@@ -761,9 +682,6 @@ Delete documents with the provided consent_id, calls the DELETE /documents endpo
 * **Parameters**
 
     
-    * **batch_id** (*Optional**[**Queryparam**]*) – Ids of the batches to be deleted
-
-
     * **consent_id** (*Optional**[**Queryparam**]*) – Ids of the consents that marks the owner of the document
 
 
@@ -1516,44 +1434,6 @@ List assets available, calls the GET /assets endpoint.
 
 
 
-#### list_batches(\*, max_results: Optional[int] = None, next_token: Optional[str] = None)
-List batches available, calls the GET /batches endpoint.
-
-```python
->>> from las.client import Client
->>> client = Client()
->>> client.list_batches()
-```
-
-
-* **Parameters**
-
-    
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
-
-
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
-
-
-
-* **Returns**
-
-    Batches response from REST API without the content of each batch
-
-
-
-* **Return type**
-
-    dict
-
-
-
-* **Raises**
-
-    `InvalidCredentialsException`, `TooManyRequestsException`, `LimitExceededException`, `requests.exception.RequestException`
-
-
-
 #### list_data_bundles(model_id, \*, max_results: Optional[int] = None, next_token: Optional[str] = None)
 List data bundles available, calls the GET /models/{modelId}/dataBundles endpoint.
 
@@ -1621,22 +1501,19 @@ List datasets available, calls the GET /datasets endpoint.
 
 
 
-#### list_documents(\*, batch_id: Optional[Union[str, List[str]]] = None, consent_id: Optional[Union[str, List[str]]] = None, dataset_id: Optional[Union[str, List[str]]] = None, max_results: Optional[int] = None, next_token: Optional[str] = None)
+#### list_documents(\*, consent_id: Optional[Union[str, List[str]]] = None, dataset_id: Optional[Union[str, List[str]]] = None, max_results: Optional[int] = None, next_token: Optional[str] = None)
 List documents available for inference, calls the GET /documents endpoint.
 
 ```python
 >>> from las.client import Client
 >>> client = Client()
->>> client.list_documents(batch_id='<batch_id>', consent_id='<consent_id>')
+>>> client.list_documents(consent_id='<consent_id>')
 ```
 
 
 * **Parameters**
 
     
-    * **batch_id** (*Optional**[**Queryparam**]*) – Ids of batches that contains the documents of interest
-
-
     * **consent_id** (*Optional**[**Queryparam**]*) – Ids of the consents that marks the owner of the document
 
 
@@ -2156,41 +2033,6 @@ Updates an asset, calls the PATCH /assets/{assetId} endpoint.
 * **Returns**
 
     Asset response from REST API
-
-
-
-* **Return type**
-
-    dict
-
-
-
-* **Raises**
-
-    `InvalidCredentialsException`, `TooManyRequestsException`, `LimitExceededException`, `requests.exception.RequestException`
-
-
-
-#### update_batch(batch_id, \*\*optional_args)
-Updates a batch, calls the PATCH /batches/{batchId} endpoint.
-
-
-* **Parameters**
-
-    
-    * **batch_id** (*str*) – Id of the batch
-
-
-    * **name** (*Optional**[**str**]*) – Name of the batch
-
-
-    * **description** (*Optional**[**str**]*) – Description of the batch
-
-
-
-* **Returns**
-
-    Batch response from REST API
 
 
 
