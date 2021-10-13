@@ -2026,7 +2026,6 @@
 
 | Query name | Query value |
 | --- | --- |
-| batchId | Id of batch on the form las:batch:&lt;hex&gt; |
 | consentId | Id of consent on the form las:consent:&lt;hex&gt; |
 | datasetId | String |
 | nextToken | String value as returned by a previous list operation |
@@ -2135,10 +2134,6 @@
             "pattern": "^las:document:[a-f0-9]{32}$",
             "type": "string"
           },
-          "batchId": {
-            "pattern": "^las:batch:[a-f0-9]{32}$",
-            "type": "string"
-          },
           "contentType": {
             "type": "string",
             "enum": [
@@ -2165,13 +2160,6 @@
       "type": "array",
       "items": {
         "pattern": "^las:dataset:[a-f0-9]{32}$",
-        "type": "string"
-      }
-    },
-    "batchId": {
-      "type": "array",
-      "items": {
-        "pattern": "^las:batch:[a-f0-9]{32}$",
         "type": "string"
       }
     }
@@ -2195,7 +2183,6 @@
 
 | Query name | Query value |
 | --- | --- |
-| batchId | Id of batch on the form las:batch:&lt;hex&gt; |
 | consentId | Id of consent on the form las:consent:&lt;hex&gt; |
 | datasetId | String |
 | nextToken | String value as returned by a previous list operation |
@@ -2304,10 +2291,6 @@
             "pattern": "^las:document:[a-f0-9]{32}$",
             "type": "string"
           },
-          "batchId": {
-            "pattern": "^las:batch:[a-f0-9]{32}$",
-            "type": "string"
-          },
           "contentType": {
             "type": "string",
             "enum": [
@@ -2334,13 +2317,6 @@
       "type": "array",
       "items": {
         "pattern": "^las:dataset:[a-f0-9]{32}$",
-        "type": "string"
-      }
-    },
-    "batchId": {
-      "type": "array",
-      "items": {
-        "pattern": "^las:batch:[a-f0-9]{32}$",
         "type": "string"
       }
     }
@@ -2418,10 +2394,6 @@
     },
     "datasetId": {
       "pattern": "^las:dataset:[a-f0-9]{32}$",
-      "type": "string"
-    },
-    "batchId": {
-      "pattern": "^las:batch:[a-f0-9]{32}$",
       "type": "string"
     },
     "contentType": {
@@ -2525,10 +2497,6 @@
     },
     "documentId": {
       "pattern": "^las:document:[a-f0-9]{32}$",
-      "type": "string"
-    },
-    "batchId": {
-      "pattern": "^las:batch:[a-f0-9]{32}$",
       "type": "string"
     },
     "contentType": {
@@ -2653,10 +2621,6 @@
       "pattern": "^las:document:[a-f0-9]{32}$",
       "type": "string"
     },
-    "batchId": {
-      "pattern": "^las:batch:[a-f0-9]{32}$",
-      "type": "string"
-    },
     "contentType": {
       "type": "string",
       "enum": [
@@ -2777,10 +2741,6 @@
     },
     "documentId": {
       "pattern": "^las:document:[a-f0-9]{32}$",
-      "type": "string"
-    },
-    "batchId": {
-      "pattern": "^las:batch:[a-f0-9]{32}$",
       "type": "string"
     },
     "contentType": {
@@ -2954,10 +2914,6 @@
     },
     "documentId": {
       "pattern": "^las:document:[a-f0-9]{32}$",
-      "type": "string"
-    },
-    "batchId": {
-      "pattern": "^las:batch:[a-f0-9]{32}$",
       "type": "string"
     },
     "contentType": {
@@ -3296,7 +3252,9 @@
                     "phone",
                     "alphanum",
                     "alphanumext",
-                    "all"
+                    "all",
+                    "string",
+                    "digits"
                   ]
                 },
                 "maxLength": {
@@ -3316,6 +3274,8 @@
             "type": "object",
             "properties": {
               "maxPages": {
+                "maximum": 3,
+                "minimum": 1,
                 "type": "integer"
               },
               "autoRotate": {
@@ -3419,6 +3379,8 @@
       "type": "object",
       "properties": {
         "maxPages": {
+          "maximum": 3,
+          "minimum": 1,
           "type": "integer"
         },
         "autoRotate": {
@@ -3473,7 +3435,9 @@
               "phone",
               "alphanum",
               "alphanumext",
-              "all"
+              "all",
+              "string",
+              "digits"
             ]
           },
           "maxLength": {
@@ -3563,7 +3527,9 @@
               "phone",
               "alphanum",
               "alphanumext",
-              "all"
+              "all",
+              "string",
+              "digits"
             ]
           },
           "maxLength": {
@@ -3583,6 +3549,8 @@
       "type": "object",
       "properties": {
         "maxPages": {
+          "maximum": 3,
+          "minimum": 1,
           "type": "integer"
         },
         "autoRotate": {
@@ -3729,7 +3697,9 @@
               "phone",
               "alphanum",
               "alphanumext",
-              "all"
+              "all",
+              "string",
+              "digits"
             ]
           },
           "maxLength": {
@@ -3749,6 +3719,8 @@
       "type": "object",
       "properties": {
         "maxPages": {
+          "maximum": 3,
+          "minimum": 1,
           "type": "integer"
         },
         "autoRotate": {
@@ -3895,7 +3867,9 @@
               "phone",
               "alphanum",
               "alphanumext",
-              "all"
+              "all",
+              "string",
+              "digits"
             ]
           },
           "maxLength": {
@@ -3915,6 +3889,8 @@
       "type": "object",
       "properties": {
         "maxPages": {
+          "maximum": 3,
+          "minimum": 1,
           "type": "integer"
         },
         "autoRotate": {
@@ -4007,6 +3983,8 @@
       "type": "object",
       "properties": {
         "maxPages": {
+          "maximum": 3,
+          "minimum": 1,
           "type": "integer"
         },
         "autoRotate": {
@@ -4061,7 +4039,9 @@
               "phone",
               "alphanum",
               "alphanumext",
-              "all"
+              "all",
+              "string",
+              "digits"
             ]
           },
           "maxLength": {
@@ -4159,7 +4139,9 @@
               "phone",
               "alphanum",
               "alphanumext",
-              "all"
+              "all",
+              "string",
+              "digits"
             ]
           },
           "maxLength": {
@@ -4179,6 +4161,8 @@
       "type": "object",
       "properties": {
         "maxPages": {
+          "maximum": 3,
+          "minimum": 1,
           "type": "integer"
         },
         "autoRotate": {
@@ -5046,8 +5030,6 @@
     "numberOfAppClientsCreated",
     "numberOfAssetsAllowed",
     "numberOfAssetsCreated",
-    "numberOfBatchesAllowed",
-    "numberOfBatchesCreated",
     "numberOfModelsAllowed",
     "numberOfModelsCreated",
     "numberOfSecretsAllowed",
@@ -5076,10 +5058,6 @@
       "maxLength": 4096,
       "type": "string",
       "nullable": true
-    },
-    "numberOfBatchesAllowed": {
-      "minimum": 0,
-      "type": "integer"
     },
     "numberOfUsersAllowed": {
       "minimum": 0,
@@ -5147,10 +5125,6 @@
       "nullable": true
     },
     "monthlyNumberOfWorkflowExecutionsAllowed": {
-      "minimum": 0,
-      "type": "integer"
-    },
-    "numberOfBatchesCreated": {
       "minimum": 0,
       "type": "integer"
     },
@@ -5272,8 +5246,6 @@
     "numberOfAppClientsCreated",
     "numberOfAssetsAllowed",
     "numberOfAssetsCreated",
-    "numberOfBatchesAllowed",
-    "numberOfBatchesCreated",
     "numberOfModelsAllowed",
     "numberOfModelsCreated",
     "numberOfSecretsAllowed",
@@ -5302,10 +5274,6 @@
       "maxLength": 4096,
       "type": "string",
       "nullable": true
-    },
-    "numberOfBatchesAllowed": {
-      "minimum": 0,
-      "type": "integer"
     },
     "numberOfUsersAllowed": {
       "minimum": 0,
@@ -5373,10 +5341,6 @@
       "nullable": true
     },
     "monthlyNumberOfWorkflowExecutionsAllowed": {
-      "minimum": 0,
-      "type": "integer"
-    },
-    "numberOfBatchesCreated": {
       "minimum": 0,
       "type": "integer"
     },
@@ -6031,6 +5995,78 @@
       "maxLength": 4096,
       "type": "string",
       "nullable": true
+    }
+  },
+  "additionalProperties": false
+}
+```
+
+
+#### POST /signup
+
+
+
+
+
+| Header name | Header value |
+| --- | --- |
+| Content-Type | application/json |
+| Authorization | Bearer &lt;your access token here&gt; |
+| x-api-key | &lt;your api key here&gt; |
+
+
+
+
+
+##### Request body JSON Schema
+```json
+{
+  "title": "POST /users",
+  "required": [
+    "email",
+    "password",
+    "reCaptchaResponse"
+  ],
+  "type": "object",
+  "properties": {
+    "password": {
+      "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\^$*.\\[\\]{}\\(\\)?\\-\"!@#%&/,><':;|_~`])\\S{8,99}$",
+      "type": "string"
+    },
+    "reCaptchaResponse": {
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 4096,
+      "type": "string",
+      "nullable": true
+    },
+    "email": {
+      "pattern": "^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\\.)+[A-Za-z]{2,}$",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
+```
+
+
+##### Response body JSON Schema
+```json
+{
+  "title": "signup",
+  "required": [
+    "clientId",
+    "username"
+  ],
+  "type": "object",
+  "properties": {
+    "clientId": {
+      "type": "string"
+    },
+    "username": {
+      "pattern": "^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\\.)+[A-Za-z]{2,}$",
+      "type": "string"
     }
   },
   "additionalProperties": false

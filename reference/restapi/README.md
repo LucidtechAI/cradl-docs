@@ -4,6 +4,15 @@ You can find the Open API specification file [here](https://raw.githubuserconten
 
 ## Changelog
 
+### 2021-10-12
+
+- Deleted /batches endpoint. Use /datasets instead
+- Added free signup! When signing up you'll get access to the community models. Go to (https://app.cradl.ai/signup)[https://app.cradl.ai/signup]
+- Removed outdated CORS allowed headers
+- Added digits and string types to /models fieldConfig
+- Added size limit on input to POST /workflows/:id/executions
+- New email templates for signup, invite and verification code
+
 ### 2021-09-23
 
 - Added retentionInDays to PATCH /documents/:id
