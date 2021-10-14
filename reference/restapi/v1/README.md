@@ -3,7 +3,7 @@
 ### Overview
 
 
-- API Endpoint: https://api.lucidtech.ai/v1
+- API Endpoint: [https://api.lucidtech.ai/v1](https://api.lucidtech.ai/v1)
 - For authorization see [link](../../../get-started/authentication.md)
 
 
