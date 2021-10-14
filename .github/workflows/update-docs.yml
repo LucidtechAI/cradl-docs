@@ -37,10 +37,11 @@ jobs:
           mv docs/las.md ../reference/python/latest.md
 
       - name: Check out java sdk
-        uses: actions/checkout@magnus/dev
+        uses: actions/checkout@master
         with:
           repository: LucidtechAI/las-sdk-java
           path: java-sdk
+          ref: magnus/dev
 
       - name: Java SDK
         run: |
