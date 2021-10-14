@@ -18,6 +18,7 @@
 
 ## Use Cases
 * [Invoice Model](use-cases/invoice_model.md)
+
 ## Concepts
 
 * [Models](concepts/models.md)
