@@ -22,10 +22,10 @@ Creates an appClient, calls the POST /appClients endpoint.
 * **Parameters**
 
     
-    * **name** (*Optional**[**str**]*) – Name of the appClient
+    * **name** (*str**, **optional*) – Name of the appClient
 
 
-    * **description** (*Optional**[**str**]*) – Description of the appClient
+    * **description** (*str**, **optional*) – Description of the appClient
 
 
     * **generate_secret** (*Boolean*) – Set to False to ceate a Public app client, default: True
@@ -78,10 +78,10 @@ Creates an asset, calls the POST /assets endpoint.
     * **content** (*Content*) – Content to POST
 
 
-    * **name** (*Optional**[**str**]*) – Name of the asset
+    * **name** (*str**, **optional*) – Name of the asset
 
 
-    * **description** (*Optional**[**str**]*) – Description of the asset
+    * **description** (*str**, **optional*) – Description of the asset
 
 
 
@@ -116,10 +116,10 @@ Creates a data bundle, calls the POST /models/{modelId}/dataBundles endpoint.
     * **dataset_ids** (*List**[**str**]*) – Dataset Ids that will be included in the data bundle
 
 
-    * **name** (*Optional**[**str**]*) – Name of the data bundle
+    * **name** (*str**, **optional*) – Name of the data bundle
 
 
-    * **description** (*Optional**[**str**]*) – Description of the data bundle
+    * **description** (*str**, **optional*) – Description of the data bundle
 
 
 
@@ -148,10 +148,10 @@ Creates a dataset, calls the POST /datasets endpoint.
 * **Parameters**
 
     
-    * **name** (*Optional**[**str**]*) – Name of the dataset
+    * **name** (*str**, **optional*) – Name of the dataset
 
 
-    * **description** (*Optional**[**str**]*) – Description of the dataset
+    * **description** (*str**, **optional*) – Description of the dataset
 
 
 
@@ -192,17 +192,17 @@ Creates a document, calls the POST /documents endpoint.
     * **content_type** (*str*) – MIME type for the document
 
 
-    * **consent_id** (*Optional**[**str**]*) – Id of the consent that marks the owner of the document
+    * **consent_id** (*str**, **optional*) – Id of the consent that marks the owner of the document
 
 
-    * **dataset_id** (*Optional**[**str**]*) – Id of the associated dataset
+    * **dataset_id** (*str**, **optional*) – Id of the associated dataset
 
 
     * **ground_truth** – List of items {‘label’: label, ‘value’: value}
 
 
 representing the ground truth values for the document
-:type ground_truth: Optional[Sequence[Dict[str, str]]]
+:type ground_truth: Sequence [ Dict [ str, Union [ str, bool ]  ] ], optional
 :return: Document response from REST API
 :rtype: dict
 
@@ -232,10 +232,10 @@ Creates a model, calls the POST /models endpoint.
     * **preprocess_config** (*dict*) – Specification of the processing steps prior to the prediction of an image
 
 
-    * **name** (*Optional**[**str**]*) – Name of the model
+    * **name** (*str**, **optionalQ*) – Name of the model
 
 
-    * **description** (*Optional**[**str**]*) – Description of the model
+    * **description** (*str**, **optional*) – Description of the model
 
 
 
@@ -276,13 +276,13 @@ Create a prediction on a document using specified model, calls the POST /predict
     * **model_id** (*str*) – Id of the model to use for inference
 
 
-    * **max_pages** (*Optional**[**int**]*) – Maximum number of pages to run predictions on
+    * **max_pages** (*int**, **optional*) – Maximum number of pages to run predictions on
 
 
-    * **auto_rotate** (*Optional**[**bool**]*) – Whether or not to let the API try different rotations on            the document when running predictions
+    * **auto_rotate** (*bool**, **optional*) – Whether or not to let the API try different rotations on            the document when running predictions
 
 
-    * **image_quality** (*Optional**[**int**]*) – image quality for prediction “LOW|HIGH”.             high quality could give better result but will also take longer time.
+    * **image_quality** (*int**, **optional*) – image quality for prediction “LOW|HIGH”.             high quality could give better result but will also take longer time.
 
 
 
@@ -321,10 +321,10 @@ Creates an secret, calls the POST /secrets endpoint.
     * **data** (*str*) – Dict containing the data you want to keep secret
 
 
-    * **name** (*Optional**[**str**]*) – Name of the secret
+    * **name** (*str**, **optional*) – Name of the secret
 
 
-    * **description** (*Optional**[**str**]*) – Description of the secret
+    * **description** (*str**, **optional*) – Description of the secret
 
 
 
@@ -375,19 +375,19 @@ Creates a transition, calls the POST /transitions endpoint.
     * **transition_type** (*str*) – Type of transition “docker”|”manual”
 
 
-    * **in_schema** (*Optional**[**dict**]*) – Json-schema that defines the input to the transition
+    * **in_schema** (*dict**, **optional*) – Json-schema that defines the input to the transition
 
 
-    * **out_schema** (*Optional**[**dict**]*) – Json-schema that defines the output of the transition
+    * **out_schema** (*dict**, **optional*) – Json-schema that defines the output of the transition
 
 
-    * **name** (*Optional**[**str**]*) – Name of the transition
+    * **name** (*str**, **optional*) – Name of the transition
 
 
-    * **parameters** (*Optional**[**dict**]*) – Parameters to the corresponding transition type
+    * **parameters** (*dict**, **optional*) – Parameters to the corresponding transition type
 
 
-    * **description** (*Optional**[**str**]*) – Description of the transition
+    * **description** (*str**, **optional*) – Description of the transition
 
 
 
@@ -425,10 +425,10 @@ Creates a new user, calls the POST /users endpoint.
     * **email** (*str*) – Email to the new user
 
 
-    * **name** (*Optional**[**str**]*) – Name of the user
+    * **name** (*str**, **optional*) – Name of the user
 
 
-    * **avatar** (*Optional**[**str**]*) – base64 encoded JPEG avatar of the user
+    * **avatar** (*str**, **optional*) – base64 encoded JPEG avatar of the user
 
 
 
@@ -471,16 +471,16 @@ Check out Lucidtech’s tutorials for more info on how to create a workflow.
     currently supporting ASL: [https://states-language.net/spec.html](https://states-language.net/spec.html)
 
 
-    * **name** (*Optional**[**str**]*) – Name of the workflow
+    * **name** (*str**, **optional*) – Name of the workflow
 
 
-    * **description** (*Optional**[**str**]*) – Description of the workflow
+    * **description** (*str**, **optional*) – Description of the workflow
 
 
-    * **error_config** (*Optional**[**dict**]*) – Configuration of error handler
+    * **error_config** (*dict**, **optional*) – Configuration of error handler
 
 
-    * **completed_config** (*Optional**[**dict**]*) – Configuration of a job to run whenever a workflow execution ends
+    * **completed_config** (*dict**, **optional*) – Configuration of a job to run whenever a workflow execution ends
 
 
 
@@ -682,23 +682,23 @@ Delete documents with the provided consent_id, calls the DELETE /documents endpo
 * **Parameters**
 
     
-    * **consent_id** (*Optional**[**Queryparam**]*) – Ids of the consents that marks the owner of the document
+    * **consent_id** (*Queryparam**, **optional*) – Ids of the consents that marks the owner of the document
 
 
-    * **dataset_id** (*Optional**[**Queryparam**]*) – Ids of the datasets to be deleted
+    * **dataset_id** (*Queryparam**, **optional*) – Ids of the datasets to be deleted
 
 
-    * **max_results** (*Optional**[**int**]*) – Maximum number of documents that will be deleted
+    * **max_results** (*int**, **optional*) – Maximum number of documents that will be deleted
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
     * **delete_all** – Delete all documents that match the given parameters doing multiple API calls if necessary.
 
 
 Will throw an error if parameter max_results is also specified.
-:type delete_all: Optional[bool]
+:type delete_all: bool, optional
 :return: Documents response from REST API
 :rtype: dict
 
@@ -1371,10 +1371,10 @@ List appClients available, calls the GET /appClients endpoint.
 * **Parameters**
 
     
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1409,10 +1409,10 @@ List assets available, calls the GET /assets endpoint.
 * **Parameters**
 
     
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1444,10 +1444,10 @@ List data bundles available, calls the GET /models/{modelId}/dataBundles endpoin
     * **model_id** (*str*) – Id of the model
 
 
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1476,10 +1476,10 @@ List datasets available, calls the GET /datasets endpoint.
 * **Parameters**
 
     
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1514,16 +1514,16 @@ List documents available for inference, calls the GET /documents endpoint.
 * **Parameters**
 
     
-    * **consent_id** (*Optional**[**Queryparam**]*) – Ids of the consents that marks the owner of the document
+    * **consent_id** (*Queryparam**, **optional*) – Ids of the consents that marks the owner of the document
 
 
-    * **dataset_id** (*Optional**[**Queryparam**]*) – Ids of datasets that contains the documents of interest
+    * **dataset_id** (*Queryparam**, **optional*) – Ids of datasets that contains the documents of interest
 
 
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1558,22 +1558,22 @@ List logs, calls the GET /logs endpoint.
 * **Parameters**
 
     
-    * **workflow_id** (*Optional**[**str**]*) – Only show logs from this workflow
+    * **workflow_id** (*str**, **optional*) – Only show logs from this workflow
 
 
-    * **workflow_execution_id** (*Optional**[**str**]*) – Only show logs from this workflow execution
+    * **workflow_execution_id** (*str**, **optional*) – Only show logs from this workflow execution
 
 
-    * **transition_id** (*Optional**[**str**]*) – Only show logs from this transition
+    * **transition_id** (*str**, **optional*) – Only show logs from this transition
 
 
-    * **transition_execution_id** (*Optional**[**str**]*) – Only show logs from this transition execution
+    * **transition_execution_id** (*str**, **optional*) – Only show logs from this transition execution
 
 
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1608,10 +1608,10 @@ List models available, calls the GET /models endpoint.
 * **Parameters**
 
     
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1646,10 +1646,10 @@ List predictions available, calls the GET /predictions endpoint.
 * **Parameters**
 
     
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1684,10 +1684,10 @@ List secrets available, calls the GET /secrets endpoint.
 * **Parameters**
 
     
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1725,22 +1725,22 @@ List executions in a transition, calls the GET /transitions/{transitionId}/execu
     * **transition_id** (*str*) – Id of the transition
 
 
-    * **status** (*Optional**[**Queryparam**]*) – Statuses of the executions
+    * **status** (*Queryparam**, **optional*) – Statuses of the executions
 
 
-    * **order** (*Optional**[**str**]*) – Order of the executions, either ‘ascending’ or ‘descending’
+    * **order** (*str**, **optional*) – Order of the executions, either ‘ascending’ or ‘descending’
 
 
-    * **sort_by** (*Optional**[**str**]*) – the sorting variable of the executions, either ‘endTime’, or ‘startTime’
+    * **sort_by** (*str**, **optional*) – the sorting variable of the executions, either ‘endTime’, or ‘startTime’
 
 
-    * **execution_id** (*Optional**[**Queryparam**]*) – Ids of the executions
+    * **execution_id** (*Queryparam**, **optional*) – Ids of the executions
 
 
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1775,13 +1775,13 @@ List transitions, calls the GET /transitions endpoint.
 * **Parameters**
 
     
-    * **transition_type** (*Optional**[**Queryparam**]*) – Types of transitions
+    * **transition_type** (*Queryparam**, **optional*) – Types of transitions
 
 
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1816,10 +1816,10 @@ List users, calls the GET /users endpoint.
 * **Parameters**
 
     
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1857,19 +1857,19 @@ List executions in a workflow, calls the GET /workflows/{workflowId}/executions 
     * **workflow_id** (*str*) – Id of the workflow
 
 
-    * **order** (*Optional**[**str**]*) – Order of the executions, either ‘ascending’ or ‘descending’
+    * **order** (*str**, **optional*) – Order of the executions, either ‘ascending’ or ‘descending’
 
 
-    * **sort_by** (*Optional**[**str**]*) – the sorting variable of the executions, either ‘endTime’, or ‘startTime’
+    * **sort_by** (*str**, **optional*) – the sorting variable of the executions, either ‘endTime’, or ‘startTime’
 
 
-    * **status** (*Optional**[**Queryparam**]*) – Statuses of the executions
+    * **status** (*Queryparam**, **optional*) – Statuses of the executions
 
 
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1904,10 +1904,10 @@ List workflows, calls the GET /workflows endpoint.
 * **Parameters**
 
     
-    * **max_results** (*Optional**[**int**]*) – Maximum number of results to be returned
+    * **max_results** (*int**, **optional*) – Maximum number of results to be returned
 
 
-    * **next_token** (*Optional**[**str**]*) – A unique token for each page, use the returned token to retrieve the next page.
+    * **next_token** (*str**, **optional*) – A unique token for each page, use the returned token to retrieve the next page.
 
 
 
@@ -1979,10 +1979,10 @@ Updates an appClient, calls the PATCH /appClients/{appClientId} endpoint.
     * **app_client_id** (*str*) – Id of the appClient
 
 
-    * **name** (*Optional**[**str**]*) – Name of the appClient
+    * **name** (*str**, **optional*) – Name of the appClient
 
 
-    * **description** (*Optional**[**str**]*) – Description of the appClient
+    * **description** (*str**, **optional*) – Description of the appClient
 
 
 
@@ -2020,13 +2020,13 @@ Updates an asset, calls the PATCH /assets/{assetId} endpoint.
     * **asset_id** (*str*) – Id of the asset
 
 
-    * **content** (*Optional**[**Content**]*) – Content to PATCH
+    * **content** (*Content**, **optional*) – Content to PATCH
 
 
-    * **name** (*Optional**[**str**]*) – Name of the asset
+    * **name** (*str**, **optional*) – Name of the asset
 
 
-    * **description** (*Optional**[**str**]*) – Description of the asset
+    * **description** (*str**, **optional*) – Description of the asset
 
 
 
@@ -2061,10 +2061,10 @@ Updates a data bundle, calls the PATCH /models/{modelId}/dataBundles/{dataBundle
     * **data_bundle_id** (*str*) – Id of the data bundle
 
 
-    * **name** (*Optional**[**str**]*) – Name of the data bundle
+    * **name** (*str**, **optional*) – Name of the data bundle
 
 
-    * **description** (*Optional**[**str**]*) – Description of the data bundle
+    * **description** (*str**, **optional*) – Description of the data bundle
 
 
 
@@ -2096,10 +2096,10 @@ Updates a dataset, calls the PATCH /datasets/{datasetId} endpoint.
     * **dataset_id** (*str*) – Id of the dataset
 
 
-    * **name** (*Optional**[**str**]*) – Name of the dataset
+    * **name** (*str**, **optional*) – Name of the dataset
 
 
-    * **description** (*Optional**[**str**]*) – Description of the dataset
+    * **description** (*str**, **optional*) – Description of the dataset
 
 
 
@@ -2133,10 +2133,10 @@ This enables the API to learn from past mistakes.
     * **document_id** (*str*) – Id of the document
 
 
-    * **dataset_id** (*Optional**[**str**]*) – Id of the dataset you want to associate your document with
+    * **dataset_id** (*str**, **optional*) – Id of the dataset you want to associate your document with
 
 
-    * **ground_truth** (*Optional**[**Sequence**[**Dict**[**str**, **Union**[**Optional**[**str**]**, **bool**]**]**]**]*) – List of items {label: value} representing the ground truth values for the document
+    * **ground_truth** (*Sequence** [ **Dict** [ **str**, **Union** [ **str**, **bool** ]  **] **]**, **optional*) – List of items {label: value} representing the ground truth values for the document
 
 
 
@@ -2165,13 +2165,13 @@ Updates a model, calls the PATCH /models/{modelId} endpoint.
 * **Parameters**
 
     
-    * **model_id** (*Optional**[**str**]*) – The Id of the model
+    * **model_id** (*str**, **optional*) – The Id of the model
 
 
-    * **width** (*Optional**[**int**]*) – The number of pixels to be used for the input image width of your model
+    * **width** (*int**, **optional*) – The number of pixels to be used for the input image width of your model
 
 
-    * **height** (*Optional**[**int**]*) – The number of pixels to be used for the input image height of your model
+    * **height** (*int**, **optional*) – The number of pixels to be used for the input image height of your model
 
 
     * **field_config** (*dict*) – Specification of the fields that the model is going to predict
@@ -2180,13 +2180,13 @@ Updates a model, calls the PATCH /models/{modelId} endpoint.
     * **preprocess_config** (*dict*) – Specification of the processing steps prior to the prediction of an image
 
 
-    * **status** (*Optional**[**str**]*) – New status for the model
+    * **status** (*str**, **optional*) – New status for the model
 
 
-    * **name** (*Optional**[**str**]*) – Name of the model
+    * **name** (*str**, **optional*) – Name of the model
 
 
-    * **description** (*Optional**[**str**]*) – Description of the model
+    * **description** (*str**, **optional*) – Description of the model
 
 
 
@@ -2215,13 +2215,13 @@ Updates an organization, calls the PATCH /organizations/{organizationId} endpoin
 * **Parameters**
 
     
-    * **organization_id** (*Optional**[**str**]*) – The Id of the organization
+    * **organization_id** (*str**, **optional*) – The Id of the organization
 
 
-    * **name** (*Optional**[**str**]*) – Name of the organization
+    * **name** (*str**, **optional*) – Name of the organization
 
 
-    * **description** (*Optional**[**str**]*) – Description of the organization
+    * **description** (*str**, **optional*) – Description of the organization
 
 
 
@@ -2260,13 +2260,13 @@ Updates an secret, calls the PATCH /secrets/secretId endpoint.
     * **secret_id** (*str*) – Id of the secret
 
 
-    * **data** (*Optional**[**dict**]*) – Dict containing the data you want to keep secret
+    * **data** (*dict**, **optional*) – Dict containing the data you want to keep secret
 
 
-    * **name** (*Optional**[**str**]*) – Name of the secret
+    * **name** (*str**, **optional*) – Name of the secret
 
 
-    * **description** (*Optional**[**str**]*) – Description of the secret
+    * **description** (*str**, **optional*) – Description of the secret
 
 
 
@@ -2306,29 +2306,29 @@ Updates a transition, calls the PATCH /transitions/{transitionId} endpoint.
     * **transition_id** (*str*) – Id of the transition
 
 
-    * **name** (*Optional**[**str**]*) – Name of the transition
+    * **name** (*str**, **optional*) – Name of the transition
 
 
-    * **description** (*Optional**[**str**]*) – Description of the transition
+    * **description** (*str**, **optional*) – Description of the transition
 
 
-    * **in_schema** (*Optional**[**dict**]*) – Json-schema that defines the input to the transition
+    * **in_schema** (*dict**, **optional*) – Json-schema that defines the input to the transition
 
 
-    * **out_schema** (*Optional**[**dict**]*) – Json-schema that defines the output of the transition
+    * **out_schema** (*dict**, **optional*) – Json-schema that defines the output of the transition
 
 
-    * **assets** (*Optional**[**dict**]*) – A dictionary where the values are assetIds that can be used in a manual transition
+    * **assets** (*dict**, **optional*) – A dictionary where the values are assetIds that can be used in a manual transition
 
 
-    * **environment** (*Optional**[**dict**]*) – Environment variables to use for a docker transition
+    * **environment** (*dict**, **optional*) – Environment variables to use for a docker transition
 
 
     * **environment_secrets** – 
 
 
 A list of secretIds that contains environment variables to use for a docker transition
-:type environment_secrets: Optional[list]
+:type environment_secrets: list, optional
 :return: Transition response from REST API
 :rtype: dict
 
@@ -2365,13 +2365,13 @@ calls the PATCH /transitions/{transition_id}/executions/{execution_id} endpoint.
     * **status** (*str*) – Status of the execution ‘succeeded|failed’
 
 
-    * **output** (*Optional**[**dict**]*) – Output from the execution, required when status is ‘succeded’
+    * **output** (*dict**, **optional*) – Output from the execution, required when status is ‘succeded’
 
 
-    * **error** (*Optional**[**dict**]*) – Error from the execution, required when status is ‘failed’, needs to contain ‘message’
+    * **error** (*dict**, **optional*) – Error from the execution, required when status is ‘failed’, needs to contain ‘message’
 
 
-    * **start_time** (*Optional**[**str**]*) – start time that will replace the original start time of the execution
+    * **start_time** (*str**, **optional*) – start time that will replace the original start time of the execution
 
 
 
@@ -2409,10 +2409,10 @@ Updates a user, calls the PATCH /users/{userId} endpoint.
     * **user_id** (*str*) – Id of the user
 
 
-    * **name** (*Optional**[**str**]*) – Name of the user
+    * **name** (*str**, **optional*) – Name of the user
 
 
-    * **avatar** (*Optional**[**str**]*) – base64 encoded JPEG avatar of the user
+    * **avatar** (*str**, **optional*) – base64 encoded JPEG avatar of the user
 
 
 
@@ -2452,16 +2452,16 @@ Updates a workflow, calls the PATCH /workflows/{workflowId} endpoint.
     * **workflow_id** – Id of the workflow
 
 
-    * **name** (*Optional**[**str**]*) – Name of the workflow
+    * **name** (*str**, **optional*) – Name of the workflow
 
 
-    * **description** (*Optional**[**str**]*) – Description of the workflow
+    * **description** (*str**, **optional*) – Description of the workflow
 
 
-    * **error_config** (*Optional**[**dict**]*) – Configuration of error handler
+    * **error_config** (*dict**, **optional*) – Configuration of error handler
 
 
-    * **completed_config** (*Optional**[**dict**]*) – Configuration of a job to run whenever a workflow execution ends
+    * **completed_config** (*dict**, **optional*) – Configuration of a job to run whenever a workflow execution ends
 
 
 
