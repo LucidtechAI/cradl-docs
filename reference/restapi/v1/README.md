@@ -1,8 +1,13 @@
+
+
 ### Overview
 
 
-* API Endpoint: https://api.lucidtech.ai/v1
-* For authorization see [link](../../../get-started/authentication.md)
+- API Endpoint: https://api.lucidtech.ai/v1
+- For authorization see [link](../../../get-started/authentication.md)
+
+
+### Endpoints
 
 
 * [/appClients](appClients/README.md)
