@@ -53,6 +53,7 @@ jobs:
           sed -i 's/` `/ /g' docs/*.md
           perl -pi -e 's|(\(\#class.*?\))||' docs/*.md # Remove identifier, use pearl to get a non-greedy match
           python create_docs_overview.py docs
+          mkdir ../reference/java/latest/
           mv docs/*.md ../reference/java/latest/
 
       - name: Check out .NET sdk
