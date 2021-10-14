@@ -1,32 +1,30 @@
-/appClients
-/appClients/{appClientId}
-/assets
-/assets/{assetId}
-/batches
-/batches/{batchId}
-/datasets
-/datasets/{datasetId}
-/documents
-/documents/{documentId}
-/logs
-/logs/{logId}
-/models
-/models/{modelId}
-/models/{modelId}/dataBundles
-/models/{modelId}/dataBundles/{dataBundleId}
-/organizations/{organizationId}
-/predictions
-/secrets
-/secrets/{secretId}
-/signup
-/transitions
-/transitions/{transitionId}
-/transitions/{transitionId}/executions
-/transitions/{transitionId}/executions/{executionId}
-/transitions/{transitionId}/executions/{executionId}/heartbeats
-/users
-/users/{userId}
-/workflows
-/workflows/{workflowId}
-/workflows/{workflowId}/executions
-/workflows/{workflowId}/executions/{executionId}
+#### POST /transitions/{transitionId}/executions/{executionId}/heartbeats
+
+
+| Path name | Path value |
+| --- | --- |
+| transitionId | Id of transition on the form las:transition:&lt;hex&gt; |
+| executionId | Id of execution on the form las:transition-execution:&lt;hex&gt; |
+
+
+| Header name | Header value |
+| --- | --- |
+| Content-Type | application/json |
+| Authorization | Bearer &lt;your access token here&gt; |
+| x-api-key | &lt;your api key here&gt; |
+
+
+
+
+
+##### Request body JSON Schema
+```json
+{
+  "title": "POST /transitions/{transitionId}/executions/{executionId}/heartbeats",
+  "type": "object"
+}
+```
+
+
+
+
