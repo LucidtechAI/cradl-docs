@@ -71,7 +71,7 @@
 * [JavaScript SDK](reference/js/README.md)
   * [latest](reference/js/latest.md)
 * [Java SDK](reference/java/README.md)
-  * [latest](reference/java/latest.md)
+  * [latest](reference/java/latest/README.md)
 
 ## Administration
 
