@@ -4,7 +4,7 @@
 
 
 - API Endpoint: [https://api.lucidtech.ai/v1](https://api.lucidtech.ai/v1)
-- For authorization see [link](../../../get-started/authentication.md)
+- For instructions on how to authorize API calls click [here](../../../get-started/authentication.md)
 
 
 ### Endpoints
