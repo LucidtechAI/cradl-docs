@@ -1,4 +1,4 @@
-* [/appClients](../v1/appClients/README.md)
+* [/appClients](appClients/README.md)
 * [/appClients/{appClientId}](appClients/{appClientId}/README.md)
 * [/assets](assets/README.md)
 * [/assets/{assetId}](assets/{assetId}/README.md)
