@@ -14,8 +14,6 @@
 * [/appClients/{appClientId}](appClients/{appClientId}/README.md)
 * [/assets](assets/README.md)
 * [/assets/{assetId}](assets/{assetId}/README.md)
-* [/batches](batches/README.md)
-* [/batches/{batchId}](batches/{batchId}/README.md)
 * [/datasets](datasets/README.md)
 * [/datasets/{datasetId}](datasets/{datasetId}/README.md)
 * [/documents](documents/README.md)
