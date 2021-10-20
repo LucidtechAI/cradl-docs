@@ -187,6 +187,52 @@ where the `<field_type>` is one of the following:
       </td>
     </tr>
     <tr>
+      <td style="text-align:left"><b><code>string</code></b>
+      </td>
+      <td style="text-align:left">String of characters</td>
+      <td
+      style="text-align:left">
+        <p><code>␣0123456789</code>
+        </p>
+        <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
+        </p>
+        <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
+        </p>
+        <p><code>!&quot;#$%&amp;&apos;()*+,-./\:;&lt;=&gt;?@[]^_{|}&#xA7;</code>
+        </p>
+        </td>
+        <td style="text-align:left"><code>Any</code>
+        </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b><code>digits</code></b>
+      </td>
+      <td style="text-align:left">String of digits</td>
+      <td style="text-align:left"><code>0123456789</code>
+      </td>
+      <td style="text-align:left"><code>Any</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+The following `<field_types>` are also considered valid but may be deprecated later:
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"><b>Field type</b>
+      </th>
+      <th style="text-align:left"><b>Data format</b>
+      </th>
+      <th style="text-align:left"><b>Characters in output</b>
+      </th>
+      <th style="text-align:left"><b>Output format</b>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
       <td style="text-align:left"><b><code>alphanum</code></b>
       </td>
       <td style="text-align:left">String of alphanumeric characters (including space)</td>
