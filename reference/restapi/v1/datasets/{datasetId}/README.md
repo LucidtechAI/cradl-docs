@@ -9,7 +9,6 @@
 | Header name | Header value |
 | --- | --- |
 | Authorization | Bearer &lt;your access token here&gt; |
-| x-api-key | &lt;your api key here&gt; |
 
 
 
@@ -114,7 +113,6 @@
 | Header name | Header value |
 | --- | --- |
 | Authorization | Bearer &lt;your access token here&gt; |
-| x-api-key | &lt;your api key here&gt; |
 
 
 
@@ -220,7 +218,6 @@
 | --- | --- |
 | Content-Type | application/json |
 | Authorization | Bearer &lt;your access token here&gt; |
-| x-api-key | &lt;your api key here&gt; |
 
 
 
