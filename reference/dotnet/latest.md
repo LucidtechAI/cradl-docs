@@ -12,18 +12,18 @@
 
 #### `{property} RestClient `[`RestSharpClient`](#a00043_1a5e59cc310cc0dd101e74a16824f2fa3a) 
 
-#### `{property} `[`Credentials`](#a00067)` `[`LasCredentials`](#a00043_1aed1258913a65f014aa0ce4ef63bd6dfe) 
+#### `{property} `[`Credentials`](#a00067) [`LasCredentials`](#a00043_1aed1258913a65f014aa0ce4ef63bd6dfe) 
 
 #### `public  `[`Client`](#a00043_1a2a95a90e6dfa52e94d3e12a18d583fca)`(`[`Credentials`](#a00067)` credentials)` 
 
-Client constructor.
+[Client](#a00043) constructor.
 
 #### Parameters
 * `credentials` Keys, endpoints and credentials needed for authorization
 
 #### `public  `[`Client`](#a00043_1a0ba3cc00461a4ee4d4a346d9600efa4a)`()` 
 
-Client constructor with credentials read from local file.
+[Client](#a00043) constructor with credentials read from local file.
 
 #### `public object `[`CreateAppClient`](#a00043_1adbe8e2a3fefe5b6df86771a858de4864)`(bool generateSecret,List< string >? logoutUrls,List< string >? loginUrls,List< string >? callbackUrls,string? defaultLoginUrl,Dictionary< string, string?>? attributes)` 
 
@@ -82,7 +82,7 @@ AppClient response from REST API
 
 Delete an appClient, calls the DELETE /appClients/{appClientId} endpoint.
 
-` Client client = new Client(); var response = client.DeleteAppClient("&lt;appClientId&gt;"); `
+`[Client](#a00043) client = new [Client()](#a00043_1a0ba3cc00461a4ee4d4a346d9600efa4a); var response = client.DeleteAppClient("&lt;appClientId&gt;"); `
 
 #### Parameters
 * `appClientId` Id of the appClient
@@ -90,7 +90,7 @@ Delete an appClient, calls the DELETE /appClients/{appClientId} endpoint.
 #### Returns
 AppClient response from REST API
 
-#### `public object `[`CreateAsset`](#a00043_1afde4b9ed933fd6fc775770af3cd412e1)`(byte [] content,Dictionary< string, string?>? attributes)` 
+#### `public object `[`CreateAsset`](#a00043_1afde4b9ed933fd6fc775770af3cd412e1)`(byte[] content,Dictionary< string, string?>? attributes)` 
 
 Creates an asset, calls the POST /assets endpoint.
 
@@ -144,7 +144,7 @@ var response = client.GetAsset("<asset_id>");
 #### Returns
 Asset object
 
-#### `public object `[`UpdateAsset`](#a00043_1a63e88e264995507702cfde3285150eae)`(string assetId,byte? [] content,Dictionary< string, string?>? attributes)` 
+#### `public object `[`UpdateAsset`](#a00043_1a63e88e264995507702cfde3285150eae)`(string assetId,byte?[] content,Dictionary< string, string?>? attributes)` 
 
 Updates an asset, calls the PATCH /assets/{assetId} endpoint.
 
@@ -168,7 +168,7 @@ Asset object
 
 Delete an asset, calls the DELETE /assets/{assetId} endpoint.
 
-` Client client = new Client(); var response = client.DeleteAsset("&lt;assetId&gt;"); `
+`[Client](#a00043) client = new [Client()](#a00043_1a0ba3cc00461a4ee4d4a346d9600efa4a); var response = client.DeleteAsset("&lt;assetId&gt;"); `
 
 #### Parameters
 * `assetId` Id of the asset
@@ -176,7 +176,7 @@ Delete an asset, calls the DELETE /assets/{assetId} endpoint.
 #### Returns
 Asset response from REST API
 
-#### `public object `[`CreateDocument`](#a00043_1ae4d0d8142ff3a2caa9b67e9cccdebf91)`(byte [] content,string contentType,string? consentId,List< Dictionary< string, string >>? groundTruth,string? datasetId)` 
+#### `public object `[`CreateDocument`](#a00043_1ae4d0d8142ff3a2caa9b67e9cccdebf91)`(byte[] content,string contentType,string? consentId,List< Dictionary< string, string >>? groundTruth,string? datasetId)` 
 
 Creates a document handle, calls the POST /documents endpoint
 
@@ -331,7 +331,7 @@ Dataset response from REST API
 
 Delete a dataset, calls the DELETE /datasets/{datasetId} endpoint.
 
-` Client client = new Client(); var response = client.DeleteDataset("&lt;datasetId&gt;"); `
+`[Client](#a00043) client = new [Client()](#a00043_1a0ba3cc00461a4ee4d4a346d9600efa4a); var response = client.DeleteDataset("&lt;datasetId&gt;"); `
 
 #### Parameters
 * `datasetId` Id of the dataset
@@ -613,7 +613,7 @@ var response = client.UpdateSecret("<secretId>", data);
 
 Delete a secret, calls the DELETE /secrets/{secretId} endpoint.
 
-` Client client = new Client(); var response = client.DeleteSecret("&lt;secretId&gt;"); `
+`[Client](#a00043) client = new [Client()](#a00043_1a0ba3cc00461a4ee4d4a346d9600efa4a); var response = client.DeleteSecret("&lt;secretId&gt;"); `
 
 #### Parameters
 * `secretId` Id of the secret
@@ -944,7 +944,7 @@ User response from REST API
 
 #### `public object `[`CreateWorkflow`](#a00043_1afb39b183ec5d50eca5686a2365803a21)`(Dictionary< string, object > specification,Dictionary< string, object >? errorConfig,Dictionary< string, object >? completedConfig,Dictionary< string, string?>? attributes)` 
 
-Creates a new workflow, calls the POST /workflows endpoint. Check out Lucidtech's tutorials for more info on how to create a workflow.
+Creates a new workflow, calls the POST /workflows endpoint. Check out [Lucidtech](#a00020)'s tutorials for more info on how to create a workflow.
 
 ```cpp
 Client client = new Client();
@@ -1189,7 +1189,7 @@ Used to fetch and store credentials. One of 3 conditions must be met to successf
 
 * The path to the file where the credentials are stored is provided
 
-* Credentials are located in default path ~/.lucidtech/credentials.cfg
+* [Credentials](#a00067) are located in default path ~/.lucidtech/credentials.cfg
 
 Get credentials by contacting [hello@lucidtech.ai](mailto:hello@lucidtech.ai)
 
@@ -1197,19 +1197,19 @@ Get credentials by contacting [hello@lucidtech.ai](mailto:hello@lucidtech.ai)
 
 #### `{property} string `[`ClientId`](#a00067_1a597f4891d6f0fe9ed9f04e7aae21608f) 
 
-Client ID. Provided by Lucidtech.
+[Client](#a00043) ID. Provided by [Lucidtech](#a00020).
 
 #### `{property} string `[`ClientSecret`](#a00067_1aec4e817805386c0c3c10e0d3fcd7b565) 
 
-Client Secret. Provided by Lucidtech.
+[Client](#a00043) Secret. Provided by [Lucidtech](#a00020).
 
 #### `{property} string `[`AuthEndpoint`](#a00067_1aeb48746d4fcd7e93d0ba24aa1dd41659) 
 
-AWS Authorization endpoint. Provided by Lucidtech.
+AWS Authorization endpoint. Provided by [Lucidtech](#a00020).
 
 #### `{property} string `[`ApiEndpoint`](#a00067_1a5dc9073eba2810493f73a112d9d076ee) 
 
-AWS API Gateway API endpoint. Provided by Lucidtech.
+AWS API Gateway API endpoint. Provided by [Lucidtech](#a00020).
 
 #### `{property} RestClient `[`RestSharpClient`](#a00067_1a77da9eff9a94f2ac1f03d134d74636f4) 
 
@@ -1221,7 +1221,7 @@ Get Access token to API endpoint.
 
 #### `public  `[`Credentials`](#a00067_1ae1684e3aa6a905cb350958b144f11443)`(string clientId,string clientSecret,string authEndpoint,string apiEndpoint)` 
 
-Credentials constructor where ClientId, ClientSecret, AuthEndpoint and ApiEndpoint are provided by Lucidtech.
+[Credentials](#a00067) constructor where ClientId, ClientSecret, AuthEndpoint and ApiEndpoint are provided by [Lucidtech](#a00020).
 
 #### Parameters
 * `clientId` client id 
@@ -1237,14 +1237,14 @@ Credentials constructor where ClientId, ClientSecret, AuthEndpoint and ApiEndpoi
 
 #### `public  `[`Credentials`](#a00067_1a6b90bc8b8d133da49e129036886eefd5)`(string credentialsPath)` 
 
-Credentials constructor where the path to the credentials config is provided.
+[Credentials](#a00067) constructor where the path to the credentials config is provided.
 
 #### Parameters
 * `credentialsPath` Path to the file where the credentials are stored
 
 #### `public  `[`Credentials`](#a00067_1aa5fba45758ca0f5651c6e92ebc0250eb)`()` 
 
-Credentials constructor where the credentials are located at the default path. ~/.lucidtech/credentials.cfg for linux and USERPROFILE%.lucidtech\credentials.cfg for Windows.
+[Credentials](#a00067) constructor where the credentials are located at the default path. ~/.lucidtech/credentials.cfg for linux and USERPROFILE%.lucidtech\credentials.cfg for Windows.
 
 #### `protected  `[`string`](#a00067_1a276748a80f0a2bc01026b8b45ae6d9cd) 
 
@@ -1291,7 +1291,7 @@ class Lucidtech::Las::Core::InvalidCredentialsException
   : public Lucidtech.Las.Core.ClientException
 ```  
 
-An InvalidCredentialsException is raised if access key id or secret access key is invalid.
+An [InvalidCredentialsException](#a00051) is raised if access key id or secret access key is invalid.
 
 ## Members
 
@@ -1304,7 +1304,7 @@ class Lucidtech::Las::Core::LimitExceededException
   : public Lucidtech.Las.Core.ClientException
 ```  
 
-A LimitExceededException is raised if you have reached the limit of total requests per month associated with your credentials.
+A [LimitExceededException](#a00059) is raised if you have reached the limit of total requests per month associated with your credentials.
 
 ## Members
 
@@ -1334,7 +1334,7 @@ A list of the responses from a prediction
 
 #### `public  `[`Prediction`](#a00071_1ad2683829a91fd8809e00aeb35c412901)`(string documentId,string consentId,string modelName,List< Dictionary< string, object >> predictionResponse)` 
 
-Constructor of s Prediction object
+Constructor of s [Prediction](#a00071) object
 
 #### Parameters
 * `documentId` The id of the document used in the prediction 
@@ -1362,7 +1362,7 @@ class Lucidtech::Las::Core::RequestException
   : public Lucidtech.Las.Core.ClientException
 ```  
 
-A RequestException is raised if something went wrong with the request.
+A [RequestException](#a00063) is raised if something went wrong with the request.
 
 ## Members
 
@@ -1405,7 +1405,7 @@ class Lucidtech::Las::Core::TooManyRequestsException
   : public Lucidtech.Las.Core.ClientException
 ```  
 
-A TooManyRequestsException is raised if you have reached the number of requests per second limit associated with your credentials.
+A [TooManyRequestsException](#a00055) is raised if you have reached the number of requests per second limit associated with your credentials.
 
 ## Members
 
