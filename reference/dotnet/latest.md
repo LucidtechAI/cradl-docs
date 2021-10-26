@@ -12,7 +12,7 @@
 
 #### `{property} RestClient `[`RestSharpClient`](#a00043_1a5e59cc310cc0dd101e74a16824f2fa3a) 
 
-#### `{property} `[`Credentials`](#a00067)` `[`LasCredentials`](#a00043_1aed1258913a65f014aa0ce4ef63bd6dfe) 
+#### `{property} `[`Credentials`](#a00067) [`LasCredentials`](#a00043_1aed1258913a65f014aa0ce4ef63bd6dfe) 
 
 #### `public  `[`Client`](#a00043_1a2a95a90e6dfa52e94d3e12a18d583fca)`(`[`Credentials`](#a00067)` credentials)` 
 
@@ -90,7 +90,7 @@ Delete an appClient, calls the DELETE /appClients/{appClientId} endpoint.
 #### Returns
 AppClient response from REST API
 
-#### `public object `[`CreateAsset`](#a00043_1afde4b9ed933fd6fc775770af3cd412e1)`(byte [] content,Dictionary< string, string?>? attributes)` 
+#### `public object `[`CreateAsset`](#a00043_1afde4b9ed933fd6fc775770af3cd412e1)`(byte[] content,Dictionary< string, string?>? attributes)` 
 
 Creates an asset, calls the POST /assets endpoint.
 
@@ -144,7 +144,7 @@ var response = client.GetAsset("<asset_id>");
 #### Returns
 Asset object
 
-#### `public object `[`UpdateAsset`](#a00043_1a63e88e264995507702cfde3285150eae)`(string assetId,byte? [] content,Dictionary< string, string?>? attributes)` 
+#### `public object `[`UpdateAsset`](#a00043_1a63e88e264995507702cfde3285150eae)`(string assetId,byte?[] content,Dictionary< string, string?>? attributes)` 
 
 Updates an asset, calls the PATCH /assets/{assetId} endpoint.
 
@@ -176,7 +176,7 @@ Delete an asset, calls the DELETE /assets/{assetId} endpoint.
 #### Returns
 Asset response from REST API
 
-#### `public object `[`CreateDocument`](#a00043_1ae4d0d8142ff3a2caa9b67e9cccdebf91)`(byte [] content,string contentType,string? consentId,List< Dictionary< string, string >>? groundTruth,string? datasetId)` 
+#### `public object `[`CreateDocument`](#a00043_1ae4d0d8142ff3a2caa9b67e9cccdebf91)`(byte[] content,string contentType,string? consentId,List< Dictionary< string, string >>? groundTruth,string? datasetId)` 
 
 Creates a document handle, calls the POST /documents endpoint
 
