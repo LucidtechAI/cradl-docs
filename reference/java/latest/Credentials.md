@@ -4,14 +4,13 @@
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public  `[`Credentials`]`(String clientId,String clientSecret,String apiKey,String authEndpoint,String apiEndpoint)` | Used to fetch and store credentials.
+`public  `[`Credentials`]`(String clientId,String clientSecret,String authEndpoint,String apiEndpoint)` | Used to fetch and store credentials.
 `public String `[`getAccessToken`]`(HttpClient httpClient)` | #### Parameters
-`public String `[`getApiKey`]`()` | 
 `public String `[`getApiEndpoint`]`()` | 
 
 ## Members
 
-#### `public  `[`Credentials`]`(String clientId,String clientSecret,String apiKey,String authEndpoint,String apiEndpoint)` 
+#### `public  `[`Credentials`]`(String clientId,String clientSecret,String authEndpoint,String apiEndpoint)` 
 
 Used to fetch and store credentials.
 
@@ -19,8 +18,6 @@ Used to fetch and store credentials.
 * `clientId` [Client](docs/ai::lucidtech::las::sdk::Client.md#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client) id 
 
 * `clientSecret` [Client](docs/ai::lucidtech::las::sdk::Client.md#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client) secret 
-
-* `apiKey` API key 
 
 * `authEndpoint` Auth endpoint 
 
@@ -39,8 +36,6 @@ Access token, downloading it if necessary
 
 #### Exceptions
 * `[MissingAccessTokenException](docs/ai::lucidtech::las::sdk::MissingAccessTokenException.md#classai_1_1lucidtech_1_1las_1_1sdk_1_1_missing_access_token_exception)` Raised if access token cannot be obtained
-
-#### `public String `[`getApiKey`]`()` 
 
 #### `public String `[`getApiEndpoint`]`()` 
 

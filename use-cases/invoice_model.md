@@ -56,7 +56,7 @@ First, we need to configure the behavior of the model.
 - Go to **Datasets > YourDataset > Upload data**.
 - Select files and press **Start upload**.
   
-![upload data](../.gitbook/assets/upload-documents-cradl.png)
+![upload data](../.gitbook/assets/upload-documents-cradl-1.png)
 
 ## 3. Train your model
 To make sure that your dataset is compatible with the model we will have to create a [data bundle](../concepts/training-data.md) 

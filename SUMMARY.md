@@ -42,8 +42,6 @@
     * [/appClients/{appClientId}](reference/restapi/v1/appClients/{appClientId}/README.md)
     * [/assets](reference/restapi/v1/assets/README.md)
     * [/assets/{assetId}](reference/restapi/v1/assets/{assetId}/README.md)
-    * [/batches](reference/restapi/v1/batches/README.md)
-    * [/batches/{batchId}](reference/restapi/v1/batches/{batchId}/README.md)
     * [/datasets](reference/restapi/v1/datasets/README.md)
     * [/datasets/{datasetId}](reference/restapi/v1/datasets/{datasetId}/README.md)
     * [/documents](reference/restapi/v1/documents/README.md)

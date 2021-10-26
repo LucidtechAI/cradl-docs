@@ -3,7 +3,7 @@
 ### Overview
 
 
-The [Client](Client.md) class contains all the higher level methods
+The [Client](ai::lucidtech::las::sdk::Client.md) class contains all the higher level methods
 
 
 ### Options

@@ -9,7 +9,6 @@
 | Header name | Header value |
 | --- | --- |
 | Authorization | Bearer &lt;your access token here&gt; |
-| x-api-key | &lt;your api key here&gt; |
 
 
 

@@ -16,7 +16,7 @@ Link to Maven repository
 <dependency>
   <groupId>ai.lucidtech</groupId>
   <artifactId>las-sdk-java</artifactId>
-  <version>2.0.2</version>
+  <version>4.0.0</version>
 </dependency>
 ```
 
@@ -25,7 +25,7 @@ Link to Maven repository
 [https://gradle.org/](https://gradle.org/)
 
 ```
-implementation 'ai.lucidtech:las-sdk-java:2.0.2'
+implementation 'ai.lucidtech:las-sdk-java:4.0.0'
 ```
 
 #### Gradle Kotlin DSL
@@ -33,5 +33,5 @@ implementation 'ai.lucidtech:las-sdk-java:2.0.2'
 [https://github.com/gradle/kotlin-dsl](https://github.com/gradle/kotlin-dsl)
 
 ```
-implementation("ai.lucidtech:las-sdk-java:2.0.2")
+implementation("ai.lucidtech:las-sdk-java:4.0.0")
 ```
