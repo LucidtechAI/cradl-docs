@@ -1264,7 +1264,7 @@ WorkflowExecution response from REST API
 `class `[`Lucidtech::Las::Core::ClientException`](#a00047) | A [ClientException](#a00047) is raised if the client refuses to send request due to incorrect usage or bad request data.
 `class `[`Lucidtech::Las::Core::Credentials`](#a00067) | Used to fetch and store credentials. One of 3 conditions must be met to successfully create credentials.
 `class `[`Lucidtech::Las::Core::FeedbackResponse`](#a00079) | The structured format of the response from a send feedback request.
-`class `[`Lucidtech::Las::Core::InvalidCredentialsException`](#a00051) | An [InvalidCredentialsException](#a00051) is raised if api key, access key id or secret access key is invalid.
+`class `[`Lucidtech::Las::Core::InvalidCredentialsException`](#a00051) | An [InvalidCredentialsException](#a00051) is raised if access key id or secret access key is invalid.
 `class `[`Lucidtech::Las::Core::LimitExceededException`](#a00059) | A [LimitExceededException](#a00059) is raised if you have reached the limit of total requests per month associated with your credentials.
 `class `[`Lucidtech::Las::Core::Prediction`](#a00071) | A class that contains all the necessary information regarding a prediction performed by ApiClient.
 `class `[`Lucidtech::Las::Core::RequestException`](#a00063) | A [RequestException](#a00063) is raised if something went wrong with the request.
@@ -1294,7 +1294,7 @@ A [ClientException](#a00047) is raised if the client refuses to send request due
 
 Used to fetch and store credentials. One of 3 conditions must be met to successfully create credentials.
 
-* ClientId, ClientSecret, ApiKey, AuthEndpoint and ApiEndpoint are provided
+* ClientId, ClientSecret, AuthEndpoint and ApiEndpoint are provided
 
 * The path to the file where the credentials are stored is provided
 
@@ -1308,12 +1308,11 @@ Get credentials by contacting [hello@lucidtech.ai](mailto:hello@lucidtech.ai)
 --------------------------------|---------------------------------------------
 `{property} string `[`ClientId`](#a00067_1a597f4891d6f0fe9ed9f04e7aae21608f) | [Client](#a00043) ID. Provided by [Lucidtech](#a00020).
 `{property} string `[`ClientSecret`](#a00067_1aec4e817805386c0c3c10e0d3fcd7b565) | [Client](#a00043) Secret. Provided by [Lucidtech](#a00020).
-`{property} string `[`ApiKey`](#a00067_1a08c0214e87897ef9229f99879a7a3b54) | AWS API Gateway API key. Provided by [Lucidtech](#a00020).
 `{property} string `[`AuthEndpoint`](#a00067_1aeb48746d4fcd7e93d0ba24aa1dd41659) | AWS Authorization endpoint. Provided by [Lucidtech](#a00020).
 `{property} string `[`ApiEndpoint`](#a00067_1a5dc9073eba2810493f73a112d9d076ee) | AWS API Gateway API endpoint. Provided by [Lucidtech](#a00020).
 `{property} RestClient `[`RestSharpClient`](#a00067_1a77da9eff9a94f2ac1f03d134d74636f4) | RestClient for making request to the authorization endpoint.
 `public string `[`GetAccessToken`](#a00067_1a02857d4f347be1b9481ee23fae2547a8)`()` | Get Access token to API endpoint.
-`public  `[`Credentials`](#a00067_1aa41b89dcd32d09c410fa0ec8c544a5e4)`(string clientId,string clientSecret,string apiKey,string authEndpoint,string apiEndpoint)` | [Credentials](#a00067) constructor where ClientId, ClientSecret, ApiKey, AuthEndpoint and ApiEndpoint are provided by [Lucidtech](#a00020).
+`public  `[`Credentials`](#a00067_1ae1684e3aa6a905cb350958b144f11443)`(string clientId,string clientSecret,string authEndpoint,string apiEndpoint)` | [Credentials](#a00067) constructor where ClientId, ClientSecret, AuthEndpoint and ApiEndpoint are provided by [Lucidtech](#a00020).
 `public  `[`Credentials`](#a00067_1a6b90bc8b8d133da49e129036886eefd5)`(string credentialsPath)` | [Credentials](#a00067) constructor where the path to the credentials config is provided.
 `public  `[`Credentials`](#a00067_1aa5fba45758ca0f5651c6e92ebc0250eb)`()` | [Credentials](#a00067) constructor where the credentials are located at the default path. ~/.lucidtech/credentials.cfg for linux and USERPROFILE%.lucidtech\credentials.cfg for Windows.
 `protected  `[`string`](#a00067_1a276748a80f0a2bc01026b8b45ae6d9cd) | 
@@ -1328,10 +1327,6 @@ Get credentials by contacting [hello@lucidtech.ai](mailto:hello@lucidtech.ai)
 #### `{property} string `[`ClientSecret`](#a00067_1aec4e817805386c0c3c10e0d3fcd7b565) 
 
 [Client](#a00043) Secret. Provided by [Lucidtech](#a00020).
-
-#### `{property} string `[`ApiKey`](#a00067_1a08c0214e87897ef9229f99879a7a3b54) 
-
-AWS API Gateway API key. Provided by [Lucidtech](#a00020).
 
 #### `{property} string `[`AuthEndpoint`](#a00067_1aeb48746d4fcd7e93d0ba24aa1dd41659) 
 
@@ -1349,16 +1344,14 @@ RestClient for making request to the authorization endpoint.
 
 Get Access token to API endpoint.
 
-#### `public  `[`Credentials`](#a00067_1aa41b89dcd32d09c410fa0ec8c544a5e4)`(string clientId,string clientSecret,string apiKey,string authEndpoint,string apiEndpoint)` 
+#### `public  `[`Credentials`](#a00067_1ae1684e3aa6a905cb350958b144f11443)`(string clientId,string clientSecret,string authEndpoint,string apiEndpoint)` 
 
-[Credentials](#a00067) constructor where ClientId, ClientSecret, ApiKey, AuthEndpoint and ApiEndpoint are provided by [Lucidtech](#a00020).
+[Credentials](#a00067) constructor where ClientId, ClientSecret, AuthEndpoint and ApiEndpoint are provided by [Lucidtech](#a00020).
 
 #### Parameters
 * `clientId` client id 
 
 * `clientSecret` client secret 
-
-* `apiKey` API key 
 
 * `authEndpoint` Authorization endpoint 
 
@@ -1434,7 +1427,7 @@ class Lucidtech::Las::Core::InvalidCredentialsException
   : public Lucidtech.Las.Core.ClientException
 ```  
 
-An [InvalidCredentialsException](#a00051) is raised if api key, access key id or secret access key is invalid.
+An [InvalidCredentialsException](#a00051) is raised if access key id or secret access key is invalid.
 
 ## Summary
 
