@@ -13,6 +13,5 @@ Cradl's approach to extracting structured data is _**learning by example, not by
 ## Getting started
 
 - Jump straight to the section for [quickstart guides](use-cases/invoice_model.md) if you want a flying start. 
-- For a thorough introduction on the usage of CLI and SDK continue with the [Getting Started section](get-started/installation.md).
-- If you want a better overview of the API and its key compoments we recommend you to dive into the [Concepts](concepts/models.md).
-
+- For a bit more extensive introduction on the usage of CLI and SDK, continue with the [Get Started section](get-started/installation.md).
+- If you want a better overview of the API and its key components we recommend you to dive into the [Concepts](concepts/models.md).

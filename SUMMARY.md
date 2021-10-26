@@ -10,16 +10,16 @@
   
 ## Get started
 
-* [Configure model](get-started/create-a-model.md)
-* [Gather data](get-started/create-a-dataset.md)
+* [1. Configure model](get-started/create-a-model.md)
+* [2. Gather data](get-started/create-a-dataset.md)
   * [Create dataset](get-started/create-a-dataset.md)
   * [Upload data](get-started/upload-data.md)
     * [Upload data using the CLI](get-started/upload-data-using-cli.md)
     * [Upload documents using the app](get-started/upload-data-app.md)
-* [Train model](get-started/train-a-model.md)
+* [3. Train model](get-started/train-a-model.md)
   * [Select and inspect training data](get-started/choose-training-data.md)
   * [Train model](get-started/train-a-model.md)
-* [Use model](get-started/serve-a-model.md)
+* [Apply model](get-started/serve-a-model.md)
 
 ## Quickstart
 
