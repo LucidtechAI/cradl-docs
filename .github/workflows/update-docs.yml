@@ -83,7 +83,7 @@ jobs:
           cd js-sdk
           npm install && npm run upgrade-lucidtech
           npm run docs
-          sed -i -E -e '/Defined in.*/d'  -e '/\[.+\]\(.+#L.+\)/d' -e '/(Name|Type|Description) \|/d' -e '/------/d' -e 's/ \|//g' docs.md
+          sed -i -E -e '/Defined in.*/d'  -e '/\[.+\]\(.+#L.+\)/d' -e '/(Name|Type|Description) \|/d' -e '/------/d' -e 's/ \|//g' -e 's/^\|//' docs.md
           mv docs.md ../reference/js/latest.md
 
       - name: Clean up
