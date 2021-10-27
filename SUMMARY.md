@@ -6,7 +6,7 @@
 
 * [Installation](get-started/installation.md)
 * [Authentication](get-started/authentication.md)
-* [Test your demo model](get-started/test-your-demo-model.md)
+* [Check out our community models](get-started/test-your-demo-model.md)
   
 ## Get started
 
