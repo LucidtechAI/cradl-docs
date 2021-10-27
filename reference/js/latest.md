@@ -1,8 +1,6 @@
 
 <a name="readmemd"></a>
 
-@lucidtech/las-sdk-core / [Exports](#modulesmd)
-
 # JavaScript SDK for Lucidtech AI Services API
 
 ## Installation
@@ -24,16 +22,14 @@ $ npm install @lucidtech/las-sdk-node
 ```javascript
 import { Client } from '@lucidtech/las-sdk-core';
 import { ClientCredentials } from '@lucidtech/las-sdk-node';
+import { readFile } from 'fs/promises'
 
-const credentials = new ClientCredentials('<apiEndpoint>', '<apiKey>', '<clientId>',  '<clientSecret>', '<authEndpoint>');
+const fileBuffer = await readFile('...path/file.jpg')
+
+const credentials = new ClientCredentials('<apiEndpoint>', '<clientId>',  '<clientSecret>', '<authEndpoint>');
 const client = new Client(credentials);
 
-const content = '<read image content>'
-client.createDocument(content, 'image/jpeg').then(documentResponse => {
-    console.log(documentResponse);
-}).catch(error => {
-    console.log(error);
-})
+const documentResponse = await client.createDocument(fileBuffer, 'image/jpeg');
 ```
 
 ## Contributing
@@ -54,1380 +50,1750 @@ $ npm run test test
 ```
 
 
-<a name="classesclientclient-1md"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [client](#modulesclientmd) / Client
+<a name="classesclientmd"></a>
 
 # Class: Client
 
-[client](#modulesclientmd).Client
-
 A high-level http client for communicating with the Lucidtech REST API
-
-## Table of contents
-
-### Constructors
-
-- [constructor](#constructor)
-
-### Properties
-
-- [credentials](#credentials)
-
-### Methods
-
-- [createAsset](#createasset)
-- [createBatch](#createbatch)
-- [createDocument](#createdocument)
-- [createPrediction](#createprediction)
-- [createSecret](#createsecret)
-- [createTransition](#createtransition)
-- [createUser](#createuser)
-- [createWorkflow](#createworkflow)
-- [deleteDocuments](#deletedocuments)
-- [deleteTransition](#deletetransition)
-- [deleteUser](#deleteuser)
-- [deleteWorkflow](#deleteworkflow)
-- [deleteWorkflowExecution](#deleteworkflowexecution)
-- [executeTransition](#executetransition)
-- [executeWorkflow](#executeworkflow)
-- [getAsset](#getasset)
-- [getDocument](#getdocument)
-- [getLog](#getlog)
-- [getTransition](#gettransition)
-- [getUser](#getuser)
-- [getWorkflow](#getworkflow)
-- [listAssets](#listassets)
-- [listDocuments](#listdocuments)
-- [listModels](#listmodels)
-- [listPredictions](#listpredictions)
-- [listSecrets](#listsecrets)
-- [listTransitionExecutions](#listtransitionexecutions)
-- [listTransitions](#listtransitions)
-- [listUsers](#listusers)
-- [listWorkflowExecutions](#listworkflowexecutions)
-- [listWorkflows](#listworkflows)
-- [makeDeleteRequest](#makedeleterequest)
-- [makeGetRequest](#makegetrequest)
-- [makePatchRequest](#makepatchrequest)
-- [makePostRequest](#makepostrequest)
-- [updateAsset](#updateasset)
-- [updateDocument](#updatedocument)
-- [updateSecret](#updatesecret)
-- [updateTransition](#updatetransition)
-- [updateTransitionExecution](#updatetransitionexecution)
-- [updateUser](#updateuser)
-- [updateWorkflow](#updateworkflow)
 
 ## Constructors
 
 ### constructor
 
-\+ **new Client**(`credentials`: [*Credentials*](#classescredentialscredentials-1md)): [*Client*](#classesclientclient-1md)
+• **new Client**(`credentials`)
 
-#### Parameters:
+#### Parameters
 
+ `credentials` [`Credentials`](#classescredentialsmd)
 
-`credentials` [*Credentials*](#classescredentialscredentials-1md)
-
-**Returns:** [*Client*](#classesclientclient-1md)
 
 
 ## Properties
 
 ### credentials
 
-• **credentials**: [*Credentials*](#classescredentialscredentials-1md)
+• **credentials**: [`Credentials`](#classescredentialsmd)
+
 
 
 ## Methods
 
+### createAppClient
+
+▸ **createAppClient**(`options`): `Promise`<[`AppClient`](#appclient)\>
+
+Creates an app client, calls the POST /appClients endpoint.
+
+#### Parameters
+
+ `options` [`CreateAppClientOptions`](#createappclientoptions)
+
+#### Returns
+
+`Promise`<[`AppClient`](#appclient)\>
+
+AppClient response from REST API
+
+
+
+___
+
 ### createAsset
 
-▸ **createAsset**(`content`: *string*): *Promise*<[*Asset*](#asset)\>
+▸ **createAsset**(`content`): `Promise`<[`Asset`](#asset)\>
 
-Creates an asset handle, calls the POST /assets endpoint.
+Creates an asset, calls the POST /assets endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `content` `string` Content to POST (base64-encoded string \| Buffer)
 
-`content` *string* Content to POST (base64-encoded string \| Buffer)  
+#### Returns
 
-**Returns:** *Promise*<[*Asset*](#asset)\>
+`Promise`<[`Asset`](#asset)\>
 
 Asset response from REST API
+
 
 
 ___
 
 ### createBatch
 
-▸ **createBatch**(`options`: [*CreateBatchOptions*](#createbatchoptions)): *Promise*<[*Batch*](#batch)\>
+▸ **createBatch**(`options`): `Promise`<[`Batch`](#batch)\>
 
+**`deprecated`** Use the new [Client.createDataset](#createdataset) method instead.
 Creates a batch, calls the POST /batches endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `options` [`CreateBatchOptions`](#createbatchoptions)
 
-`options` [*CreateBatchOptions*](#createbatchoptions)
+#### Returns
 
-**Returns:** *Promise*<[*Batch*](#batch)\>
+`Promise`<[`Batch`](#batch)\>
 
 Batch response from REST API
+
+
+
+___
+
+### createDataBundle
+
+▸ **createDataBundle**(`modelId`, `datasetIds`, `options`): `Promise`<[`DataBundle`](#databundle)\>
+
+Creates a dataBundle, calls the POST /models/{modelId}/dataBundles endpoint.
+
+#### Parameters
+
+ `modelId` `string` Id of the model to create dataBundle for
+ `datasetIds` `string`[] Ids of the datasets to create dataBundle with
+ `options` [`CreateDataBundleOptions`](#createdatabundleoptions) -
+
+#### Returns
+
+`Promise`<[`DataBundle`](#databundle)\>
+
+DataBundle response from REST API
+
+
+
+___
+
+### createDataset
+
+▸ **createDataset**(`options`): `Promise`<[`Dataset`](#dataset)\>
+
+Creates a dataset, calls the POST /datasets endpoint.
+
+#### Parameters
+
+ `options` [`CreateDatasetOptions`](#createdatasetoptions)
+
+#### Returns
+
+`Promise`<[`Dataset`](#dataset)\>
+
+Dataset response from REST API
+
 
 
 ___
 
 ### createDocument
 
-▸ **createDocument**(`content`: *string* \| *Buffer*, `contentType`: [*ContentType*](#contenttype), `options?`: [*CreateDocumentOptions*](#interfacestypescreatedocumentoptionsmd)): *Promise*<[*LasDocument*](#lasdocument)\>
+▸ **createDocument**(`content`, `contentType`, `options?`): `Promise`<`Pick`<[`LasDocument`](#lasdocument), ``"batchId"`` \| ``"consentId"`` \| ``"contentType"`` \| ``"datasetId"`` \| ``"documentId"`` \| ``"groundTruth"`` \| ``"retentionInDays"`` \| ``"createdTime"`` \| ``"updatedTime"`` \| ``"createdBy"`` \| ``"updatedBy"``\>\>
 
-Creates a document handle, calls the POST /documents endpoint.
+Creates a document, calls the POST /documents endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `content` `string` \| `Buffer` Content to POST (base64 string \| Buffer)
+ `contentType` [`ContentType`](#contenttype) MIME type for the document
+ `options?` [`CreateDocumentOptions`](#interfacescreatedocumentoptionsmd) -
 
-`content` *string* \| *Buffer* Content to POST (base64 string \| Buffer)  
-`contentType` [*ContentType*](#contenttype) MIME type for the document handle  
-`options?` [*CreateDocumentOptions*](#interfacestypescreatedocumentoptionsmd) -
+#### Returns
 
-**Returns:** *Promise*<[*LasDocument*](#lasdocument)\>
+`Promise`<`Pick`<[`LasDocument`](#lasdocument), ``"batchId"`` \| ``"consentId"`` \| ``"contentType"`` \| ``"datasetId"`` \| ``"documentId"`` \| ``"groundTruth"`` \| ``"retentionInDays"`` \| ``"createdTime"`` \| ``"updatedTime"`` \| ``"createdBy"`` \| ``"updatedBy"``\>\>
 
 Document response from REST API
+
+
+
+___
+
+### createModel
+
+▸ **createModel**(`fieldConfig`, `width`, `height`, `options?`): `Promise`<[`Model`](#model)\>
+
+Creates a model, calls the POST /models endpoint.
+
+#### Parameters
+
+ `fieldConfig` `Record`<`string`, [`Field`](#field)\> Specification of the fields that the model is going to predict
+ `width` `number` The number of pixels to be used for the input image width of your model
+ `height` `number` The number of pixels to be used for the input image height of your model
+ `options?` [`CreateModelOptions`](#createmodeloptions) -
+
+#### Returns
+
+`Promise`<[`Model`](#model)\>
+
+Model response from REST API
+
 
 
 ___
 
 ### createPrediction
 
-▸ **createPrediction**(`documentId`: *string*, `modelId`: *string*, `options?`: [*CreatePredictionsOptions*](#interfacestypescreatepredictionsoptionsmd)): *Promise*<[*PredictionResponse*](#predictionresponse)\>
+▸ **createPrediction**(`documentId`, `modelId`, `options?`): `Promise`<[`PredictionResponse`](#predictionresponse)\>
 
 Create a prediction on a document using specified model, calls the POST /predictions endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `documentId` `string` Id of the document to run inference and create a prediction on
+ `modelId` `string` Id of the model to use for inference
+ `options?` [`CreatePredictionsOptions`](#interfacescreatepredictionsoptionsmd) -
 
-`documentId` *string* Id of the document to run inference and create a prediction on  
-`modelId` *string* Id of the model to use for inference  
-`options?` [*CreatePredictionsOptions*](#interfacestypescreatepredictionsoptionsmd) -
+#### Returns
 
-**Returns:** *Promise*<[*PredictionResponse*](#predictionresponse)\>
+`Promise`<[`PredictionResponse`](#predictionresponse)\>
 
 Predicion response from REST API
+
 
 
 ___
 
 ### createSecret
 
-▸ **createSecret**(`data`: *Record*<any, any\>, `options?`: [*CreateSecretOptions*](#interfacestypescreatesecretoptionsmd)): *Promise*<[*Secret*](#secret)\>
+▸ **createSecret**(`data`, `options?`): `Promise`<[`Secret`](#secret)\>
 
-Creates an secret handle, calls the POST /secrets endpoint.
+Creates a secret, calls the POST /secrets endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `data` `Record`<`any`, `any`\> Object containing the data you want to keep secret
+ `options?` [`CreateSecretOptions`](#interfacescreatesecretoptionsmd) -
 
-`data` *Record*<any, any\> Object containing the data you want to keep secret  
-`options?` [*CreateSecretOptions*](#interfacestypescreatesecretoptionsmd) -
+#### Returns
 
-**Returns:** *Promise*<[*Secret*](#secret)\>
+`Promise`<[`Secret`](#secret)\>
 
 Secret response from REST API
+
 
 
 ___
 
 ### createTransition
 
-▸ **createTransition**(`transitionType`: [*TransitionType*](#transitiontype), `options?`: [*CreateTransitionOptions*](#interfacestypescreatetransitionoptionsmd)): *Promise*<[*Transition*](#transition)\>
+▸ **createTransition**(`transitionType`, `options?`): `Promise`<[`Transition`](#transition)\>
 
-Creates a transition handle, calls the POST /transitions endpoint.
+Creates a transition, calls the POST /transitions endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `transitionType` [`TransitionType`](#transitiontype) Type of transition "docker"\|"manual"
+ `options?` [`CreateTransitionOptions`](#interfacescreatetransitionoptionsmd) -
 
-`transitionType` [*TransitionType*](#transitiontype) Type of transition "docker"\|"manual"  
-`options?` [*CreateTransitionOptions*](#interfacestypescreatetransitionoptionsmd) -
+#### Returns
 
-**Returns:** *Promise*<[*Transition*](#transition)\>
+`Promise`<[`Transition`](#transition)\>
 
 Transition response from REST API
+
 
 
 ___
 
 ### createUser
 
-▸ **createUser**(`email`: *string*, `data?`: [*CreateUserOptions*](#createuseroptions)): *Promise*<[*User*](#user)\>
+▸ **createUser**(`email`, `data?`): `Promise`<[`User`](#user)\>
 
 Creates a new user, calls the POST /users endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `email` `string` Email to the new user
+ `data?` [`CreateUserOptions`](#createuseroptions) -
 
-`email` *string* Email to the new user  
-`data?` [*CreateUserOptions*](#createuseroptions) -
+#### Returns
 
-**Returns:** *Promise*<[*User*](#user)\>
+`Promise`<[`User`](#user)\>
 
 User response from REST API
+
 
 
 ___
 
 ### createWorkflow
 
-▸ **createWorkflow**(`name`: *string*, `specification`: [*WorkflowSpecification*](#workflowspecification), `options?`: [*CreateWorkflowOptions*](#createworkflowoptions)): *Promise*<[*Workflow*](#workflow)\>
+▸ **createWorkflow**(`name`, `specification`, `options?`): `Promise`<[`Workflow`](#workflow)\>
 
 Creates a new workflow, calls the POST /workflows endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `name` `string` Name of the workflow
+ `specification` [`WorkflowSpecification`](#workflowspecification) Specification of the workflow
+ `options?` [`CreateWorkflowOptions`](#createworkflowoptions) -
 
-`name` *string* Name of the workflow  
-`specification` [*WorkflowSpecification*](#workflowspecification) Specification of the workflow  
-`options?` [*CreateWorkflowOptions*](#createworkflowoptions) -
+#### Returns
 
-**Returns:** *Promise*<[*Workflow*](#workflow)\>
+`Promise`<[`Workflow`](#workflow)\>
 
 Workflow response from REST API
+
+
+
+___
+
+### deleteAppClient
+
+▸ **deleteAppClient**(`appClientId`): `Promise`<[`AppClient`](#appclient)\>
+
+Delete the app client, calls the DELETE /appClients/{appClientId} endpoint.
+
+#### Parameters
+
+ `appClientId` `string` of the app client
+
+#### Returns
+
+`Promise`<[`AppClient`](#appclient)\>
+
+AppClient response from REST API
+
+
+
+___
+
+### deleteAsset
+
+▸ **deleteAsset**(`assetId`): `Promise`<[`Asset`](#asset)\>
+
+Delete an asset, calls the DELETE /assets/{assetId} endpoint.
+
+#### Parameters
+
+ `assetId` `string` of the app client
+
+#### Returns
+
+`Promise`<[`Asset`](#asset)\>
+
+Asset response from REST API
+
+
+
+___
+
+### deleteBatch
+
+▸ **deleteBatch**(`batchId`, `deleteDocuments?`): `Promise`<[`Batch`](#batch)\>
+
+Deletes a batch, calls the DELETE /batches/{batchId} endpoint.
+
+**`deprecated`** Use the new [Client.deleteDataset](#deletedataset) method instead.
+
+#### Parameters
+
+ `batchId` `string` `undefined` Id of the batch
+ `deleteDocuments` `boolean` `false` Set to true to delete documents in batch before deleting batch
+
+#### Returns
+
+`Promise`<[`Batch`](#batch)\>
+
+Batch response from REST API
+
+
+
+___
+
+### deleteDataBundle
+
+▸ **deleteDataBundle**(`modelId`, `dataBundleId`): `Promise`<[`DataBundle`](#databundle)\>
+
+Delete a dataBundle, calls the DELETE /dataBundles/{dataBundleId} endpoint.
+
+#### Parameters
+
+ `modelId` `string` of the model
+ `dataBundleId` `string` of the dataBundle
+
+#### Returns
+
+`Promise`<[`DataBundle`](#databundle)\>
+
+DataBundle response from REST API
+
+
+
+___
+
+### deleteDataset
+
+▸ **deleteDataset**(`datasetId`, `deleteDocuments?`): `Promise`<[`Dataset`](#dataset)\>
+
+Deletes a dataset, calls the DELETE /datasets/{datasetId} endpoint.
+
+#### Parameters
+
+ `datasetId` `string` `undefined` Id of the dataset
+ `deleteDocuments` `boolean` `false` Set to true to delete documents in dataset before deleting dataset
+
+#### Returns
+
+`Promise`<[`Dataset`](#dataset)\>
+
+Dataset response from REST API
+
+
+
+___
+
+### deleteDocument
+
+▸ **deleteDocument**(`documentId`): `Promise`<[`LasDocument`](#lasdocument)\>
+
+Delete an document, calls the DELETE /documents/{documentId} endpoint.
+
+#### Parameters
+
+ `documentId` `string` of the document
+
+#### Returns
+
+`Promise`<[`LasDocument`](#lasdocument)\>
+
+Document response from REST API
+
 
 
 ___
 
 ### deleteDocuments
 
-▸ **deleteDocuments**(`options?`: [*DeleteDocumentOptions*](#interfacestypesdeletedocumentoptionsmd)): *Promise*<[*LasDocumentList*](#lasdocumentlist)\>
+▸ **deleteDocuments**(`options?`): `Promise`<[`LasDocumentList`](#lasdocumentlist)\>
 
 Delete documents with the provided consentId, calls the DELETE /documents endpoint.
 Will delete all documents when no consentId is provided.
 
-#### Parameters:
+#### Parameters
 
+ `options?` [`DeleteDocumentOptions`](#deletedocumentoptions)
 
-`options?` [*DeleteDocumentOptions*](#interfacestypesdeletedocumentoptionsmd)
+#### Returns
 
-**Returns:** *Promise*<[*LasDocumentList*](#lasdocumentlist)\>
+`Promise`<[`LasDocumentList`](#lasdocumentlist)\>
 
 Documents response from REST API
+
+
+
+___
+
+### deleteModel
+
+▸ **deleteModel**(`modelId`): `Promise`<[`Model`](#model)\>
+
+Delete an model, calls the DELETE /models/{modelId} endpoint.
+
+#### Parameters
+
+ `modelId` `string` of the app client
+
+#### Returns
+
+`Promise`<[`Model`](#model)\>
+
+Model response from REST API
+
 
 
 ___
 
 ### deleteTransition
 
-▸ **deleteTransition**(`transitionId`: *string*): *Promise*<[*Transition*](#transition)\>
+▸ **deleteTransition**(`transitionId`): `Promise`<[`Transition`](#transition)\>
 
 Delete the transition with the provided transitionId, calls the DELETE /transitions/{transitionId} endpoint.
 Will fail if transition is in use by one or more workflows.
 
-#### Parameters:
+#### Parameters
 
+ `transitionId` `string` Id of the transition
 
-`transitionId` *string* Id of the transition  
+#### Returns
 
-**Returns:** *Promise*<[*Transition*](#transition)\>
+`Promise`<[`Transition`](#transition)\>
 
 Transition response from REST API
+
 
 
 ___
 
 ### deleteUser
 
-▸ **deleteUser**(`userId`: *string*): *Promise*<[*User*](#user)\>
+▸ **deleteUser**(`userId`): `Promise`<[`User`](#user)\>
 
-Delete the user with the provided user_id, calls the DELETE /users/{userId} endpoint.
+Delete a user, calls the DELETE /users/{userId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `userId` `string` Id of the user
 
-`userId` *string* Id of the user  
+#### Returns
 
-**Returns:** *Promise*<[*User*](#user)\>
+`Promise`<[`User`](#user)\>
 
 User response from REST API
+
 
 
 ___
 
 ### deleteWorkflow
 
-▸ **deleteWorkflow**(`workflowId`: *string*): *Promise*<[*Workflow*](#workflow)\>
+▸ **deleteWorkflow**(`workflowId`): `Promise`<[`Workflow`](#workflow)\>
 
 Delete the workflow with the provided workflowId, calls the DELETE /workflows/{workflowId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `workflowId` `string` Id of the workflow
 
-`workflowId` *string* Id of the workflow  
+#### Returns
 
-**Returns:** *Promise*<[*Workflow*](#workflow)\>
+`Promise`<[`Workflow`](#workflow)\>
 
 Workflow response from REST API
+
 
 
 ___
 
 ### deleteWorkflowExecution
 
-▸ **deleteWorkflowExecution**(`workflowId`: *string*, `executionId`: *string*): *Promise*<[*WorkflowExecution*](#workflowexecution)\>
+▸ **deleteWorkflowExecution**(`workflowId`, `executionId`): `Promise`<[`WorkflowExecution`](#workflowexecution)\>
 
-Deletes the execution with the provided execution_id from workflow_id,
+Deletes the execution with the provided executionId from workflowId,
 calls the DELETE /workflows/{workflowId}/executions/{executionId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `workflowId` `string` Id of the workflow
+ `executionId` `string` Id of the execution
 
-`workflowId` *string* Id of the workflow  
-`executionId` *string* Id of the execution  
+#### Returns
 
-**Returns:** *Promise*<[*WorkflowExecution*](#workflowexecution)\>
+`Promise`<[`WorkflowExecution`](#workflowexecution)\>
 
 WorkflowExecution response from REST API
+
 
 
 ___
 
 ### executeTransition
 
-▸ **executeTransition**(`transitionId`: *string*): *Promise*<[*TransitionExecution*](#transitionexecution)\>
+▸ **executeTransition**(`transitionId`): `Promise`<[`TransitionExecution`](#transitionexecution)\>
 
 Start executing a manual transition, calls the POST /transitions/{transitionId}/executions endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `transitionId` `string` Id of the transition
 
-`transitionId` *string* Id of the transition  
+#### Returns
 
-**Returns:** *Promise*<[*TransitionExecution*](#transitionexecution)\>
+`Promise`<[`TransitionExecution`](#transitionexecution)\>
 
 Transition execution response from REST API
+
 
 
 ___
 
 ### executeWorkflow
 
-▸ **executeWorkflow**(`workflowId`: *string*, `input`: *object*): *Promise*<[*WorkflowExecution*](#workflowexecution)\>
+▸ **executeWorkflow**(`workflowId`, `input`): `Promise`<[`WorkflowExecution`](#workflowexecution)\>
 
 Start a workflow execution, calls the POST /workflows/{workflowId}/executions endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `workflowId` `string` Id of the workflow
+ `input` `object` Input to the first step of the workflow
 
-`workflowId` *string* Id of the workflow  
-`input` *object* Input to the first step of the workflow  
+#### Returns
 
-**Returns:** *Promise*<[*WorkflowExecution*](#workflowexecution)\>
+`Promise`<[`WorkflowExecution`](#workflowexecution)\>
 
 Workflow execution response from REST API
+
 
 
 ___
 
 ### getAsset
 
-▸ **getAsset**(`assetId`: *string*): *Promise*<[*Asset*](#asset)\>
+▸ **getAsset**(`assetId`): `Promise`<[`Asset`](#asset)\>
 
 Get asset from the REST API, calls the GET /assets/{assetId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `assetId` `string` Id of the asset
 
-`assetId` *string* Id of the asset  
+#### Returns
 
-**Returns:** *Promise*<[*Asset*](#asset)\>
+`Promise`<[`Asset`](#asset)\>
 
 Asset response from REST API
+
+
+
+___
+
+### getDataset
+
+▸ **getDataset**(`datasetId`): `Promise`<[`Dataset`](#dataset)\>
+
+Get dataset from the REST API, calls the GET /datasets/{datasetId} endpoint.
+
+#### Parameters
+
+ `datasetId` `string` Id of the dataset
+
+#### Returns
+
+`Promise`<[`Dataset`](#dataset)\>
+
+Dataset response from REST API
+
 
 
 ___
 
 ### getDocument
 
-▸ **getDocument**(`documentId`: *string*): *Promise*<[*LasDocument*](#lasdocument)\>
+▸ **getDocument**(`documentId`): `Promise`<[`LasDocument`](#lasdocument)\>
 
 Get document from the REST API, calls the GET /documents/{documentId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `documentId` `string` Id of the document
 
-`documentId` *string* Id of the document  
+#### Returns
 
-**Returns:** *Promise*<[*LasDocument*](#lasdocument)\>
+`Promise`<[`LasDocument`](#lasdocument)\>
 
 Document response from REST API
+
 
 
 ___
 
 ### getLog
 
-▸ **getLog**(`logId`: *string*): *Promise*<[*Log*](#log)\>
+▸ **getLog**(`logId`): `Promise`<[`Log`](#log)\>
 
 Get log, calls the GET /logs/{logId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `logId` `string` Id of the log
 
-`logId` *string* Id of the log  
+#### Returns
 
-**Returns:** *Promise*<[*Log*](#log)\>
+`Promise`<[`Log`](#log)\>
 
 Log response from REST API
+
+
+
+___
+
+### getModel
+
+▸ **getModel**(`modelId`): `Promise`<[`Model`](#model)\>
+
+Get model from the REST API, calls the GET /models/{modelId} endpoint.
+
+#### Parameters
+
+ `modelId` `string` Id of the model
+
+#### Returns
+
+`Promise`<[`Model`](#model)\>
+
+Model response from REST API
+
+
+
+___
+
+### getOrganization
+
+▸ **getOrganization**(`organizationId`): `Promise`<[`Organization`](#organization)\>
+
+Get organization from the REST API, calls the GET /organizations/{organizationId} endpoint.
+
+#### Parameters
+
+ `organizationId` `string` Id of the organization
+
+#### Returns
+
+`Promise`<[`Organization`](#organization)\>
+
+Organization response from REST API
+
 
 
 ___
 
 ### getTransition
 
-▸ **getTransition**(`transitionId`: *string*): *Promise*<[*Transition*](#transition)\>
+▸ **getTransition**(`transitionId`): `Promise`<[`Transition`](#transition)\>
 
 Get the transition with the provided transitionId, calls the GET /transitions/{transitionId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `transitionId` `string` Id of the transition
 
-`transitionId` *string* Id of the transition  
+#### Returns
 
-**Returns:** *Promise*<[*Transition*](#transition)\>
+`Promise`<[`Transition`](#transition)\>
 
 Transition response from REST API
+
+
+
+___
+
+### getTransitionExecution
+
+▸ **getTransitionExecution**(`transitionId`, `transitionExecutionId`): `Promise`<[`TransitionExecution`](#transitionexecution)\>
+
+Get an execution of a transition, calls the GET /transitions/{transitionId}/executions/{executionId} endpoint
+
+#### Parameters
+
+ `transitionId` `string` Id of the transition
+ `transitionExecutionId` `string` Id of the execution
+
+#### Returns
+
+`Promise`<[`TransitionExecution`](#transitionexecution)\>
+
+Transition execution responses from REST API
+
 
 
 ___
 
 ### getUser
 
-▸ **getUser**(`userId`: *string*): *Promise*<[*User*](#user)\>
+▸ **getUser**(`userId`): `Promise`<[`User`](#user)\>
 
-Get information about a specific user, calls the GET /users/{user_id} endpoint.
+Get information about a specific user, calls the GET /users/{userId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `userId` `string` Id of the user
 
-`userId` *string* Id of the user  
+#### Returns
 
-**Returns:** *Promise*<[*User*](#user)\>
+`Promise`<[`User`](#user)\>
 
 User response from REST API
+
 
 
 ___
 
 ### getWorkflow
 
-▸ **getWorkflow**(`workflowId`: *string*): *Promise*<[*Workflow*](#workflow)\>
+▸ **getWorkflow**(`workflowId`): `Promise`<[`Workflow`](#workflow)\>
 
 Get the workflow with the provided workflowId, calls the GET /workflows/{workflowId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `workflowId` `string` Id of the workflow
 
-`workflowId` *string* Id of the workflow  
+#### Returns
 
-**Returns:** *Promise*<[*Workflow*](#workflow)\>
+`Promise`<[`Workflow`](#workflow)\>
 
 Workflow response from REST API
+
+
+
+___
+
+### getWorkflowExecution
+
+▸ **getWorkflowExecution**(`workflowId`, `executionId`): `Promise`<[`WorkflowExecution`](#workflowexecution)\>
+
+Get a workflow execution, calls the GET /workflows/{workflowId}/executions/{executionId} endpoint.
+
+#### Parameters
+
+ `workflowId` `string` Id of the workflow that performs the execution
+ `executionId` `string` Id of the execution to get
+
+#### Returns
+
+`Promise`<[`WorkflowExecution`](#workflowexecution)\>
+
+Workflow execution response from REST API
+
+
+
+___
+
+### listAppClients
+
+▸ **listAppClients**(`options?`): `Promise`<[`AppClientList`](#appclientlist)\>
+
+List app clients, calls the GET /appClients endpoint.
+
+#### Parameters
+
+ `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
+
+#### Returns
+
+`Promise`<[`AppClientList`](#appclientlist)\>
+
+AppClientList response from REST API
+
 
 
 ___
 
 ### listAssets
 
-▸ **listAssets**(`options?`: [*PaginationOptions*](#interfacestypespaginationoptionsmd)): *Promise*<[*AssetList*](#assetlist)\>
+▸ **listAssets**(`options?`): `Promise`<[`AssetList`](#assetlist)\>
 
 List assets available, calls the GET /assets endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
 
-`options?` [*PaginationOptions*](#interfacestypespaginationoptionsmd)
+#### Returns
 
-**Returns:** *Promise*<[*AssetList*](#assetlist)\>
+`Promise`<[`AssetList`](#assetlist)\>
 
 Assets response from REST API without the content of each asset
+
+
+
+___
+
+### listBatches
+
+▸ **listBatches**(`options?`): `Promise`<[`BatchList`](#batchlist)\>
+
+List batches, calls the GET /batches endpoint.
+
+**`deprecated`** Use the new [Client.listDatasets](#listdatasets) method instead.
+
+#### Parameters
+
+ `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
+
+#### Returns
+
+`Promise`<[`BatchList`](#batchlist)\>
+
+BatchList response from REST API
+
+
+
+___
+
+### listDataBundles
+
+▸ **listDataBundles**(`modelId`, `options?`): `Promise`<[`DataBundleList`](#databundlelist)\>
+
+List dataBundles available, calls the GET /dataBundles endpoint.
+
+#### Parameters
+
+ `modelId` `string` of the model
+ `options?` [`PaginationOptions`](#interfacespaginationoptionsmd) -
+
+#### Returns
+
+`Promise`<[`DataBundleList`](#databundlelist)\>
+
+DataBundles response from REST API
+
+
+
+___
+
+### listDatasets
+
+▸ **listDatasets**(`options?`): `Promise`<[`DatasetList`](#datasetlist)\>
+
+List datasets, calls the GET /datasets endpoint.
+
+#### Parameters
+
+ `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
+
+#### Returns
+
+`Promise`<[`DatasetList`](#datasetlist)\>
+
+DatasetList response from REST API
+
 
 
 ___
 
 ### listDocuments
 
-▸ **listDocuments**(`options?`: [*ListDocumentsOptions*](#listdocumentsoptions)): *Promise*<[*LasDocumentList*](#lasdocumentlist)\>
+▸ **listDocuments**(`options?`): `Promise`<[`LasDocumentList`](#lasdocumentlist)\>
 
 List documents available for inference, calls the GET /documents endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `options?` [`ListDocumentsOptions`](#listdocumentsoptions)
 
-`options?` [*ListDocumentsOptions*](#listdocumentsoptions)
+#### Returns
 
-**Returns:** *Promise*<[*LasDocumentList*](#lasdocumentlist)\>
+`Promise`<[`LasDocumentList`](#lasdocumentlist)\>
 
 Documents response from REST API
+
 
 
 ___
 
 ### listModels
 
-▸ **listModels**(`options?`: [*PaginationOptions*](#interfacestypespaginationoptionsmd)): *Promise*<[*ModelList*](#modellist)\>
+▸ **listModels**(`options?`): `Promise`<[`ModelList`](#modellist)\>
 
 List models available, calls the GET /models endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
 
-`options?` [*PaginationOptions*](#interfacestypespaginationoptionsmd)
+#### Returns
 
-**Returns:** *Promise*<[*ModelList*](#modellist)\>
+`Promise`<[`ModelList`](#modellist)\>
 
 Models response from the REST API
+
 
 
 ___
 
 ### listPredictions
 
-▸ **listPredictions**(`options?`: [*PaginationOptions*](#interfacestypespaginationoptionsmd)): *Promise*<[*PredictionList*](#predictionlist)\>
+▸ **listPredictions**(`options?`): `Promise`<[`PredictionList`](#predictionlist)\>
 
-#### Parameters:
+#### Parameters
 
+ `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
 
-`options?` [*PaginationOptions*](#interfacestypespaginationoptionsmd)
+#### Returns
 
-**Returns:** *Promise*<[*PredictionList*](#predictionlist)\>
+`Promise`<[`PredictionList`](#predictionlist)\>
+
 
 
 ___
 
 ### listSecrets
 
-▸ **listSecrets**(`options?`: [*PaginationOptions*](#interfacestypespaginationoptionsmd)): *Promise*<[*SecretList*](#secretlist)\>
+▸ **listSecrets**(`options?`): `Promise`<[`SecretList`](#secretlist)\>
 
 List secrets available, calls the GET /secrets endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
 
-`options?` [*PaginationOptions*](#interfacestypespaginationoptionsmd)
+#### Returns
 
-**Returns:** *Promise*<[*SecretList*](#secretlist)\>
+`Promise`<[`SecretList`](#secretlist)\>
 
 Secrets response from REST API without the username of each secret
+
 
 
 ___
 
 ### listTransitionExecutions
 
-▸ **listTransitionExecutions**(`transitionId`: *string*, `options?`: [*TransitionExecutionListOptions*](#transitionexecutionlistoptions)): *Promise*<[*TransitionExecutionList*](#transitionexecutionlist)\>
+▸ **listTransitionExecutions**(`transitionId`, `options?`): `Promise`<[`TransitionExecutionList`](#transitionexecutionlist)\>
 
 List executions in a transition, calls the GET /transitions/{transitionId}/executions endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `transitionId` `string` Id of the transition
+ `options?` [`TransitionExecutionListOptions`](#transitionexecutionlistoptions) -
 
-`transitionId` *string* Id of the transition  
-`options?` [*TransitionExecutionListOptions*](#transitionexecutionlistoptions) -
+#### Returns
 
-**Returns:** *Promise*<[*TransitionExecutionList*](#transitionexecutionlist)\>
+`Promise`<[`TransitionExecutionList`](#transitionexecutionlist)\>
 
 Transition executions responses from REST API
+
 
 
 ___
 
 ### listTransitions
 
-▸ **listTransitions**(`options?`: [*ListTransitionOptions*](#listtransitionoptions)): *Promise*<[*TransitionList*](#transitionlist)\>
+▸ **listTransitions**(`options?`): `Promise`<[`TransitionList`](#transitionlist)\>
 
 List transitions, calls the GET /transitions endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `options?` [`ListTransitionOptions`](#listtransitionoptions)
 
-`options?` [*ListTransitionOptions*](#listtransitionoptions)
+#### Returns
 
-**Returns:** *Promise*<[*TransitionList*](#transitionlist)\>
+`Promise`<[`TransitionList`](#transitionlist)\>
 
 Transitions response from REST API
+
 
 
 ___
 
 ### listUsers
 
-▸ **listUsers**(`options?`: [*PaginationOptions*](#interfacestypespaginationoptionsmd)): *Promise*<[*UserList*](#userlist)\>
+▸ **listUsers**(`options?`): `Promise`<[`UserList`](#userlist)\>
 
 List users, calls the GET /users endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
 
-`options?` [*PaginationOptions*](#interfacestypespaginationoptionsmd)
+#### Returns
 
-**Returns:** *Promise*<[*UserList*](#userlist)\>
+`Promise`<[`UserList`](#userlist)\>
 
 User response from REST API
+
 
 
 ___
 
 ### listWorkflowExecutions
 
-▸ **listWorkflowExecutions**(`workflowId`: *string*, `options?`: [*ListWorkflowExecutionsOptions*](#listworkflowexecutionsoptions)): *Promise*<[*WorkflowExecutionList*](#workflowexecutionlist)\>
+▸ **listWorkflowExecutions**(`workflowId`, `options?`): `Promise`<[`WorkflowExecutionList`](#workflowexecutionlist)\>
 
 List executions in a workflow, calls the GET /workflows/{workflowId}/executions endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `workflowId` `string` Id of the workflow
+ `options?` [`ListWorkflowExecutionsOptions`](#listworkflowexecutionsoptions) -
 
-`workflowId` *string* Id of the workflow  
-`options?` [*ListWorkflowExecutionsOptions*](#listworkflowexecutionsoptions) -
+#### Returns
 
-**Returns:** *Promise*<[*WorkflowExecutionList*](#workflowexecutionlist)\>
+`Promise`<[`WorkflowExecutionList`](#workflowexecutionlist)\>
 
 Workflow executions responses from REST API
+
 
 
 ___
 
 ### listWorkflows
 
-▸ **listWorkflows**(`options?`: [*PaginationOptions*](#interfacestypespaginationoptionsmd)): *Promise*<[*WorkflowList*](#workflowlist)\>
+▸ **listWorkflows**(`options?`): `Promise`<[`WorkflowList`](#workflowlist)\>
 
 List workflows, calls the GET /workflows endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
 
-`options?` [*PaginationOptions*](#interfacestypespaginationoptionsmd)
+#### Returns
 
-**Returns:** *Promise*<[*WorkflowList*](#workflowlist)\>
+`Promise`<[`WorkflowList`](#workflowlist)\>
 
 Workflows response from REST API
+
 
 
 ___
 
 ### makeDeleteRequest
 
-▸ **makeDeleteRequest**<T\>(`path`: *string*, `query?`: *any*): *Promise*<T\>
+▸ **makeDeleteRequest**<`T`\>(`path`, `query?`): `Promise`<`T`\>
 
-#### Type parameters:
+#### Type parameters
 
+ `T`
 
-`T`
+#### Parameters
 
-#### Parameters:
+ `path` `string`
+ `query?` `any`
 
+#### Returns
 
-`path` *string*
-`query?` *any*
+`Promise`<`T`\>
 
-**Returns:** *Promise*<T\>
 
 
 ___
 
 ### makeGetRequest
 
-▸ **makeGetRequest**<T\>(`path`: *string*, `query?`: *any*): *Promise*<T\>
+▸ **makeGetRequest**<`T`\>(`path`, `query?`): `Promise`<`T`\>
 
-#### Type parameters:
+#### Type parameters
 
+ `T`
 
-`T`
+#### Parameters
 
-#### Parameters:
+ `path` `string`
+ `query?` `any`
 
+#### Returns
 
-`path` *string*
-`query?` *any*
+`Promise`<`T`\>
 
-**Returns:** *Promise*<T\>
 
 
 ___
 
 ### makePatchRequest
 
-▸ **makePatchRequest**<T\>(`path`: *string*, `body`: *any*): *Promise*<T\>
+▸ **makePatchRequest**<`T`\>(`path`, `body`): `Promise`<`T`\>
 
-#### Type parameters:
+#### Type parameters
 
+ `T`
 
-`T`
+#### Parameters
 
-#### Parameters:
+ `path` `string`
+ `body` `any`
 
+#### Returns
 
-`path` *string*
-`body` *any*
+`Promise`<`T`\>
 
-**Returns:** *Promise*<T\>
 
 
 ___
 
 ### makePostRequest
 
-▸ **makePostRequest**<T\>(`path`: *string*, `body`: *any*): *Promise*<T\>
+▸ **makePostRequest**<`T`\>(`path`, `body`): `Promise`<`T`\>
 
-#### Type parameters:
+#### Type parameters
+
+ `T`
+
+#### Parameters
+
+ `path` `string`
+ `body` `any`
+
+#### Returns
+
+`Promise`<`T`\>
 
 
-`T`
 
-#### Parameters:
+___
+
+### sendHeartbeat
+
+▸ **sendHeartbeat**(`transitionId`, `transitionExecutionId`): `Promise`<`unknown`\>
+
+Send heartbeat for a manual execution to signal that we are still working on it.
+Must be done at minimum once every 60 seconds or the transition execution will time out.
+Calls the POST /transitions/{transitionId}/executions/{executionId}/heartbeats endpoint.
+
+#### Parameters
+
+ `transitionId` `string` Id of the transition
+ `transitionExecutionId` `string` Id of the transition execution
+
+#### Returns
+
+`Promise`<`unknown`\>
+
+Empty response
 
 
-`path` *string*
-`body` *any*
 
-**Returns:** *Promise*<T\>
+___
+
+### updateAppClient
+
+▸ **updateAppClient**(`appClientId`, `options`): `Promise`<[`AppClient`](#appclient)\>
+
+Updates an appClient, calls the PATCH /appClients/{appClientId} endpoint.
+
+#### Parameters
+
+ `appClientId` `string` Id of the appClient
+ `options` [`UpdateAppClientOptions`](#updateappclientoptions) -
+
+#### Returns
+
+`Promise`<[`AppClient`](#appclient)\>
+
+AppClient response from REST API with content
+
 
 
 ___
 
 ### updateAsset
 
-▸ **updateAsset**(`assetId`: *string*, `data`: [*UpdateAssetOptions*](#interfacestypesupdateassetoptionsmd)): *Promise*<[*Asset*](#asset)\>
+▸ **updateAsset**(`assetId`, `data`): `Promise`<[`Asset`](#asset)\>
 
-Updates an asset, calls the PATCH /assets/assetId endpoint.
+Updates an asset, calls the PATCH /assets/{assetId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `assetId` `string` Id of the asset
+ `data` [`UpdateAssetOptions`](#interfacesupdateassetoptionsmd) -
 
-`assetId` *string* Id of the asset  
-`data` [*UpdateAssetOptions*](#interfacestypesupdateassetoptionsmd) -
+#### Returns
 
-**Returns:** *Promise*<[*Asset*](#asset)\>
+`Promise`<[`Asset`](#asset)\>
 
 Asset response from REST API with content
+
+
+
+___
+
+### updateBatch
+
+▸ **updateBatch**(`batchId`, `options`): `Promise`<[`Batch`](#batch)\>
+
+Updates an batch, calls the PATCH /batches/{batchId} endpoint.
+
+**`deprecated`** Use the new [Client.updateDataset](#updatedataset) method instead.
+
+#### Parameters
+
+ `batchId` `string` Id of the batch
+ `options` [`UpdateBatchOptions`](#updatebatchoptions) -
+
+#### Returns
+
+`Promise`<[`Batch`](#batch)\>
+
+Batch response from REST API with content
+
+
+
+___
+
+### updateDataBundle
+
+▸ **updateDataBundle**(`modelId`, `dataBundleId`, `options`): `Promise`<[`DataBundle`](#databundle)\>
+
+Updates a dataBundle, calls the PATCH /dataBundles/{dataBundleId} endpoint.
+
+#### Parameters
+
+ `modelId` `string` of the model
+ `dataBundleId` `string` Id of the dataBundle
+ `options` [`UpdateDataBundleOptions`](#updatedatabundleoptions) -
+
+#### Returns
+
+`Promise`<[`DataBundle`](#databundle)\>
+
+DataBundle response from REST API
+
+
+
+___
+
+### updateDataset
+
+▸ **updateDataset**(`datasetId`, `options`): `Promise`<[`Dataset`](#dataset)\>
+
+Updates a dataset, calls the PATCH /datasets/{datasetId} endpoint.
+
+#### Parameters
+
+ `datasetId` `string` Id of the dataset
+ `options` [`UpdateDatasetOptions`](#updatedatasetoptions) -
+
+#### Returns
+
+`Promise`<[`Dataset`](#dataset)\>
+
+Dataset response from REST API with content
+
 
 
 ___
 
 ### updateDocument
 
-▸ **updateDocument**(`documentId`: *string*, `data`: [*UpdateDocumentOptions*](#interfacestypesupdatedocumentoptionsmd)): *Promise*<[*LasDocument*](#lasdocument)\>
+▸ **updateDocument**(`documentId`, `data`): `Promise`<[`LasDocument`](#lasdocument)\>
 
 Post ground truth to the REST API, calls the PATCH /documents/{documentId} endpoint.
 Posting ground truth means posting the ground truth data for the particular document.
 This enables the API to learn from past mistakes.
 
-#### Parameters:
+#### Parameters
 
+ `documentId` `string` Id of the document
+ `data` [`UpdateDocumentOptions`](#interfacesupdatedocumentoptionsmd) -
 
-`documentId` *string* Id of the document  
-`data` [*UpdateDocumentOptions*](#interfacestypesupdatedocumentoptionsmd) -
+#### Returns
 
-**Returns:** *Promise*<[*LasDocument*](#lasdocument)\>
+`Promise`<[`LasDocument`](#lasdocument)\>
 
 Document response from REST API
+
+
+
+___
+
+### updateModel
+
+▸ **updateModel**(`modelId`, `options`): `Promise`<[`Model`](#model)\>
+
+Updates a model, calls the PATCH /models/{modelId} endpoint.
+
+#### Parameters
+
+ `modelId` `string` Id of the model
+ `options` [`UpdateModelOptions`](#updatemodeloptions) -
+
+#### Returns
+
+`Promise`<[`Model`](#model)\>
+
+Model response from REST API
+
+
+
+___
+
+### updateOrganization
+
+▸ **updateOrganization**(`organizationId`, `options`): `Promise`<[`Organization`](#organization)\>
+
+Updates an organization, calls the PATCH /organizations/{organizationId} endpoint.
+
+#### Parameters
+
+ `organizationId` `string` Id of the organization
+ `options` [`UpdateOrganizationOptions`](#updateorganizationoptions) -
+
+#### Returns
+
+`Promise`<[`Organization`](#organization)\>
+
+Organization response from REST API with content
+
 
 
 ___
 
 ### updateSecret
 
-▸ **updateSecret**(`secretId`: *string*, `data`: [*UpdateSecretOptions*](#interfacestypesupdatesecretoptionsmd)): *Promise*<[*Secret*](#secret)\>
+▸ **updateSecret**(`secretId`, `data`): `Promise`<[`Secret`](#secret)\>
 
-Updates a secret, calls the PATCH /secrets/secretId endpoint.
+Updates a secret, calls the PATCH /secrets/{secretId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `secretId` `string` Id of the secret
+ `data` [`UpdateSecretOptions`](#interfacesupdatesecretoptionsmd) -
 
-`secretId` *string* Id of the secret  
-`data` [*UpdateSecretOptions*](#interfacestypesupdatesecretoptionsmd) -
+#### Returns
 
-**Returns:** *Promise*<[*Secret*](#secret)\>
+`Promise`<[`Secret`](#secret)\>
+
 
 
 ___
 
 ### updateTransition
 
-▸ **updateTransition**(`transitionId`: *string*, `data`: [*UpdateTransitionOptions*](#updatetransitionoptions)): *Promise*<[*Transition*](#transition)\>
+▸ **updateTransition**(`transitionId`, `data`): `Promise`<[`Transition`](#transition)\>
 
-Updates a transition, calls the PATCH /transitions/transitionId endpoint.
+Updates a transition, calls the PATCH /transitions/{transitionId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `transitionId` `string` Id of the transition
+ `data` [`UpdateTransitionOptions`](#updatetransitionoptions) Transition fields to PATCH
 
-`transitionId` *string* Id of the transition  
-`data` [*UpdateTransitionOptions*](#updatetransitionoptions) Transition fields to PATCH  
+#### Returns
 
-**Returns:** *Promise*<[*Transition*](#transition)\>
+`Promise`<[`Transition`](#transition)\>
 
 Transition response from REST API
+
 
 
 ___
 
 ### updateTransitionExecution
 
-▸ **updateTransitionExecution**(`transitionId`: *string*, `executionId`: *string*, `data`: [*UpdateTransitionExecution*](#interfacestypesupdatetransitionexecutionmd)): *Promise*<[*TransitionExecution*](#transitionexecution)\>
+▸ **updateTransitionExecution**(`transitionId`, `executionId`, `data`): `Promise`<[`TransitionExecution`](#transitionexecution)\>
 
 Ends the processing of the transition execution, calls the
-PATCH /transitions/{transition_id}/executions/{execution_id} endpoint.
+PATCH /transitions/{transitionId}/executions/{executionId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `transitionId` `string` Id of the transition that performs the execution
+ `executionId` `string` Id of the execution to update
+ `data` [`UpdateTransitionExecution`](#interfacesupdatetransitionexecutionmd) -
 
-`transitionId` *string* Id of the transition that performs the execution  
-`executionId` *string* Id of the execution to update  
-`data` [*UpdateTransitionExecution*](#interfacestypesupdatetransitionexecutionmd) -
+#### Returns
 
-**Returns:** *Promise*<[*TransitionExecution*](#transitionexecution)\>
+`Promise`<[`TransitionExecution`](#transitionexecution)\>
 
 Transition execution response from REST API
+
 
 
 ___
 
 ### updateUser
 
-▸ **updateUser**(`userId`: *string*, `data`: [*UpdateUserOptions*](#updateuseroptions)): *Promise*<[*User*](#user)\>
+▸ **updateUser**(`userId`, `data`): `Promise`<[`User`](#user)\>
 
 Updates a user, calls the PATCH /users/{userId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `userId` `string` Id of the user
+ `data` [`UpdateUserOptions`](#updateuseroptions) -
 
-`userId` *string* Id of the user  
-`data` [*UpdateUserOptions*](#updateuseroptions) -
+#### Returns
 
-**Returns:** *Promise*<[*User*](#user)\>
+`Promise`<[`User`](#user)\>
 
 User response from REST API
+
 
 
 ___
 
 ### updateWorkflow
 
-▸ **updateWorkflow**(`workflowId`: *string*, `data`: [*UpdateWorkflowOptions*](#interfacestypesupdateworkflowoptionsmd)): *Promise*<[*Workflow*](#workflow)\>
+▸ **updateWorkflow**(`workflowId`, `data`): `Promise`<[`Workflow`](#workflow)\>
 
-Updates a workflow, calls the PATCH /workflows/workflowId endpoint.
+Updates a workflow, calls the PATCH /workflows/{workflowId} endpoint.
 
-#### Parameters:
+#### Parameters
 
+ `workflowId` `string` Id of the workflow
+ `data` [`UpdateWorkflowOptions`](#interfacesupdateworkflowoptionsmd) Workflow fields to PATCH
 
-`workflowId` *string* Id of the workflow  
-`data` [*UpdateWorkflowOptions*](#interfacestypesupdateworkflowoptionsmd) Workflow fields to PATCH  
+#### Returns
 
-**Returns:** *Promise*<[*Workflow*](#workflow)\>
+`Promise`<[`Workflow`](#workflow)\>
 
 Workflow response from REST API
 
 
 
-<a name="classescredentialscredentials-1md"></a>
+___
 
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [credentials](#modulescredentialsmd) / Credentials
+### updateWorkflowExecution
+
+▸ **updateWorkflowExecution**(`workflowId`, `executionId`, `data`): `Promise`<[`WorkflowExecution`](#workflowexecution)\>
+
+Retry or end the processing of a workflow execution,
+calls the PATCH /workflows/{workflowId}/executions/{executionId} endpoint.
+
+#### Parameters
+
+ `workflowId` `string` Id of the workflow that performs the execution
+ `executionId` `string` Id of the execution to update
+ `data` [`UpdateWorkflowExecutionOptions`](#interfacesupdateworkflowexecutionoptionsmd) -
+
+#### Returns
+
+`Promise`<[`WorkflowExecution`](#workflowexecution)\>
+
+Workflow execution response from REST API
+
+
+
+
+<a name="classescredentialsmd"></a>
 
 # Class: Credentials
 
-[credentials](#modulescredentialsmd).Credentials
-
 Use to fetch and store credentials and to generate/cache an access token
-
-## Table of contents
-
-### Properties
-
-- [apiEndpoint](#apiendpoint)
-- [apiKey](#apikey)
-
-### Methods
-
-- [getAccessToken](#getaccesstoken)
 
 ## Properties
 
 ### apiEndpoint
 
-• `Readonly` **apiEndpoint**: *string*
+• `Readonly` **apiEndpoint**: `string`
 
-
-___
-
-### apiKey
-
-• `Readonly` **apiKey**: *string*
 
 
 ## Methods
 
 ### getAccessToken
 
-▸ **getAccessToken**(): *Promise*<string\>
+▸ **getAccessToken**(): `Promise`<`string`\>
 
 Method used to get and cache an access token. Algorithm used:
 1. Look for a valid token in memory.
 2. Look for a valid token in the storage (if provided);
 3. Fetch a new token from server and cache it (both in memory and in storage).
 
-**Returns:** *Promise*<string\>
+#### Returns
+
+`Promise`<`string`\>
 
 
 
-<a name="classescredentialstokenmd"></a>
 
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [credentials](#modulescredentialsmd) / Token
+<a name="classestokenmd"></a>
 
 # Class: Token
 
-[credentials](#modulescredentialsmd).Token
-
 Wrapper class for an AWS Cognito token
-
-## Table of contents
-
-### Constructors
-
-- [constructor](#constructor)
-
-### Properties
-
-- [accessToken](#accesstoken)
-- [expiration](#expiration)
-- [refreshToken](#refreshtoken)
-
-### Methods
-
-- [isValid](#isvalid)
 
 ## Constructors
 
 ### constructor
 
-\+ **new Token**(`accessToken`: *string*, `expiration`: *number*, `refreshToken?`: *string*): [*Token*](#classescredentialstokenmd)
+• **new Token**(`accessToken`, `expiration`, `refreshToken?`)
 
-#### Parameters:
+#### Parameters
 
+ `accessToken` `string`
+ `expiration` `number`
+ `refreshToken?` `string`
 
-`accessToken` *string*
-`expiration` *number*
-`refreshToken?` *string*
-
-**Returns:** [*Token*](#classescredentialstokenmd)
 
 
 ## Properties
 
 ### accessToken
 
-• `Readonly` **accessToken**: *string*
+• `Readonly` **accessToken**: `string`
+
 
 
 ___
 
 ### expiration
 
-• `Readonly` **expiration**: *number*
+• `Readonly` **expiration**: `number`
+
 
 
 ___
 
 ### refreshToken
 
-• `Optional` `Readonly` **refreshToken**: *undefined* \| *string*
+• `Optional` `Readonly` **refreshToken**: `string`
+
 
 
 ## Methods
 
 ### isValid
 
-▸ **isValid**(): *boolean*
+▸ **isValid**(): `boolean`
 
 Checks if current timestamp is larger than token expiration time
 
-**Returns:** *boolean*
+#### Returns
+
+`boolean`
 
 
 
-<a name="interfacesindexcreatedocumentoptionsmd"></a>
 
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [index](#modulesindexmd) / CreateDocumentOptions
+<a name="interfacescreatedocumentoptionsmd"></a>
 
 # Interface: CreateDocumentOptions
-
-[index](#modulesindexmd).CreateDocumentOptions
-
-## Table of contents
-
-### Properties
-
-- [batchId](#batchid)
-- [consentId](#consentid)
-- [groundTruth](#groundtruth)
 
 ## Properties
 
 ### batchId
 
-• `Optional` **batchId**: *undefined* \| *string*
+• `Optional` **batchId**: `string`
+
 
 
 ___
 
 ### consentId
 
-• `Optional` **consentId**: *undefined* \| *string*
+• `Optional` **consentId**: `string`
+
+
+
+___
+
+### datasetId
+
+• `Optional` **datasetId**: `string`
+
 
 
 ___
 
 ### groundTruth
 
-• `Optional` **groundTruth**: *undefined* \| [*GroundTruth*](#groundtruth)[]
+• `Optional` **groundTruth**: [`GroundTruth`](#groundtruth)[]
 
 
 
-<a name="interfacesindexcreatepredictionsoptionsmd"></a>
+___
 
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [index](#modulesindexmd) / CreatePredictionsOptions
+### retentionInDays
+
+• `Optional` **retentionInDays**: `number`
+
+
+
+
+<a name="interfacescreatepredictionsoptionsmd"></a>
 
 # Interface: CreatePredictionsOptions
-
-[index](#modulesindexmd).CreatePredictionsOptions
-
-## Table of contents
-
-### Properties
-
-- [autoRotate](#autorotate)
-- [maxPages](#maxpages)
 
 ## Properties
 
 ### autoRotate
 
-• `Optional` **autoRotate**: *undefined* \| *boolean*
+• `Optional` **autoRotate**: `boolean`
+
+
+
+___
+
+### imageQuality
+
+• `Optional` **imageQuality**: ``"LOW"`` \| ``"HIGH"``
+
 
 
 ___
 
 ### maxPages
 
-• `Optional` **maxPages**: *undefined* \| *number*
+• `Optional` **maxPages**: `number`
 
 
 
-<a name="interfacesindexcreatesecretoptionsmd"></a>
 
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [index](#modulesindexmd) / CreateSecretOptions
+<a name="interfacescreatesecretoptionsmd"></a>
 
 # Interface: CreateSecretOptions
 
-[index](#modulesindexmd).CreateSecretOptions
-
-## Table of contents
-
-### Properties
-
-- [description](#description)
-
 ## Properties
 
 ### description
 
-• `Optional` **description**: *undefined* \| *string*
+• `Optional` **description**: `string`
 
 
 
-<a name="interfacesindexcreatetransitionoptionsmd"></a>
 
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [index](#modulesindexmd) / CreateTransitionOptions
+<a name="interfacescreatetransitionoptionsmd"></a>
 
 # Interface: CreateTransitionOptions
 
-[index](#modulesindexmd).CreateTransitionOptions
-
-## Table of contents
-
-### Properties
-
-- [description](#description)
-- [inputJsonSchema](#inputjsonschema)
-- [name](#name)
-- [outputJsonSchema](#outputjsonschema)
-- [parameters](#parameters)
-
 ## Properties
 
 ### description
 
-• `Optional` **description**: *undefined* \| *null* \| *string*
+• `Optional` **description**: ``null`` \| `string`
+
 
 
 ___
 
 ### inputJsonSchema
 
-• `Optional` **inputJsonSchema**: *undefined* \| *Record*<any, any\>
+• `Optional` **inputJsonSchema**: `Record`<`any`, `any`\>
+
 
 
 ___
 
 ### name
 
-• `Optional` **name**: *undefined* \| *null* \| *string*
+• `Optional` **name**: ``null`` \| `string`
+
 
 
 ___
 
 ### outputJsonSchema
 
-• `Optional` **outputJsonSchema**: *undefined* \| *Record*<any, any\>
+• `Optional` **outputJsonSchema**: `Record`<`any`, `any`\>
+
 
 
 ___
 
 ### parameters
 
-• `Optional` **parameters**: *undefined* \| [*CreateTransitionDockerParams*](#createtransitiondockerparams) \| [*CreateTransitionManualParams*](#createtransitionmanualparams)
+• `Optional` **parameters**: [`CreateTransitionDockerParams`](#createtransitiondockerparams) \| [`CreateTransitionManualParams`](#createtransitionmanualparams)
 
 
 
-<a name="interfacesindexdeletedocumentoptionsmd"></a>
 
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [index](#modulesindexmd) / DeleteDocumentOptions
-
-# Interface: DeleteDocumentOptions
-
-[index](#modulesindexmd).DeleteDocumentOptions
-
-## Table of contents
-
-### Properties
-
-- [consentId](#consentid)
-
-## Properties
-
-### consentId
-
-• `Optional` **consentId**: *undefined* \| *string* \| *string*[]
-
-
-
-<a name="interfacesindexpaginationoptionsmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [index](#modulesindexmd) / PaginationOptions
+<a name="interfacespaginationoptionsmd"></a>
 
 # Interface: PaginationOptions
-
-[index](#modulesindexmd).PaginationOptions
-
-## Table of contents
-
-### Properties
-
-- [maxResults](#maxresults)
-- [nextToken](#nexttoken)
 
 ## Properties
 
 ### maxResults
 
-• `Optional` **maxResults**: *undefined* \| *number*
+• `Optional` **maxResults**: `number`
+
 
 
 ___
 
 ### nextToken
 
-• `Optional` **nextToken**: *undefined* \| *string*
+• `Optional` **nextToken**: `string`
 
 
 
-<a name="interfacesindexupdateassetoptionsmd"></a>
 
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [index](#modulesindexmd) / UpdateAssetOptions
-
-# Interface: UpdateAssetOptions
-
-[index](#modulesindexmd).UpdateAssetOptions
-
-## Table of contents
-
-### Properties
-
-- [content](#content)
-
-## Properties
-
-### content
-
-• `Optional` **content**: *undefined* \| *string* \| *Buffer*
-
-
-
-<a name="interfacesindexupdatedocumentoptionsmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [index](#modulesindexmd) / UpdateDocumentOptions
-
-# Interface: UpdateDocumentOptions
-
-[index](#modulesindexmd).UpdateDocumentOptions
-
-## Table of contents
-
-### Properties
-
-- [groundTruth](#groundtruth)
-
-## Properties
-
-### groundTruth
-
-• `Optional` **groundTruth**: *undefined* \| [*GroundTruth*](#groundtruth)[]
-
-
-
-<a name="interfacesindexupdatesecretoptionsmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [index](#modulesindexmd) / UpdateSecretOptions
-
-# Interface: UpdateSecretOptions
-
-[index](#modulesindexmd).UpdateSecretOptions
-
-## Table of contents
-
-### Properties
-
-- [data](#data)
-- [description](#description)
-- [name](#name)
-
-## Properties
-
-### data
-
-• `Optional` **data**: *undefined* \| *Record*<any, any\>
-
-
-___
-
-### description
-
-• `Optional` **description**: *undefined* \| *null* \| *string*
-
-
-___
-
-### name
-
-• `Optional` **name**: *undefined* \| *null* \| *string*
-
-
-
-<a name="interfacesindexupdatetransitionexecutionmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [index](#modulesindexmd) / UpdateTransitionExecution
-
-# Interface: UpdateTransitionExecution
-
-[index](#modulesindexmd).UpdateTransitionExecution
-
-## Table of contents
-
-### Properties
-
-- [error](#error)
-- [output](#output)
-- [status](#status)
-
-## Properties
-
-### error
-
-• `Optional` **error**: *undefined* \| { `message`: *string*  }
-
-
-___
-
-### output
-
-• `Optional` **output**: *undefined* \| *Record*<any, any\>
-
-
-___
-
-### status
-
-• **status**: *succeeded* \| *failed* \| *retry* \| *rejected*
-
-
-
-<a name="interfacesindexupdateworkflowoptionsmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [index](#modulesindexmd) / UpdateWorkflowOptions
-
-# Interface: UpdateWorkflowOptions
-
-[index](#modulesindexmd).UpdateWorkflowOptions
-
-## Table of contents
-
-### Properties
-
-- [description](#description)
-- [name](#name)
-
-## Properties
-
-### description
-
-• `Optional` **description**: *undefined* \| *string*
-
-
-___
-
-### name
-
-• `Optional` **name**: *undefined* \| *string*
-
-
-
-<a name="interfacesstoragetokenstoragemd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [storage](#modulesstoragemd) / TokenStorage
+<a name="interfacestokenstoragemd"></a>
 
 # Interface: TokenStorage<T\>
 
-[storage](#modulesstoragemd).TokenStorage
-
 ## Type parameters
 
+ `T` extends [`Token`](#classestokenmd)
 
-`T` [*Token*](#classescredentialstokenmd)
-
-## Table of contents
-
-### Properties
-
-- [getPersistentToken](#getpersistenttoken)
-- [setPersistentToken](#setpersistenttoken)
-
-## Properties
+## Methods
 
 ### getPersistentToken
 
-• **getPersistentToken**: () => *null* \| T
+▸ **getPersistentToken**(): ``null`` \| `T`
 
-#### Type declaration:
+#### Returns
 
-▸ (): *null* \| T
-
-**Returns:** *null* \| T
+``null`` \| `T`
 
 
 
@@ -1435,1827 +1801,1269 @@ ___
 
 ### setPersistentToken
 
-• **setPersistentToken**: (`value`: T) => *void*
+▸ **setPersistentToken**(`value`): `void`
 
-#### Type declaration:
+#### Parameters
 
-▸ (`value`: T): *void*
+ `value` `T`
 
-#### Parameters:
+#### Returns
 
+`void`
 
-`value` T
 
-**Returns:** *void*
 
 
-
-
-<a name="interfacestypescreatedocumentoptionsmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [types](#modulestypesmd) / CreateDocumentOptions
-
-# Interface: CreateDocumentOptions
-
-[types](#modulestypesmd).CreateDocumentOptions
-
-## Table of contents
-
-### Properties
-
-- [batchId](#batchid)
-- [consentId](#consentid)
-- [groundTruth](#groundtruth)
-
-## Properties
-
-### batchId
-
-• `Optional` **batchId**: *undefined* \| *string*
-
-
-___
-
-### consentId
-
-• `Optional` **consentId**: *undefined* \| *string*
-
-
-___
-
-### groundTruth
-
-• `Optional` **groundTruth**: *undefined* \| [*GroundTruth*](#groundtruth)[]
-
-
-
-<a name="interfacestypescreatepredictionsoptionsmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [types](#modulestypesmd) / CreatePredictionsOptions
-
-# Interface: CreatePredictionsOptions
-
-[types](#modulestypesmd).CreatePredictionsOptions
-
-## Table of contents
-
-### Properties
-
-- [autoRotate](#autorotate)
-- [maxPages](#maxpages)
-
-## Properties
-
-### autoRotate
-
-• `Optional` **autoRotate**: *undefined* \| *boolean*
-
-
-___
-
-### maxPages
-
-• `Optional` **maxPages**: *undefined* \| *number*
-
-
-
-<a name="interfacestypescreatesecretoptionsmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [types](#modulestypesmd) / CreateSecretOptions
-
-# Interface: CreateSecretOptions
-
-[types](#modulestypesmd).CreateSecretOptions
-
-## Table of contents
-
-### Properties
-
-- [description](#description)
-
-## Properties
-
-### description
-
-• `Optional` **description**: *undefined* \| *string*
-
-
-
-<a name="interfacestypescreatetransitionoptionsmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [types](#modulestypesmd) / CreateTransitionOptions
-
-# Interface: CreateTransitionOptions
-
-[types](#modulestypesmd).CreateTransitionOptions
-
-## Table of contents
-
-### Properties
-
-- [description](#description)
-- [inputJsonSchema](#inputjsonschema)
-- [name](#name)
-- [outputJsonSchema](#outputjsonschema)
-- [parameters](#parameters)
-
-## Properties
-
-### description
-
-• `Optional` **description**: *undefined* \| *null* \| *string*
-
-
-___
-
-### inputJsonSchema
-
-• `Optional` **inputJsonSchema**: *undefined* \| *Record*<any, any\>
-
-
-___
-
-### name
-
-• `Optional` **name**: *undefined* \| *null* \| *string*
-
-
-___
-
-### outputJsonSchema
-
-• `Optional` **outputJsonSchema**: *undefined* \| *Record*<any, any\>
-
-
-___
-
-### parameters
-
-• `Optional` **parameters**: *undefined* \| [*CreateTransitionDockerParams*](#createtransitiondockerparams) \| [*CreateTransitionManualParams*](#createtransitionmanualparams)
-
-
-
-<a name="interfacestypesdeletedocumentoptionsmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [types](#modulestypesmd) / DeleteDocumentOptions
-
-# Interface: DeleteDocumentOptions
-
-[types](#modulestypesmd).DeleteDocumentOptions
-
-## Table of contents
-
-### Properties
-
-- [consentId](#consentid)
-
-## Properties
-
-### consentId
-
-• `Optional` **consentId**: *undefined* \| *string* \| *string*[]
-
-
-
-<a name="interfacestypespaginationoptionsmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [types](#modulestypesmd) / PaginationOptions
-
-# Interface: PaginationOptions
-
-[types](#modulestypesmd).PaginationOptions
-
-## Table of contents
-
-### Properties
-
-- [maxResults](#maxresults)
-- [nextToken](#nexttoken)
-
-## Properties
-
-### maxResults
-
-• `Optional` **maxResults**: *undefined* \| *number*
-
-
-___
-
-### nextToken
-
-• `Optional` **nextToken**: *undefined* \| *string*
-
-
-
-<a name="interfacestypesupdateassetoptionsmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [types](#modulestypesmd) / UpdateAssetOptions
+<a name="interfacesupdateassetoptionsmd"></a>
 
 # Interface: UpdateAssetOptions
-
-[types](#modulestypesmd).UpdateAssetOptions
-
-## Table of contents
-
-### Properties
-
-- [content](#content)
 
 ## Properties
 
 ### content
 
-• `Optional` **content**: *undefined* \| *string* \| *Buffer*
+• `Optional` **content**: `string` \| `Buffer`
 
 
 
-<a name="interfacestypesupdatedocumentoptionsmd"></a>
 
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [types](#modulestypesmd) / UpdateDocumentOptions
+<a name="interfacesupdatedocumentoptionsmd"></a>
 
 # Interface: UpdateDocumentOptions
-
-[types](#modulestypesmd).UpdateDocumentOptions
-
-## Table of contents
-
-### Properties
-
-- [groundTruth](#groundtruth)
 
 ## Properties
 
 ### groundTruth
 
-• `Optional` **groundTruth**: *undefined* \| [*GroundTruth*](#groundtruth)[]
+• `Optional` **groundTruth**: [`GroundTruth`](#groundtruth)[]
 
 
 
-<a name="interfacestypesupdatesecretoptionsmd"></a>
+___
 
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [types](#modulestypesmd) / UpdateSecretOptions
+### retentionInDays
+
+• `Optional` **retentionInDays**: `number`
+
+
+
+
+<a name="interfacesupdatesecretoptionsmd"></a>
 
 # Interface: UpdateSecretOptions
-
-[types](#modulestypesmd).UpdateSecretOptions
-
-## Table of contents
-
-### Properties
-
-- [data](#data)
-- [description](#description)
-- [name](#name)
 
 ## Properties
 
 ### data
 
-• `Optional` **data**: *undefined* \| *Record*<any, any\>
+• `Optional` **data**: `Record`<`any`, `any`\>
+
 
 
 ___
 
 ### description
 
-• `Optional` **description**: *undefined* \| *null* \| *string*
+• `Optional` **description**: ``null`` \| `string`
+
 
 
 ___
 
 ### name
 
-• `Optional` **name**: *undefined* \| *null* \| *string*
+• `Optional` **name**: ``null`` \| `string`
 
 
 
-<a name="interfacestypesupdatetransitionexecutionmd"></a>
 
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [types](#modulestypesmd) / UpdateTransitionExecution
+<a name="interfacesupdatetransitionexecutionmd"></a>
 
 # Interface: UpdateTransitionExecution
-
-[types](#modulestypesmd).UpdateTransitionExecution
-
-## Table of contents
-
-### Properties
-
-- [error](#error)
-- [output](#output)
-- [status](#status)
 
 ## Properties
 
 ### error
 
-• `Optional` **error**: *undefined* \| { `message`: *string*  }
+• `Optional` **error**: `Object`
+
+#### Type declaration
+
+ `message` `string`
+
 
 
 ___
 
 ### output
 
-• `Optional` **output**: *undefined* \| *Record*<any, any\>
+• `Optional` **output**: `Record`<`any`, `any`\>
+
+
+
+___
+
+### startTime
+
+• `Optional` **startTime**: `string`
+
 
 
 ___
 
 ### status
 
-• **status**: *succeeded* \| *failed* \| *retry* \| *rejected*
+• **status**: ``"succeeded"`` \| ``"failed"`` \| ``"retry"`` \| ``"rejected"``
 
 
 
-<a name="interfacestypesupdateworkflowoptionsmd"></a>
 
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / [types](#modulestypesmd) / UpdateWorkflowOptions
+<a name="interfacesupdateworkflowexecutionoptionsmd"></a>
 
-# Interface: UpdateWorkflowOptions
-
-[types](#modulestypesmd).UpdateWorkflowOptions
-
-## Table of contents
-
-### Properties
-
-- [description](#description)
-- [name](#name)
+# Interface: UpdateWorkflowExecutionOptions
 
 ## Properties
 
+### nextTransitionId
+
+• **nextTransitionId**: `string`
+
+
+
+
+<a name="interfacesupdateworkflowoptionsmd"></a>
+
+# Interface: UpdateWorkflowOptions
+
+## Properties
+
+### completedConfig
+
+• `Optional` **completedConfig**: [`WorkflowCompletedConfig`](#workflowcompletedconfig)
+
+
+
+___
+
 ### description
 
-• `Optional` **description**: *undefined* \| *string*
+• `Optional` **description**: ``null`` \| `string`
+
+
+
+___
+
+### errorConfig
+
+• `Optional` **errorConfig**: [`WorkflowErrorConfig`](#workflowerrorconfig)
+
 
 
 ___
 
 ### name
 
-• `Optional` **name**: *undefined* \| *string*
+• `Optional` **name**: ``null`` \| `string`
+
 
 
 
 <a name="modulesmd"></a>
 
-[@lucidtech/las-sdk-core](#readmemd) / Exports
-
 # @lucidtech/las-sdk-core
 
-## Table of contents
+## Classes
 
-### Modules
+- [Client](#classesclientmd)
+- [Credentials](#classescredentialsmd)
+- [Token](#classestokenmd)
 
-- [client](#modulesclientmd)
-- [credentials](#modulescredentialsmd)
-- [index](#modulesindexmd)
-- [storage](#modulesstoragemd)
-- [types](#modulestypesmd)
+## Interfaces
 
-
-<a name="modulesclientmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / client
-
-# Module: client
-
-## Table of contents
-
-### References
-
-- [default](#default)
-
-### Classes
-
-- [Client](#classesclientclient-1md)
-
-## References
-
-### default
-
-Renames and exports: [Client](#classesclientclient-1md)
-
-
-<a name="modulescredentialsmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / credentials
-
-# Module: credentials
-
-## Table of contents
-
-### Classes
-
-- [Credentials](#classescredentialscredentials-1md)
-- [Token](#classescredentialstokenmd)
-
-
-<a name="modulesindexmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / index
-
-# Module: index
-
-## Table of contents
-
-### References
-
-- [Client](#client)
-- [Credentials](#credentials)
-- [Token](#token)
-- [TokenStorage](#tokenstorage)
-
-### Interfaces
-
-- [CreateDocumentOptions](#interfacesindexcreatedocumentoptionsmd)
-- [CreatePredictionsOptions](#interfacesindexcreatepredictionsoptionsmd)
-- [CreateSecretOptions](#interfacesindexcreatesecretoptionsmd)
-- [CreateTransitionOptions](#interfacesindexcreatetransitionoptionsmd)
-- [DeleteDocumentOptions](#interfacesindexdeletedocumentoptionsmd)
-- [PaginationOptions](#interfacesindexpaginationoptionsmd)
-- [UpdateAssetOptions](#interfacesindexupdateassetoptionsmd)
-- [UpdateDocumentOptions](#interfacesindexupdatedocumentoptionsmd)
-- [UpdateSecretOptions](#interfacesindexupdatesecretoptionsmd)
-- [UpdateTransitionExecution](#interfacesindexupdatetransitionexecutionmd)
-- [UpdateWorkflowOptions](#interfacesindexupdateworkflowoptionsmd)
-
-### Type aliases
-
-- [Asset](#asset)
-- [AssetList](#assetlist)
-- [AssetWithoutContent](#assetwithoutcontent)
-- [AuthorizationHeaders](#authorizationheaders)
-- [AxiosFn](#axiosfn)
-- [Batch](#batch)
-- [ContentType](#contenttype)
-- [CreateBatchOptions](#createbatchoptions)
-- [CreateTransitionDockerParams](#createtransitiondockerparams)
-- [CreateTransitionManualParams](#createtransitionmanualparams)
-- [CreateTransitionParams](#createtransitionparams)
-- [CreateUserOptions](#createuseroptions)
-- [CreateWorkflowOptions](#createworkflowoptions)
-- [GroundTruth](#groundtruth)
-- [LasDocument](#lasdocument)
-- [LasDocumentList](#lasdocumentlist)
-- [ListAssetsOptions](#listassetsoptions)
-- [ListDocumentsOptions](#listdocumentsoptions)
-- [ListModelsOptions](#listmodelsoptions)
-- [ListPredictionsOptions](#listpredictionsoptions)
-- [ListSecretsOptions](#listsecretsoptions)
-- [ListTransitionOptions](#listtransitionoptions)
-- [ListUsersOptions](#listusersoptions)
-- [ListWorkflowExecutionsOptions](#listworkflowexecutionsoptions)
-- [ListWorkflowOptions](#listworkflowoptions)
-- [Log](#log)
-- [Model](#model)
-- [ModelList](#modellist)
-- [PostPredictions](#postpredictions)
-- [Prediction](#prediction)
-- [PredictionList](#predictionlist)
-- [PredictionResponse](#predictionresponse)
-- [Secret](#secret)
-- [SecretList](#secretlist)
-- [Transition](#transition)
-- [TransitionExecution](#transitionexecution)
-- [TransitionExecutionList](#transitionexecutionlist)
-- [TransitionExecutionListOptions](#transitionexecutionlistoptions)
-- [TransitionList](#transitionlist)
-- [TransitionType](#transitiontype)
-- [UpdateTransitionOptions](#updatetransitionoptions)
-- [UpdateUserOptions](#updateuseroptions)
-- [User](#user)
-- [UserList](#userlist)
-- [Workflow](#workflow)
-- [WorkflowExecution](#workflowexecution)
-- [WorkflowExecutionList](#workflowexecutionlist)
-- [WorkflowList](#workflowlist)
-- [WorkflowSpecification](#workflowspecification)
-
-## References
-
-### Client
-
-Re-exports: [Client](#classesclientclient-1md)
-
-___
-
-### Credentials
-
-Re-exports: [Credentials](#classescredentialscredentials-1md)
-
-___
-
-### Token
-
-Re-exports: [Token](#classescredentialstokenmd)
-
-___
-
-### TokenStorage
-
-Re-exports: [TokenStorage](#interfacesstoragetokenstoragemd)
+- [CreateDocumentOptions](#interfacescreatedocumentoptionsmd)
+- [CreatePredictionsOptions](#interfacescreatepredictionsoptionsmd)
+- [CreateSecretOptions](#interfacescreatesecretoptionsmd)
+- [CreateTransitionOptions](#interfacescreatetransitionoptionsmd)
+- [PaginationOptions](#interfacespaginationoptionsmd)
+- [TokenStorage](#interfacestokenstoragemd)
+- [UpdateAssetOptions](#interfacesupdateassetoptionsmd)
+- [UpdateDocumentOptions](#interfacesupdatedocumentoptionsmd)
+- [UpdateSecretOptions](#interfacesupdatesecretoptionsmd)
+- [UpdateTransitionExecution](#interfacesupdatetransitionexecutionmd)
+- [UpdateWorkflowExecutionOptions](#interfacesupdateworkflowexecutionoptionsmd)
+- [UpdateWorkflowOptions](#interfacesupdateworkflowoptionsmd)
 
 ## Type aliases
 
+### AppClient
+
+Ƭ **AppClient**: `Object`
+
+#### Type declaration
+
+ `appClientId` `string`
+ `callbackUrls` `string`[] \| ``null``
+ `clientId` `string`
+ `clientSecret?` `string`
+ `createdBy` `string` \| ``null``
+ `createdTime` `string` \| ``null``
+ `defaultLoginUrl` `string` \| ``null``
+ `description` `string` \| ``null``
+ `hasSecret` `boolean`
+ `loginUrls` `string`[] \| ``null``
+ `logoutUrls` `string`[] \| ``null``
+ `name` `string` \| ``null``
+ `updatedBy` `string` \| ``null``
+ `updatedTime` `string` \| ``null``
+
+
+
+___
+
+### AppClientList
+
+Ƭ **AppClientList**: `Object`
+
+#### Type declaration
+
+ `appClients` [`AppClient`](#appclient)[]
+ `nextToken` `string` \| ``null``
+
+
+
+___
+
 ### Asset
 
-Ƭ **Asset**: *object*
+Ƭ **Asset**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `assetId` `string`
+ `content` `string`
 
-`assetId` *string*
-`content` *string*
 
 
 ___
 
 ### AssetList
 
-Ƭ **AssetList**: *object*
+Ƭ **AssetList**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `assets` [`AssetWithoutContent`](#assetwithoutcontent)[]
+ `nextToken` `string` \| ``null``
 
-`assets` [*AssetWithoutContent*](#assetwithoutcontent)[]
-`nextToken` *string* \| *null*
 
 
 ___
 
 ### AssetWithoutContent
 
-Ƭ **AssetWithoutContent**: *object*
+Ƭ **AssetWithoutContent**: `Omit`<[`Asset`](#asset), ``"content"``\>
 
-#### Type declaration:
-
-
-`assetId` *string*
 
 
 ___
 
 ### AuthorizationHeaders
 
-Ƭ **AuthorizationHeaders**: *object*
+Ƭ **AuthorizationHeaders**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `Authorization` `string`
 
-`Authorization` *string*
-`X-Api-Key` *string*
 
 
 ___
 
 ### AxiosFn
 
-Ƭ **AxiosFn**: <T, R\>(`url`: *string*, `body?`: *any*, `config?`: AxiosRequestConfig) => *Promise*<R\>
+Ƭ **AxiosFn**: <T, R\>(`url`: `string`, `body?`: `any`, `config?`: `AxiosRequestConfig`) => `Promise`<`R`\>
 
-#### Type declaration:
+#### Type declaration
 
-▸ <T, R\>(`url`: *string*, `body?`: *any*, `config?`: AxiosRequestConfig): *Promise*<R\>
+▸ <`T`, `R`\>(`url`, `body?`, `config?`): `Promise`<`R`\>
 
-#### Type parameters:
+##### Type parameters
 
+ `T` `any`
+ `R` `AxiosResponse`<`T`\>
 
-`T` *any*
-`R` *AxiosResponse*<T\>
+##### Parameters
 
-#### Parameters:
+ `url` `string`
+ `body?` `any`
+ `config?` `AxiosRequestConfig`
 
+##### Returns
 
-`url` *string*
-`body?` *any*
-`config?` AxiosRequestConfig
+`Promise`<`R`\>
 
-**Returns:** *Promise*<R\>
 
 
 ___
 
 ### Batch
 
-Ƭ **Batch**: *object*
+Ƭ **Batch**: `Object`
 
-#### Type declaration:
+#### Type declaration
+
+ `batchId` `string`
+ `containsPersonallyIdentifiableInformation` `boolean`
+ `createdTime` `string`
+ `description` `string`
+ `name` `string`
+ `numDocuments` `number`
+ `retentionInDays` `number`
+ `storageLocation` ``"EU"``
 
 
-`batchId` *string*
-`description` *string*
-`name` *string*
+
+___
+
+### BatchList
+
+Ƭ **BatchList**: `Object`
+
+#### Type declaration
+
+ `batches` [`Batch`](#batch)[]
+ `nextToken` `string` \| ``null``
+
 
 
 ___
 
 ### ContentType
 
-Ƭ **ContentType**: *application/pdf* \| *image/jpeg*
+Ƭ **ContentType**: ``"application/pdf"`` \| ``"image/jpeg"`` \| ``"image/png"`` \| ``"image/tiff"``
+
+
+
+___
+
+### CreateAppClientOptions
+
+Ƭ **CreateAppClientOptions**: `Object`
+
+#### Type declaration
+
+ `callbackUrls?` `string`[]
+ `defaultLoginUrl?` `string`
+ `description?` `string`
+ `generateSecret?` `boolean`
+ `loginUrls?` `string`[]
+ `logoutUrls?` `string`[]
+ `name?` `string`
+
 
 
 ___
 
 ### CreateBatchOptions
 
-Ƭ **CreateBatchOptions**: *object*
+Ƭ **CreateBatchOptions**: `Object`
 
-#### Type declaration:
+#### Type declaration
+
+ `containsPersonallyIdentifiableInformation?` `boolean`
+ `description?` `string`
+ `name?` `string`
 
 
-`description`? *string*
-`name`? *string*
+
+___
+
+### CreateDataBundleOptions
+
+Ƭ **CreateDataBundleOptions**: `Object`
+
+#### Type declaration
+
+ `description?` `string`
+ `name?` `string`
+
+
+
+___
+
+### CreateDatasetOptions
+
+Ƭ **CreateDatasetOptions**: `Object`
+
+#### Type declaration
+
+ `containsPersonallyIdentifiableInformation?` `boolean`
+ `description?` `string`
+ `name?` `string`
+
+
+
+___
+
+### CreateModelOptions
+
+Ƭ **CreateModelOptions**: `Object`
+
+#### Type declaration
+
+ `description?` `string`
+ `name?` `string`
+ `preprocessConfig?` [`PreprocessConfig`](#preprocessconfig)
+
 
 
 ___
 
 ### CreateTransitionDockerParams
 
-Ƭ **CreateTransitionDockerParams**: *object*
+Ƭ **CreateTransitionDockerParams**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `cpu?` ``256``
+ `credentials?` `Object`
+ `credentials.password` `string`
+ `credentials.username` `string`
+ `environment?` `object`
+ `imageUrl` `string`
+ `memory?` ``512`` \| ``1024`` \| ``2048``
 
-`cpu`? *256*
-`credentials`? *object*
-`credentials.password` *string*
-`credentials.username` *string*
-`environment`? *object*
-`imageUrl` *string*
-`memory`? *512* \| *1024* \| *2048*
 
 
 ___
 
 ### CreateTransitionManualParams
 
-Ƭ **CreateTransitionManualParams**: *object*
+Ƭ **CreateTransitionManualParams**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `assets?` { `jsRemoteComponent?`: `string`  } & `Record`<`string`, `string`\>
 
-`assets`? { `jsRemoteComponent?`: *string*  } & *Record*<string, string\>
 
 
 ___
 
 ### CreateTransitionParams
 
-Ƭ **CreateTransitionParams**: [*CreateTransitionDockerParams*](#createtransitiondockerparams) \| [*CreateTransitionManualParams*](#createtransitionmanualparams)
+Ƭ **CreateTransitionParams**: [`CreateTransitionDockerParams`](#createtransitiondockerparams) \| [`CreateTransitionManualParams`](#createtransitionmanualparams)
+
 
 
 ___
 
 ### CreateUserOptions
 
-Ƭ **CreateUserOptions**: *object*
+Ƭ **CreateUserOptions**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `appClientId?` `string`
+ `avatar?` `string`
+ `name?` `string`
 
-`avatar`? *string* \| *null*
-`name`? *string* \| *null*
 
 
 ___
 
 ### CreateWorkflowOptions
 
-Ƭ **CreateWorkflowOptions**: *object*
+Ƭ **CreateWorkflowOptions**: `Object`
 
-#### Type declaration:
+#### Type declaration
+
+ `completedConfig?` [`WorkflowCompletedConfig`](#workflowcompletedconfig)
+ `description?` `string` \| ``null``
+ `errorConfig?` [`WorkflowErrorConfig`](#workflowerrorconfig)
 
 
-`description`? *string*
-`errorConfig`? *object*
-`errorConfig.email` *string*
+
+___
+
+### DataBundle
+
+Ƭ **DataBundle**: `Object`
+
+#### Type declaration
+
+ `createdBy` `string` \| ``null``
+ `createdTime` `string`
+ `dataBundleId` `string`
+ `datasets` [`Dataset`](#dataset)[]
+ `description` `string` \| ``null``
+ `modelId` `string`
+ `name` `string` \| ``null``
+ `status` ``"ready"`` \| ``"processing"`` \| ``"failed"``
+ `summary` `Record`<`string`, `any`\>
+ `updatedBy` `string` \| ``null``
+ `updatedTime` `string`
+
+
+
+___
+
+### DataBundleList
+
+Ƭ **DataBundleList**: `Object`
+
+#### Type declaration
+
+ `dataBundles` [`DataBundle`](#databundle)[]
+ `nextToken` `string` \| ``null``
+
+
+
+___
+
+### Dataset
+
+Ƭ **Dataset**: `Object`
+
+#### Type declaration
+
+ `containsPersonallyIdentifiableInformation` `boolean`
+ `createdBy` `string` \| ``null``
+ `createdTime` `string`
+ `datasetId` `string`
+ `description` `string`
+ `groundTruthSummary` `Record`<`string`, `number`\>
+ `name` `string`
+ `numberOfDocuments` `number`
+ `retentionInDays` `number`
+ `storageLocation` ``"EU"``
+ `updatedBy` `string` \| ``null``
+ `updatedTime` `string`
+ `version` `number`
+
+
+
+___
+
+### DatasetList
+
+Ƭ **DatasetList**: `Object`
+
+#### Type declaration
+
+ `datasets` [`Dataset`](#dataset)[]
+ `nextToken` `string` \| ``null``
+
+
+
+___
+
+### DeleteDocumentOptions
+
+Ƭ **DeleteDocumentOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd) & { `batchId?`: `string` \| `string`[] ; `consentId?`: `string` \| `string`[] ; `datasetId?`: `string` \| `string`[]  }
+
+
+
+___
+
+### Field
+
+Ƭ **Field**: `Object`
+
+#### Type declaration
+
+ `description` `string`
+ `maxLength` `number`
+ `type` ``"all"`` \| ``"alphanum"`` \| ``"alphanumext"`` \| ``"amount"`` \| ``"date"`` \| ``"letter"`` \| ``"number"`` \| ``"phone"`` \| ``"string"`` \| ``"digits"``
+
+
+
+___
+
+### FieldConfig
+
+Ƭ **FieldConfig**: `Record`<`string`, [`Field`](#field)\>
+
 
 
 ___
 
 ### GroundTruth
 
-Ƭ **GroundTruth**: *object*
+Ƭ **GroundTruth**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `label` `string` maxLength: 36, minLength: 1, pattern: ^[0-9A-Za-z_]+$
+ `value` `string` \| `boolean` \| ``null`` maxLength: 64, minLength: 1
 
-`label` *string* maxLength: 36, minLength: 1, pattern: ^[0-9A-Za-z_]+$  
-`value` *string* \| *boolean* \| *null* maxLength: 64, minLength: 1  
 
 
 ___
 
 ### LasDocument
 
-Ƭ **LasDocument**: *object*
+Ƭ **LasDocument**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `batchId?` `string`
+ `consentId?` `string`
+ `content` `string`
+ `contentType` [`ContentType`](#contenttype)
+ `createdBy` `string` \| ``null``
+ `createdTime` `string` \| ``null``
+ `datasetId?` `string`
+ `documentId` `string`
+ `groundTruth?` [`GroundTruth`](#groundtruth)[]
+ `retentionInDays` `number`
+ `updatedBy` `string` \| ``null``
+ `updatedTime` `string` \| ``null``
 
-`batchId`? *string* pattern: ^las:batch:[a-f0-9]{32}$  
-`consentId`? *string* pattern: ^las:consent:[a-f0-9]{32}$  
-`content`? *string* minimum: 1  
-`contentType` [*ContentType*](#contenttype) -
-`documentId` *string* pattern: ^las:document:[a-f0-9]{32}$  
-`groundTruth`? [*GroundTruth*](#groundtruth)[] -
-`inferenceTime`? *number* minimum: 0  
-`predictions`? [*Prediction*](#prediction)[] -
-`updated`? *number* minimum: 1  
 
 
 ___
 
 ### LasDocumentList
 
-Ƭ **LasDocumentList**: *object*
+Ƭ **LasDocumentList**: `Object`
 
-#### Type declaration:
+#### Type declaration
+
+ `batchId?` `string`
+ `documents` [`LasDocumentWithoutContent`](#lasdocumentwithoutcontent)[]
+ `nextToken` `string` \| ``null``
 
 
-`batchId`? *string*
-`consentId`? *string*
-`documents` [*LasDocument*](#lasdocument)[]
-`nextToken`? *string*
+
+___
+
+### LasDocumentWithoutContent
+
+Ƭ **LasDocumentWithoutContent**: `Omit`<[`LasDocument`](#lasdocument), ``"content"``\>
+
+
+
+___
+
+### ListAppClientsOptions
+
+Ƭ **ListAppClientsOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd)
+
 
 
 ___
 
 ### ListAssetsOptions
 
-Ƭ **ListAssetsOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd)
+Ƭ **ListAssetsOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd)
+
+
+
+___
+
+### ListBatchesOptions
+
+Ƭ **ListBatchesOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd)
+
+
+
+___
+
+### ListDataBundleOptions
+
+Ƭ **ListDataBundleOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd)
+
+
+
+___
+
+### ListDatasetsOptions
+
+Ƭ **ListDatasetsOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd)
+
 
 
 ___
 
 ### ListDocumentsOptions
 
-Ƭ **ListDocumentsOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd) & { `batchId?`: *string* \| *string*[] ; `consentId?`: *string* \| *string*[]  }
+Ƭ **ListDocumentsOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd) & { `batchId?`: `string` \| `string`[] ; `consentId?`: `string` \| `string`[] ; `datasetId?`: `string` \| `string`[]  }
+
 
 
 ___
 
 ### ListModelsOptions
 
-Ƭ **ListModelsOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd)
+Ƭ **ListModelsOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd)
+
 
 
 ___
 
 ### ListPredictionsOptions
 
-Ƭ **ListPredictionsOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd)
+Ƭ **ListPredictionsOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd)
+
 
 
 ___
 
 ### ListSecretsOptions
 
-Ƭ **ListSecretsOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd)
+Ƭ **ListSecretsOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd)
+
 
 
 ___
 
 ### ListTransitionOptions
 
-Ƭ **ListTransitionOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd) & { `transitionType?`: *string* \| *string*[]  }
+Ƭ **ListTransitionOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd) & { `transitionType?`: `string` \| `string`[]  }
+
 
 
 ___
 
 ### ListUsersOptions
 
-Ƭ **ListUsersOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd)
+Ƭ **ListUsersOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd)
+
 
 
 ___
 
 ### ListWorkflowExecutionsOptions
 
-Ƭ **ListWorkflowExecutionsOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd) & { `order?`: *ascending* \| *descending* ; `sortBy?`: *startTime* \| *endTime* ; `status?`: *string* \| *string*[]  }
+Ƭ **ListWorkflowExecutionsOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd) & { `order?`: ``"ascending"`` \| ``"descending"`` ; `sortBy?`: ``"startTime"`` \| ``"endTime"`` ; `status?`: `string` \| `string`[]  }
+
 
 
 ___
 
 ### ListWorkflowOptions
 
-Ƭ **ListWorkflowOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd)
+Ƭ **ListWorkflowOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd)
+
 
 
 ___
 
 ### Log
 
-Ƭ **Log**: *object*
+Ƭ **Log**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `events` `Record`<`any`, `any`\>[]
+ `logId` `string`
+ `transitionId?` `string` \| ``null``
 
-`events` *Record*<any, any\>[]
-`logId` *string*
-`transitionId`? *string* \| *null*
 
 
 ___
 
 ### Model
 
-Ƭ **Model**: *object*
+Ƭ **Model**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `createdBy` `string` \| ``null``
+ `createdTime` `string` \| ``null``
+ `description` `string` \| ``null``
+ `fieldConfig` [`FieldConfig`](#fieldconfig) \| ``null``
+ `height` `number`
+ `modelId` `string`
+ `name` `string` \| ``null``
+ `preprocessConfig` [`PreprocessConfig`](#preprocessconfig)
+ `status` ``"active"`` \| ``"inactive"`` \| ``"training"``
+ `updatedBy` `string` \| ``null``
+ `updatedTime` `string` \| ``null``
+ `width` `number`
 
-`description` *string* \| *null*
-`height` *number*
-`modelId` *string*
-`name` *string* \| *null*
-`width` *number*
 
 
 ___
 
 ### ModelList
 
-Ƭ **ModelList**: *object*
+Ƭ **ModelList**: `Object`
 
-#### Type declaration:
+#### Type declaration
+
+ `models` [`Model`](#model)[]
+ `nextToken` `string` \| ``null``
 
 
-`models` [*Model*](#model)[]
-`nextToken` *string* \| *null*
+
+___
+
+### Organization
+
+Ƭ **Organization**: `Object`
+
+#### Type declaration
+
+ `description` `string` \| ``null``
+ `monthlyNumberOfDataBundlesAllowed` `number`
+ `monthlyNumberOfDataBundlesCreated` `number`
+ `monthlyNumberOfDocumentsAllowed` `number`
+ `monthlyNumberOfDocumentsCreated` `number`
+ `monthlyNumberOfPredictionsAllowed` `number`
+ `monthlyNumberOfPredictionsCreated` `number`
+ `monthlyNumberOfTransitionExecutionsAllowed` `number`
+ `monthlyNumberOfTransitionExecutionsCreated` `number`
+ `monthlyNumberOfWorkflowExecutionsAllowed` `number`
+ `monthlyNumberOfWorkflowExecutionsCreated` `number`
+ `monthlyUsageSummary` `Record`<`string`, `any`\>
+ `name` `string` \| ``null``
+ `numberOfAppClientsAllowed` `number`
+ `numberOfAppClientsCreated` `number`
+ `numberOfAssetsAllowed` `number`
+ `numberOfAssetsCreated` `number`
+ `numberOfBatchesAllowed` `number`
+ `numberOfBatchesCreated` `number`
+ `numberOfDatasetsAllowed` `number`
+ `numberOfDatasetsCreated` `number`
+ `numberOfModelsAllowed` `number`
+ `numberOfModelsCreated` `number`
+ `numberOfSecretsAllowed` `number`
+ `numberOfSecretsCreated` `number`
+ `numberOfTransitionsAllowed` `number`
+ `numberOfTransitionsCreated` `number`
+ `numberOfUsersAllowed` `number`
+ `numberOfUsersCreated` `number`
+ `numberOfWorkflowsAllowed` `number`
+ `numberOfWorkflowsCreated` `number`
+ `organizationId` `string`
+
 
 
 ___
 
 ### PostPredictions
 
-Ƭ **PostPredictions**: [*CreatePredictionsOptions*](#interfacestypescreatepredictionsoptionsmd) & { `documentId`: *string* ; `modelId`: *string*  }
+Ƭ **PostPredictions**: [`CreatePredictionsOptions`](#interfacescreatepredictionsoptionsmd) & { `documentId`: `string` ; `modelId`: `string`  }
+
 
 
 ___
 
 ### Prediction
 
-Ƭ **Prediction**: [*GroundTruth*](#groundtruth) & { `confidence`: *number*  }
+Ƭ **Prediction**: [`GroundTruth`](#groundtruth) & { `confidence`: `number`  }
+
 
 
 ___
 
 ### PredictionList
 
-Ƭ **PredictionList**: *object*
+Ƭ **PredictionList**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `nextToken` `string` \| ``null``
+ `predictions` [`PredictionResponse`](#predictionresponse)[]
 
-`nextToken` *string* \| *null*
-`predictions` [*PredictionResponse*](#predictionresponse)[]
 
 
 ___
 
 ### PredictionResponse
 
-Ƭ **PredictionResponse**: *object*
+Ƭ **PredictionResponse**: `Object`
 
-#### Type declaration:
+#### Type declaration
+
+ `documentId` `string`
+ `inferenceTime` `number`
+ `modelId` `string`
+ `predictionId` `string`
+ `predictions` [`Prediction`](#prediction)[]
+ `timestamp` `number`
 
 
-`documentId` *string*
-`inferenceTime` *number*
-`modelId` *string*
-`predictionId` *string*
-`predictions` [*Prediction*](#prediction)[]
-`timestamp` *number*
+
+___
+
+### PreprocessConfig
+
+Ƭ **PreprocessConfig**: `Object`
+
+#### Type declaration
+
+ `autoRotate` `boolean`
+ `imageQuality` ``"LOW"`` \| ``"HIGH"``
+ `maxPages` `number`
+
 
 
 ___
 
 ### Secret
 
-Ƭ **Secret**: *object*
+Ƭ **Secret**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `description` `string` \| ``null``
+ `name` `string` \| ``null``
+ `secredId` `string`
 
-`description` *string* \| *null*
-`name` *string* \| *null*
-`secredId` *string*
 
 
 ___
 
 ### SecretList
 
-Ƭ **SecretList**: *object*
+Ƭ **SecretList**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `nextToken` `string` \| ``null``
+ `secrets` [`Secret`](#secret)[]
 
-`nextToken`? *string* \| *null*
-`secrets` [*Secret*](#secret)[]
 
 
 ___
 
 ### Transition
 
-Ƭ **Transition**: *object*
+Ƭ **Transition**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `assets?` `Record`<`string`, `string`\>
+ `description` `string`
+ `inputJsonSchema` `unknown`
+ `name` `string`
+ `outputJsonSchema?` `unknown`
+ `parameters` `Record`<`string`, `any`\>
+ `transitionId` `string`
+ `transitionType` [`TransitionType`](#transitiontype)
 
-`assets`? *Record*<string, string\>
-`description` *string*
-`inputJsonSchema` *unknown*
-`name` *string*
-`outputJsonSchema`? *unknown*
-`transitionId` *string*
-`transitionType` [*TransitionType*](#transitiontype)
 
 
 ___
 
 ### TransitionExecution
 
-Ƭ **TransitionExecution**: *object*
+Ƭ **TransitionExecution**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `completedBy` `string` \| ``null``
+ `endTime` `string` \| ``null``
+ `executionId` `string`
+ `input` `Record`<`any`, `any`\>
+ `logId` `string` \| ``null``
+ `startTime` `string` \| ``null``
+ `status` [`TransitionExecutionStatus`](#transitionexecutionstatus)
+ `transitionId` `string`
 
-`completedBy` *string* \| *null*
-`endTime` *string* \| *null*
-`executionId` *string*
-`input` *Record*<any, any\>
-`startTime` *string* \| *null*
-`status` *succeeded* \| *failed* \| *retry* \| *running* \| *rejected*
-`transitionId` *string*
 
 
 ___
 
 ### TransitionExecutionList
 
-Ƭ **TransitionExecutionList**: *object*
+Ƭ **TransitionExecutionList**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `executions` [`TransitionExecution`](#transitionexecution)[]
+ `nextToken` `string` \| ``null``
+ `transitionId` `string`
 
-`executions` [*TransitionExecution*](#transitionexecution)[]
-`nextToken` *string* \| *null*
-`transitionId` *string*
 
 
 ___
 
 ### TransitionExecutionListOptions
 
-Ƭ **TransitionExecutionListOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd) & { `executionId?`: *string* \| *string*[] ; `order?`: *ascending* \| *descending* ; `sortBy?`: *startTime* \| *endTime* ; `status?`: *succeeded* \| *failed* \| *retry* \| *running* \| *rejected*  }
+Ƭ **TransitionExecutionListOptions**: [`PaginationOptions`](#interfacespaginationoptionsmd) & { `executionId?`: `string` \| `string`[] ; `order?`: ``"ascending"`` \| ``"descending"`` ; `sortBy?`: ``"startTime"`` \| ``"endTime"`` ; `status?`: [`TransitionExecutionStatus`](#transitionexecutionstatus) \| [`TransitionExecutionStatus`](#transitionexecutionstatus)[]  }
+
+
+
+___
+
+### TransitionExecutionStatus
+
+Ƭ **TransitionExecutionStatus**: ``"succeeded"`` \| ``"failed"`` \| ``"retry"`` \| ``"running"`` \| ``"rejected"``
+
 
 
 ___
 
 ### TransitionList
 
-Ƭ **TransitionList**: *object*
+Ƭ **TransitionList**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `nextToken` `string` \| ``null``
+ `transitions` [`Transition`](#transition)[]
 
-`nextToken`? *string*
-`transitions` [*Transition*](#transition)[]
 
 
 ___
 
 ### TransitionType
 
-Ƭ **TransitionType**: *docker* \| *manual*
+Ƭ **TransitionType**: ``"docker"`` \| ``"manual"``
+
+
+
+___
+
+### UpdateAppClientOptions
+
+Ƭ **UpdateAppClientOptions**: `Object`
+
+#### Type declaration
+
+ `defaultLoginUrl?` `string`
+ `description?` `string`
+ `loginUrls?` `string`[]
+ `name?` `string`
+
+
+
+___
+
+### UpdateBatchOptions
+
+Ƭ **UpdateBatchOptions**: `Object`
+
+#### Type declaration
+
+ `description?` `string`
+ `name?` `string`
+
+
+
+___
+
+### UpdateDataBundleOptions
+
+Ƭ **UpdateDataBundleOptions**: `Object`
+
+#### Type declaration
+
+ `description?` `string`
+ `name?` `string`
+
+
+
+___
+
+### UpdateDatasetOptions
+
+Ƭ **UpdateDatasetOptions**: `Object`
+
+#### Type declaration
+
+ `description?` `string`
+ `name?` `string`
+
+
+
+___
+
+### UpdateModelOptions
+
+Ƭ **UpdateModelOptions**: `Object`
+
+#### Type declaration
+
+ `description?` `string`
+ `fieldConfig?` [`FieldConfig`](#fieldconfig)
+ `height?` `number`
+ `name?` `string`
+ `preprocessConfig?` [`PreprocessConfig`](#preprocessconfig)
+ `status?` ``"training"``
+ `width?` `number`
+
+
+
+___
+
+### UpdateOrganizationOptions
+
+Ƭ **UpdateOrganizationOptions**: `Object`
+
+#### Type declaration
+
+ `description?` `string`
+ `name?` `string`
+
 
 
 ___
 
 ### UpdateTransitionOptions
 
-Ƭ **UpdateTransitionOptions**: *object*
+Ƭ **UpdateTransitionOptions**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `description?` `string`
+ `inputJsonSchema?` `Record`<`any`, `any`\>
+ `name?` `string`
+ `outputJsonSchema?` `Record`<`any`, `any`\>
 
-`description`? *string*
-`inputJsonSchema`? *Record*<any, any\>
-`name`? *string*
-`outputJsonSchema`? *Record*<any, any\>
 
 
 ___
 
 ### UpdateUserOptions
 
-Ƭ **UpdateUserOptions**: *object*
+Ƭ **UpdateUserOptions**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `avatar?` `string` \| ``null``
+ `name?` `string` \| ``null``
 
-`avatar`? *string* \| *null*
-`name`? *string* \| *null*
 
 
 ___
 
 ### User
 
-Ƭ **User**: *object*
+Ƭ **User**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `avatar` `string` \| ``null``
+ `createdBy` `string` \| ``null``
+ `createdTime` `string` \| ``null``
+ `email` `string`
+ `name` `string` \| ``null``
+ `updatedBy` `string` \| ``null``
+ `updatedTime` `string` \| ``null``
+ `userId` `string`
 
-`avatar` *string* \| *null*
-`email` *string*
-`name` *string* \| *null*
-`userId` *string*
 
 
 ___
 
 ### UserList
 
-Ƭ **UserList**: *object*
+Ƭ **UserList**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `nextToken` `string` \| ``null``
+ `users` [`User`](#user)[]
 
-`nextToken`? *string*
-`users` [*User*](#user)[]
 
 
 ___
 
 ### Workflow
 
-Ƭ **Workflow**: *object*
+Ƭ **Workflow**: `Object`
 
-#### Type declaration:
+#### Type declaration
+
+ `completedConfig` [`WorkflowCompletedConfig`](#workflowcompletedconfig)
+ `description` `string` \| ``null``
+ `errorConfig` [`WorkflowErrorConfig`](#workflowerrorconfig)
+ `name` `string` \| ``null``
+ `numberOfRunningExecutions` `number`
+ `workflowId` `string`
 
 
-`description`? *string*
-`name` *string*
-`workflowId` *string*
+
+___
+
+### WorkflowCompletedConfig
+
+Ƭ **WorkflowCompletedConfig**: `Object`
+
+#### Type declaration
+
+ `environment?` `Record`<`string`, `string`\>
+ `environmentSecrets?` `string`[]
+ `imageUrl` `string`
+ `secretId?` `string`
+
+
+
+___
+
+### WorkflowErrorConfig
+
+Ƭ **WorkflowErrorConfig**: `Object`
+
+#### Type declaration
+
+ `email?` `string`
+ `manualRetry?` `boolean`
+
 
 
 ___
 
 ### WorkflowExecution
 
-Ƭ **WorkflowExecution**: *object*
+Ƭ **WorkflowExecution**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `completedBy` `string`[]
+ `endTime` `string` \| ``null``
+ `executionId` `string`
+ `input` `Record`<`any`, `any`\>
+ `logId` `string` \| ``null``
+ `output` `Record`<`any`, `any`\>
+ `startTime` `string` \| ``null``
+ `status` ``"succeeded"`` \| ``"failed"`` \| ``"running"`` \| ``"rejected"`` \| ``"retry"`` \| ``"error"``
+ `transitionExecutions` `Record`<`string`, `string`[]\> \| ``null``
+ `workflowId` `string`
 
-`completedBy` *string*[]
-`endTime` *string* \| *null*
-`executionId` *string*
-`input` *Record*<any, any\>
-`output` *Record*<any, any\>
-`startTime` *string* \| *null*
-`status`? *succeeded* \| *failed* \| *running* \| *rejected*
-`transitionExecutions` *Record*<string, string[]\> \| *null*
-`workflowId` *string*
 
 
 ___
 
 ### WorkflowExecutionList
 
-Ƭ **WorkflowExecutionList**: *object*
+Ƭ **WorkflowExecutionList**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `executions` `Required`<[`WorkflowExecution`](#workflowexecution)\>[]
+ `nextToken` `string` \| ``null``
+ `status?` ``"succeeded"`` \| ``"failed"`` \| ``"running"`` \| ``"rejected"``
+ `workflowId` `string`
 
-`executions` *Required*<[*WorkflowExecution*](#workflowexecution)\>[]
-`nextToken`? *string*
-`status`? *succeeded* \| *failed* \| *running* \| *rejected*
-`workflowId` *string*
 
 
 ___
 
 ### WorkflowList
 
-Ƭ **WorkflowList**: *object*
+Ƭ **WorkflowList**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `workflows` [`Workflow`](#workflow)[]
 
-`workflows` [*Workflow*](#workflow)[]
 
 
 ___
 
 ### WorkflowSpecification
 
-Ƭ **WorkflowSpecification**: *object*
+Ƭ **WorkflowSpecification**: `Object`
 
-#### Type declaration:
+#### Type declaration
 
+ `definition` `object`
+ `language?` ``"ASL"``
+ `version?` ``"1.0.0"``
 
-`definition` *object*
-`language`? *ASL*
-`version`? *1.0.0*
-
-
-
-<a name="modulesstoragemd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / storage
-
-# Module: storage
-
-## Table of contents
-
-### Interfaces
-
-- [TokenStorage](#interfacesstoragetokenstoragemd)
-
-
-<a name="modulestypesmd"></a>
-
-[@lucidtech/las-sdk-core](#readmemd) / [Exports](#modulesmd) / types
-
-# Module: types
-
-## Table of contents
-
-### Interfaces
-
-- [CreateDocumentOptions](#interfacestypescreatedocumentoptionsmd)
-- [CreatePredictionsOptions](#interfacestypescreatepredictionsoptionsmd)
-- [CreateSecretOptions](#interfacestypescreatesecretoptionsmd)
-- [CreateTransitionOptions](#interfacestypescreatetransitionoptionsmd)
-- [DeleteDocumentOptions](#interfacestypesdeletedocumentoptionsmd)
-- [PaginationOptions](#interfacestypespaginationoptionsmd)
-- [UpdateAssetOptions](#interfacestypesupdateassetoptionsmd)
-- [UpdateDocumentOptions](#interfacestypesupdatedocumentoptionsmd)
-- [UpdateSecretOptions](#interfacestypesupdatesecretoptionsmd)
-- [UpdateTransitionExecution](#interfacestypesupdatetransitionexecutionmd)
-- [UpdateWorkflowOptions](#interfacestypesupdateworkflowoptionsmd)
-
-### Type aliases
-
-- [Asset](#asset)
-- [AssetList](#assetlist)
-- [AssetWithoutContent](#assetwithoutcontent)
-- [AuthorizationHeaders](#authorizationheaders)
-- [AxiosFn](#axiosfn)
-- [Batch](#batch)
-- [ContentType](#contenttype)
-- [CreateBatchOptions](#createbatchoptions)
-- [CreateTransitionDockerParams](#createtransitiondockerparams)
-- [CreateTransitionManualParams](#createtransitionmanualparams)
-- [CreateTransitionParams](#createtransitionparams)
-- [CreateUserOptions](#createuseroptions)
-- [CreateWorkflowOptions](#createworkflowoptions)
-- [GroundTruth](#groundtruth)
-- [LasDocument](#lasdocument)
-- [LasDocumentList](#lasdocumentlist)
-- [ListAssetsOptions](#listassetsoptions)
-- [ListDocumentsOptions](#listdocumentsoptions)
-- [ListModelsOptions](#listmodelsoptions)
-- [ListPredictionsOptions](#listpredictionsoptions)
-- [ListSecretsOptions](#listsecretsoptions)
-- [ListTransitionOptions](#listtransitionoptions)
-- [ListUsersOptions](#listusersoptions)
-- [ListWorkflowExecutionsOptions](#listworkflowexecutionsoptions)
-- [ListWorkflowOptions](#listworkflowoptions)
-- [Log](#log)
-- [Model](#model)
-- [ModelList](#modellist)
-- [PostPredictions](#postpredictions)
-- [Prediction](#prediction)
-- [PredictionList](#predictionlist)
-- [PredictionResponse](#predictionresponse)
-- [Secret](#secret)
-- [SecretList](#secretlist)
-- [Transition](#transition)
-- [TransitionExecution](#transitionexecution)
-- [TransitionExecutionList](#transitionexecutionlist)
-- [TransitionExecutionListOptions](#transitionexecutionlistoptions)
-- [TransitionList](#transitionlist)
-- [TransitionType](#transitiontype)
-- [UpdateTransitionOptions](#updatetransitionoptions)
-- [UpdateUserOptions](#updateuseroptions)
-- [User](#user)
-- [UserList](#userlist)
-- [Workflow](#workflow)
-- [WorkflowExecution](#workflowexecution)
-- [WorkflowExecutionList](#workflowexecutionlist)
-- [WorkflowList](#workflowlist)
-- [WorkflowSpecification](#workflowspecification)
-
-## Type aliases
-
-### Asset
-
-Ƭ **Asset**: *object*
-
-#### Type declaration:
-
-
-`assetId` *string*
-`content` *string*
-
-
-___
-
-### AssetList
-
-Ƭ **AssetList**: *object*
-
-#### Type declaration:
-
-
-`assets` [*AssetWithoutContent*](#assetwithoutcontent)[]
-`nextToken` *string* \| *null*
-
-
-___
-
-### AssetWithoutContent
-
-Ƭ **AssetWithoutContent**: *object*
-
-#### Type declaration:
-
-
-`assetId` *string*
-
-
-___
-
-### AuthorizationHeaders
-
-Ƭ **AuthorizationHeaders**: *object*
-
-#### Type declaration:
-
-
-`Authorization` *string*
-`X-Api-Key` *string*
-
-
-___
-
-### AxiosFn
-
-Ƭ **AxiosFn**: <T, R\>(`url`: *string*, `body?`: *any*, `config?`: AxiosRequestConfig) => *Promise*<R\>
-
-#### Type declaration:
-
-▸ <T, R\>(`url`: *string*, `body?`: *any*, `config?`: AxiosRequestConfig): *Promise*<R\>
-
-#### Type parameters:
-
-
-`T` *any*
-`R` *AxiosResponse*<T\>
-
-#### Parameters:
-
-
-`url` *string*
-`body?` *any*
-`config?` AxiosRequestConfig
-
-**Returns:** *Promise*<R\>
-
-
-___
-
-### Batch
-
-Ƭ **Batch**: *object*
-
-#### Type declaration:
-
-
-`batchId` *string*
-`description` *string*
-`name` *string*
-
-
-___
-
-### ContentType
-
-Ƭ **ContentType**: *application/pdf* \| *image/jpeg*
-
-
-___
-
-### CreateBatchOptions
-
-Ƭ **CreateBatchOptions**: *object*
-
-#### Type declaration:
-
-
-`description`? *string*
-`name`? *string*
-
-
-___
-
-### CreateTransitionDockerParams
-
-Ƭ **CreateTransitionDockerParams**: *object*
-
-#### Type declaration:
-
-
-`cpu`? *256*
-`credentials`? *object*
-`credentials.password` *string*
-`credentials.username` *string*
-`environment`? *object*
-`imageUrl` *string*
-`memory`? *512* \| *1024* \| *2048*
-
-
-___
-
-### CreateTransitionManualParams
-
-Ƭ **CreateTransitionManualParams**: *object*
-
-#### Type declaration:
-
-
-`assets`? { `jsRemoteComponent?`: *string*  } & *Record*<string, string\>
-
-
-___
-
-### CreateTransitionParams
-
-Ƭ **CreateTransitionParams**: [*CreateTransitionDockerParams*](#createtransitiondockerparams) \| [*CreateTransitionManualParams*](#createtransitionmanualparams)
-
-
-___
-
-### CreateUserOptions
-
-Ƭ **CreateUserOptions**: *object*
-
-#### Type declaration:
-
-
-`avatar`? *string* \| *null*
-`name`? *string* \| *null*
-
-
-___
-
-### CreateWorkflowOptions
-
-Ƭ **CreateWorkflowOptions**: *object*
-
-#### Type declaration:
-
-
-`description`? *string*
-`errorConfig`? *object*
-`errorConfig.email` *string*
-
-
-___
-
-### GroundTruth
-
-Ƭ **GroundTruth**: *object*
-
-#### Type declaration:
-
-
-`label` *string* maxLength: 36, minLength: 1, pattern: ^[0-9A-Za-z_]+$  
-`value` *string* \| *boolean* \| *null* maxLength: 64, minLength: 1  
-
-
-___
-
-### LasDocument
-
-Ƭ **LasDocument**: *object*
-
-#### Type declaration:
-
-
-`batchId`? *string* pattern: ^las:batch:[a-f0-9]{32}$  
-`consentId`? *string* pattern: ^las:consent:[a-f0-9]{32}$  
-`content`? *string* minimum: 1  
-`contentType` [*ContentType*](#contenttype) -
-`documentId` *string* pattern: ^las:document:[a-f0-9]{32}$  
-`groundTruth`? [*GroundTruth*](#groundtruth)[] -
-`inferenceTime`? *number* minimum: 0  
-`predictions`? [*Prediction*](#prediction)[] -
-`updated`? *number* minimum: 1  
-
-
-___
-
-### LasDocumentList
-
-Ƭ **LasDocumentList**: *object*
-
-#### Type declaration:
-
-
-`batchId`? *string*
-`consentId`? *string*
-`documents` [*LasDocument*](#lasdocument)[]
-`nextToken`? *string*
-
-
-___
-
-### ListAssetsOptions
-
-Ƭ **ListAssetsOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd)
-
-
-___
-
-### ListDocumentsOptions
-
-Ƭ **ListDocumentsOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd) & { `batchId?`: *string* \| *string*[] ; `consentId?`: *string* \| *string*[]  }
-
-
-___
-
-### ListModelsOptions
-
-Ƭ **ListModelsOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd)
-
-
-___
-
-### ListPredictionsOptions
-
-Ƭ **ListPredictionsOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd)
-
-
-___
-
-### ListSecretsOptions
-
-Ƭ **ListSecretsOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd)
-
-
-___
-
-### ListTransitionOptions
-
-Ƭ **ListTransitionOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd) & { `transitionType?`: *string* \| *string*[]  }
-
-
-___
-
-### ListUsersOptions
-
-Ƭ **ListUsersOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd)
-
-
-___
-
-### ListWorkflowExecutionsOptions
-
-Ƭ **ListWorkflowExecutionsOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd) & { `order?`: *ascending* \| *descending* ; `sortBy?`: *startTime* \| *endTime* ; `status?`: *string* \| *string*[]  }
-
-
-___
-
-### ListWorkflowOptions
-
-Ƭ **ListWorkflowOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd)
-
-
-___
-
-### Log
-
-Ƭ **Log**: *object*
-
-#### Type declaration:
-
-
-`events` *Record*<any, any\>[]
-`logId` *string*
-`transitionId`? *string* \| *null*
-
-
-___
-
-### Model
-
-Ƭ **Model**: *object*
-
-#### Type declaration:
-
-
-`description` *string* \| *null*
-`height` *number*
-`modelId` *string*
-`name` *string* \| *null*
-`width` *number*
-
-
-___
-
-### ModelList
-
-Ƭ **ModelList**: *object*
-
-#### Type declaration:
-
-
-`models` [*Model*](#model)[]
-`nextToken` *string* \| *null*
-
-
-___
-
-### PostPredictions
-
-Ƭ **PostPredictions**: [*CreatePredictionsOptions*](#interfacestypescreatepredictionsoptionsmd) & { `documentId`: *string* ; `modelId`: *string*  }
-
-
-___
-
-### Prediction
-
-Ƭ **Prediction**: [*GroundTruth*](#groundtruth) & { `confidence`: *number*  }
-
-
-___
-
-### PredictionList
-
-Ƭ **PredictionList**: *object*
-
-#### Type declaration:
-
-
-`nextToken` *string* \| *null*
-`predictions` [*PredictionResponse*](#predictionresponse)[]
-
-
-___
-
-### PredictionResponse
-
-Ƭ **PredictionResponse**: *object*
-
-#### Type declaration:
-
-
-`documentId` *string*
-`inferenceTime` *number*
-`modelId` *string*
-`predictionId` *string*
-`predictions` [*Prediction*](#prediction)[]
-`timestamp` *number*
-
-
-___
-
-### Secret
-
-Ƭ **Secret**: *object*
-
-#### Type declaration:
-
-
-`description` *string* \| *null*
-`name` *string* \| *null*
-`secredId` *string*
-
-
-___
-
-### SecretList
-
-Ƭ **SecretList**: *object*
-
-#### Type declaration:
-
-
-`nextToken`? *string* \| *null*
-`secrets` [*Secret*](#secret)[]
-
-
-___
-
-### Transition
-
-Ƭ **Transition**: *object*s
-
-#### Type declaration:
-
-
-`assets`? *Record*<string, string\>
-`description` *string*
-`inputJsonSchema` *unknown*
-`name` *string*
-`outputJsonSchema`? *unknown*
-`transitionId` *string*
-`transitionType` [*TransitionType*](#transitiontype)
-
-
-___
-
-### TransitionExecution
-
-Ƭ **TransitionExecution**: *object*
-
-#### Type declaration:
-
-
-`completedBy` *string* \| *null*
-`endTime` *string* \| *null*
-`executionId` *string*
-`input` *Record*<any, any\>
-`startTime` *string* \| *null*
-`status` *succeeded* \| *failed* \| *retry* \| *running* \| *rejected*
-`transitionId` *string*
-
-
-___
-
-### TransitionExecutionList
-
-Ƭ **TransitionExecutionList**: *object*
-
-#### Type declaration:
-
-
-`executions` [*TransitionExecution*](#transitionexecution)[]
-`nextToken` *string* \| *null*
-`transitionId` *string*
-
-
-___
-
-### TransitionExecutionListOptions
-
-Ƭ **TransitionExecutionListOptions**: [*PaginationOptions*](#interfacestypespaginationoptionsmd) & { `executionId?`: *string* \| *string*[] ; `order?`: *ascending* \| *descending* ; `sortBy?`: *startTime* \| *endTime* ; `status?`: *succeeded* \| *failed* \| *retry* \| *running* \| *rejected*  }
-
-
-___
-
-### TransitionList
-
-Ƭ **TransitionList**: *object*
-
-#### Type declaration:
-
-
-`nextToken`? *string*
-`transitions` [*Transition*](#transition)[]
-
-
-___
-
-### TransitionType
-
-Ƭ **TransitionType**: *docker* \| *manual*
-
-
-___
-
-### UpdateTransitionOptions
-
-Ƭ **UpdateTransitionOptions**: *object*
-
-#### Type declaration:
-
-
-`description`? *string*
-`inputJsonSchema`? *Record*<any, any\>
-`name`? *string*
-`outputJsonSchema`? *Record*<any, any\>
-
-
-___
-
-### UpdateUserOptions
-
-Ƭ **UpdateUserOptions**: *object*
-
-#### Type declaration:
-
-
-`avatar`? *string* \| *null*
-`name`? *string* \| *null*
-
-
-___
-
-### User
-
-Ƭ **User**: *object*
-
-#### Type declaration:
-
-
-`avatar` *string* \| *null*
-`email` *string*
-`name` *string* \| *null*
-`userId` *string*
-
-
-___
-
-### UserList
-
-Ƭ **UserList**: *object*
-
-#### Type declaration:
-
-
-`nextToken`? *string*
-`users` [*User*](#user)[]
-
-
-___
-
-### Workflow
-
-Ƭ **Workflow**: *object*
-
-#### Type declaration:
-
-
-`description`? *string*
-`name` *string*
-`workflowId` *string*
-
-
-___
-
-### WorkflowExecution
-
-Ƭ **WorkflowExecution**: *object*
-
-#### Type declaration:
-
-
-`completedBy` *string*[]
-`endTime` *string* \| *null*
-`executionId` *string*
-`input` *Record*<any, any\>
-`output` *Record*<any, any\>
-`startTime` *string* \| *null*
-`status`? *succeeded* \| *failed* \| *running* \| *rejected*
-`transitionExecutions` *Record*<string, string[]\> \| *null*
-`workflowId` *string*
-
-
-___
-
-### WorkflowExecutionList
-
-Ƭ **WorkflowExecutionList**: *object*
-
-#### Type declaration:
-
-
-`executions` *Required*<[*WorkflowExecution*](#workflowexecution)\>[]
-`nextToken`? *string*
-`status`? *succeeded* \| *failed* \| *running* \| *rejected*
-`workflowId` *string*
-
-
-___
-
-### WorkflowList
-
-Ƭ **WorkflowList**: *object*
-
-#### Type declaration:
-
-
-`workflows` [*Workflow*](#workflow)[]
-
-
-___
-
-### WorkflowSpecification
-
-Ƭ **WorkflowSpecification**: *object*
-
-#### Type declaration:
-
-
-`definition` *object*
-`language`? *ASL*
-`version`? *1.0.0*
 
