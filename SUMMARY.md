@@ -19,7 +19,7 @@
 * [3. Train model](get-started/train-a-model.md)
   * [Select and inspect training data](get-started/choose-training-data.md)
   * [Train model](get-started/train-a-model.md)
-* [Apply model](get-started/serve-a-model.md)
+* [4. Use model](get-started/serve-a-model.md)
 
 ## Quickstart
 
