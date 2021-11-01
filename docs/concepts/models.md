@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Models
 
 A model in Cradl is a custom machine learning model that can be trained to make [Predictions](predictions.md) on [Documents](documents.md) to extract exactly the data you need. The models will be tailored to the training data you supply in [Data bundles](training-data.md), and can extract a diverse range of data depending on your needs. Some examples: date and total amount from receipts, specific payment data from invoices, or name and age from ID cards.
@@ -153,33 +157,33 @@ where the `<field_type>` is one of the following:
 <table>
   <thead>
     <tr>
-      <th style="text-align:left"><b>Field type</b>
+      <th><b>Field type</b>
       </th>
-      <th style="text-align:left"><b>Data format</b>
+      <th><b>Data format</b>
       </th>
-      <th style="text-align:left"><b>Characters in output</b>
+      <th><b>Characters in output</b>
       </th>
-      <th style="text-align:left"><b>Output format</b>
+      <th><b>Output format</b>
       </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left"><b><code>date</code></b>
+      <td><b><code>date</code></b>
       </td>
-      <td style="text-align:left">Any valid date format</td>
-      <td style="text-align:left"><code>-0123456789</code>
+      <td>Any valid date format</td>
+      <td><code>-0123456789</code>
       </td>
-      <td style="text-align:left"><code>YYYY-MM-DD</code>
+      <td><code>YYYY-MM-DD</code>
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b><code>amount</code></b>
+      <td><b><code>amount</code></b>
       </td>
-      <td style="text-align:left">Decimal number</td>
-      <td style="text-align:left"><code>-.0123456789</code>
+      <td>Decimal number</td>
+      <td><code>-.0123456789</code>
       </td>
-      <td style="text-align:left">
+      <td>
         <p><code> 123.45</code>
         </p>
         <p><code>-123.45</code>
@@ -187,30 +191,30 @@ where the `<field_type>` is one of the following:
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b><code>string</code></b>
+      <td><b><code>string</code></b>
       </td>
-      <td style="text-align:left">String of characters</td>
+      <td>String of characters</td>
       <td
-      style="text-align:left">
+     >
         <p><code>␣0123456789</code>
         </p>
         <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
         <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
         </p>
-        <p><code>!&quot;#$%&amp;&apos;()*+,-./\:;&lt;=&gt;?@[]^_{|}&#xA7;</code>
+        <p><code>!&quot;#$%&amp;&apos;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;</code>
         </p>
         </td>
-        <td style="text-align:left"><code>Any</code>
+        <td><code>Any</code>
         </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b><code>digits</code></b>
+      <td><b><code>digits</code></b>
       </td>
-      <td style="text-align:left">String of digits</td>
-      <td style="text-align:left"><code>0123456789</code>
+      <td>String of digits</td>
+      <td><code>0123456789</code>
       </td>
-      <td style="text-align:left"><code>Any</code>
+      <td><code>Any</code>
       </td>
     </tr>
   </tbody>
@@ -221,22 +225,22 @@ The following `<field_types>` are also considered valid but may be deprecated la
 <table>
   <thead>
     <tr>
-      <th style="text-align:left"><b>Field type</b>
+      <th><b>Field type</b>
       </th>
-      <th style="text-align:left"><b>Data format</b>
+      <th><b>Data format</b>
       </th>
-      <th style="text-align:left"><b>Characters in output</b>
+      <th><b>Characters in output</b>
       </th>
-      <th style="text-align:left"><b>Output format</b>
+      <th><b>Output format</b>
       </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left"><b><code>alphanum</code></b>
+      <td><b><code>alphanum</code></b>
       </td>
-      <td style="text-align:left">String of alphanumeric characters (including space)</td>
-      <td style="text-align:left">
+      <td>String of alphanumeric characters (including space)</td>
+      <td>
         <p><code>␣0123456789</code>
         </p>
         <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
@@ -244,15 +248,15 @@ The following `<field_types>` are also considered valid but may be deprecated la
         <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
         </p>
       </td>
-      <td style="text-align:left"><code>Any</code>
+      <td><code>Any</code>
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b><code>alphanumext</code></b>
+      <td><b><code>alphanumext</code></b>
       </td>
-      <td style="text-align:left">String of alphanumeric characters with common special characters (including space)</td>
+      <td>String of alphanumeric characters with common special characters (including space)</td>
       <td
-      style="text-align:left">
+     >
         <p><code>␣0123456789</code>
         </p>
         <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
@@ -262,52 +266,52 @@ The following `<field_types>` are also considered valid but may be deprecated la
         <p><code>&amp;,-./\</code>
         </p>
         </td>
-        <td style="text-align:left"><code>Any</code>
+        <td><code>Any</code>
         </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b><code>all</code></b>
+      <td><b><code>all</code></b>
       </td>
-      <td style="text-align:left">String of alphanumeric characters with more special characters (including space)</td>
+      <td>String of alphanumeric characters with more special characters (including space)</td>
       <td
-      style="text-align:left">
+     >
         <p><code>␣0123456789</code>
         </p>
         <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
         <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
         </p>
-        <p><code>!&quot;#$%&amp;&apos;()*+,-./\:;&lt;=&gt;?@[]^_{|}&#xA7;</code>
+        <p><code>!&quot;#$%&amp;&apos;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;</code>
         </p>
         </td>
-        <td style="text-align:left"><code>Any</code>
+        <td><code>Any</code>
         </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b><code>letter</code></b>
+      <td><b><code>letter</code></b>
       </td>
-      <td style="text-align:left">String of latin characters (including space)</td>
-      <td style="text-align:left"><code>␣ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
+      <td>String of latin characters (including space)</td>
+      <td><code>␣ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
       </td>
-      <td style="text-align:left"><code>Any</code>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b><code>number</code></b>
-      </td>
-      <td style="text-align:left">String of digits (including space)</td>
-      <td style="text-align:left"><code>␣0123456789</code>
-      </td>
-      <td style="text-align:left"><code>Any</code>
+      <td><code>Any</code>
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b><code>phone</code></b>
+      <td><b><code>number</code></b>
       </td>
-      <td style="text-align:left">Phone number, country code optional</td>
-      <td style="text-align:left"><code>+0123456789</code>
+      <td>String of digits (including space)</td>
+      <td><code>␣0123456789</code>
       </td>
-      <td style="text-align:left"><code>Same as input format, w/o whitespace</code>
+      <td><code>Any</code>
+      </td>
+    </tr>
+    <tr>
+      <td><b><code>phone</code></b>
+      </td>
+      <td>Phone number, country code optional</td>
+      <td><code>+0123456789</code>
+      </td>
+      <td><code>Same as input format, w/o whitespace</code>
       </td>
     </tr>
   </tbody>

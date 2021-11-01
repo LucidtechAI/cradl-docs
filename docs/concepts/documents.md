@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Documents
 
 A _document_ in Cradl consists of a file with metadata. Documents serve two purposes: as data points when training [models](models.md) and as inputs when making [predictions](predictions.md). A document's metadata must contain a ground truth if the document is going to be used for training. To help you organize your documents from different sources we recommend that you group them in separate [Datasets](datasets.md).
@@ -134,7 +138,7 @@ The label name is used as a key in several places. Make sure you are consistent 
 
 {% tabs %}
 {% tab title="example\_1.png" %}
-![](../.gitbook/assets/lucidcap.png)
+![](/img/concepts/lucidcab.png)
 {% endtab %}
 
 {% tab title="example\_1\_ground\_truth.json" %}
@@ -161,7 +165,7 @@ The label name is used as a key in several places. Make sure you are consistent 
 {% endtab %}
 
 {% tab title="example\_2.png" %}
-![](../.gitbook/assets/bill_of_lading.png)
+![](/img/concepts/bill_of_lading.png)
 {% endtab %}
 
 {% tab title="example\_2\_ground\_truth.json" %}

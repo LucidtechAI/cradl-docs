@@ -19,7 +19,7 @@ First, we need to configure the behavior of the model.
    
    **Max length**: The maximum number of symbols that a prediction of this field can contain. Shorter sequences reduces training time.
 
-![Add fields in Cradl](../.gitbook/assets/fields.png)
+![Add fields in Cradl](/img/use-cases/fields.png)
 
 ## 2. Gather training data
 - Prepare training data locally - create pairs of invoices and ground truths as examplified below.
@@ -45,7 +45,7 @@ First, we need to configure the behavior of the model.
 {% endtab %}
 
 {% tab title="invoice-east-repair.pdf - Invoice" %}
-![invoice-east-repair.pdf](../.gitbook/assets/invoice-sample-01.png)
+![invoice-east-repair.pdf](/img/use-cases/invoice-sample-01.png)
 {% endtab %}
 
 {% endtabs %}
@@ -56,7 +56,7 @@ First, we need to configure the behavior of the model.
 - Go to **Datasets > YourDataset > Upload data**.
 - Select files and press **Start upload**.
   
-![upload data](../.gitbook/assets/upload-documents-cradl-1.png)
+![upload data](/img/upload-data-app/upload-documents-cradl-1.png)
 
 ## 3. Train your model
 To make sure that your dataset is compatible with the model we will have to create a [data bundle](../concepts/training-data.md) 
