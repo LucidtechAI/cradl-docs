@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Installation
 
 This guide assumes use of our **CLI** tool, **cURL,** or our **Python SDK**. To install these, follow the relevant steps below.

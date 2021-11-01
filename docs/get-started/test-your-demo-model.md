@@ -1,3 +1,7 @@
+---
+sidebar_position: 3
+---
+
 # Test your demo model
 
 After getting access to Cradl, you should have a pre-trained demo model available, so let's get acquainted with Cradl using this test model!

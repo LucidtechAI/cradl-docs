@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Data Protection & Privacy
 
 Cradl is a service provided by Lucidtech AS. 
