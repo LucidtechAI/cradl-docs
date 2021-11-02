@@ -1,3 +1,6 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Invoice model
 In this guide you will learn how to train a model that is customized to *your* invoices, and extracts the information *you* need.
 
@@ -24,8 +27,10 @@ First, we need to configure the behavior of the model.
 ## 2. Gather training data
 - Prepare training data locally - create pairs of invoices and ground truths as examplified below.
      
-{% tabs %}
-{% tab title="invoice-east-repair.json - Ground Truth" %}
+
+<Tabs>
+<TabItem value="ground-truth" label="invoice-east-repair.json - Ground Truth" default>
+
 ```json
 [  
    {    
@@ -42,13 +47,14 @@ First, we need to configure the behavior of the model.
    }
 ]
 ```
-{% endtab %}
 
-{% tab title="invoice-east-repair.pdf - Invoice" %}
+</TabItem>
+<TabItem value="document" label="invoice-east-repair.pdf - Invoice">
+
 ![invoice-east-repair.pdf](/img/use-cases/invoice-sample-01.png)
-{% endtab %}
 
-{% endtabs %}
+</TabItem>
+</Tabs>
 
 - Go to **Datasets > New dataset**.
 - Give your dataset a name, and add an optional description. 
