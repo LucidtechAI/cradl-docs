@@ -44,9 +44,11 @@ export LAS_AUTH_ENDPOINT="auth.lucidtech.ai"
 export LAS_API_ENDPOINT="https://api.lucidtech.ai/v1"
 ```
 
-{% hint style="info" %}
+:::info
+
 Only the api endpoint should have protocol (https) defined.
-{% endhint %}
+
+:::
 
 ## Getting an access token manually
 
@@ -57,9 +59,11 @@ To acquire an access token, we query the auth endpoint for access using our clie
 | Authorization | `Basic Base64Encode(client_id:client_secret)` |
 | Content-Type | `application/x-www-form-urlencoded` |
 
-{% hint style="info" %}
+:::info
+
 Read more about Base64Encode [here](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side).
-{% endhint %}
+
+:::
 
 Since we are dealing with `client_credentials` we need to specify this in the URL as a query parameter. The final URL to make the request to is [https://auth.lucidtech.ai/oauth2/token?grant\_type=client\_credentials](https://auth.lucidtech.ai/oauth2/token?grant_type=client_credentials)
 
@@ -73,7 +77,7 @@ $ curl -X POST https://auth.lucidtech.ai/oauth2/token?grant_type=client_credenti
 
 If everything is working as expected, the response should look similar to the following:
 
-```javascript
+```json
 {
   "access_token": "eyJ...",
   "expires_in": 3600,
@@ -81,9 +85,11 @@ If everything is working as expected, the response should look similar to the fo
 }
 ```
 
-{% hint style="warning" %}
+:::caution
+
 The access token will expire after some time, currently after one hour \(3600 seconds \). When the token expires, you need to get a new access token using the same procedure.
-{% endhint %}
+
+:::
 
 ## Calling the API
 

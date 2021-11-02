@@ -2,6 +2,9 @@
 sidebar_position: 4
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Define model
 
 ## Create model
@@ -12,25 +15,25 @@ A model requires some configuration to know what values it's supposed to predict
 
 Let's pretend that we have some receipts and that we'd like to extract the total amount and date from them. We can create a field config file that looks something like this:
 
-{% code title="field\_config.json" %}
-```javascript
+```javascript title="field_config.json"
 {
   "total_amount": { "type": "amount", "maxLength": 20},
   "date": { "type": "date", "maxLength": 10}
 }
 ```
-{% endcode %}
 
 Next we'll use the field config to create an un-trained model:
 
-{% tabs %}
-{% tab title="CLI" %}
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 las models create --name "Receipt model" --width 1281 --height 801 --field-config-path field_config.json
 ```
-{% endtab %}
 
-{% tab title="cURL" %}
+</TabItem>
+<TabItem value="curl" label="cURL">
+
 ```bash
 curl -X POST 'https://api.cradl.ai/v1/models' \
 --header 'Content-Type: application/json' \
@@ -44,9 +47,10 @@ curl -X POST 'https://api.cradl.ai/v1/models' \
     "name": "Receipt model"
 }'
 ```
-{% endtab %}
 
-{% tab title="Python" %}
+</TabItem>
+<TabItem value="python" label="Python">
+
 ```python
 field_config = {
   'total_amount': { 'type': 'amount', 'maxLength': 20},
@@ -54,10 +58,12 @@ field_config = {
 }
 model = client.create_model(width=1281, height=801, field_config=field_config, name='Receipt model')
 ```
-{% endtab %}
-{% endtabs %}
 
-{% hint style="info" %}
+</TabItem>
+</Tabs>
+
+:::info
+
 See [models concepts](../concepts/models.md) for more information about field configs, and what the width and height parameters mean when creating a model.
-{% endhint %}
 
+:::

@@ -2,40 +2,49 @@
 sidebar_position: 3
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Test your demo model
 
 After getting access to Cradl, you should have a pre-trained demo model available, so let's get acquainted with Cradl using this test model!
 
-{% hint style="info" %}
+:::info
+
 The demo model has been pre-trained for a specific use-case, using documents that are not necessarily representative of your own data. Therefore, we'll be using the provided datasets with relevant documents during testing.
-{% endhint %}
+
+:::
 
 First, let's list our available models to get a model id we can use:
 
-{% tabs %}
-{% tab title="CLI" %}
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 las models list
 ```
-{% endtab %}
 
-{% tab title="cURL" %}
+</TabItem>
+<TabItem value="curl" label="cURL">
+
 ```text
 curl https://api.cradl.ai/v1/models -H 'Authorization: Bearer eyJra...'
 ```
-{% endtab %}
 
-{% tab title="Python" %}
+</TabItem>
+<TabItem value="python" label="Python">
+
 ```python
 from las import Client
 
 client = Client()
 models = client.list_models()
 ```
-{% endtab %}
-{% endtabs %}
 
-```javascript
+</TabItem>
+</Tabs>
+
+```json
 {
   "models": [
     {
@@ -73,27 +82,31 @@ models = client.list_models()
 
 Next, list the available datasets:
 
-{% tabs %}
-{% tab title="CLI" %}
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 las datasets list
 ```
-{% endtab %}
 
-{% tab title="cURL" %}
+</TabItem>
+<TabItem value="curl" label="cURL">
+
 ```bash
 curl 'https://api.cradl.ai/v1/datasets' --header 'Authorization: Bearer eyJra...'
 ```
-{% endtab %}
 
-{% tab title="Python" %}
+</TabItem>
+<TabItem value="python" label="Python">
+
 ```python
 datasets = client.list_datasets()
 ```
-{% endtab %}
-{% endtabs %}
 
-```javascript
+</TabItem>
+</Tabs>
+
+```json
 {
   "datasets": [
     {
@@ -116,27 +129,31 @@ datasets = client.list_datasets()
 
 Let us now list the first page of documents from the dataset so that we can pick a document to use:
 
-{% tabs %}
-{% tab title="CLI" %}
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 las documents list --dataset-id <datasetId>
 ```
-{% endtab %}
 
-{% tab title="cURL" %}
+</TabItem>
+<TabItem value="curl" label="cURL">
+
 ```bash
 curl 'https://api.cradl.ai/v1/documents?datasetId=las:dataset:<dataset id>'
 ```
-{% endtab %}
 
-{% tab title="Python" %}
+</TabItem>
+<TabItem value="python" label="Python">
+
 ```python
 documents = client.list_documents(dataset_id='las:dataset:<dataset id>')
 ```
-{% endtab %}
-{% endtabs %}
 
-```javascript
+</TabItem>
+</Tabs>
+
+```json
 {
   "documents": [
     {
@@ -150,14 +167,16 @@ documents = client.list_documents(dataset_id='las:dataset:<dataset id>')
 
 Once we have selected a document, we can use the model to make predictions:
 
-{% tabs %}
-{% tab title="CLI" %}
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 las predictions create <documentId> <modelId>
 ```
-{% endtab %}
 
-{% tab title="cURL" %}
+</TabItem>
+<TabItem value="curl" label="cURL">
+
 ```bash
 curl -X POST 'https://api.cradl.ai/v1/predictions' \
 --header 'Content-Type: application/json' \
@@ -167,16 +186,18 @@ curl -X POST 'https://api.cradl.ai/v1/predictions' \
     "modelId": <modelId>
 }'
 ```
-{% endtab %}
 
-{% tab title="Python" %}
+</TabItem>
+<TabItem value="python" label="Python">
+
 ```python
 prediction = client.create_prediction(document_id='<document id>', model_id='<model id>')
 ```
-{% endtab %}
-{% endtabs %}
 
-```javascript
+</TabItem>
+</Tabs>
+
+```json
 {
   "predictionId": <predictionId>,
   "modelId": <modelId>,

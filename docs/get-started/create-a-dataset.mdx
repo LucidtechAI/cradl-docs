@@ -2,20 +2,23 @@
 sidebar_position: 5
 ---
 
-# Create dataset
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-## **Create dataset**
+# Create dataset
 
 After defining our model, the next step is to train it. This requires that we provide the model with a sufficient number of example [documents](../concepts/documents.md). Documents can be grouped together in [datasets](../concepts/datasets.md), so before we start uploading documents, let's create a dataset.
 
-{% tabs %}
-{% tab title="CLI" %}
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 las datasets create --name "Receipts" --description "Initial training data"
 ```
-{% endtab %}
 
-{% tab title="cURL" %}
+</TabItem>
+<TabItem value="curl" label="cURL">
+
 ```bash
 curl -X POST 'https://api.cradl.ai/v1/datasets' \
 --header 'Content-Type: application/json' \
@@ -25,16 +28,18 @@ curl -X POST 'https://api.cradl.ai/v1/datasets' \
     "description": "Initial training data"
 }'
 ```
-{% endtab %}
 
-{% tab title="Python" %}
+</TabItem>
+<TabItem value="python" label="Python">
+
 ```python
 dataset = client.create_dataset(name='Initial training data')
 ```
-{% endtab %}
-{% endtabs %}
 
-```javascript
+</TabItem>
+</Tabs>
+
+```json
 {
   "datasetId": <datasetId>,
   "description": "Initial training data",
