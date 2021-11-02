@@ -13,7 +13,7 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.png',
-  organizationName: 'lucidtechai', // Usually your GitHub org/user name.
+  organizationName: 'lucidtechAI', // Usually your GitHub org/user name.
   projectName: 'cradl-docs', // Usually your repo name.
   plugins: ['docusaurus-plugin-sass', require.resolve('docusaurus-lunr-search')],
   presets: [

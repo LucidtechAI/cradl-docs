@@ -2,6 +2,9 @@
 sidebar_position: 1
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Models
 
 A model in Cradl is a custom machine learning model that can be trained to make [Predictions](predictions.md) on [Documents](documents.md) to extract exactly the data you need. The models will be tailored to the training data you supply in [Data bundles](training-data.md), and can extract a diverse range of data depending on your needs. Some examples: date and total amount from receipts, specific payment data from invoices, or name and age from ID cards.
@@ -12,9 +15,11 @@ Our models are state-of-the-art machine learning algorithms. This means that you
 
 The process of tailoring an algorithm to your specific use case is called _training_. Similar to how you would train a fresh employee to read out information from forms and documents, we teach your models how to extract data. This means we need to have a good set of _training data_ to begin teaching from, in the form of [Datasets](datasets.md) bundled together in a [Data bundle](training-data.md).
 
-{% hint style="warning" %}
+:::caution
+
 It is important to have enough high quality training data. If the training data has errors, you will be teaching your model to make those same errors. Read more about [Data quality](training-data.md#data-quality) if you are in doubt whether your data will be good enough.
-{% endhint %}
+
+:::
 
 ## Creating a model
 
@@ -22,13 +27,16 @@ Every model has a specified `width`, `height` and `fieldConfig`. The `width` and
 
 The `fieldConfig` input is specified in a JSON formatted file.
 
-{% hint style="warning" %}
-The label names \(`"total_amount"` and`"due_date"`in the example below\) must match the label names given in the training data.
-{% endhint %}
+:::caution
 
-{% tabs %}
-{% tab title="field\_config.json" %}
-```javascript
+The label names \(`"total_amount"` and`"due_date"`in the example below\) must match the label names given in the training data.
+
+:::
+
+<Tabs>
+<TabItem value="field-config" label="field_config.json" default>
+
+```json
 {
   "total_amount": {
     "type": "amount",
@@ -40,19 +48,22 @@ The label names \(`"total_amount"` and`"due_date"`in the example below\) must ma
   }
 }
 ```
-{% endtab %}
-{% endtabs %}
+
+</TabItem>
+</Tabs>
 
 Using this JSON layout, you can define a model.
 
-{% tabs %}
-{% tab title="CLI" %}
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 las models create 321 321 path/to/field_config.json --name "Invoice" --description "v1"
 ```
-{% endtab %}
 
-{% tab title="cURL" %}
+</TabItem>
+<TabItem value="curl" label="cURL">
+
 ```bash
 curl -X POST 'https://api.cradl.ai/v1/models' \
 --header 'Content-Type: application/json' \
@@ -67,9 +78,10 @@ curl -X POST 'https://api.cradl.ai/v1/models' \
     "description": "v1"
 }'
 ```
-{% endtab %}
 
-{% tab title="Python" %}
+</TabItem>
+<TabItem value="python" label="Python">
+
 ```python
 field_config = {
   'total_amount': { 'type': 'amount', 'maxLength': 10, 'description': '' },
@@ -83,10 +95,11 @@ model = client.create_model(
   description="v1",
 )
 ```
-{% endtab %}
-{% endtabs %}
 
-```javascript
+</TabItem>
+</Tabs>
+
+```json
 {
   "modelId": <modelId>,
   "name": "Invoice",
@@ -122,11 +135,13 @@ The `height` and `width` parameters of the model define the shape of images that
 
 The size of the images has implications for training time, response time and accuracy of the model. This is because larger images require more computation to process, while higher resolution *may* improve the reading quality of the model - especially if your images contain fine print that would be illegible at lower resolutions.
 
-{% hint style="warning" %}
+:::caution
+
 We recommend that you choose image sizes as `(multiple of 320) + 1`, as this will map optimally with the underlying model structure, making training more efficient.
 
 For example, you could choose `1281 x 961` for A4 documents with fine print or `321 x 321` for square documents with larger print.
-{% endhint %}
+
+:::
 
 #### Field config
 
@@ -134,9 +149,10 @@ The field config is a definition of which fields your model should extract and w
 
 A field config is formatted as
 
-{% tabs %}
-{% tab title="field\_config.json" %}
-```python
+<Tabs>
+<TabItem value="field-config" label="field_config.json" default>
+
+```json
 {
   "field_name_1": {
     "type": "<field_type>",
@@ -149,8 +165,9 @@ A field config is formatted as
   ...
 }
 ```
-{% endtab %}
-{% endtabs %}
+
+</TabItem>
+</Tabs>
 
 where the `<field_type>` is one of the following:
 
@@ -321,9 +338,11 @@ The following `<field_types>` are also considered valid but may be deprecated la
 
 Once your model is defined, you can create one or more [Data bundles](training-data.md) to specify which data it should be trained on. You must create a data bundle of acceptable quality before training is allowed. Read more about data quality [here](training-data.md#data-quality).
 
-{% hint style="info" %}
+:::info
+
 A Data bundle is model-specific, which means that it is defined as a nested resource under a specific model.
-{% endhint %}
+
+:::
 
 ## Training a model
 
