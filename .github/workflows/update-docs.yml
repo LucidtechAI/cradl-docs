@@ -34,7 +34,7 @@ jobs:
           pip install -r requirements.docs.txt
           pip install tox
           make docs
-          mv docs/las.md ../reference/python/latest.md
+          mv docs/las.md ../docs/reference/python/latest.md
 
       - name: Check out java sdk
         uses: actions/checkout@master
@@ -83,8 +83,9 @@ jobs:
           cd js-sdk
           npm install && npm run upgrade-lucidtech
           npm run docs
-          sed -i -E -e '/Defined in.*/d' -e '/\[.+\]\(.+#L.+\)/d' -e '/(Name|Type|Description) \|/d' -e '/------/d' -e 's/ \|//g' -e 's/^\|//' docs.md
-          mv docs.md ../reference/js/latest.md
+          # Remove links to source code lines
+          sed -i -E -e '/Defined in.*/d' -e '/\[.+\]\(.+#L.+\)/d' docs.md
+          mv docs.md ../docs/reference/js/latest.md
 
       - name: Clean up
         run: |

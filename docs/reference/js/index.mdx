@@ -1,3 +1,5 @@
+import Latest from './latest.md'
+
 # Javascript
 
 Link to Github
@@ -35,8 +37,8 @@ const client = new Client(credentials);
 const fileBuffer = await readFile('...path/file.jpg')
 const documentResponse = await client.createDocument(fileBuffer, 'image/jpeg');
 
-/*
 console.log(documentResponse);
+/*
 {
   "documentId": "las:document:<documentId>",
   "contentType": "image/jpeg",
@@ -48,3 +50,5 @@ console.log(documentResponse);
 }
 */
 ```
+
+<Latest />

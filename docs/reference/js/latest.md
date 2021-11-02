@@ -64,7 +64,9 @@ A high-level http client for communicating with the Lucidtech REST API
 
 #### Parameters
 
- `credentials` [`Credentials`](#classescredentialsmd)
+| Name | Type |
+| :------ | :------ |
+| `credentials` | [`Credentials`](#classescredentialsmd) |
 
 
 
@@ -86,7 +88,9 @@ Creates an app client, calls the POST /appClients endpoint.
 
 #### Parameters
 
- `options` [`CreateAppClientOptions`](#createappclientoptions)
+| Name | Type |
+| :------ | :------ |
+| `options` | [`CreateAppClientOptions`](#createappclientoptions) |
 
 #### Returns
 
@@ -106,7 +110,9 @@ Creates an asset, calls the POST /assets endpoint.
 
 #### Parameters
 
- `content` `string` Content to POST (base64-encoded string \| Buffer)
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `content` | `string` | Content to POST (base64-encoded string \| Buffer) |
 
 #### Returns
 
@@ -127,7 +133,9 @@ Creates a batch, calls the POST /batches endpoint.
 
 #### Parameters
 
- `options` [`CreateBatchOptions`](#createbatchoptions)
+| Name | Type |
+| :------ | :------ |
+| `options` | [`CreateBatchOptions`](#createbatchoptions) |
 
 #### Returns
 
@@ -147,9 +155,11 @@ Creates a dataBundle, calls the POST /models/{modelId}/dataBundles endpoint.
 
 #### Parameters
 
- `modelId` `string` Id of the model to create dataBundle for
- `datasetIds` `string`[] Ids of the datasets to create dataBundle with
- `options` [`CreateDataBundleOptions`](#createdatabundleoptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `modelId` | `string` | Id of the model to create dataBundle for |
+| `datasetIds` | `string`[] | Ids of the datasets to create dataBundle with |
+| `options` | [`CreateDataBundleOptions`](#createdatabundleoptions) | - |
 
 #### Returns
 
@@ -169,7 +179,9 @@ Creates a dataset, calls the POST /datasets endpoint.
 
 #### Parameters
 
- `options` [`CreateDatasetOptions`](#createdatasetoptions)
+| Name | Type |
+| :------ | :------ |
+| `options` | [`CreateDatasetOptions`](#createdatasetoptions) |
 
 #### Returns
 
@@ -189,9 +201,11 @@ Creates a document, calls the POST /documents endpoint.
 
 #### Parameters
 
- `content` `string` \| `Buffer` Content to POST (base64 string \| Buffer)
- `contentType` [`ContentType`](#contenttype) MIME type for the document
- `options?` [`CreateDocumentOptions`](#interfacescreatedocumentoptionsmd) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `content` | `string` \| `Buffer` | Content to POST (base64 string \| Buffer) |
+| `contentType` | [`ContentType`](#contenttype) | MIME type for the document |
+| `options?` | [`CreateDocumentOptions`](#interfacescreatedocumentoptionsmd) | - |
 
 #### Returns
 
@@ -211,10 +225,12 @@ Creates a model, calls the POST /models endpoint.
 
 #### Parameters
 
- `fieldConfig` `Record`<`string`, [`Field`](#field)\> Specification of the fields that the model is going to predict
- `width` `number` The number of pixels to be used for the input image width of your model
- `height` `number` The number of pixels to be used for the input image height of your model
- `options?` [`CreateModelOptions`](#createmodeloptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `fieldConfig` | `Record`<`string`, [`Field`](#field)\> | Specification of the fields that the model is going to predict |
+| `width` | `number` | The number of pixels to be used for the input image width of your model |
+| `height` | `number` | The number of pixels to be used for the input image height of your model |
+| `options?` | [`CreateModelOptions`](#createmodeloptions) | - |
 
 #### Returns
 
@@ -234,9 +250,11 @@ Create a prediction on a document using specified model, calls the POST /predict
 
 #### Parameters
 
- `documentId` `string` Id of the document to run inference and create a prediction on
- `modelId` `string` Id of the model to use for inference
- `options?` [`CreatePredictionsOptions`](#interfacescreatepredictionsoptionsmd) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `documentId` | `string` | Id of the document to run inference and create a prediction on |
+| `modelId` | `string` | Id of the model to use for inference |
+| `options?` | [`CreatePredictionsOptions`](#interfacescreatepredictionsoptionsmd) | - |
 
 #### Returns
 
@@ -256,8 +274,10 @@ Creates a secret, calls the POST /secrets endpoint.
 
 #### Parameters
 
- `data` `Record`<`any`, `any`\> Object containing the data you want to keep secret
- `options?` [`CreateSecretOptions`](#interfacescreatesecretoptionsmd) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `data` | `Record`<`any`, `any`\> | Object containing the data you want to keep secret |
+| `options?` | [`CreateSecretOptions`](#interfacescreatesecretoptionsmd) | - |
 
 #### Returns
 
@@ -277,8 +297,10 @@ Creates a transition, calls the POST /transitions endpoint.
 
 #### Parameters
 
- `transitionType` [`TransitionType`](#transitiontype) Type of transition "docker"\|"manual"
- `options?` [`CreateTransitionOptions`](#interfacescreatetransitionoptionsmd) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `transitionType` | [`TransitionType`](#transitiontype) | Type of transition "docker"\|"manual" |
+| `options?` | [`CreateTransitionOptions`](#interfacescreatetransitionoptionsmd) | - |
 
 #### Returns
 
@@ -298,8 +320,10 @@ Creates a new user, calls the POST /users endpoint.
 
 #### Parameters
 
- `email` `string` Email to the new user
- `data?` [`CreateUserOptions`](#createuseroptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `email` | `string` | Email to the new user |
+| `data?` | [`CreateUserOptions`](#createuseroptions) | - |
 
 #### Returns
 
@@ -319,9 +343,11 @@ Creates a new workflow, calls the POST /workflows endpoint.
 
 #### Parameters
 
- `name` `string` Name of the workflow
- `specification` [`WorkflowSpecification`](#workflowspecification) Specification of the workflow
- `options?` [`CreateWorkflowOptions`](#createworkflowoptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `name` | `string` | Name of the workflow |
+| `specification` | [`WorkflowSpecification`](#workflowspecification) | Specification of the workflow |
+| `options?` | [`CreateWorkflowOptions`](#createworkflowoptions) | - |
 
 #### Returns
 
@@ -341,7 +367,9 @@ Delete the app client, calls the DELETE /appClients/{appClientId} endpoint.
 
 #### Parameters
 
- `appClientId` `string` of the app client
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `appClientId` | `string` | of the app client |
 
 #### Returns
 
@@ -361,7 +389,9 @@ Delete an asset, calls the DELETE /assets/{assetId} endpoint.
 
 #### Parameters
 
- `assetId` `string` of the app client
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `assetId` | `string` | of the app client |
 
 #### Returns
 
@@ -383,8 +413,10 @@ Deletes a batch, calls the DELETE /batches/{batchId} endpoint.
 
 #### Parameters
 
- `batchId` `string` `undefined` Id of the batch
- `deleteDocuments` `boolean` `false` Set to true to delete documents in batch before deleting batch
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `batchId` | `string` | `undefined` | Id of the batch |
+| `deleteDocuments` | `boolean` | `false` | Set to true to delete documents in batch before deleting batch |
 
 #### Returns
 
@@ -404,8 +436,10 @@ Delete a dataBundle, calls the DELETE /dataBundles/{dataBundleId} endpoint.
 
 #### Parameters
 
- `modelId` `string` of the model
- `dataBundleId` `string` of the dataBundle
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `modelId` | `string` | of the model |
+| `dataBundleId` | `string` | of the dataBundle |
 
 #### Returns
 
@@ -425,8 +459,10 @@ Deletes a dataset, calls the DELETE /datasets/{datasetId} endpoint.
 
 #### Parameters
 
- `datasetId` `string` `undefined` Id of the dataset
- `deleteDocuments` `boolean` `false` Set to true to delete documents in dataset before deleting dataset
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `datasetId` | `string` | `undefined` | Id of the dataset |
+| `deleteDocuments` | `boolean` | `false` | Set to true to delete documents in dataset before deleting dataset |
 
 #### Returns
 
@@ -446,7 +482,9 @@ Delete an document, calls the DELETE /documents/{documentId} endpoint.
 
 #### Parameters
 
- `documentId` `string` of the document
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `documentId` | `string` | of the document |
 
 #### Returns
 
@@ -467,7 +505,9 @@ Will delete all documents when no consentId is provided.
 
 #### Parameters
 
- `options?` [`DeleteDocumentOptions`](#deletedocumentoptions)
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`DeleteDocumentOptions`](#deletedocumentoptions) |
 
 #### Returns
 
@@ -487,7 +527,9 @@ Delete an model, calls the DELETE /models/{modelId} endpoint.
 
 #### Parameters
 
- `modelId` `string` of the app client
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `modelId` | `string` | of the app client |
 
 #### Returns
 
@@ -508,7 +550,9 @@ Will fail if transition is in use by one or more workflows.
 
 #### Parameters
 
- `transitionId` `string` Id of the transition
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `transitionId` | `string` | Id of the transition |
 
 #### Returns
 
@@ -528,7 +572,9 @@ Delete a user, calls the DELETE /users/{userId} endpoint.
 
 #### Parameters
 
- `userId` `string` Id of the user
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userId` | `string` | Id of the user |
 
 #### Returns
 
@@ -548,7 +594,9 @@ Delete the workflow with the provided workflowId, calls the DELETE /workflows/{w
 
 #### Parameters
 
- `workflowId` `string` Id of the workflow
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `workflowId` | `string` | Id of the workflow |
 
 #### Returns
 
@@ -569,8 +617,10 @@ calls the DELETE /workflows/{workflowId}/executions/{executionId} endpoint.
 
 #### Parameters
 
- `workflowId` `string` Id of the workflow
- `executionId` `string` Id of the execution
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `workflowId` | `string` | Id of the workflow |
+| `executionId` | `string` | Id of the execution |
 
 #### Returns
 
@@ -590,7 +640,9 @@ Start executing a manual transition, calls the POST /transitions/{transitionId}/
 
 #### Parameters
 
- `transitionId` `string` Id of the transition
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `transitionId` | `string` | Id of the transition |
 
 #### Returns
 
@@ -610,8 +662,10 @@ Start a workflow execution, calls the POST /workflows/{workflowId}/executions en
 
 #### Parameters
 
- `workflowId` `string` Id of the workflow
- `input` `object` Input to the first step of the workflow
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `workflowId` | `string` | Id of the workflow |
+| `input` | `object` | Input to the first step of the workflow |
 
 #### Returns
 
@@ -631,7 +685,9 @@ Get asset from the REST API, calls the GET /assets/{assetId} endpoint.
 
 #### Parameters
 
- `assetId` `string` Id of the asset
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `assetId` | `string` | Id of the asset |
 
 #### Returns
 
@@ -651,7 +707,9 @@ Get dataset from the REST API, calls the GET /datasets/{datasetId} endpoint.
 
 #### Parameters
 
- `datasetId` `string` Id of the dataset
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `datasetId` | `string` | Id of the dataset |
 
 #### Returns
 
@@ -671,7 +729,9 @@ Get document from the REST API, calls the GET /documents/{documentId} endpoint.
 
 #### Parameters
 
- `documentId` `string` Id of the document
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `documentId` | `string` | Id of the document |
 
 #### Returns
 
@@ -691,7 +751,9 @@ Get log, calls the GET /logs/{logId} endpoint.
 
 #### Parameters
 
- `logId` `string` Id of the log
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `logId` | `string` | Id of the log |
 
 #### Returns
 
@@ -711,7 +773,9 @@ Get model from the REST API, calls the GET /models/{modelId} endpoint.
 
 #### Parameters
 
- `modelId` `string` Id of the model
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `modelId` | `string` | Id of the model |
 
 #### Returns
 
@@ -731,7 +795,9 @@ Get organization from the REST API, calls the GET /organizations/{organizationId
 
 #### Parameters
 
- `organizationId` `string` Id of the organization
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `organizationId` | `string` | Id of the organization |
 
 #### Returns
 
@@ -751,7 +817,9 @@ Get the transition with the provided transitionId, calls the GET /transitions/{t
 
 #### Parameters
 
- `transitionId` `string` Id of the transition
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `transitionId` | `string` | Id of the transition |
 
 #### Returns
 
@@ -771,8 +839,10 @@ Get an execution of a transition, calls the GET /transitions/{transitionId}/exec
 
 #### Parameters
 
- `transitionId` `string` Id of the transition
- `transitionExecutionId` `string` Id of the execution
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `transitionId` | `string` | Id of the transition |
+| `transitionExecutionId` | `string` | Id of the execution |
 
 #### Returns
 
@@ -792,7 +862,9 @@ Get information about a specific user, calls the GET /users/{userId} endpoint.
 
 #### Parameters
 
- `userId` `string` Id of the user
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userId` | `string` | Id of the user |
 
 #### Returns
 
@@ -812,7 +884,9 @@ Get the workflow with the provided workflowId, calls the GET /workflows/{workflo
 
 #### Parameters
 
- `workflowId` `string` Id of the workflow
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `workflowId` | `string` | Id of the workflow |
 
 #### Returns
 
@@ -832,8 +906,10 @@ Get a workflow execution, calls the GET /workflows/{workflowId}/executions/{exec
 
 #### Parameters
 
- `workflowId` `string` Id of the workflow that performs the execution
- `executionId` `string` Id of the execution to get
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `workflowId` | `string` | Id of the workflow that performs the execution |
+| `executionId` | `string` | Id of the execution to get |
 
 #### Returns
 
@@ -853,7 +929,9 @@ List app clients, calls the GET /appClients endpoint.
 
 #### Parameters
 
- `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`PaginationOptions`](#interfacespaginationoptionsmd) |
 
 #### Returns
 
@@ -873,7 +951,9 @@ List assets available, calls the GET /assets endpoint.
 
 #### Parameters
 
- `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`PaginationOptions`](#interfacespaginationoptionsmd) |
 
 #### Returns
 
@@ -895,7 +975,9 @@ List batches, calls the GET /batches endpoint.
 
 #### Parameters
 
- `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`PaginationOptions`](#interfacespaginationoptionsmd) |
 
 #### Returns
 
@@ -915,8 +997,10 @@ List dataBundles available, calls the GET /dataBundles endpoint.
 
 #### Parameters
 
- `modelId` `string` of the model
- `options?` [`PaginationOptions`](#interfacespaginationoptionsmd) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `modelId` | `string` | of the model |
+| `options?` | [`PaginationOptions`](#interfacespaginationoptionsmd) | - |
 
 #### Returns
 
@@ -936,7 +1020,9 @@ List datasets, calls the GET /datasets endpoint.
 
 #### Parameters
 
- `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`PaginationOptions`](#interfacespaginationoptionsmd) |
 
 #### Returns
 
@@ -956,7 +1042,9 @@ List documents available for inference, calls the GET /documents endpoint.
 
 #### Parameters
 
- `options?` [`ListDocumentsOptions`](#listdocumentsoptions)
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`ListDocumentsOptions`](#listdocumentsoptions) |
 
 #### Returns
 
@@ -976,7 +1064,9 @@ List models available, calls the GET /models endpoint.
 
 #### Parameters
 
- `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`PaginationOptions`](#interfacespaginationoptionsmd) |
 
 #### Returns
 
@@ -994,7 +1084,9 @@ ___
 
 #### Parameters
 
- `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`PaginationOptions`](#interfacespaginationoptionsmd) |
 
 #### Returns
 
@@ -1012,7 +1104,9 @@ List secrets available, calls the GET /secrets endpoint.
 
 #### Parameters
 
- `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`PaginationOptions`](#interfacespaginationoptionsmd) |
 
 #### Returns
 
@@ -1032,8 +1126,10 @@ List executions in a transition, calls the GET /transitions/{transitionId}/execu
 
 #### Parameters
 
- `transitionId` `string` Id of the transition
- `options?` [`TransitionExecutionListOptions`](#transitionexecutionlistoptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `transitionId` | `string` | Id of the transition |
+| `options?` | [`TransitionExecutionListOptions`](#transitionexecutionlistoptions) | - |
 
 #### Returns
 
@@ -1053,7 +1149,9 @@ List transitions, calls the GET /transitions endpoint.
 
 #### Parameters
 
- `options?` [`ListTransitionOptions`](#listtransitionoptions)
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`ListTransitionOptions`](#listtransitionoptions) |
 
 #### Returns
 
@@ -1073,7 +1171,9 @@ List users, calls the GET /users endpoint.
 
 #### Parameters
 
- `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`PaginationOptions`](#interfacespaginationoptionsmd) |
 
 #### Returns
 
@@ -1093,8 +1193,10 @@ List executions in a workflow, calls the GET /workflows/{workflowId}/executions 
 
 #### Parameters
 
- `workflowId` `string` Id of the workflow
- `options?` [`ListWorkflowExecutionsOptions`](#listworkflowexecutionsoptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `workflowId` | `string` | Id of the workflow |
+| `options?` | [`ListWorkflowExecutionsOptions`](#listworkflowexecutionsoptions) | - |
 
 #### Returns
 
@@ -1114,7 +1216,9 @@ List workflows, calls the GET /workflows endpoint.
 
 #### Parameters
 
- `options?` [`PaginationOptions`](#interfacespaginationoptionsmd)
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`PaginationOptions`](#interfacespaginationoptionsmd) |
 
 #### Returns
 
@@ -1132,12 +1236,16 @@ ___
 
 #### Type parameters
 
- `T`
+| Name |
+| :------ |
+| `T` |
 
 #### Parameters
 
- `path` `string`
- `query?` `any`
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+| `query?` | `any` |
 
 #### Returns
 
@@ -1153,12 +1261,16 @@ ___
 
 #### Type parameters
 
- `T`
+| Name |
+| :------ |
+| `T` |
 
 #### Parameters
 
- `path` `string`
- `query?` `any`
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+| `query?` | `any` |
 
 #### Returns
 
@@ -1174,12 +1286,16 @@ ___
 
 #### Type parameters
 
- `T`
+| Name |
+| :------ |
+| `T` |
 
 #### Parameters
 
- `path` `string`
- `body` `any`
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+| `body` | `any` |
 
 #### Returns
 
@@ -1195,12 +1311,16 @@ ___
 
 #### Type parameters
 
- `T`
+| Name |
+| :------ |
+| `T` |
 
 #### Parameters
 
- `path` `string`
- `body` `any`
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+| `body` | `any` |
 
 #### Returns
 
@@ -1220,8 +1340,10 @@ Calls the POST /transitions/{transitionId}/executions/{executionId}/heartbeats e
 
 #### Parameters
 
- `transitionId` `string` Id of the transition
- `transitionExecutionId` `string` Id of the transition execution
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `transitionId` | `string` | Id of the transition |
+| `transitionExecutionId` | `string` | Id of the transition execution |
 
 #### Returns
 
@@ -1241,8 +1363,10 @@ Updates an appClient, calls the PATCH /appClients/{appClientId} endpoint.
 
 #### Parameters
 
- `appClientId` `string` Id of the appClient
- `options` [`UpdateAppClientOptions`](#updateappclientoptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `appClientId` | `string` | Id of the appClient |
+| `options` | [`UpdateAppClientOptions`](#updateappclientoptions) | - |
 
 #### Returns
 
@@ -1262,8 +1386,10 @@ Updates an asset, calls the PATCH /assets/{assetId} endpoint.
 
 #### Parameters
 
- `assetId` `string` Id of the asset
- `data` [`UpdateAssetOptions`](#interfacesupdateassetoptionsmd) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `assetId` | `string` | Id of the asset |
+| `data` | [`UpdateAssetOptions`](#interfacesupdateassetoptionsmd) | - |
 
 #### Returns
 
@@ -1285,8 +1411,10 @@ Updates an batch, calls the PATCH /batches/{batchId} endpoint.
 
 #### Parameters
 
- `batchId` `string` Id of the batch
- `options` [`UpdateBatchOptions`](#updatebatchoptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `batchId` | `string` | Id of the batch |
+| `options` | [`UpdateBatchOptions`](#updatebatchoptions) | - |
 
 #### Returns
 
@@ -1306,9 +1434,11 @@ Updates a dataBundle, calls the PATCH /dataBundles/{dataBundleId} endpoint.
 
 #### Parameters
 
- `modelId` `string` of the model
- `dataBundleId` `string` Id of the dataBundle
- `options` [`UpdateDataBundleOptions`](#updatedatabundleoptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `modelId` | `string` | of the model |
+| `dataBundleId` | `string` | Id of the dataBundle |
+| `options` | [`UpdateDataBundleOptions`](#updatedatabundleoptions) | - |
 
 #### Returns
 
@@ -1328,8 +1458,10 @@ Updates a dataset, calls the PATCH /datasets/{datasetId} endpoint.
 
 #### Parameters
 
- `datasetId` `string` Id of the dataset
- `options` [`UpdateDatasetOptions`](#updatedatasetoptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `datasetId` | `string` | Id of the dataset |
+| `options` | [`UpdateDatasetOptions`](#updatedatasetoptions) | - |
 
 #### Returns
 
@@ -1351,8 +1483,10 @@ This enables the API to learn from past mistakes.
 
 #### Parameters
 
- `documentId` `string` Id of the document
- `data` [`UpdateDocumentOptions`](#interfacesupdatedocumentoptionsmd) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `documentId` | `string` | Id of the document |
+| `data` | [`UpdateDocumentOptions`](#interfacesupdatedocumentoptionsmd) | - |
 
 #### Returns
 
@@ -1372,8 +1506,10 @@ Updates a model, calls the PATCH /models/{modelId} endpoint.
 
 #### Parameters
 
- `modelId` `string` Id of the model
- `options` [`UpdateModelOptions`](#updatemodeloptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `modelId` | `string` | Id of the model |
+| `options` | [`UpdateModelOptions`](#updatemodeloptions) | - |
 
 #### Returns
 
@@ -1393,8 +1529,10 @@ Updates an organization, calls the PATCH /organizations/{organizationId} endpoin
 
 #### Parameters
 
- `organizationId` `string` Id of the organization
- `options` [`UpdateOrganizationOptions`](#updateorganizationoptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `organizationId` | `string` | Id of the organization |
+| `options` | [`UpdateOrganizationOptions`](#updateorganizationoptions) | - |
 
 #### Returns
 
@@ -1414,8 +1552,10 @@ Updates a secret, calls the PATCH /secrets/{secretId} endpoint.
 
 #### Parameters
 
- `secretId` `string` Id of the secret
- `data` [`UpdateSecretOptions`](#interfacesupdatesecretoptionsmd) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `secretId` | `string` | Id of the secret |
+| `data` | [`UpdateSecretOptions`](#interfacesupdatesecretoptionsmd) | - |
 
 #### Returns
 
@@ -1433,8 +1573,10 @@ Updates a transition, calls the PATCH /transitions/{transitionId} endpoint.
 
 #### Parameters
 
- `transitionId` `string` Id of the transition
- `data` [`UpdateTransitionOptions`](#updatetransitionoptions) Transition fields to PATCH
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `transitionId` | `string` | Id of the transition |
+| `data` | [`UpdateTransitionOptions`](#updatetransitionoptions) | Transition fields to PATCH |
 
 #### Returns
 
@@ -1455,9 +1597,11 @@ PATCH /transitions/{transitionId}/executions/{executionId} endpoint.
 
 #### Parameters
 
- `transitionId` `string` Id of the transition that performs the execution
- `executionId` `string` Id of the execution to update
- `data` [`UpdateTransitionExecution`](#interfacesupdatetransitionexecutionmd) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `transitionId` | `string` | Id of the transition that performs the execution |
+| `executionId` | `string` | Id of the execution to update |
+| `data` | [`UpdateTransitionExecution`](#interfacesupdatetransitionexecutionmd) | - |
 
 #### Returns
 
@@ -1477,8 +1621,10 @@ Updates a user, calls the PATCH /users/{userId} endpoint.
 
 #### Parameters
 
- `userId` `string` Id of the user
- `data` [`UpdateUserOptions`](#updateuseroptions) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userId` | `string` | Id of the user |
+| `data` | [`UpdateUserOptions`](#updateuseroptions) | - |
 
 #### Returns
 
@@ -1498,8 +1644,10 @@ Updates a workflow, calls the PATCH /workflows/{workflowId} endpoint.
 
 #### Parameters
 
- `workflowId` `string` Id of the workflow
- `data` [`UpdateWorkflowOptions`](#interfacesupdateworkflowoptionsmd) Workflow fields to PATCH
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `workflowId` | `string` | Id of the workflow |
+| `data` | [`UpdateWorkflowOptions`](#interfacesupdateworkflowoptionsmd) | Workflow fields to PATCH |
 
 #### Returns
 
@@ -1520,9 +1668,11 @@ calls the PATCH /workflows/{workflowId}/executions/{executionId} endpoint.
 
 #### Parameters
 
- `workflowId` `string` Id of the workflow that performs the execution
- `executionId` `string` Id of the execution to update
- `data` [`UpdateWorkflowExecutionOptions`](#interfacesupdateworkflowexecutionoptionsmd) -
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `workflowId` | `string` | Id of the workflow that performs the execution |
+| `executionId` | `string` | Id of the execution to update |
+| `data` | [`UpdateWorkflowExecutionOptions`](#interfacesupdateworkflowexecutionoptionsmd) | - |
 
 #### Returns
 
@@ -1579,9 +1729,11 @@ Wrapper class for an AWS Cognito token
 
 #### Parameters
 
- `accessToken` `string`
- `expiration` `number`
- `refreshToken?` `string`
+| Name | Type |
+| :------ | :------ |
+| `accessToken` | `string` |
+| `expiration` | `number` |
+| `refreshToken?` | `string` |
 
 
 
@@ -1783,7 +1935,9 @@ ___
 
 ## Type parameters
 
- `T` extends [`Token`](#classestokenmd)
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`Token`](#classestokenmd) |
 
 ## Methods
 
@@ -1805,7 +1959,9 @@ ___
 
 #### Parameters
 
- `value` `T`
+| Name | Type |
+| :------ | :------ |
+| `value` | `T` |
 
 #### Returns
 
@@ -1889,7 +2045,9 @@ ___
 
 #### Type declaration
 
- `message` `string`
+| Name | Type |
+| :------ | :------ |
+| `message` | `string` |
 
 
 
@@ -2001,20 +2159,22 @@ ___
 
 #### Type declaration
 
- `appClientId` `string`
- `callbackUrls` `string`[] \| ``null``
- `clientId` `string`
- `clientSecret?` `string`
- `createdBy` `string` \| ``null``
- `createdTime` `string` \| ``null``
- `defaultLoginUrl` `string` \| ``null``
- `description` `string` \| ``null``
- `hasSecret` `boolean`
- `loginUrls` `string`[] \| ``null``
- `logoutUrls` `string`[] \| ``null``
- `name` `string` \| ``null``
- `updatedBy` `string` \| ``null``
- `updatedTime` `string` \| ``null``
+| Name | Type |
+| :------ | :------ |
+| `appClientId` | `string` |
+| `callbackUrls` | `string`[] \| ``null`` |
+| `clientId` | `string` |
+| `clientSecret?` | `string` |
+| `createdBy` | `string` \| ``null`` |
+| `createdTime` | `string` \| ``null`` |
+| `defaultLoginUrl` | `string` \| ``null`` |
+| `description` | `string` \| ``null`` |
+| `hasSecret` | `boolean` |
+| `loginUrls` | `string`[] \| ``null`` |
+| `logoutUrls` | `string`[] \| ``null`` |
+| `name` | `string` \| ``null`` |
+| `updatedBy` | `string` \| ``null`` |
+| `updatedTime` | `string` \| ``null`` |
 
 
 
@@ -2026,8 +2186,10 @@ ___
 
 #### Type declaration
 
- `appClients` [`AppClient`](#appclient)[]
- `nextToken` `string` \| ``null``
+| Name | Type |
+| :------ | :------ |
+| `appClients` | [`AppClient`](#appclient)[] |
+| `nextToken` | `string` \| ``null`` |
 
 
 
@@ -2039,8 +2201,10 @@ ___
 
 #### Type declaration
 
- `assetId` `string`
- `content` `string`
+| Name | Type |
+| :------ | :------ |
+| `assetId` | `string` |
+| `content` | `string` |
 
 
 
@@ -2052,8 +2216,10 @@ ___
 
 #### Type declaration
 
- `assets` [`AssetWithoutContent`](#assetwithoutcontent)[]
- `nextToken` `string` \| ``null``
+| Name | Type |
+| :------ | :------ |
+| `assets` | [`AssetWithoutContent`](#assetwithoutcontent)[] |
+| `nextToken` | `string` \| ``null`` |
 
 
 
@@ -2073,7 +2239,9 @@ ___
 
 #### Type declaration
 
- `Authorization` `string`
+| Name | Type |
+| :------ | :------ |
+| `Authorization` | `string` |
 
 
 
@@ -2089,14 +2257,18 @@ ___
 
 ##### Type parameters
 
- `T` `any`
- `R` `AxiosResponse`<`T`\>
+| Name | Type |
+| :------ | :------ |
+| `T` | `any` |
+| `R` | `AxiosResponse`<`T`\> |
 
 ##### Parameters
 
- `url` `string`
- `body?` `any`
- `config?` `AxiosRequestConfig`
+| Name | Type |
+| :------ | :------ |
+| `url` | `string` |
+| `body?` | `any` |
+| `config?` | `AxiosRequestConfig` |
 
 ##### Returns
 
@@ -2112,14 +2284,16 @@ ___
 
 #### Type declaration
 
- `batchId` `string`
- `containsPersonallyIdentifiableInformation` `boolean`
- `createdTime` `string`
- `description` `string`
- `name` `string`
- `numDocuments` `number`
- `retentionInDays` `number`
- `storageLocation` ``"EU"``
+| Name | Type |
+| :------ | :------ |
+| `batchId` | `string` |
+| `containsPersonallyIdentifiableInformation` | `boolean` |
+| `createdTime` | `string` |
+| `description` | `string` |
+| `name` | `string` |
+| `numDocuments` | `number` |
+| `retentionInDays` | `number` |
+| `storageLocation` | ``"EU"`` |
 
 
 
@@ -2131,8 +2305,10 @@ ___
 
 #### Type declaration
 
- `batches` [`Batch`](#batch)[]
- `nextToken` `string` \| ``null``
+| Name | Type |
+| :------ | :------ |
+| `batches` | [`Batch`](#batch)[] |
+| `nextToken` | `string` \| ``null`` |
 
 
 
@@ -2152,13 +2328,15 @@ ___
 
 #### Type declaration
 
- `callbackUrls?` `string`[]
- `defaultLoginUrl?` `string`
- `description?` `string`
- `generateSecret?` `boolean`
- `loginUrls?` `string`[]
- `logoutUrls?` `string`[]
- `name?` `string`
+| Name | Type |
+| :------ | :------ |
+| `callbackUrls?` | `string`[] |
+| `defaultLoginUrl?` | `string` |
+| `description?` | `string` |
+| `generateSecret?` | `boolean` |
+| `loginUrls?` | `string`[] |
+| `logoutUrls?` | `string`[] |
+| `name?` | `string` |
 
 
 
@@ -2170,9 +2348,11 @@ ___
 
 #### Type declaration
 
- `containsPersonallyIdentifiableInformation?` `boolean`
- `description?` `string`
- `name?` `string`
+| Name | Type |
+| :------ | :------ |
+| `containsPersonallyIdentifiableInformation?` | `boolean` |
+| `description?` | `string` |
+| `name?` | `string` |
 
 
 
@@ -2184,8 +2364,10 @@ ___
 
 #### Type declaration
 
- `description?` `string`
- `name?` `string`
+| Name | Type |
+| :------ | :------ |
+| `description?` | `string` |
+| `name?` | `string` |
 
 
 
@@ -2197,9 +2379,11 @@ ___
 
 #### Type declaration
 
- `containsPersonallyIdentifiableInformation?` `boolean`
- `description?` `string`
- `name?` `string`
+| Name | Type |
+| :------ | :------ |
+| `containsPersonallyIdentifiableInformation?` | `boolean` |
+| `description?` | `string` |
+| `name?` | `string` |
 
 
 
@@ -2211,9 +2395,11 @@ ___
 
 #### Type declaration
 
- `description?` `string`
- `name?` `string`
- `preprocessConfig?` [`PreprocessConfig`](#preprocessconfig)
+| Name | Type |
+| :------ | :------ |
+| `description?` | `string` |
+| `name?` | `string` |
+| `preprocessConfig?` | [`PreprocessConfig`](#preprocessconfig) |
 
 
 
@@ -2225,13 +2411,15 @@ ___
 
 #### Type declaration
 
- `cpu?` ``256``
- `credentials?` `Object`
- `credentials.password` `string`
- `credentials.username` `string`
- `environment?` `object`
- `imageUrl` `string`
- `memory?` ``512`` \| ``1024`` \| ``2048``
+| Name | Type |
+| :------ | :------ |
+| `cpu?` | ``256`` |
+| `credentials?` | `Object` |
+| `credentials.password` | `string` |
+| `credentials.username` | `string` |
+| `environment?` | `object` |
+| `imageUrl` | `string` |
+| `memory?` | ``512`` \| ``1024`` \| ``2048`` |
 
 
 
@@ -2243,7 +2431,9 @@ ___
 
 #### Type declaration
 
- `assets?` { `jsRemoteComponent?`: `string`  } & `Record`<`string`, `string`\>
+| Name | Type |
+| :------ | :------ |
+| `assets?` | { `jsRemoteComponent?`: `string`  } & `Record`<`string`, `string`\> |
 
 
 
@@ -2263,9 +2453,11 @@ ___
 
 #### Type declaration
 
- `appClientId?` `string`
- `avatar?` `string`
- `name?` `string`
+| Name | Type |
+| :------ | :------ |
+| `appClientId?` | `string` |
+| `avatar?` | `string` |
+| `name?` | `string` |
 
 
 
@@ -2277,9 +2469,11 @@ ___
 
 #### Type declaration
 
- `completedConfig?` [`WorkflowCompletedConfig`](#workflowcompletedconfig)
- `description?` `string` \| ``null``
- `errorConfig?` [`WorkflowErrorConfig`](#workflowerrorconfig)
+| Name | Type |
+| :------ | :------ |
+| `completedConfig?` | [`WorkflowCompletedConfig`](#workflowcompletedconfig) |
+| `description?` | `string` \| ``null`` |
+| `errorConfig?` | [`WorkflowErrorConfig`](#workflowerrorconfig) |
 
 
 
@@ -2291,17 +2485,19 @@ ___
 
 #### Type declaration
 
- `createdBy` `string` \| ``null``
- `createdTime` `string`
- `dataBundleId` `string`
- `datasets` [`Dataset`](#dataset)[]
- `description` `string` \| ``null``
- `modelId` `string`
- `name` `string` \| ``null``
- `status` ``"ready"`` \| ``"processing"`` \| ``"failed"``
- `summary` `Record`<`string`, `any`\>
- `updatedBy` `string` \| ``null``
- `updatedTime` `string`
+| Name | Type |
+| :------ | :------ |
+| `createdBy` | `string` \| ``null`` |
+| `createdTime` | `string` |
+| `dataBundleId` | `string` |
+| `datasets` | [`Dataset`](#dataset)[] |
+| `description` | `string` \| ``null`` |
+| `modelId` | `string` |
+| `name` | `string` \| ``null`` |
+| `status` | ``"ready"`` \| ``"processing"`` \| ``"failed"`` |
+| `summary` | `Record`<`string`, `any`\> |
+| `updatedBy` | `string` \| ``null`` |
+| `updatedTime` | `string` |
 
 
 
@@ -2313,8 +2509,10 @@ ___
 
 #### Type declaration
 
- `dataBundles` [`DataBundle`](#databundle)[]
- `nextToken` `string` \| ``null``
+| Name | Type |
+| :------ | :------ |
+| `dataBundles` | [`DataBundle`](#databundle)[] |
+| `nextToken` | `string` \| ``null`` |
 
 
 
@@ -2326,19 +2524,21 @@ ___
 
 #### Type declaration
 
- `containsPersonallyIdentifiableInformation` `boolean`
- `createdBy` `string` \| ``null``
- `createdTime` `string`
- `datasetId` `string`
- `description` `string`
- `groundTruthSummary` `Record`<`string`, `number`\>
- `name` `string`
- `numberOfDocuments` `number`
- `retentionInDays` `number`
- `storageLocation` ``"EU"``
- `updatedBy` `string` \| ``null``
- `updatedTime` `string`
- `version` `number`
+| Name | Type |
+| :------ | :------ |
+| `containsPersonallyIdentifiableInformation` | `boolean` |
+| `createdBy` | `string` \| ``null`` |
+| `createdTime` | `string` |
+| `datasetId` | `string` |
+| `description` | `string` |
+| `groundTruthSummary` | `Record`<`string`, `number`\> |
+| `name` | `string` |
+| `numberOfDocuments` | `number` |
+| `retentionInDays` | `number` |
+| `storageLocation` | ``"EU"`` |
+| `updatedBy` | `string` \| ``null`` |
+| `updatedTime` | `string` |
+| `version` | `number` |
 
 
 
@@ -2350,8 +2550,10 @@ ___
 
 #### Type declaration
 
- `datasets` [`Dataset`](#dataset)[]
- `nextToken` `string` \| ``null``
+| Name | Type |
+| :------ | :------ |
+| `datasets` | [`Dataset`](#dataset)[] |
+| `nextToken` | `string` \| ``null`` |
 
 
 
@@ -2371,9 +2573,11 @@ ___
 
 #### Type declaration
 
- `description` `string`
- `maxLength` `number`
- `type` ``"all"`` \| ``"alphanum"`` \| ``"alphanumext"`` \| ``"amount"`` \| ``"date"`` \| ``"letter"`` \| ``"number"`` \| ``"phone"`` \| ``"string"`` \| ``"digits"``
+| Name | Type |
+| :------ | :------ |
+| `description` | `string` |
+| `maxLength` | `number` |
+| `type` | ``"all"`` \| ``"alphanum"`` \| ``"alphanumext"`` \| ``"amount"`` \| ``"date"`` \| ``"letter"`` \| ``"number"`` \| ``"phone"`` \| ``"string"`` \| ``"digits"`` |
 
 
 
@@ -2393,8 +2597,10 @@ ___
 
 #### Type declaration
 
- `label` `string` maxLength: 36, minLength: 1, pattern: ^[0-9A-Za-z_]+$
- `value` `string` \| `boolean` \| ``null`` maxLength: 64, minLength: 1
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `label` | `string` | maxLength: 36, minLength: 1, pattern: ^[0-9A-Za-z_]+$ |
+| `value` | `string` \| `boolean` \| ``null`` | maxLength: 64, minLength: 1 |
 
 
 
@@ -2406,18 +2612,20 @@ ___
 
 #### Type declaration
 
- `batchId?` `string`
- `consentId?` `string`
- `content` `string`
- `contentType` [`ContentType`](#contenttype)
- `createdBy` `string` \| ``null``
- `createdTime` `string` \| ``null``
- `datasetId?` `string`
- `documentId` `string`
- `groundTruth?` [`GroundTruth`](#groundtruth)[]
- `retentionInDays` `number`
- `updatedBy` `string` \| ``null``
- `updatedTime` `string` \| ``null``
+| Name | Type |
+| :------ | :------ |
+| `batchId?` | `string` |
+| `consentId?` | `string` |
+| `content` | `string` |
+| `contentType` | [`ContentType`](#contenttype) |
+| `createdBy` | `string` \| ``null`` |
+| `createdTime` | `string` \| ``null`` |
+| `datasetId?` | `string` |
+| `documentId` | `string` |
+| `groundTruth?` | [`GroundTruth`](#groundtruth)[] |
+| `retentionInDays` | `number` |
+| `updatedBy` | `string` \| ``null`` |
+| `updatedTime` | `string` \| ``null`` |
 
 
 
@@ -2429,9 +2637,11 @@ ___
 
 #### Type declaration
 
- `batchId?` `string`
- `documents` [`LasDocumentWithoutContent`](#lasdocumentwithoutcontent)[]
- `nextToken` `string` \| ``null``
+| Name | Type |
+| :------ | :------ |
+| `batchId?` | `string` |
+| `documents` | [`LasDocumentWithoutContent`](#lasdocumentwithoutcontent)[] |
+| `nextToken` | `string` \| ``null`` |
 
 
 
@@ -2555,9 +2765,11 @@ ___
 
 #### Type declaration
 
- `events` `Record`<`any`, `any`\>[]
- `logId` `string`
- `transitionId?` `string` \| ``null``
+| Name | Type |
+| :------ | :------ |
+| `events` | `Record`<`any`, `any`\>[] |
+| `logId` | `string` |
+| `transitionId?` | `string` \| ``null`` |
 
 
 
@@ -2569,18 +2781,20 @@ ___
 
 #### Type declaration
 
- `createdBy` `string` \| ``null``
- `createdTime` `string` \| ``null``
- `description` `string` \| ``null``
- `fieldConfig` [`FieldConfig`](#fieldconfig) \| ``null``
- `height` `number`
- `modelId` `string`
- `name` `string` \| ``null``
- `preprocessConfig` [`PreprocessConfig`](#preprocessconfig)
- `status` ``"active"`` \| ``"inactive"`` \| ``"training"``
- `updatedBy` `string` \| ``null``
- `updatedTime` `string` \| ``null``
- `width` `number`
+| Name | Type |
+| :------ | :------ |
+| `createdBy` | `string` \| ``null`` |
+| `createdTime` | `string` \| ``null`` |
+| `description` | `string` \| ``null`` |
+| `fieldConfig` | [`FieldConfig`](#fieldconfig) \| ``null`` |
+| `height` | `number` |
+| `modelId` | `string` |
+| `name` | `string` \| ``null`` |
+| `preprocessConfig` | [`PreprocessConfig`](#preprocessconfig) |
+| `status` | ``"active"`` \| ``"inactive"`` \| ``"training"`` |
+| `updatedBy` | `string` \| ``null`` |
+| `updatedTime` | `string` \| ``null`` |
+| `width` | `number` |
 
 
 
@@ -2592,8 +2806,10 @@ ___
 
 #### Type declaration
 
- `models` [`Model`](#model)[]
- `nextToken` `string` \| ``null``
+| Name | Type |
+| :------ | :------ |
+| `models` | [`Model`](#model)[] |
+| `nextToken` | `string` \| ``null`` |
 
 
 
@@ -2605,38 +2821,40 @@ ___
 
 #### Type declaration
 
- `description` `string` \| ``null``
- `monthlyNumberOfDataBundlesAllowed` `number`
- `monthlyNumberOfDataBundlesCreated` `number`
- `monthlyNumberOfDocumentsAllowed` `number`
- `monthlyNumberOfDocumentsCreated` `number`
- `monthlyNumberOfPredictionsAllowed` `number`
- `monthlyNumberOfPredictionsCreated` `number`
- `monthlyNumberOfTransitionExecutionsAllowed` `number`
- `monthlyNumberOfTransitionExecutionsCreated` `number`
- `monthlyNumberOfWorkflowExecutionsAllowed` `number`
- `monthlyNumberOfWorkflowExecutionsCreated` `number`
- `monthlyUsageSummary` `Record`<`string`, `any`\>
- `name` `string` \| ``null``
- `numberOfAppClientsAllowed` `number`
- `numberOfAppClientsCreated` `number`
- `numberOfAssetsAllowed` `number`
- `numberOfAssetsCreated` `number`
- `numberOfBatchesAllowed` `number`
- `numberOfBatchesCreated` `number`
- `numberOfDatasetsAllowed` `number`
- `numberOfDatasetsCreated` `number`
- `numberOfModelsAllowed` `number`
- `numberOfModelsCreated` `number`
- `numberOfSecretsAllowed` `number`
- `numberOfSecretsCreated` `number`
- `numberOfTransitionsAllowed` `number`
- `numberOfTransitionsCreated` `number`
- `numberOfUsersAllowed` `number`
- `numberOfUsersCreated` `number`
- `numberOfWorkflowsAllowed` `number`
- `numberOfWorkflowsCreated` `number`
- `organizationId` `string`
+| Name | Type |
+| :------ | :------ |
+| `description` | `string` \| ``null`` |
+| `monthlyNumberOfDataBundlesAllowed` | `number` |
+| `monthlyNumberOfDataBundlesCreated` | `number` |
+| `monthlyNumberOfDocumentsAllowed` | `number` |
+| `monthlyNumberOfDocumentsCreated` | `number` |
+| `monthlyNumberOfPredictionsAllowed` | `number` |
+| `monthlyNumberOfPredictionsCreated` | `number` |
+| `monthlyNumberOfTransitionExecutionsAllowed` | `number` |
+| `monthlyNumberOfTransitionExecutionsCreated` | `number` |
+| `monthlyNumberOfWorkflowExecutionsAllowed` | `number` |
+| `monthlyNumberOfWorkflowExecutionsCreated` | `number` |
+| `monthlyUsageSummary` | `Record`<`string`, `any`\> |
+| `name` | `string` \| ``null`` |
+| `numberOfAppClientsAllowed` | `number` |
+| `numberOfAppClientsCreated` | `number` |
+| `numberOfAssetsAllowed` | `number` |
+| `numberOfAssetsCreated` | `number` |
+| `numberOfBatchesAllowed` | `number` |
+| `numberOfBatchesCreated` | `number` |
+| `numberOfDatasetsAllowed` | `number` |
+| `numberOfDatasetsCreated` | `number` |
+| `numberOfModelsAllowed` | `number` |
+| `numberOfModelsCreated` | `number` |
+| `numberOfSecretsAllowed` | `number` |
+| `numberOfSecretsCreated` | `number` |
+| `numberOfTransitionsAllowed` | `number` |
+| `numberOfTransitionsCreated` | `number` |
+| `numberOfUsersAllowed` | `number` |
+| `numberOfUsersCreated` | `number` |
+| `numberOfWorkflowsAllowed` | `number` |
+| `numberOfWorkflowsCreated` | `number` |
+| `organizationId` | `string` |
 
 
 
@@ -2664,8 +2882,10 @@ ___
 
 #### Type declaration
 
- `nextToken` `string` \| ``null``
- `predictions` [`PredictionResponse`](#predictionresponse)[]
+| Name | Type |
+| :------ | :------ |
+| `nextToken` | `string` \| ``null`` |
+| `predictions` | [`PredictionResponse`](#predictionresponse)[] |
 
 
 
@@ -2677,12 +2897,14 @@ ___
 
 #### Type declaration
 
- `documentId` `string`
- `inferenceTime` `number`
- `modelId` `string`
- `predictionId` `string`
- `predictions` [`Prediction`](#prediction)[]
- `timestamp` `number`
+| Name | Type |
+| :------ | :------ |
+| `documentId` | `string` |
+| `inferenceTime` | `number` |
+| `modelId` | `string` |
+| `predictionId` | `string` |
+| `predictions` | [`Prediction`](#prediction)[] |
+| `timestamp` | `number` |
 
 
 
@@ -2694,9 +2916,11 @@ ___
 
 #### Type declaration
 
- `autoRotate` `boolean`
- `imageQuality` ``"LOW"`` \| ``"HIGH"``
- `maxPages` `number`
+| Name | Type |
+| :------ | :------ |
+| `autoRotate` | `boolean` |
+| `imageQuality` | ``"LOW"`` \| ``"HIGH"`` |
+| `maxPages` | `number` |
 
 
 
@@ -2708,9 +2932,11 @@ ___
 
 #### Type declaration
 
- `description` `string` \| ``null``
- `name` `string` \| ``null``
- `secredId` `string`
+| Name | Type |
+| :------ | :------ |
+| `description` | `string` \| ``null`` |
+| `name` | `string` \| ``null`` |
+| `secredId` | `string` |
 
 
 
@@ -2722,8 +2948,10 @@ ___
 
 #### Type declaration
 
- `nextToken` `string` \| ``null``
- `secrets` [`Secret`](#secret)[]
+| Name | Type |
+| :------ | :------ |
+| `nextToken` | `string` \| ``null`` |
+| `secrets` | [`Secret`](#secret)[] |
 
 
 
@@ -2735,14 +2963,16 @@ ___
 
 #### Type declaration
 
- `assets?` `Record`<`string`, `string`\>
- `description` `string`
- `inputJsonSchema` `unknown`
- `name` `string`
- `outputJsonSchema?` `unknown`
- `parameters` `Record`<`string`, `any`\>
- `transitionId` `string`
- `transitionType` [`TransitionType`](#transitiontype)
+| Name | Type |
+| :------ | :------ |
+| `assets?` | `Record`<`string`, `string`\> |
+| `description` | `string` |
+| `inputJsonSchema` | `unknown` |
+| `name` | `string` |
+| `outputJsonSchema?` | `unknown` |
+| `parameters` | `Record`<`string`, `any`\> |
+| `transitionId` | `string` |
+| `transitionType` | [`TransitionType`](#transitiontype) |
 
 
 
@@ -2754,14 +2984,16 @@ ___
 
 #### Type declaration
 
- `completedBy` `string` \| ``null``
- `endTime` `string` \| ``null``
- `executionId` `string`
- `input` `Record`<`any`, `any`\>
- `logId` `string` \| ``null``
- `startTime` `string` \| ``null``
- `status` [`TransitionExecutionStatus`](#transitionexecutionstatus)
- `transitionId` `string`
+| Name | Type |
+| :------ | :------ |
+| `completedBy` | `string` \| ``null`` |
+| `endTime` | `string` \| ``null`` |
+| `executionId` | `string` |
+| `input` | `Record`<`any`, `any`\> |
+| `logId` | `string` \| ``null`` |
+| `startTime` | `string` \| ``null`` |
+| `status` | [`TransitionExecutionStatus`](#transitionexecutionstatus) |
+| `transitionId` | `string` |
 
 
 
@@ -2773,9 +3005,11 @@ ___
 
 #### Type declaration
 
- `executions` [`TransitionExecution`](#transitionexecution)[]
- `nextToken` `string` \| ``null``
- `transitionId` `string`
+| Name | Type |
+| :------ | :------ |
+| `executions` | [`TransitionExecution`](#transitionexecution)[] |
+| `nextToken` | `string` \| ``null`` |
+| `transitionId` | `string` |
 
 
 
@@ -2803,8 +3037,10 @@ ___
 
 #### Type declaration
 
- `nextToken` `string` \| ``null``
- `transitions` [`Transition`](#transition)[]
+| Name | Type |
+| :------ | :------ |
+| `nextToken` | `string` \| ``null`` |
+| `transitions` | [`Transition`](#transition)[] |
 
 
 
@@ -2824,10 +3060,12 @@ ___
 
 #### Type declaration
 
- `defaultLoginUrl?` `string`
- `description?` `string`
- `loginUrls?` `string`[]
- `name?` `string`
+| Name | Type |
+| :------ | :------ |
+| `defaultLoginUrl?` | `string` |
+| `description?` | `string` |
+| `loginUrls?` | `string`[] |
+| `name?` | `string` |
 
 
 
@@ -2839,8 +3077,10 @@ ___
 
 #### Type declaration
 
- `description?` `string`
- `name?` `string`
+| Name | Type |
+| :------ | :------ |
+| `description?` | `string` |
+| `name?` | `string` |
 
 
 
@@ -2852,8 +3092,10 @@ ___
 
 #### Type declaration
 
- `description?` `string`
- `name?` `string`
+| Name | Type |
+| :------ | :------ |
+| `description?` | `string` |
+| `name?` | `string` |
 
 
 
@@ -2865,8 +3107,10 @@ ___
 
 #### Type declaration
 
- `description?` `string`
- `name?` `string`
+| Name | Type |
+| :------ | :------ |
+| `description?` | `string` |
+| `name?` | `string` |
 
 
 
@@ -2878,13 +3122,15 @@ ___
 
 #### Type declaration
 
- `description?` `string`
- `fieldConfig?` [`FieldConfig`](#fieldconfig)
- `height?` `number`
- `name?` `string`
- `preprocessConfig?` [`PreprocessConfig`](#preprocessconfig)
- `status?` ``"training"``
- `width?` `number`
+| Name | Type |
+| :------ | :------ |
+| `description?` | `string` |
+| `fieldConfig?` | [`FieldConfig`](#fieldconfig) |
+| `height?` | `number` |
+| `name?` | `string` |
+| `preprocessConfig?` | [`PreprocessConfig`](#preprocessconfig) |
+| `status?` | ``"training"`` |
+| `width?` | `number` |
 
 
 
@@ -2896,8 +3142,10 @@ ___
 
 #### Type declaration
 
- `description?` `string`
- `name?` `string`
+| Name | Type |
+| :------ | :------ |
+| `description?` | `string` |
+| `name?` | `string` |
 
 
 
@@ -2909,10 +3157,12 @@ ___
 
 #### Type declaration
 
- `description?` `string`
- `inputJsonSchema?` `Record`<`any`, `any`\>
- `name?` `string`
- `outputJsonSchema?` `Record`<`any`, `any`\>
+| Name | Type |
+| :------ | :------ |
+| `description?` | `string` |
+| `inputJsonSchema?` | `Record`<`any`, `any`\> |
+| `name?` | `string` |
+| `outputJsonSchema?` | `Record`<`any`, `any`\> |
 
 
 
@@ -2924,8 +3174,10 @@ ___
 
 #### Type declaration
 
- `avatar?` `string` \| ``null``
- `name?` `string` \| ``null``
+| Name | Type |
+| :------ | :------ |
+| `avatar?` | `string` \| ``null`` |
+| `name?` | `string` \| ``null`` |
 
 
 
@@ -2937,14 +3189,16 @@ ___
 
 #### Type declaration
 
- `avatar` `string` \| ``null``
- `createdBy` `string` \| ``null``
- `createdTime` `string` \| ``null``
- `email` `string`
- `name` `string` \| ``null``
- `updatedBy` `string` \| ``null``
- `updatedTime` `string` \| ``null``
- `userId` `string`
+| Name | Type |
+| :------ | :------ |
+| `avatar` | `string` \| ``null`` |
+| `createdBy` | `string` \| ``null`` |
+| `createdTime` | `string` \| ``null`` |
+| `email` | `string` |
+| `name` | `string` \| ``null`` |
+| `updatedBy` | `string` \| ``null`` |
+| `updatedTime` | `string` \| ``null`` |
+| `userId` | `string` |
 
 
 
@@ -2956,8 +3210,10 @@ ___
 
 #### Type declaration
 
- `nextToken` `string` \| ``null``
- `users` [`User`](#user)[]
+| Name | Type |
+| :------ | :------ |
+| `nextToken` | `string` \| ``null`` |
+| `users` | [`User`](#user)[] |
 
 
 
@@ -2969,12 +3225,14 @@ ___
 
 #### Type declaration
 
- `completedConfig` [`WorkflowCompletedConfig`](#workflowcompletedconfig)
- `description` `string` \| ``null``
- `errorConfig` [`WorkflowErrorConfig`](#workflowerrorconfig)
- `name` `string` \| ``null``
- `numberOfRunningExecutions` `number`
- `workflowId` `string`
+| Name | Type |
+| :------ | :------ |
+| `completedConfig` | [`WorkflowCompletedConfig`](#workflowcompletedconfig) |
+| `description` | `string` \| ``null`` |
+| `errorConfig` | [`WorkflowErrorConfig`](#workflowerrorconfig) |
+| `name` | `string` \| ``null`` |
+| `numberOfRunningExecutions` | `number` |
+| `workflowId` | `string` |
 
 
 
@@ -2986,10 +3244,12 @@ ___
 
 #### Type declaration
 
- `environment?` `Record`<`string`, `string`\>
- `environmentSecrets?` `string`[]
- `imageUrl` `string`
- `secretId?` `string`
+| Name | Type |
+| :------ | :------ |
+| `environment?` | `Record`<`string`, `string`\> |
+| `environmentSecrets?` | `string`[] |
+| `imageUrl` | `string` |
+| `secretId?` | `string` |
 
 
 
@@ -3001,8 +3261,10 @@ ___
 
 #### Type declaration
 
- `email?` `string`
- `manualRetry?` `boolean`
+| Name | Type |
+| :------ | :------ |
+| `email?` | `string` |
+| `manualRetry?` | `boolean` |
 
 
 
@@ -3014,16 +3276,18 @@ ___
 
 #### Type declaration
 
- `completedBy` `string`[]
- `endTime` `string` \| ``null``
- `executionId` `string`
- `input` `Record`<`any`, `any`\>
- `logId` `string` \| ``null``
- `output` `Record`<`any`, `any`\>
- `startTime` `string` \| ``null``
- `status` ``"succeeded"`` \| ``"failed"`` \| ``"running"`` \| ``"rejected"`` \| ``"retry"`` \| ``"error"``
- `transitionExecutions` `Record`<`string`, `string`[]\> \| ``null``
- `workflowId` `string`
+| Name | Type |
+| :------ | :------ |
+| `completedBy` | `string`[] |
+| `endTime` | `string` \| ``null`` |
+| `executionId` | `string` |
+| `input` | `Record`<`any`, `any`\> |
+| `logId` | `string` \| ``null`` |
+| `output` | `Record`<`any`, `any`\> |
+| `startTime` | `string` \| ``null`` |
+| `status` | ``"succeeded"`` \| ``"failed"`` \| ``"running"`` \| ``"rejected"`` \| ``"retry"`` \| ``"error"`` |
+| `transitionExecutions` | `Record`<`string`, `string`[]\> \| ``null`` |
+| `workflowId` | `string` |
 
 
 
@@ -3035,10 +3299,12 @@ ___
 
 #### Type declaration
 
- `executions` `Required`<[`WorkflowExecution`](#workflowexecution)\>[]
- `nextToken` `string` \| ``null``
- `status?` ``"succeeded"`` \| ``"failed"`` \| ``"running"`` \| ``"rejected"``
- `workflowId` `string`
+| Name | Type |
+| :------ | :------ |
+| `executions` | `Required`<[`WorkflowExecution`](#workflowexecution)\>[] |
+| `nextToken` | `string` \| ``null`` |
+| `status?` | ``"succeeded"`` \| ``"failed"`` \| ``"running"`` \| ``"rejected"`` |
+| `workflowId` | `string` |
 
 
 
@@ -3050,7 +3316,9 @@ ___
 
 #### Type declaration
 
- `workflows` [`Workflow`](#workflow)[]
+| Name | Type |
+| :------ | :------ |
+| `workflows` | [`Workflow`](#workflow)[] |
 
 
 
@@ -3062,8 +3330,10 @@ ___
 
 #### Type declaration
 
- `definition` `object`
- `language?` ``"ASL"``
- `version?` ``"1.0.0"``
+| Name | Type |
+| :------ | :------ |
+| `definition` | `object` |
+| `language?` | ``"ASL"`` |
+| `version?` | ``"1.0.0"`` |
 
 
