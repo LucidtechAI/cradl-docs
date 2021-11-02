@@ -64,13 +64,13 @@ jobs:
         run: |
           cd net-sdk
           doxygen documentation.conf
-          sed -i 's/inline="yes"/inline="no"/g' xml/* #Remove inline
+          # sed -i 's/inline="yes"/inline="no"/g' xml/* #Remove inline
           npx moxygen xml
-          sed -i '/^## Summary/,/^## Members/{/^## Summary/!{/^## Members/!d}}' api.md
-          sed -i 's/` `/ /g' api.md
-          perl -pi -e 's|(\(\#class.*?\))||' api.md # Remove identifier, use pearl to get a non-greedy match
-          grep -v '^## Summary$' api.md > api_clean.md
-          mv api_clean.md ../reference/dotnet/latest.md
+          # sed -i '/^## Summary/,/^## Members/{/^## Summary/!{/^## Members/!d}}' api.md
+          # sed -i 's/` `/ /g' api.md
+          # perl -pi -e 's|(\(\#class.*?\))||' api.md # Remove identifier, use pearl to get a non-greedy match
+          # grep -v '^## Summary$' api.md > api_clean.md
+          mv api.md ../docs/reference/dotnet/latest.md
 
       - name: Check out java-script sdk
         uses: actions/checkout@master

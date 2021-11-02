@@ -45,6 +45,7 @@ const config = {
     ({
       colorMode: {
         respectPrefersColorScheme: true,
+        defaultMode: 'dark'
       },
       navbar: {
         title: 'Cradl AI',
