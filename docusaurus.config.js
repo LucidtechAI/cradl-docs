@@ -25,6 +25,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
           sidebarCollapsed: false,
+          sidebarCollapsible: false,
           editUrl: 'https://github.com/lucidtechAI/cradl-docs/edit/master/docs/',
         },
         blog: {
