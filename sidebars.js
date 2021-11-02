@@ -48,7 +48,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Reference',
-      items: ['reference/cli', 'reference/curl', 'reference/python/index'],
+      items: ['reference/cli', 'reference/python/index'],
     },
     {
       type: 'category',
