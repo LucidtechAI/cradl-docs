@@ -2,6 +2,9 @@
 sidebar_position: 5
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Predictions
 
 A prediction in Cradle results from an application of an active, trained [Model](models.md) to a [Document](documents.md). It supplies the extracted data together with confidence values representing the probability that the extracted data is correct.
@@ -10,14 +13,16 @@ A prediction in Cradle results from an application of an active, trained [Model]
 
 Once a model is trained and active, it can be applied to documents by making a prediction.
 
-{% tabs %}
-{% tab title="CLI" %}
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 las predictions create <documentId> <modelId>
 ```
-{% endtab %}
 
-{% tab title="cURL" %}
+</TabItem>
+<TabItem value="curl" label="cURL">
+
 ```bash
 curl -X POST 'https://api.cradl.ai/v1/predictions' \
 --header 'Content-Type: application/json' \
@@ -26,16 +31,18 @@ curl -X POST 'https://api.cradl.ai/v1/predictions' \
     "modelId": "las:model:<modelId>"
 }'
 ```
-{% endtab %}
 
-{% tab title="Python" %}
+</TabItem>
+<TabItem value="python" label="Python">
+
 ```python
 prediction = client.create_prediction(document_id=<documentId>, model_id=<modelId>)
 ```
-{% endtab %}
-{% endtabs %}
 
-```javascript
+</TabItem>
+</Tabs>
+
+```json
 {
   "predictionId": "<predictionId>",
   "modelId": "<modelId>",
