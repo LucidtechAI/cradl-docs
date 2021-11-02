@@ -12,10 +12,12 @@ A low level client to invoke api methods from Lucidtech AI Services.
 #### create_app_client(generate_secret=True, logout_urls=None, callback_urls=None, login_urls=None, default_login_url=None, \*\*optional_args)
 Creates an appClient, calls the POST /appClients endpoint.
 
-<!-- code-block: python
-from las.client import Client
-client = Client()
-client.create_app_client(name='<name>', description='<description>') -->
+```python
+>>> from las.client import Client
+>>> client = Client()
+>>> client.create_app_client(name='<name>', description='<description>')
+```
+
 
 * **Parameters**
 
@@ -2516,7 +2518,7 @@ use: las:transition:commons-failed
 
 
 
-### class las.Credentials(client_id: str, client_secret: str, auth_endpoint: str, api_endpoint: str, cached_profile: Optional[str] = None, cache_path: pathlib.Path = PosixPath('/home/magnus/.lucidtech/token-cache.json'))
+### class las.Credentials(client_id: str, client_secret: str, auth_endpoint: str, api_endpoint: str, cached_profile: Optional[str] = None, cache_path: pathlib.Path = PosixPath('/home/runner/.lucidtech/token-cache.json'))
 Bases: `object`
 
 Used to fetch and store credentials and to generate/cache an access token.
