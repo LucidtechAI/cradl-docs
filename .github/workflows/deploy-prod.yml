@@ -1,0 +1,40 @@
+# This workflow will deploy Cradl Docs to Production
+
+name: Deploy Cradl Docs to Production
+
+on:
+  workflow_dispatch
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Build
+        run: |
+          npm ci && npm run build
+
+      - name: Deploy
+        env:
+          S3_BUCKET: ${{ secrets.PRODUCTION_S3_BUCKET }}
+          CLOUDFRONT_DISTRIBUTION: ${{ secrets.PRODUCTION_CLOUDFRONT_DISTRIBUTION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: eu-west-1
+        run: |
+          pip install awscli
+          aws s3 sync build ${S3_BUCKET}
+          aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION} --paths '/*'
