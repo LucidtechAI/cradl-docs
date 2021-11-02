@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 We have now defined a model and created a dataset. The next step is to train the model, but first we need to tell it what data to use when training. At this point, it would also be wise to take a step back and make sure that our training data is of good quality, so that the outcome of the training will be satisfactory. Good quality training data is varied and has lots of examples for all the fields we want the model to extract.
 
-To tell the model which data to use, we select datasets containing our training data and attach them to the model in the form of a [data bundle](../concepts/training-data.md). Doing so will automatically create a [data quality report](../concepts/training-data.md#data-report) on the training data.
+To tell the model which data to use, we select datasets containing our training data and attach them to the model in the form of a [data bundle](../concepts/training-data.mdx). Doing so will automatically create a [data quality report](../concepts/training-data.mdx#data-report) on the training data.
 
 <Tabs groupId="programming-language">
 <TabItem value="cli" label="CLI" default>
@@ -146,6 +146,6 @@ data_bundle = client.list_data_bundles(model_id=<modelId>)
 
 :::tip
 
-See [data quality section](../concepts/training-data.md#data-quality) for detailed information about data quality and how to improve it.
+See [data quality section](../concepts/training-data.mdx#data-quality) for detailed information about data quality and how to improve it.
 
 :::

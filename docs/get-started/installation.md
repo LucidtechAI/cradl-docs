@@ -32,6 +32,4 @@ You can find the Open API specification file [here](https://raw.githubuserconten
 
 We also have SDK's in Java, JavaScript and .NET. See references section for detailed use of every SDK
 
-- [JavaScript](../reference/javascript.md)
-- [Java](../reference/java.md)
-- [.NET](../reference/net.md)
+- [Python](../reference/python/index.mdx)
