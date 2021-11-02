@@ -56,7 +56,7 @@ dataset = client.create_dataset(name='Invoices 2020', description='From accounti
 }
 ```
 
-The `datasetId` is used to include datasets in [Data bundles](training-data.mdx) and to [add documents to datasets](datasets.md#adding-documents-to-a-dataset). The `version` field is used to identify changes to a dataset, i.e. when adding/removing/updating contained documents.
+The `datasetId` is used to include datasets in [Data bundles](training-data.mdx) and to [add documents to datasets](datasets.mdx#adding-documents-to-a-dataset). The `version` field is used to identify changes to a dataset, i.e. when adding/removing/updating contained documents.
 
 :::caution
 
@@ -118,7 +118,7 @@ A document cannot be added to more than one dataset.
 
 ## Deleting a dataset
 
-A dataset may not be deleted unless all documents contained in the dataset are deleted first. Our CLI and SDKs support doing this in a single command. For instructions on how to delete all documents from a dataset see the [Documents](documents.md#deleting-documents) page.
+A dataset may not be deleted unless all documents contained in the dataset are deleted first. Our CLI and SDKs support doing this in a single command. For instructions on how to delete all documents from a dataset see the [Documents](documents.mdx#deleting-documents) page.
 
 <Tabs groupId="programming-language">
 <TabItem value="cli" label="CLI" default>

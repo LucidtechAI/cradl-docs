@@ -336,7 +336,7 @@ The following `<field_types>` are also considered valid but may be deprecated la
 
 ## Selecting training data
 
-Once your model is defined, you can create one or more [Data bundles](training-data.mdx) to specify which data it should be trained on. You must create a data bundle of acceptable quality before training is allowed. Read more about data quality [here](training-data.md#data-quality).
+Once your model is defined, you can create one or more [Data bundles](training-data.mdx) to specify which data it should be trained on. You must create a data bundle of acceptable quality before training is allowed. Read more about data quality [here](training-data.mdx#data-quality).
 
 :::info
 
@@ -354,7 +354,7 @@ Once your model's training is complete, it will change status to `active`. It is
 
 ## Improving a model
 
-Any program can be improved - and machine learning models are no exception. You may see that every so often, your model makes an incorrect prediction on a certain field - perhaps some fields more often than others. Or the [confidence](predictions.md#confidence) levels of your predictions may seem a little low, especially as time goes by and the current data being fed to your model drifts from the data that the model was trained on.
+Any program can be improved - and machine learning models are no exception. You may see that every so often, your model makes an incorrect prediction on a certain field - perhaps some fields more often than others. Or the [confidence](predictions.mdx#confidence) levels of your predictions may seem a little low, especially as time goes by and the current data being fed to your model drifts from the data that the model was trained on.
 
 Often, the key to improving your model is to supply more fresh data \(or simply more historical data\), or to improve the quality of already existing data. You may want to sample some of your training data to check whether the ground truth attached to the documents match the data on the documents, or check for more historical data in your source systems.
 

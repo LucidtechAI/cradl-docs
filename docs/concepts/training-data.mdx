@@ -7,11 +7,11 @@ import TabItem from '@theme/TabItem';
 
 # Data bundles
 
-A _data bundle_ in Cradl is a model-specific collection of one or more [Datasets](datasets.mdx). Before training a model, you must specify a data bundle that the model will use as training data. Since the quality of the trained model depends on the quality of the training data, we require that any data bundles used for training must pass a statistical test in the form of a [Data Report](training-data.md#data-report) before training can begin.
+A _data bundle_ in Cradl is a model-specific collection of one or more [Datasets](datasets.mdx). Before training a model, you must specify a data bundle that the model will use as training data. Since the quality of the trained model depends on the quality of the training data, we require that any data bundles used for training must pass a statistical test in the form of a [Data Report](training-data.mdx#data-report) before training can begin.
 
 ## Creating a data bundle
 
-To create a data bundle for a model you must specify the `modelId` and one or more `datasetIds`, optionally giving it a name and description. See [Creating a model](models.md#creating-a-model) and [Creating a dataset](datasets.md#creating-a-dataset) for how to create models and datasets.
+To create a data bundle for a model you must specify the `modelId` and one or more `datasetIds`, optionally giving it a name and description. See [Creating a model](models.mdx#creating-a-model) and [Creating a dataset](datasets.mdx#creating-a-dataset) for how to create models and datasets.
 
 <Tabs groupId="programming-language">
 <TabItem value="cli" label="CLI" default>
@@ -71,7 +71,7 @@ data_bundle = client.create_data_bundle(
 }
 ```
 
-The data bundle will immediately begin to generate a [Data Report](training-data.md#data-report). This process may take a few minutes, depending on the size of the datasets being used. While this process is running, the data bundle will have status `processing`. When the data report is complete, the data bundle will be in a `ready` state.
+The data bundle will immediately begin to generate a [Data Report](training-data.mdx#data-report). This process may take a few minutes, depending on the size of the datasets being used. While this process is running, the data bundle will have status `processing`. When the data report is complete, the data bundle will be in a `ready` state.
 
 ## Updating a data bundle
 
@@ -120,7 +120,7 @@ The data report can be viewed in the Cradl app. It scores the data contained in 
 
 After scoring each label individually, the Coverage and Variation scores are aggregated to cross-label mean statistics. The overall score for the data bundle is the mean of these aggregate Coverage and Variation statistics.
 
-If the overall score is acceptable \(suggested value is 70%-100%\), you can request training for your model with the data in the bundle as training data. If not, you should improve your data in one or more of the ways outlined in the section on [Data quality](training-data.md#data-quality).
+If the overall score is acceptable \(suggested value is 70%-100%\), you can request training for your model with the data in the bundle as training data. If not, you should improve your data in one or more of the ways outlined in the section on [Data quality](training-data.mdx#data-quality).
 
 ## Data quality
 
@@ -140,7 +140,7 @@ While the number of documents in total is good, we would not be able to guarante
 
 #### Good variation
 
-Machine learning algorithms are impressionable by nature, and can skew their predictions if the training data is skewed. One example of skewness is lack of variation: having too many similar examples in the training data. The variation of your data is quantified in the Variation statistic of the [Data bundle](training-data.md#data-report). 
+Machine learning algorithms are impressionable by nature, and can skew their predictions if the training data is skewed. One example of skewness is lack of variation: having too many similar examples in the training data. The variation of your data is quantified in the Variation statistic of the [Data bundle](training-data.mdx#data-report). 
 
 :::info Example
 
