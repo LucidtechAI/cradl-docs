@@ -5,7 +5,7 @@ title: Upload data using the CLI
 
 # Upload documents one by one to a dataset
 
-After the dataset is created we can start uploading [documents](../concepts/documents.md) and assign them to our dataset. Since we want to use the documents for training, we'll also provide [ground truth values](../concepts/documents.md#setting-ground-truths) that will define the correct output for the model on each document. Note that the labels in the ground truth must match the field names we defined in our model.
+After the dataset is created we can start uploading [documents](../../concepts/documents.md) and assign them to our dataset. Since we want to use the documents for training, we'll also provide [ground truth values](../../concepts/documents.md#setting-ground-truths) that will define the correct output for the model on each document. Note that the labels in the ground truth must match the field names we defined in our model.
 
 {% hint style="warning" %}
 It is important to have **correct** ground truth values for every document we use for training. Errors in the ground truth can degrade the training process as the model may learn to make the same mistakes.
