@@ -20,6 +20,32 @@ html[data-theme='dark'] {
   /* any other colors you wish to overwrite */
 }
 
+.menu {
+  margin: 5px;
+}
+
+.menu__link {
+  padding: 3px;
+}
+
+.theme-doc-sidebar-item-category-level-1 > .menu__link {
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.theme-doc-sidebar-item-category-level-1 > .menu__list {
+  margin-left: 0;
+  margin-bottom: 1em;
+}
+
+.theme-doc-sidebar-item-category-level-2 > .menu__link {
+  font-weight: bold;
+}
+
+.theme-doc-sidebar-item-category-level-2 > .menu__list {
+  margin-left: 1em;
+}
+
 .navbar__search {
   margin-left: 0.5em;
 }
