@@ -58,7 +58,7 @@ dataset = client.create_dataset(name='Initial training data')
 
 ## Upload documents
 
-### Single document 
+### Single document
 
 After the dataset is created we can start uploading [documents](../../concepts/documents.mdx) and assign them to our dataset. Since we want to use the documents for training, we'll also provide [ground truth values](../../concepts/documents.mdx#setting-ground-truths) that will define the correct output for the model on each document. Note that the labels in the ground truth must match the field names we defined in our model.
 
@@ -143,11 +143,10 @@ You can also assign your documents to a new dataset later through the API.
 
 :::
 
-### Multiple documents 
 Uploading documents one by one can be useful for testing purposes, but is not recommended for large scale training datasets.
 For large-scale datasets we recommend using the `datasets create-documents` command from the [CLI](../../reference/cli.md) . This allows you to upload your dataset in a fast and consistent way, without worrying about looping over all the documents yourself.
 
-#### Pairs of document and ground truths
+### Multiple documents in pairs
 In order to upload all the documents in a folder, the following naming convention must be used:
 
 1. each document in the folder must have a corresponding ground truth file in JSON or YAML format.
@@ -191,7 +190,7 @@ If some of your documents are missing ground-truths they will simply be skipped.
 
 :::
 
-#### A single file with ground-truths
+### Multiple documents from specification
 The other alternative is to specify a file that contains all the paths and ground truths to the documents we want to upload, let us call it `upload-specification.json`.
 Below is an example of how this file would look if we only want to upload two documents.
 ```json
