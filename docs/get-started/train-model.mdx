@@ -1,11 +1,13 @@
 ---
-sidebar_position: 1
+sidebar_position: 3
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Select and inspect training data
+# Train model
+
+## Select and inspect training data
 
 We have now defined a model and created a dataset. The next step is to train the model, but first we need to tell it what data to use when training. At this point, it would also be wise to take a step back and make sure that our training data is of good quality, so that the outcome of the training will be satisfactory. Good quality training data is varied and has lots of examples for all the fields we want the model to extract.
 
@@ -149,3 +151,20 @@ data_bundle = client.list_data_bundles(model_id=<modelId>)
 See [data quality section](../concepts/training-data.mdx#data-quality) for detailed information about data quality and how to improve it.
 
 :::
+
+## Request training 
+
+Once you're satisfied with your training data, you can make a request to train your model. Training of models may only be requested through the Cradl UI for now - the API will have this feature publically available soon!
+
+Under your selected model in the Cradl UI, just go to the **Training** tab and click the **New training** button:
+
+![Screenshot of training tab page](/img/train-a-model/training-tab-page.png)
+
+You'll then be presented with your currently available datasets, where you may select the relevant ones for your model to perform training with:
+
+![Screenshot of training dataset selection page](/img/train-a-model/dataset-selection.png)
+
+After selecting enough datapoints and starting the training, you'll see the training job list has been updated with the current model being set as having the status `training`:
+
+![Screenshot of training job listing](/img/train-a-model/training-job-list.png)
+

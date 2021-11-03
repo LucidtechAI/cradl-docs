@@ -1,14 +1,64 @@
 ---
 sidebar_position: 2
-title: Upload data using the CLI
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Upload data using CLI
+# Create dataset
 
-## Upload documents one by one to a dataset
+After defining our model, the next step is to train it. This requires that we provide the model with a sufficient number of example [documents](../concepts/documents.mdx). Documents can be grouped together in [datasets](../concepts/datasets.mdx), so before we start uploading documents, let's create a dataset.
+
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
+```bash
+las datasets create --name "Receipts" --description "Initial training data"
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'https://api.cradl.ai/v1/datasets' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "name": "Receipts",
+    "description": "Initial training data"
+}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+dataset = client.create_dataset(name='Initial training data')
+```
+
+</TabItem>
+</Tabs>
+
+```json
+{
+  "datasetId": <datasetId>,
+  "description": "Initial training data",
+  "name": "Receipts",
+  "numberOfDocuments": 0,
+  "createdTime": "2021-08-16T12:53:13.374930+0000",
+  "updatedTime": null,
+  "createdBy": <appClientId>,
+  "updatedBy": null,
+  "retentionInDays": 1825,
+  "storageLocation": "EU",
+  "containsPersonallyIdentifiableInformation": true,
+  "version": 0
+}
+```
+
+## Upload documents
+
+### Single document 
 
 After the dataset is created we can start uploading [documents](../../concepts/documents.mdx) and assign them to our dataset. Since we want to use the documents for training, we'll also provide [ground truth values](../../concepts/documents.mdx#setting-ground-truths) that will define the correct output for the model on each document. Note that the labels in the ground truth must match the field names we defined in our model.
 
@@ -93,11 +143,11 @@ You can also assign your documents to a new dataset later through the API.
 
 :::
 
-## Upload multiple documents to a dataset
+### Multiple documents 
 Uploading documents one by one can be useful for testing purposes, but is not recommended for large scale training datasets.
 For large-scale datasets we recommend using the `datasets create-documents` command from the [CLI](../../reference/cli.md) . This allows you to upload your dataset in a fast and consistent way, without worrying about looping over all the documents yourself.
 
-### Upload a folder with document and ground truth pairs
+#### Pairs of document and ground truths
 In order to upload all the documents in a folder, the following naming convention must be used:
 
 1. each document in the folder must have a corresponding ground truth file in JSON or YAML format.
@@ -141,7 +191,7 @@ If some of your documents are missing ground-truths they will simply be skipped.
 
 :::
 
-### Upload a folder with all the meta data in one file
+#### A single file with ground-truths
 The other alternative is to specify a file that contains all the paths and ground truths to the documents we want to upload, let us call it `upload-specification.json`.
 Below is an example of how this file would look if we only want to upload two documents.
 ```json
@@ -186,3 +236,16 @@ We are now ready to upload all the documents and ground truths with the `create-
 las datasets create-documents <datasetId> upload-specification.json
 ```
 This command handles interruptions gracefully and can be safely restarted without having to worry about duplicate documents being uploaded.
+
+### Using the App
+
+From Cradl you can upload data in 3 simple steps.
+
+1. Press `Choose files to upload` in the "Upload data"-section to the right and choose all the files that you want to add to your dataset.
+
+![Screenshot of upload choice](/img/upload-data-app/upload-documents-cradl-1.png)
+
+2. Verify that the data you want to upload contains ground truth by looking at the "Files selected"-section.
+3. Start uploading your data by pressing `Start upload` in the upper right corner.
+
+![Screenshot of upload status](/img/upload-data-app/upload-documents-cradl-2.png)
