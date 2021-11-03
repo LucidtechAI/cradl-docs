@@ -46,13 +46,8 @@ jobs:
         run: |
           cd java-sdk
           doxygen
-          sed -i 's/inline="yes"/inline="no"/g' xml/* #Remove inline
-          mkdir docs
-          npx moxygen xml -c -o docs/%s.md
-          sed -i 's/` `/ /g' docs/*.md
-          perl -pi -e 's|(\(\#class.*?\))||' docs/*.md # Remove identifier, use pearl to get a non-greedy match
-          python create_docs_overview.py docs
-          mv docs/*.md ../reference/java/latest/
+          npx moxygen xml -o docs.md
+          mv docs.md ../docs/reference/java/latest.md
 
       - name: Check out .NET sdk
         uses: actions/checkout@master

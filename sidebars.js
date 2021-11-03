@@ -48,7 +48,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Reference',
-      items: ['reference/cli', 'reference/python/index', 'reference/js/index', 'reference/dotnet/index'],
+      items: ['reference/cli', 'reference/python/index', 'reference/js/index', 'reference/dotnet/index', 'reference/java/index'],
     },
     {
       type: 'category',
