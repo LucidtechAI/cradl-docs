@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2021-10-14T17:48:42Z"
+    "version": "2021-10-27T14:20:59Z"
   },
   "servers": [
     {
@@ -169,10 +169,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/appclients:read"
+            ]
           }
         ]
       },
@@ -374,10 +373,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/appclients:write"
+            ]
           }
         ]
       }
@@ -528,14 +526,7 @@
             }
           }
         },
-        "security": [
-          {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
-          }
-        ]
+        "security": []
       },
       "options": {
         "parameters": [
@@ -753,10 +744,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/appclients:write"
+            ]
           }
         ]
       }
@@ -915,10 +905,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/assets:read"
+            ]
           }
         ]
       },
@@ -1120,10 +1109,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/assets:write"
+            ]
           }
         ]
       }
@@ -1276,10 +1264,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/assets:read"
+            ]
           }
         ]
       },
@@ -1430,10 +1417,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/assets:read"
+            ]
           }
         ]
       },
@@ -1653,10 +1639,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/assets:write"
+            ]
           }
         ]
       }
@@ -1815,10 +1800,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/datasets:read"
+            ]
           }
         ]
       },
@@ -2020,10 +2004,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/datasets:write"
+            ]
           }
         ]
       }
@@ -2176,10 +2159,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/datasets:read"
+            ]
           }
         ]
       },
@@ -2330,10 +2312,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/datasets:read"
+            ]
           }
         ]
       },
@@ -2553,10 +2534,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/datasets:write"
+            ]
           }
         ]
       }
@@ -2729,10 +2709,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/documents:write"
+            ]
           }
         ]
       },
@@ -2903,10 +2882,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/documents:read"
+            ]
           }
         ]
       },
@@ -3108,10 +3086,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/documents:write"
+            ]
           }
         ]
       }
@@ -3264,10 +3241,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/documents:read"
+            ]
           }
         ]
       },
@@ -3418,10 +3394,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/documents:read"
+            ]
           }
         ]
       },
@@ -3641,10 +3616,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/documents:write"
+            ]
           }
         ]
       }
@@ -3838,10 +3812,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/logs:read"
+            ]
           }
         ]
       },
@@ -4035,10 +4008,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/logs:read"
+            ]
           }
         ]
       },
@@ -4248,10 +4220,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/models:read"
+            ]
           }
         ]
       },
@@ -4453,10 +4424,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/models:write"
+            ]
           }
         ]
       }
@@ -4609,10 +4579,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/models:read"
+            ]
           }
         ]
       },
@@ -4763,10 +4732,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/models:read"
+            ]
           }
         ]
       },
@@ -4986,10 +4954,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/models:write"
+            ]
           }
         ]
       }
@@ -5163,10 +5130,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/databundles:read"
+            ]
           }
         ]
       },
@@ -5386,10 +5352,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/databundles:write"
+            ]
           }
         ]
       }
@@ -5548,14 +5513,7 @@
             }
           }
         },
-        "security": [
-          {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
-          }
-        ]
+        "security": []
       },
       "options": {
         "parameters": [
@@ -5789,10 +5747,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/databundles:write"
+            ]
           }
         ]
       }
@@ -5988,10 +5945,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/organizations:read"
+            ]
           }
         ]
       },
@@ -6211,10 +6167,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/organizations:write"
+            ]
           }
         ]
       }
@@ -6373,10 +6328,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/predictions:read"
+            ]
           }
         ]
       },
@@ -6578,10 +6532,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/predictions:write"
+            ]
           }
         ]
       }
@@ -6740,10 +6693,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/secrets:read"
+            ]
           }
         ]
       },
@@ -6945,10 +6897,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/secrets:write"
+            ]
           }
         ]
       }
@@ -7099,14 +7050,7 @@
             }
           }
         },
-        "security": [
-          {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
-          }
-        ]
+        "security": []
       },
       "options": {
         "parameters": [
@@ -7324,10 +7268,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/secrets:write"
+            ]
           }
         ]
       }
@@ -7692,10 +7635,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/transitions:read"
+            ]
           }
         ]
       },
@@ -7897,10 +7839,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/transitions:write"
+            ]
           }
         ]
       }
@@ -8053,10 +7994,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/transitions:read"
+            ]
           }
         ]
       },
@@ -8207,10 +8147,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/transitions:read"
+            ]
           }
         ]
       },
@@ -8430,10 +8369,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/transitions:write"
+            ]
           }
         ]
       }
@@ -8628,10 +8566,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/transitions.executions:read"
+            ]
           }
         ]
       },
@@ -8851,10 +8788,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/transitions.executions:write"
+            ]
           }
         ]
       }
@@ -9015,10 +8951,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/transitions.executions:read"
+            ]
           }
         ]
       },
@@ -9254,10 +9189,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/transitions.executions:write"
+            ]
           }
         ]
       }
@@ -9495,10 +9429,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/transitions.executions.heartbeats:write"
+            ]
           }
         ]
       }
@@ -9657,10 +9590,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/users:read"
+            ]
           }
         ]
       },
@@ -9862,10 +9794,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/users:write"
+            ]
           }
         ]
       }
@@ -10018,10 +9949,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/users:read"
+            ]
           }
         ]
       },
@@ -10172,10 +10102,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/users:read"
+            ]
           }
         ]
       },
@@ -10395,10 +10324,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/users:write"
+            ]
           }
         ]
       }
@@ -10557,10 +10485,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/workflows:read"
+            ]
           }
         ]
       },
@@ -10762,10 +10689,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/workflows:write"
+            ]
           }
         ]
       }
@@ -10918,10 +10844,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/workflows:read"
+            ]
           }
         ]
       },
@@ -11072,10 +10997,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/workflows:read"
+            ]
           }
         ]
       },
@@ -11295,10 +11219,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/workflows:write"
+            ]
           }
         ]
       }
@@ -11486,10 +11409,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/workflows.executions:read"
+            ]
           }
         ]
       },
@@ -11709,10 +11631,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/workflows.executions:write"
+            ]
           }
         ]
       }
@@ -11873,10 +11794,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/workflows.executions:read"
+            ]
           }
         ]
       },
@@ -12035,10 +11955,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/workflows.executions:read"
+            ]
           }
         ]
       },
@@ -12274,10 +12193,9 @@
         },
         "security": [
           {
-            "lucidtech-api-ProductionAPI-ApiStack-6Q75M6VOG2KB-CustomAuthorizer": []
-          },
-          {
-            "api_key": []
+            "OAuth2": [
+              "api.lucidtech.ai/workflows.executions:write"
+            ]
           }
         ]
       }
@@ -13983,7 +13901,6 @@
       "AppClient": {
         "title": "appClient",
         "required": [
-          "apiKey",
           "appClientId",
           "callbackUrls",
           "clientId",
@@ -14012,11 +13929,6 @@
             "type": "string"
           },
           "updatedBy": {
-            "maxLength": 4096,
-            "type": "string",
-            "nullable": true
-          },
-          "apiKey": {
             "maxLength": 4096,
             "type": "string",
             "nullable": true
@@ -14591,6 +14503,7 @@
         "title": "organization",
         "required": [
           "description",
+          "documentRetentionInDays",
           "monthlyNumberOfDataBundlesAllowed",
           "monthlyNumberOfDataBundlesCreated",
           "monthlyNumberOfDocumentsAllowed",
@@ -14703,6 +14616,10 @@
           },
           "monthlyNumberOfWorkflowExecutionsAllowed": {
             "minimum": 0,
+            "type": "integer"
+          },
+          "documentRetentionInDays": {
+            "minimum": 1,
             "type": "integer"
           },
           "monthlyNumberOfDataBundlesCreated": {
@@ -14958,7 +14875,6 @@
             "type": "array",
             "items": {
               "required": [
-                "apiKey",
                 "appClientId",
                 "callbackUrls",
                 "clientId",
@@ -14987,11 +14903,6 @@
                   "type": "string"
                 },
                 "updatedBy": {
-                  "maxLength": 4096,
-                  "type": "string",
-                  "nullable": true
-                },
-                "apiKey": {
                   "maxLength": 4096,
                   "type": "string",
                   "nullable": true
@@ -16325,49 +16236,44 @@
       }
     },
     "securitySchemes": {
-      "api_key": {
-        "type": "apiKey",
-        "name": "x-api-key",
-        "in": "header"
-      },
       "OAuth2": {
         "type": "oauth2",
         "flows": {
           "clientCredentials": {
             "tokenUrl": "https://auth.lucidtech.ai/oauth2/token",
-            "scopes": {
-              "api.lucidtech.ai/logs:read": "Scope for GET /logs/{logId}",
-              "api.lucidtech.ai/users:read": "Scope for GET /users/{userId}",
-              "api.lucidtech.ai/transitions:write": "Scope for DELETE /transitions/{transitionId}",
-              "api.lucidtech.ai/datasets:read": "Scope for GET /datasets/{datasetId}",
-              "api.lucidtech.ai/organizations:write": "Scope for PATCH /organizations/{organizationId}",
-              "api.lucidtech.ai/organizations:read": "Scope for GET /organizations/{organizationId}",
-              "api.lucidtech.ai/signup:write": "Scope for POST /signup",
-              "api.lucidtech.ai/assets:write": "Scope for DELETE /assets/{assetId}",
-              "api.lucidtech.ai/transitions.executions.heartbeats:write": "Scope for POST /transitions/{transitionId}/executions/{executionId}/heartbeats",
-              "api.lucidtech.ai/secrets:read": "Scope for GET /secrets",
-              "api.lucidtech.ai/transitions:read": "Scope for GET /transitions/{transitionId}",
-              "api.lucidtech.ai/predictions:read": "Scope for GET /predictions",
-              "api.lucidtech.ai/users:write": "Scope for PATCH /users/{userId}",
-              "api.lucidtech.ai/assets:read": "Scope for GET /assets/{assetId}",
-              "api.lucidtech.ai/workflows.executions:write": "Scope for PATCH /workflows/{workflowId}/executions/{executionId}",
-              "api.lucidtech.ai/transitions.executions:write": "Scope for PATCH /transitions/{transitionId}/executions/{executionId}",
-              "api.lucidtech.ai/appclients:write": "Scope for DELETE /appClients/{appClientId}",
-              "api.lucidtech.ai/databundles:read": "Scope for GET /models/{modelId}/dataBundles",
-              "api.lucidtech.ai/workflows:write": "Scope for PATCH /workflows/{workflowId}",
-              "api.lucidtech.ai/models:read": "Scope for GET /models/{modelId}",
-              "api.lucidtech.ai/predictions:write": "Scope for POST /predictions",
-              "api.lucidtech.ai/appclients:read": "Scope for GET /appClients",
-              "api.lucidtech.ai/models:write": "Scope for DELETE /models/{modelId}",
-              "api.lucidtech.ai/databundles:write": "Scope for DELETE /models/{modelId}/dataBundles/{dataBundleId}",
-              "api.lucidtech.ai/secrets:write": "Scope for DELETE /secrets/{secretId}",
-              "api.lucidtech.ai/documents:read": "Scope for GET /documents/{documentId}",
-              "api.lucidtech.ai/documents:write": "Scope for DELETE /documents/{documentId}",
-              "api.lucidtech.ai/workflows:read": "Scope for GET /workflows/{workflowId}",
-              "api.lucidtech.ai/transitions.executions:read": "Scope for GET /transitions/{transitionId}/executions/{executionId}",
-              "api.lucidtech.ai/datasets:write": "Scope for DELETE /datasets/{datasetId}",
-              "api.lucidtech.ai/workflows.executions:read": "Scope for GET /workflows/{workflowId}/executions/{executionId}"
-            }
+            "scopes": [
+              "api.lucidtech.ai/appclients:read",
+              "api.lucidtech.ai/appclients:write",
+              "api.lucidtech.ai/assets:read",
+              "api.lucidtech.ai/assets:write",
+              "api.lucidtech.ai/databundles:read",
+              "api.lucidtech.ai/databundles:write",
+              "api.lucidtech.ai/datasets:read",
+              "api.lucidtech.ai/datasets:write",
+              "api.lucidtech.ai/documents:read",
+              "api.lucidtech.ai/documents:write",
+              "api.lucidtech.ai/logs:read",
+              "api.lucidtech.ai/models:read",
+              "api.lucidtech.ai/models:write",
+              "api.lucidtech.ai/organizations:read",
+              "api.lucidtech.ai/organizations:write",
+              "api.lucidtech.ai/predictions:read",
+              "api.lucidtech.ai/predictions:write",
+              "api.lucidtech.ai/secrets:read",
+              "api.lucidtech.ai/secrets:write",
+              "api.lucidtech.ai/signup:write",
+              "api.lucidtech.ai/transitions.executions.heartbeats:write",
+              "api.lucidtech.ai/transitions.executions:read",
+              "api.lucidtech.ai/transitions.executions:write",
+              "api.lucidtech.ai/transitions:read",
+              "api.lucidtech.ai/transitions:write",
+              "api.lucidtech.ai/users:read",
+              "api.lucidtech.ai/users:write",
+              "api.lucidtech.ai/workflows.executions:read",
+              "api.lucidtech.ai/workflows.executions:write",
+              "api.lucidtech.ai/workflows:read",
+              "api.lucidtech.ai/workflows:write"
+            ]
           }
         }
       }
