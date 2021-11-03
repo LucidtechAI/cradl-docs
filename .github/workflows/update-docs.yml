@@ -82,6 +82,12 @@ jobs:
           sed -i -E -e '/Defined in.*/d' -e '/\[.+\]\(.+#L.+\)/d' docs.md
           mv docs.md ../docs/reference/js/latest.md
 
+      - name: REST API
+        run: |
+          npx widdershins docs/reference/restapi/oas.json --code -u src/restapi-templates -o docs/reference/restapi/latest.md
+          # remove problematic characters/content
+          sed -i -E -e 's/title: Lucidtech API v.*/title: REST API v1/' -e '/Lucidtech API v/d' docs/reference/restapi/latest.md
+
       - name: Clean up
         run: |
           rm -rf java-sdk
