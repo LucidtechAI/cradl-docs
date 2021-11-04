@@ -48,7 +48,6 @@ const config = {
         defaultMode: 'dark'
       },
       navbar: {
-        title: 'Cradl AI',
         logo: {
           alt: 'Cradl AI logo',
           src: 'img/logo-light_mode.svg',
@@ -83,33 +82,45 @@ const config = {
             ],
           },
           {
-            title: 'Community',
+            title: 'Cradl AI',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'Cradl AI site',
+                href: 'https://cradl.ai',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'Cradl AI app',
+                href: 'https://app.cradl.ai',
               },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
+            ]
           },
           {
-            title: 'More',
+            title: 'GitHub',
             items: [
               {
-                label: 'GitHub',
-                href: 'https://github.com/lucidtechAI/cradl-docs',
+                label: 'CLI',
+                href: 'https://github.com/lucidtechAI/las-cli',
+              },
+              {
+                label: 'Python SDK',
+                href: 'https://github.com/lucidtechAI/las-sdk-python',
+              },
+              {
+                label: 'JavaScript SDK',
+                href: 'https://github.com/lucidtechAI/las-sdk-js',
+              },
+              {
+                label: '.NET SDK',
+                href: 'https://github.com/lucidtechAI/las-sdk-net',
+              },
+              {
+                label: 'Java SDK',
+                href: 'https://github.com/lucidtechAI/las-sdk-java',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Lucidtech AI`,
       },
       prism: {
         theme: lightCodeTheme,
