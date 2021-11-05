@@ -44,7 +44,7 @@ const config = {
         debug: Boolean(process.env.DEBUG || process.env.CI),
         specs: [
           {
-            specUrl: './docs/reference/restapi/oas.yaml',
+            specUrl: './oas.yaml',
             routePath: '/rest-api-reference/',
           }
         ],
