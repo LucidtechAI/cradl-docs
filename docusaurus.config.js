@@ -116,22 +116,6 @@ const config = {
                 label: 'Twitter',
                 href: 'https://twitter.com/Cradl_AI',
               },
-              {
-                label: 'Cradl AI site',
-                href: 'https://cradl.ai',
-              },
-              {
-                label: 'Cradl AI app',
-                href: 'https://app.cradl.ai',
-              },
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/CradlAI',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/Cradl_AI',
-              },
             ],
           },
           {
@@ -156,34 +140,6 @@ const config = {
               {
                 label: 'Java SDK',
                 href: 'https://github.com/lucidtechAI/las-sdk-java',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/lucidtechAI',
-              },
-              {
-                label: 'CLI',
-                href: 'https://github.com/lucidtechAI/las-cli',
-              },
-              {
-                label: 'Python SDK',
-                href: 'https://github.com/lucidtechAI/las-sdk-python',
-              },
-              {
-                label: 'JavaScript SDK',
-                href: 'https://github.com/lucidtechAI/las-sdk-js',
-              },
-              {
-                label: '.NET SDK',
-                href: 'https://github.com/lucidtechAI/las-sdk-net',
-              },
-              {
-                label: 'Java SDK',
-                href: 'https://github.com/lucidtechAI/las-sdk-java',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/lucidtechAI',
               },
             ],
           },
