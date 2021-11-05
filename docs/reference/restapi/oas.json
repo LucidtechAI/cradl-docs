@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2021-10-27T14:20:59Z"
+    "version": "2021-11-04T16:27:16Z"
   },
   "servers": [
     {
@@ -14132,13 +14132,9 @@
                     "type": "object",
                     "properties": {
                       "description": {
-                        "anyOf": [
-                          {
-                            "maxLength": 4096,
-                            "type": "string"
-                          },
-                          null
-                        ]
+                        "maxLength": 4096,
+                        "type": "string",
+                        "nullable": true
                       },
                       "type": {
                         "type": "string",
@@ -14759,6 +14755,57 @@
           "modelId": {
             "pattern": "^las:model:[a-f0-9]{32}$",
             "type": "string"
+          },
+          "postprocessConfig": {
+            "oneOf": [
+              {
+                "required": [
+                  "strategy"
+                ],
+                "type": "object",
+                "properties": {
+                  "strategy": {
+                    "type": "string",
+                    "enum": [
+                      "BEST_FIRST"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "required": [
+                  "parameters",
+                  "strategy"
+                ],
+                "type": "object",
+                "properties": {
+                  "strategy": {
+                    "type": "string",
+                    "enum": [
+                      "BEST_N_PAGES"
+                    ]
+                  },
+                  "parameters": {
+                    "required": [
+                      "n"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "n": {
+                        "maximum": 3,
+                        "minimum": 1,
+                        "type": "integer"
+                      },
+                      "collapse": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
+                "additionalProperties": false
+              }
+            ]
           },
           "maxPages": {
             "maximum": 3,
@@ -15873,13 +15920,9 @@
               "type": "object",
               "properties": {
                 "description": {
-                  "anyOf": [
-                    {
-                      "maxLength": 4096,
-                      "type": "string"
-                    },
-                    null
-                  ]
+                  "maxLength": 4096,
+                  "type": "string",
+                  "nullable": true
                 },
                 "type": {
                   "type": "string",
@@ -16241,39 +16284,39 @@
         "flows": {
           "clientCredentials": {
             "tokenUrl": "https://auth.lucidtech.ai/oauth2/token",
-            "scopes": [
-              "api.lucidtech.ai/appclients:read",
-              "api.lucidtech.ai/appclients:write",
-              "api.lucidtech.ai/assets:read",
-              "api.lucidtech.ai/assets:write",
-              "api.lucidtech.ai/databundles:read",
-              "api.lucidtech.ai/databundles:write",
-              "api.lucidtech.ai/datasets:read",
-              "api.lucidtech.ai/datasets:write",
-              "api.lucidtech.ai/documents:read",
-              "api.lucidtech.ai/documents:write",
-              "api.lucidtech.ai/logs:read",
-              "api.lucidtech.ai/models:read",
-              "api.lucidtech.ai/models:write",
-              "api.lucidtech.ai/organizations:read",
-              "api.lucidtech.ai/organizations:write",
-              "api.lucidtech.ai/predictions:read",
-              "api.lucidtech.ai/predictions:write",
-              "api.lucidtech.ai/secrets:read",
-              "api.lucidtech.ai/secrets:write",
-              "api.lucidtech.ai/signup:write",
-              "api.lucidtech.ai/transitions.executions.heartbeats:write",
-              "api.lucidtech.ai/transitions.executions:read",
-              "api.lucidtech.ai/transitions.executions:write",
-              "api.lucidtech.ai/transitions:read",
-              "api.lucidtech.ai/transitions:write",
-              "api.lucidtech.ai/users:read",
-              "api.lucidtech.ai/users:write",
-              "api.lucidtech.ai/workflows.executions:read",
-              "api.lucidtech.ai/workflows.executions:write",
-              "api.lucidtech.ai/workflows:read",
-              "api.lucidtech.ai/workflows:write"
-            ]
+            "scopes": {
+              "api.lucidtech.ai/appclients:read": "Read permissions",
+              "api.lucidtech.ai/appclients:write": "Write permissions",
+              "api.lucidtech.ai/assets:read": "Read permissions",
+              "api.lucidtech.ai/assets:write": "Write permissions",
+              "api.lucidtech.ai/databundles:read": "Read permissions",
+              "api.lucidtech.ai/databundles:write": "Write permissions",
+              "api.lucidtech.ai/datasets:read": "Read permissions",
+              "api.lucidtech.ai/datasets:write": "Write permissions",
+              "api.lucidtech.ai/documents:read": "Read permissions",
+              "api.lucidtech.ai/documents:write": "Write permissions",
+              "api.lucidtech.ai/logs:read": "Read permissions",
+              "api.lucidtech.ai/models:read": "Read permissions",
+              "api.lucidtech.ai/models:write": "Write permissions",
+              "api.lucidtech.ai/organizations:read": "Read permissions",
+              "api.lucidtech.ai/organizations:write": "Write permissions",
+              "api.lucidtech.ai/predictions:read": "Read permissions",
+              "api.lucidtech.ai/predictions:write": "Write permissions",
+              "api.lucidtech.ai/secrets:read": "Read permissions",
+              "api.lucidtech.ai/secrets:write": "Write permissions",
+              "api.lucidtech.ai/signup:write": "Write permissions",
+              "api.lucidtech.ai/transitions.executions.heartbeats:write": "Write permissions",
+              "api.lucidtech.ai/transitions.executions:read": "Read permissions",
+              "api.lucidtech.ai/transitions.executions:write": "Write permissions",
+              "api.lucidtech.ai/transitions:read": "Read permissions",
+              "api.lucidtech.ai/transitions:write": "Write permissions",
+              "api.lucidtech.ai/users:read": "Read permissions",
+              "api.lucidtech.ai/users:write": "Write permissions",
+              "api.lucidtech.ai/workflows.executions:read": "Read permissions",
+              "api.lucidtech.ai/workflows.executions:write": "Write permissions",
+              "api.lucidtech.ai/workflows:read": "Read permissions",
+              "api.lucidtech.ai/workflows:write": "Write permissions"
+            }
           }
         }
       }

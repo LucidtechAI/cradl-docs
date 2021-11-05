@@ -1,12 +1,21 @@
----
-title: Changelog
----
-
 # Rest API
 
 - You can find the Open API specification file [here](https://raw.githubusercontent.com/LucidtechAI/cradl-docs/master/docs/reference/restapi/oas.json)
+- Endpoint URL is https://api.lucidtech.ai/v1
+
+## Reference
+
+- See full reference [here](../../../rest-api-reference)
 
 ## Changelog
+
+### 2021-11-04
+
+- Removed restrictions on updating fieldConfig in /models, you may update fieldConfig regardless of model status
+- Added postprocessConfig to POST /predictions. Currently supporting two strategies: BEST_FIRST and BEST_N_PAGES. BEST_FIRST returns predictions from the best page and may skip evaluating later pages if good predictions have already been found. BEST_N_PAGES returns predictions from the best N pages
+- Added documentRetentionInDays to /organizations. This value will correspond to the retention of PII as specified in the DPA
+- Fixed a bug causing monthlyNumberOfDataBundlesCreated in /organizations to not be reset each month
+- Fixed a bug in data bundle creation causing documents with null values in groundTruth to be ignored
 
 ### 2021-10-12
 
