@@ -11,7 +11,7 @@ A _document_ in Cradl consists of a file with metadata. Documents serve two purp
 
 ## Creating a Document
 
-Documents can be created via Cradl's [various API clients](../get-started/installation.md).
+Documents can be created via Cradl's [various API clients](../overview/installation.md).
 
 
 :::tip
@@ -31,7 +31,7 @@ las documents create path/to/my/document.pdf
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'https://api.cradl.ai/v1/documents' \
+curl -X POST 'https://api.lucidtech.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -78,7 +78,7 @@ las documents update <documentId> --ground-truth-path path/to/ground_truth.json
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'https://api.cradl.ai/v1/documents' \
+curl -X POST 'https://api.lucidtech.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -97,7 +97,7 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
   }'
 
 
-curl -X PATCH 'https://api.cradl.ai/v1/documents/<documentId>' \
+curl -X PATCH 'https://api.lucidtech.ai/v1/documents/<documentId>' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -240,7 +240,7 @@ las documents create path/to/document.pdf --consent-id <consentId>
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'https://api.cradl.ai/v1/documents' \
+curl -X POST 'https://api.lucidtech.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -275,7 +275,7 @@ las documents delete <documentId>
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
+curl -X DELETE 'https://api.lucidtech.ai/v1/documents/<documentId>' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 ```
@@ -303,7 +303,7 @@ las documents delete-all --dataset-id <datasetId>
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'https://api.cradl.ai/v1/documents/<documentId>' \
+curl -X DELETE 'https://api.lucidtech.ai/v1/documents/<documentId>' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{

@@ -25,7 +25,7 @@ las datasets create --name "Invoices 2020" --description "From accounting system
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'https://api.cradl.ai/v1/datasets' \
+curl -X POST 'https://api.lucidtech.ai/v1/datasets' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -80,7 +80,7 @@ las documents update <documentId> --dataset-id <datasetId>
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'https://api.cradl.ai/v1/documents' \
+curl -X POST 'https://api.lucidtech.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -89,7 +89,7 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
     "datasetId": <datasetId>
 }'
 
-curl -X PATCH 'https://api.cradl.ai/v1/documents/\<documentId\>' \
+curl -X PATCH 'https://api.lucidtech.ai/v1/documents/\<documentId\>' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -131,14 +131,14 @@ las datasets delete <datasetId> --delete-documents
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'https://api.cradl.ai/v1/documents' \
+curl -X DELETE 'https://api.lucidtech.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
     "datasetId": <datasetId>
  }'
 
- curl -X DELETE 'https://api.cradl.ai/v1/datasets/<datasetId>' \
+ curl -X DELETE 'https://api.lucidtech.ai/v1/datasets/<datasetId>' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 ```

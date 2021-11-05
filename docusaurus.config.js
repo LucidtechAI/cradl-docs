@@ -7,13 +7,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Cradl documentation',
-  tagline: 'Dinosaurs are cool',
+  tagline: 'AI-powered data capture APIs for any document',
   url: 'https://docs.cradl.ai',
   baseUrl: '/',
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.png',
-  organizationName: 'lucidtechAI', // Usually your GitHub org/user name.
+  organizationName: 'LucidtechAI', // Usually your GitHub org/user name.
   projectName: 'cradl-docs', // Usually your repo name.
   plugins: ['docusaurus-plugin-sass', require.resolve('docusaurus-lunr-search')],
   presets: [
@@ -26,12 +26,6 @@ const config = {
           routeBasePath: '/',
           sidebarCollapsed: false,
           sidebarCollapsible: false,
-          editUrl: 'https://github.com/lucidtechAI/cradl-docs/edit/master/docs/',
-        },
-        blog: {
-          showReadingTime: true,
-          editUrl:
-            'https://github.com/lucidtechAI/cradl-docs/edit/master/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -44,7 +38,7 @@ const config = {
         debug: Boolean(process.env.DEBUG || process.env.CI),
         specs: [
           {
-            specUrl: './docs/reference/restapi/oas.yaml',
+            specUrl: './oas.yaml',
             routePath: '/rest-api-reference/',
           }
         ],
@@ -66,18 +60,12 @@ const config = {
       navbar: {
         logo: {
           alt: 'Cradl AI logo',
-          src: 'img/logo-light_mode.svg',
-          srcDark: 'img/logo-dark_mode.svg',
-          href: 'https://docs.cradl.ai/',
+          src: 'img/logo-light_mode.png',
+          srcDark: 'img/logo-dark_mode.png',
+          href: '/',
           target: '_self',
         },
         items: [
-          {
-            type: 'doc',
-            docId: 'overview/index',
-            position: 'left',
-            label: 'Docs',
-          },
           {
             href: 'https://github.com/lucidtechAI',
             label: 'GitHub',
@@ -87,16 +75,13 @@ const config = {
       },
       footer: {
         style: 'dark',
+        logo: {
+          alt: 'Cradl AI logo',
+          src: 'img/logo-light_mode.png',
+          srcDark: 'img/logo-dark_mode.png',
+          href: '/',
+        },
         links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Docs',
-                to: '/',
-              },
-            ],
-          },
           {
             title: 'Cradl AI',
             items: [
@@ -108,6 +93,11 @@ const config = {
                 label: 'Cradl AI app',
                 href: 'https://app.cradl.ai',
               },
+            ],
+          },
+          {
+            title: 'Community',
+            items: [
               {
                 label: 'Stack Overflow',
                 href: 'https://stackoverflow.com/questions/tagged/CradlAI',

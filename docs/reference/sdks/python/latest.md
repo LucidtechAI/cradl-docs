@@ -1,5 +1,4 @@
-# las package
-
+# Latest
 ## Module contents
 ### class las.Client(credentials: Optional[las.credentials.Credentials] = None)
 Bases: `object`

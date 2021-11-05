@@ -34,7 +34,7 @@ jobs:
           pip install -r requirements.docs.txt
           pip install tox
           make docs
-          mv docs/las.md ../docs/reference/python/latest.md
+          mv docs/las.md ../docs/reference/sdks/python/latest.md
 
       - name: Check out java sdk
         uses: actions/checkout@master
@@ -50,7 +50,7 @@ jobs:
           npx moxygen xml -o docs.md
           sed -i 's/`\[MissingAccessTokenException\](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_missing_access_token_exception)`/\[`MissingAccessTokenException`\](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_missing_access_token_exception)/g' docs.md
           sed -i 's/`\[APIException\](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_a_p_i_exception)`/\[`APIException`\](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_a_p_i_exception)/g' docs.md
-          mv docs.md ../docs/reference/java/latest.md
+          mv docs.md ../docs/reference/sdks/java/latest.md
 
       - name: Check out .NET sdk
         uses: actions/checkout@master
@@ -68,7 +68,7 @@ jobs:
           # sed -i 's/` `/ /g' api.md
           # perl -pi -e 's|(\(\#class.*?\))||' api.md # Remove identifier, use pearl to get a non-greedy match
           # grep -v '^## Summary$' api.md > api_clean.md
-          mv api.md ../docs/reference/dotnet/latest.md
+          mv api.md ../docs/reference/sdks/dotnet/latest.md
 
       - name: Check out java-script sdk
         uses: actions/checkout@master
@@ -83,7 +83,7 @@ jobs:
           npm run docs
           # Remove links to source code lines
           sed -i -E -e '/Defined in.*/d' -e '/\[.+\]\(.+#L.+\)/d' docs.md
-          mv docs.md ../docs/reference/js/latest.md
+          mv docs.md ../docs/reference/sdks/js/latest.md
 
       - name: Clean up
         run: |

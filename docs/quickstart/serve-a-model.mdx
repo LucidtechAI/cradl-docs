@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
@@ -22,7 +22,7 @@ las documents create receipt.pdf
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'https://api.cradl.ai/v1/documents' \
+curl -X POST 'https://api.lucidtech.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -67,7 +67,7 @@ las predictions create <documentId> <modelId>
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'https://api.cradl.ai/v1/predictions' \
+curl -X POST 'https://api.lucidtech.ai/v1/predictions' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "documentId": <documentId>,

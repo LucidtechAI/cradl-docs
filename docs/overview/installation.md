@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # Installation
@@ -26,10 +26,10 @@ $ pip install lucidtech-las
 
 ## Postman
 
-You can find the Open API specification file [here](https://raw.githubusercontent.com/LucidtechAI/cradl-docs/master/reference/restapi/oas.json). You can import the URL into Postman to have a collection of all API calls with the available parameters.
+You can find the Open API specification file in [JSON](pathname:///oas.json) or [YAML](pathname:///oas.yaml)
 
 ## Other SDKs
 
 We also have SDK's in Java, JavaScript and .NET. See references section for detailed use of every SDK
 
-- [Python](../reference/python/index.mdx)
+- [Python](../reference/sdks/python/index.mdx)
