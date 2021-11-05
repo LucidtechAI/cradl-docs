@@ -67,12 +67,6 @@ const config = {
         },
         items: [
           {
-            type: 'doc',
-            docId: 'overview/index',
-            position: 'left',
-            label: 'Docs',
-          },
-          {
             href: 'https://github.com/lucidtechAI',
             label: 'GitHub',
             position: 'right',
@@ -81,16 +75,13 @@ const config = {
       },
       footer: {
         style: 'dark',
+        logo: {
+          alt: 'Cradl AI logo',
+          src: 'img/logo-light_mode.svg',
+          srcDark: 'img/logo-dark_mode.svg',
+          href: '/',
+        },
         links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Docs',
-                to: '/',
-              },
-            ],
-          },
           {
             title: 'Cradl AI',
             items: [
