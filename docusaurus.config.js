@@ -60,8 +60,8 @@ const config = {
       navbar: {
         logo: {
           alt: 'Cradl AI logo',
-          src: 'img/logo-light_mode.svg',
-          srcDark: 'img/logo-dark_mode.svg',
+          src: 'img/logo-light_mode.png',
+          srcDark: 'img/logo-dark_mode.png',
           href: '/',
           target: '_self',
         },
@@ -77,8 +77,8 @@ const config = {
         style: 'dark',
         logo: {
           alt: 'Cradl AI logo',
-          src: 'img/logo-light_mode.svg',
-          srcDark: 'img/logo-dark_mode.svg',
+          src: 'img/logo-light_mode.png',
+          srcDark: 'img/logo-dark_mode.png',
           href: '/',
         },
         links: [
@@ -93,6 +93,11 @@ const config = {
                 label: 'Cradl AI app',
                 href: 'https://app.cradl.ai',
               },
+            ],
+          },
+          {
+            title: 'Community',
+            items: [
               {
                 label: 'Stack Overflow',
                 href: 'https://stackoverflow.com/questions/tagged/CradlAI',
