@@ -1889,8 +1889,6 @@ components:
         modelId:
           pattern: ^las:model:[a-f0-9]{32}$
           type: string
-<<<<<<< HEAD
-=======
         postprocessConfig:
           oneOf:
           - additionalProperties: false
@@ -1923,7 +1921,6 @@ components:
             - parameters
             - strategy
             type: object
->>>>>>> 0277aab (Merge)
       required:
       - documentId
       - modelId
@@ -3096,11 +3093,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-<<<<<<< HEAD
-  version: '2021-10-27T14:20:59Z'
-=======
   version: '2021-11-04T16:27:16Z'
->>>>>>> 0277aab (Merge)
 openapi: 3.0.1
 paths:
   /appClients:
