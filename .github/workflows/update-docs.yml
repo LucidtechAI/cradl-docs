@@ -34,7 +34,7 @@ jobs:
           pip install -r requirements.docs.txt
           pip install tox
           make docs
-          mv docs/las.md ../reference/python/latest.md
+          mv docs/las.md ../docs/reference/sdks/python/latest.md
 
       - name: Check out java sdk
         uses: actions/checkout@master
@@ -46,13 +46,11 @@ jobs:
         run: |
           cd java-sdk
           doxygen
-          sed -i 's/inline="yes"/inline="no"/g' xml/* #Remove inline
-          mkdir docs
-          npx moxygen xml -c -o docs/%s.md
-          sed -i 's/` `/ /g' docs/*.md
-          perl -pi -e 's|(\(\#class.*?\))||' docs/*.md # Remove identifier, use pearl to get a non-greedy match
-          python create_docs_overview.py docs
-          mv docs/*.md ../reference/java/latest/
+          sed -i 's/inline="yes"/inline="no"/g' xml/* # Remove inline
+          npx moxygen xml -o docs.md
+          sed -i 's/`\[MissingAccessTokenException\](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_missing_access_token_exception)`/\[`MissingAccessTokenException`\](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_missing_access_token_exception)/g' docs.md
+          sed -i 's/`\[APIException\](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_a_p_i_exception)`/\[`APIException`\](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_a_p_i_exception)/g' docs.md
+          mv docs.md ../docs/reference/sdks/java/latest.md
 
       - name: Check out .NET sdk
         uses: actions/checkout@master
@@ -64,13 +62,13 @@ jobs:
         run: |
           cd net-sdk
           doxygen documentation.conf
-          sed -i 's/inline="yes"/inline="no"/g' xml/* #Remove inline
+          sed -i 's/inline="yes"/inline="no"/g' xml/* # Remove inline
           npx moxygen xml
-          sed -i '/^## Summary/,/^## Members/{/^## Summary/!{/^## Members/!d}}' api.md
-          sed -i 's/` `/ /g' api.md
-          perl -pi -e 's|(\(\#class.*?\))||' api.md # Remove identifier, use pearl to get a non-greedy match
-          grep -v '^## Summary$' api.md > api_clean.md
-          mv api_clean.md ../reference/dotnet/latest.md
+          # sed -i '/^## Summary/,/^## Members/{/^## Summary/!{/^## Members/!d}}' api.md
+          # sed -i 's/` `/ /g' api.md
+          # perl -pi -e 's|(\(\#class.*?\))||' api.md # Remove identifier, use pearl to get a non-greedy match
+          # grep -v '^## Summary$' api.md > api_clean.md
+          mv api.md ../docs/reference/sdks/dotnet/latest.md
 
       - name: Check out java-script sdk
         uses: actions/checkout@master
@@ -83,8 +81,9 @@ jobs:
           cd js-sdk
           npm install && npm run upgrade-lucidtech
           npm run docs
-          sed -i -E -e '/Defined in.*/d' -e '/\[.+\]\(.+#L.+\)/d' -e '/(Name|Type|Description) \|/d' -e '/------/d' -e 's/ \|//g' -e 's/^\|//' docs.md
-          mv docs.md ../reference/js/latest.md
+          # Remove links to source code lines
+          sed -i -E -e '/Defined in.*/d' -e '/\[.+\]\(.+#L.+\)/d' docs.md
+          mv docs.md ../docs/reference/sdks/js/latest.md
 
       - name: Clean up
         run: |

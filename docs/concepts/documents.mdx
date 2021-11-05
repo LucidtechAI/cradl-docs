@@ -1,0 +1,332 @@
+---
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Documents
+
+A _document_ in Cradl consists of a file with metadata. Documents serve two purposes: as data points when training [models](models.mdx) and as inputs when making [predictions](predictions.mdx). A document's metadata must contain a ground truth if the document is going to be used for training. To help you organize your documents from different sources we recommend that you group them in separate [Datasets](datasets.mdx).
+
+## Creating a Document
+
+Documents can be created via Cradl's [various API clients](../overview/installation.md).
+
+
+:::tip
+
+Allowed formats for documents are PDF, JPEG, PNG and TIFF.
+
+:::
+
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
+```bash
+las documents create path/to/my/document.pdf
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'https://api.lucidtech.ai/v1/documents' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "content": "JVBERi0xLjQ...",
+    "contentType": "application/pdf"
+ }'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+document = client.create_document(b'<bytes data>', 'application/pdf')
+```
+
+</TabItem>
+</Tabs>
+
+
+```json
+{
+  "documentId": "las:document:84ed1bb2d2634072bd3134274ed56ebe",
+  "contentType": "application/pdf"
+}
+```
+
+The returned `documentId` can be used together with a `modelId` to make a [prediction](predictions.mdx#making-a-prediction) on the document once a model has been trained. You can also [set a ground truth](documents.mdx#setting-ground-truths) for the document and add it to a [Dataset](datasets.mdx) to use it as training data for a model.
+
+## Assigning ground truth to to a document
+
+To use a document as training data, it must have an attached ground truth; since our models learn by example, you must provide both the example input \(the file\) and its expected output \(the ground truth\). The ground truth can be provided when you create the document, or it can be added as an update to an existing document.
+
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
+```bash
+las documents create path/to/document.pdf --ground-truth-fields amount=100.00 due_date='2021-05-20'
+las documents create path/to/document.pdf --ground-truth-path path/to/ground_truth.json
+las documents update <documentId> --ground-truth-fields amount=100.00 due_date='2021-05-20'
+las documents update <documentId> --ground-truth-path path/to/ground_truth.json
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'https://api.lucidtech.ai/v1/documents' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "content": "JVBERi0xLjQ...",
+    "contentType": "application/pdf"
+    "groundTruth": [
+      {
+        "label": "amount",
+        "value": "100.00"
+      },
+      {
+        "label": "due_date",
+        "value": "2021-05-20"
+      }
+    ]
+  }'
+
+
+curl -X PATCH 'https://api.lucidtech.ai/v1/documents/<documentId>' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "groundTruth": [
+      {
+        "label": "amount",
+        "value": "100.00"
+      },
+      {
+        "label": "due_date",
+        "value": "2021-05-20"
+      }
+    ]
+  }'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+ground_truth = [
+  { 'label': 'total_amount', 'value': '100.00' },
+  { 'label': 'due_date', 'value': '2020-02-28' }
+]
+document = client.create_document(b'<bytes data>', 'application/pdf', ground_truth=ground_truth)
+# or
+document = client.update_document(<document_id>, ground_truth=ground_truth)
+```
+
+</TabItem>
+<TabItem value="ground-truth" label="ground_truth.json">
+
+```json
+[
+  {
+    "label": "amount",
+    "value": "100.00"
+  },
+  {
+    "label": "due_date",
+    "value": "2021-05-20"
+  }
+]
+```
+
+</TabItem>
+</Tabs>
+
+The JSON format for a ground truth file is an array of objects containing `label` and `value` keys. See below for examples. Values in the objects must be strings.
+
+:::caution
+
+The label name is used as a key in several places. Make sure you are consistent in using the same label names across documents and models.
+
+:::
+
+<Tabs>
+<TabItem value="document_1" label="example_1.png">
+
+![](/img/concepts/lucidcab.png)
+
+</TabItem>
+<TabItem value="ground-truth_1" label="example_1_ground_truth.json">
+
+```json
+[
+  {
+    "label": "category",
+    "value": "taxi"
+  },
+  {
+    "label": "currency",
+    "value": "EUR"
+  },
+  {
+    "label": "date",
+    "value": "2019-12-31"
+  },
+  {
+    "label": "total_amount",
+    "value": "43.90"
+  }
+]
+```
+
+</TabItem>
+<TabItem value="document_2" label="example_2.png">
+
+![](/img/concepts/bill_of_lading.png)
+
+</TabItem>
+<TabItem value="ground-truth_2" label="example_2_ground_truth.json">
+
+```json
+[
+  {
+    "label": "lading_number",
+    "value": "s00158002"
+  },
+  {
+    "label": "point_of_loading",
+    "value": "Chicago, United States"
+  },
+  {
+    "label": "place_of_delivery",
+    "value": "Sydney, Australia"
+  },
+  {
+    "label": "date",
+    "value": "2015-06-23"
+  },
+  {
+    "label": "carrier",
+    "value": "Lucid Logistics"
+  },
+  {
+    "label": "weight",
+    "value": "20000"
+  }
+]
+```
+
+</TabItem>
+</Tabs>
+
+## Documents with personal consents
+
+In addition to grouping documents in datasets, documents can be assigned a `consentId` to facilitate deletion of single-user data. If your application requires users to register data use consent, you should label this consent by a user-unique ID, and label all user data uploaded to Cradl with a corresponding `consentId` at creation time.
+
+A `consentId` must be formatted as `"las:consent:[a-f0-9]{32}"`.
+
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
+```bash
+las documents create path/to/document.pdf --consent-id <consentId>
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'https://api.lucidtech.ai/v1/documents' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "content": "JVBERi0xLjQ...",
+    "contentType": "application/pdf",
+    "consentId": <consentId>
+ }'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+document = client.create_document(b'<bytes data>', 'application/pdf', consent_id=<consentId>)
+```
+
+</TabItem>
+</Tabs>
+
+## Deleting documents
+
+Documents may be deleted one-by-one:
+
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
+```bash
+las documents delete <documentId>
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X DELETE 'https://api.lucidtech.ai/v1/documents/<documentId>' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```text
+client.delete_document(<documentId>)
+```
+
+</TabItem>
+</Tabs>
+
+Or using a group identifier \(`consentId` or `datasetId`\):
+
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
+
+```bash
+las documents delete-all --dataset-id <datasetId>
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X DELETE 'https://api.lucidtech.ai/v1/documents/<documentId>' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "datasetId": <datasetId>
+ }'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+client.delete_documents(dataset_id=<datasetId>, delete_all=True)
+```
+
+</TabItem>
+</Tabs>
+
+```json
+{
+  "documents": [...],
+  "consentId": [...]
+}
+```
+
+The delete-all command will delete all documents with the given group identifier.
+
