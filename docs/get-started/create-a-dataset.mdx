@@ -60,7 +60,7 @@ dataset = client.create_dataset(name='Initial training data')
 
 ### Single document
 
-After the dataset is created we can start uploading [documents](../../concepts/documents.mdx) and assign them to our dataset. Since we want to use the documents for training, we'll also provide [ground truth values](../../concepts/documents.mdx#setting-ground-truths) that will define the correct output for the model on each document. Note that the labels in the ground truth must match the field names we defined in our model.
+After the dataset is created we can start uploading [documents](../concepts/documents.mdx) and assign them to our dataset. Since we want to use the documents for training, we'll also provide [ground truth values](../concepts/documents.mdx#setting-ground-truths) that will define the correct output for the model on each document. Note that the labels in the ground truth must match the field names we defined in our model.
 
 :::caution
 
@@ -144,7 +144,7 @@ You can also assign your documents to a new dataset later through the API.
 :::
 
 Uploading documents one by one can be useful for testing purposes, but is not recommended for large scale training datasets.
-For large-scale datasets we recommend using the `datasets create-documents` command from the [CLI](../../reference/cli.md) . This allows you to upload your dataset in a fast and consistent way, without worrying about looping over all the documents yourself.
+For large-scale datasets we recommend using the `datasets create-documents` command from the [CLI](../reference/cli.md) . This allows you to upload your dataset in a fast and consistent way, without worrying about looping over all the documents yourself.
 
 ### Multiple documents in pairs
 In order to upload all the documents in a folder, the following naming convention must be used:
