@@ -124,7 +124,15 @@ const config = {
                 label: 'Cradl AI app',
                 href: 'https://app.cradl.ai',
               },
-            ]
+              {
+                label: 'Stack Overflow',
+                href: 'https://stackoverflow.com/questions/tagged/CradlAI',
+              },
+              {
+                label: 'Twitter',
+                href: 'https://twitter.com/Cradl_AI',
+              },
+            ],
           },
           {
             title: 'GitHub',
@@ -172,6 +180,10 @@ const config = {
               {
                 label: 'Java SDK',
                 href: 'https://github.com/lucidtechAI/las-sdk-java',
+              },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/lucidtechAI',
               },
             ],
           },

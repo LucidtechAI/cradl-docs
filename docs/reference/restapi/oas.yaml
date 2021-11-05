@@ -1889,6 +1889,41 @@ components:
         modelId:
           pattern: ^las:model:[a-f0-9]{32}$
           type: string
+<<<<<<< HEAD
+=======
+        postprocessConfig:
+          oneOf:
+          - additionalProperties: false
+            properties:
+              strategy:
+                enum:
+                - BEST_FIRST
+                type: string
+            required:
+            - strategy
+            type: object
+          - additionalProperties: false
+            properties:
+              parameters:
+                properties:
+                  collapse:
+                    type: boolean
+                  n:
+                    maximum: 3
+                    minimum: 1
+                    type: integer
+                required:
+                - n
+                type: object
+              strategy:
+                enum:
+                - BEST_N_PAGES
+                type: string
+            required:
+            - parameters
+            - strategy
+            type: object
+>>>>>>> 0277aab (Merge)
       required:
       - documentId
       - modelId
@@ -3061,7 +3096,11 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
+<<<<<<< HEAD
   version: '2021-10-27T14:20:59Z'
+=======
+  version: '2021-11-04T16:27:16Z'
+>>>>>>> 0277aab (Merge)
 openapi: 3.0.1
 paths:
   /appClients:
