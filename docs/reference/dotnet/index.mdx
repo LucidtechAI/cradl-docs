@@ -3,16 +3,16 @@ import Latest from './latest.md'
 # .NET
 
 ## Installation
-The .NET SDK for Lucidtech AI Services (LAS) can be downloaded from 
+The .NET SDK for Lucidtech AI Services (LAS) can be downloaded from
 [nuget](https://www.nuget.org/packages/Lucidtech.Las)
 
 ```commandline
-$ dotnet add package Lucidtech.Las
+dotnet add package Lucidtech.Las
 ```
 
 
-## Getting started 
-After Lucidtech.Las is installed and you have received credentials, 
+## Getting started
+After Lucidtech.Las is installed and you have received credentials,
 you are ready to enhance your document-flow with the las client:
 ```cs
 using System;
@@ -23,7 +23,7 @@ var models = client.ListModels();
 var documents = client.ListDocuments();
 var workflows = client.ListWorkflows();
 ```
-If you are new to LAS we recommend you to check out the [key concepts](../../concepts/models.mdx) 
+If you are new to LAS we recommend you to check out the [key concepts](../../concepts/models.mdx)
 for a better understanding of what is possible with LAS.
 
 The .NET SDK is open-source, and the code can be found [here](https://github.com/LucidtechAI/las-sdk-net).

@@ -1,15 +1,15 @@
 ---
-sidebar_position: 8
+sidebar_position: 3
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Use model
+# Process documents
 
 After your model has been trained, it can be used and tested to make [predictions](../concepts/predictions.mdx). Assuming [good quality](../concepts/training-data.mdx#data-quality) input data has been used for training, you should see excellent predictions for your documents.
 
-To make a prediction using a model, we need to provide a document id and a model id. We already have the id of our model, so let's upload a document to make a prediction on. 
+To make a prediction using a model, we need to provide a document id and a model id. We already have the id of our model, so let's upload a document to make a prediction on.
 
 <Tabs groupId="programming-language">
 <TabItem value="cli" label="CLI" default>
@@ -106,4 +106,3 @@ prediction = client.create_prediction(document_id=<documentId>, model_id=<modelI
   "inferenceTime": 2.7935566902160645
 }
 ```
-
