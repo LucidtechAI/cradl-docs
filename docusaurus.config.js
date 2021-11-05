@@ -7,13 +7,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Cradl documentation',
-  tagline: 'Dinosaurs are cool',
+  tagline: 'AI-powered data capture APIs for any document',
   url: 'https://docs.cradl.ai',
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.png',
-  organizationName: 'lucidtechAI', // Usually your GitHub org/user name.
+  organizationName: 'LucidtechAI', // Usually your GitHub org/user name.
   projectName: 'cradl-docs', // Usually your repo name.
   plugins: ['docusaurus-plugin-sass', require.resolve('docusaurus-lunr-search')],
   presets: [
@@ -26,12 +26,6 @@ const config = {
           routeBasePath: '/',
           sidebarCollapsed: false,
           sidebarCollapsible: false,
-          editUrl: 'https://github.com/lucidtechAI/cradl-docs/edit/master/docs/',
-        },
-        blog: {
-          showReadingTime: true,
-          editUrl:
-            'https://github.com/lucidtechAI/cradl-docs/edit/master/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -68,7 +62,7 @@ const config = {
           alt: 'Cradl AI logo',
           src: 'img/logo-light_mode.svg',
           srcDark: 'img/logo-dark_mode.svg',
-          href: 'https://docs.cradl.ai/',
+          href: '/',
           target: '_self',
         },
         items: [
