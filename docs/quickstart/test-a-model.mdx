@@ -22,7 +22,7 @@ las predictions create <documentId> <modelId> # use the documentId from the prev
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'https://api.cradl.ai/v1/documents' \
+curl -X POST 'https://api.lucidtech.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -30,7 +30,7 @@ curl -X POST 'https://api.cradl.ai/v1/documents' \
     "contentType": "application/pdf",
 }'
 
-curl -X POST 'https://api.cradl.ai/v1/predictions' \
+curl -X POST 'https://api.lucidtech.ai/v1/predictions' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "documentId": <documentId>,

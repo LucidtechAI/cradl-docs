@@ -24,7 +24,7 @@ las models create-data-bundle --name "Initial data report" <modelId> <datasetId>
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'https://api.cradl.ai/v1/models/<model id>/dataBundles' \
+curl -X POST 'https://api.lucidtech.ai/v1/models/<model id>/dataBundles' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "modelId": <modelId>,
@@ -82,7 +82,7 @@ las models list-data-bundles <modelId>
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl 'https://api.cradl.ai/v1/models/<modelId>/dataBundles'
+curl 'https://api.lucidtech.ai/v1/models/<modelId>/dataBundles'
 ```
 
 </TabItem>
