@@ -49,7 +49,7 @@ const config = {
           }
         ],
         theme: {
-          primaryColor: '#1890ff',
+          primaryColor: '#5f59f7',
           redocOptions: { hideDownloadButton: false },
         },
       },
