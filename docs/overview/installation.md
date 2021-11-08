@@ -23,8 +23,10 @@ las --help
 
 ```bash
 pip install lucidtech-las
-# How to import the sdk-client in python
-from lucidtech.las import client
+```
+Now open your python shell and import the client from the sdk in the following manner.
+```python
+from las import Client
 ```
 
 ## Postman
