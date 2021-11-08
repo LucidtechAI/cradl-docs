@@ -34,9 +34,9 @@ jobs:
           pip install -r requirements.docs.txt
           pip install tox
           make docs
-          rm -rf docs/static/python-docs/
-          mv docs ../docs/static/python-docs
-          git add ../docs/static/python-docs
+          rm -rf ../static/python-docs/
+          mv docs ../static/python-docs
+          git add ../static/python-docs
 
       - name: Check out java sdk
         uses: actions/checkout@master
