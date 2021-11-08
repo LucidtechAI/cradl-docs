@@ -34,7 +34,7 @@ jobs:
           pip install -r requirements.docs.txt
           pip install tox
           make docs
-          mv docs/las.md ../docs/reference/sdks/python/latest.md
+          mv docs ../docs/static/python-docs
 
       - name: Check out java sdk
         uses: actions/checkout@master
