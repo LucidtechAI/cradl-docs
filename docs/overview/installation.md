@@ -13,7 +13,8 @@ Our CLI allows you to access Cradl from the command line.
 **Prerequisites:** Python and pip
 
 ```bash
-$ pip install lucidtech-las-cli
+pip install lucidtech-las-cli
+las --help
 ```
 
 ## Python SDK
@@ -21,7 +22,11 @@ $ pip install lucidtech-las-cli
 **Prerequisites:** Python and pip
 
 ```bash
-$ pip install lucidtech-las
+pip install lucidtech-las
+```
+Now open your python shell and import the client from the sdk in the following manner.
+```python
+from las import Client
 ```
 
 ## Postman
@@ -32,4 +37,4 @@ You can find the Open API specification file in [JSON](pathname:///oas.json) or 
 
 We also have SDK's in Java, JavaScript and .NET. See references section for detailed use of every SDK
 
-- [Python](../reference/sdks/python/index.mdx)
+- [Python](../reference/sdks/python.mdx)
