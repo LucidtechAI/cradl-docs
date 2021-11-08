@@ -48,11 +48,9 @@ jobs:
         run: |
           cd java-sdk
           doxygen
-          sed -i 's/inline="yes"/inline="no"/g' xml/* # Remove inline
-          npx moxygen xml -o docs.md
-          sed -i 's/`\[MissingAccessTokenException\](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_missing_access_token_exception)`/\[`MissingAccessTokenException`\](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_missing_access_token_exception)/g' docs.md
-          sed -i 's/`\[APIException\](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_a_p_i_exception)`/\[`APIException`\](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_a_p_i_exception)/g' docs.md
-          mv docs.md ../docs/reference/sdks/java/latest.md
+          rm -rf ../static/java-docs/
+          mv html ../static/java-docs
+          git add ../static/java-docs
 
       - name: Check out .NET sdk
         uses: actions/checkout@master
@@ -63,14 +61,10 @@ jobs:
       - name: .NET SDK
         run: |
           cd net-sdk
-          doxygen documentation.conf
-          sed -i 's/inline="yes"/inline="no"/g' xml/* # Remove inline
-          npx moxygen xml
-          # sed -i '/^## Summary/,/^## Members/{/^## Summary/!{/^## Members/!d}}' api.md
-          # sed -i 's/` `/ /g' api.md
-          # perl -pi -e 's|(\(\#class.*?\))||' api.md # Remove identifier, use pearl to get a non-greedy match
-          # grep -v '^## Summary$' api.md > api_clean.md
-          mv api.md ../docs/reference/sdks/dotnet/latest.md
+          doxygen
+          rm -rf ../static/dotnet-docs/
+          mv html ../static/dotnet-docs
+          git add ../static/dotnet-docs
 
       - name: Check out java-script sdk
         uses: actions/checkout@master
