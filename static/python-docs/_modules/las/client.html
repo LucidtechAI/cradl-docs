@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>las.client &mdash; las  documentation</title>
+  <title>las.client &mdash; las-sdk-python  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -24,7 +24,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> las
+            <a href="../../index.html" class="icon icon-home"> las-sdk-python
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -45,7 +45,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">las</a>
+          <a href="../../index.html">las-sdk-python</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -93,9 +93,9 @@
 <span class="n">Queryparam</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 
 
-<span class="k">def</span> <span class="nf">dictstrip</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+<div class="viewcode-block" id="dictstrip"><a class="viewcode-back" href="../../las.client.html#las.dictstrip">[docs]</a><span class="k">def</span> <span class="nf">dictstrip</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Given a dict, return the dict with keys mapping to falsey values removed.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="p">}</span></div>
 
 
 <span class="k">def</span> <span class="nf">_fatal_code</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
@@ -135,7 +135,7 @@
     <span class="k">return</span> <span class="n">guessed_type</span><span class="o">.</span><span class="n">mime</span>
 
 
-<span class="nd">@singledispatch</span>
+<div class="viewcode-block" id="parse_content"><a class="viewcode-back" href="../../las.client.html#las.parse_content">[docs]</a><span class="nd">@singledispatch</span>
 <span class="k">def</span> <span class="nf">parse_content</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">find_content_type</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
         <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
@@ -146,7 +146,7 @@
             <span class="s1">&#39;3. Bytes object without b64encoding&#39;</span><span class="p">,</span>
             <span class="s1">&#39;4. IO Stream of either bytes or text&#39;</span><span class="p">,</span>
         <span class="p">])</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
 
 
 <span class="nd">@parse_content</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
@@ -176,35 +176,35 @@
     <span class="k">return</span> <span class="n">b64encode</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="n">content_type</span>
 
 
-<span class="k">class</span> <span class="nc">ClientException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="ClientException"><a class="viewcode-back" href="../../las.client.html#las.ClientException">[docs]</a><span class="k">class</span> <span class="nc">ClientException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A ClientException is raised if the client refuses to</span>
 <span class="sd">    send request due to incorrect usage or bad request data.&quot;&quot;&quot;</span>
-    <span class="k">pass</span>
+    <span class="k">pass</span></div>
 
 
-<span class="k">class</span> <span class="nc">InvalidCredentialsException</span><span class="p">(</span><span class="n">ClientException</span><span class="p">):</span>
+<div class="viewcode-block" id="InvalidCredentialsException"><a class="viewcode-back" href="../../las.client.html#las.InvalidCredentialsException">[docs]</a><span class="k">class</span> <span class="nc">InvalidCredentialsException</span><span class="p">(</span><span class="n">ClientException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An InvalidCredentialsException is raised if api key, access key id or secret access key is invalid.&quot;&quot;&quot;</span>
-    <span class="k">pass</span>
+    <span class="k">pass</span></div>
 
 
-<span class="k">class</span> <span class="nc">TooManyRequestsException</span><span class="p">(</span><span class="n">ClientException</span><span class="p">):</span>
+<div class="viewcode-block" id="TooManyRequestsException"><a class="viewcode-back" href="../../las.client.html#las.TooManyRequestsException">[docs]</a><span class="k">class</span> <span class="nc">TooManyRequestsException</span><span class="p">(</span><span class="n">ClientException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A TooManyRequestsException is raised if you have reached the number of requests per second limit</span>
 <span class="sd">    associated with your credentials.&quot;&quot;&quot;</span>
-    <span class="k">pass</span>
+    <span class="k">pass</span></div>
 
 
-<span class="k">class</span> <span class="nc">LimitExceededException</span><span class="p">(</span><span class="n">ClientException</span><span class="p">):</span>
+<div class="viewcode-block" id="LimitExceededException"><a class="viewcode-back" href="../../las.client.html#las.LimitExceededException">[docs]</a><span class="k">class</span> <span class="nc">LimitExceededException</span><span class="p">(</span><span class="n">ClientException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A LimitExceededException is raised if you have reached the limit of total requests per month</span>
 <span class="sd">    associated with your credentials.&quot;&quot;&quot;</span>
-    <span class="k">pass</span>
+    <span class="k">pass</span></div>
 
 
-<span class="k">class</span> <span class="nc">FileFormatException</span><span class="p">(</span><span class="n">ClientException</span><span class="p">):</span>
+<div class="viewcode-block" id="FileFormatException"><a class="viewcode-back" href="../../las.client.html#las.FileFormatException">[docs]</a><span class="k">class</span> <span class="nc">FileFormatException</span><span class="p">(</span><span class="n">ClientException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A FileFormatException is raised if the file format is not supported by the api.&quot;&quot;&quot;</span>
-    <span class="k">pass</span>
+    <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="Client"><a class="viewcode-back" href="../../las.html#las.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">:</span>
+<div class="viewcode-block" id="Client"><a class="viewcode-back" href="../../las.client.html#las.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A low level client to invoke api methods from Lucidtech AI Services.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credentials</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Credentials</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;:param credentials: Credentials to use, instance of :py:class:`~las.Credentials`</span>
@@ -238,7 +238,7 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">_json_decode</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Client.create_app_client"><a class="viewcode-back" href="../../las.html#las.Client.create_app_client">[docs]</a>    <span class="k">def</span> <span class="nf">create_app_client</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.create_app_client"><a class="viewcode-back" href="../../las.client.html#las.Client.create_app_client">[docs]</a>    <span class="k">def</span> <span class="nf">create_app_client</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">generate_secret</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">logout_urls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -283,7 +283,7 @@
         <span class="n">body</span><span class="p">[</span><span class="s1">&#39;generateSecret&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">generate_secret</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/appClients&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.list_app_clients"><a class="viewcode-back" href="../../las.html#las.Client.list_app_clients">[docs]</a>    <span class="k">def</span> <span class="nf">list_app_clients</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.list_app_clients"><a class="viewcode-back" href="../../las.client.html#las.Client.list_app_clients">[docs]</a>    <span class="k">def</span> <span class="nf">list_app_clients</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;List appClients available, calls the GET /appClients endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -306,7 +306,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/appClients&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_app_client"><a class="viewcode-back" href="../../las.html#las.Client.update_app_client">[docs]</a>    <span class="k">def</span> <span class="nf">update_app_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_client_id</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.update_app_client"><a class="viewcode-back" href="../../las.client.html#las.Client.update_app_client">[docs]</a>    <span class="k">def</span> <span class="nf">update_app_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_client_id</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Updates an appClient, calls the PATCH /appClients/{appClientId} endpoint.</span>
 
 <span class="sd">        :param app_client_id: Id of the appClient</span>
@@ -323,7 +323,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/appClients/</span><span class="si">{</span><span class="n">app_client_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">optional_args</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.delete_app_client"><a class="viewcode-back" href="../../las.html#las.Client.delete_app_client">[docs]</a>    <span class="k">def</span> <span class="nf">delete_app_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_client_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.delete_app_client"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_app_client">[docs]</a>    <span class="k">def</span> <span class="nf">delete_app_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_client_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Delete the appClient with the provided appClientId, calls the DELETE /appClients/{appClientId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -340,7 +340,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/appClients/</span><span class="si">{</span><span class="n">app_client_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.create_asset"><a class="viewcode-back" href="../../las.html#las.Client.create_asset">[docs]</a>    <span class="k">def</span> <span class="nf">create_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">Content</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.create_asset"><a class="viewcode-back" href="../../las.client.html#las.Client.create_asset">[docs]</a>    <span class="k">def</span> <span class="nf">create_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">Content</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates an asset, calls the POST /assets endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -366,7 +366,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/assets&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.list_assets"><a class="viewcode-back" href="../../las.html#las.Client.list_assets">[docs]</a>    <span class="k">def</span> <span class="nf">list_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.list_assets"><a class="viewcode-back" href="../../las.client.html#las.Client.list_assets">[docs]</a>    <span class="k">def</span> <span class="nf">list_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;List assets available, calls the GET /assets endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -389,7 +389,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/assets&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.get_asset"><a class="viewcode-back" href="../../las.html#las.Client.get_asset">[docs]</a>    <span class="k">def</span> <span class="nf">get_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.get_asset"><a class="viewcode-back" href="../../las.client.html#las.Client.get_asset">[docs]</a>    <span class="k">def</span> <span class="nf">get_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get asset, calls the GET /assets/{assetId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -406,7 +406,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/assets/</span><span class="si">{</span><span class="n">asset_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_asset"><a class="viewcode-back" href="../../las.html#las.Client.update_asset">[docs]</a>    <span class="k">def</span> <span class="nf">update_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.update_asset"><a class="viewcode-back" href="../../las.client.html#las.Client.update_asset">[docs]</a>    <span class="k">def</span> <span class="nf">update_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Updates an asset, calls the PATCH /assets/{assetId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -435,7 +435,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/assets/</span><span class="si">{</span><span class="n">asset_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">optional_args</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.delete_asset"><a class="viewcode-back" href="../../las.html#las.Client.delete_asset">[docs]</a>    <span class="k">def</span> <span class="nf">delete_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.delete_asset"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_asset">[docs]</a>    <span class="k">def</span> <span class="nf">delete_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Delete the asset with the provided asset_id, calls the DELETE /assets/{assetId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -452,7 +452,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/assets/</span><span class="si">{</span><span class="n">asset_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.create_dataset"><a class="viewcode-back" href="../../las.html#las.Client.create_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">create_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.create_dataset"><a class="viewcode-back" href="../../las.client.html#las.Client.create_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">create_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates a dataset, calls the POST /datasets endpoint.</span>
 
 <span class="sd">        :param name: Name of the dataset</span>
@@ -467,7 +467,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/datasets&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">optional_args</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.list_datasets"><a class="viewcode-back" href="../../las.html#las.Client.list_datasets">[docs]</a>    <span class="k">def</span> <span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.list_datasets"><a class="viewcode-back" href="../../las.client.html#las.Client.list_datasets">[docs]</a>    <span class="k">def</span> <span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;List datasets available, calls the GET /datasets endpoint.</span>
 
 <span class="sd">        :param max_results: Maximum number of results to be returned</span>
@@ -486,7 +486,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/datasets&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.get_dataset"><a class="viewcode-back" href="../../las.html#las.Client.get_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.get_dataset"><a class="viewcode-back" href="../../las.client.html#las.Client.get_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get dataset, calls the GET /datasets/{datasetId} endpoint.</span>
 
 <span class="sd">        :param dataset_id: Id of the dataset</span>
@@ -499,7 +499,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/datasets/</span><span class="si">{</span><span class="n">dataset_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_dataset"><a class="viewcode-back" href="../../las.html#las.Client.update_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">update_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_id</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.update_dataset"><a class="viewcode-back" href="../../las.client.html#las.Client.update_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">update_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_id</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Updates a dataset, calls the PATCH /datasets/{datasetId} endpoint.</span>
 
 <span class="sd">        :param dataset_id: Id of the dataset</span>
@@ -516,7 +516,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/datasets/</span><span class="si">{</span><span class="n">dataset_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">optional_args</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.delete_dataset"><a class="viewcode-back" href="../../las.html#las.Client.delete_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">delete_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delete_documents</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.delete_dataset"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">delete_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delete_documents</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Delete the dataset with the provided dataset_id, calls the DELETE /datasets/{datasetId} endpoint.</span>
 
 <span class="sd">        :param dataset_id: Id of the dataset</span>
@@ -534,7 +534,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/datasets/</span><span class="si">{</span><span class="n">dataset_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.create_document"><a class="viewcode-back" href="../../las.html#las.Client.create_document">[docs]</a>    <span class="k">def</span> <span class="nf">create_document</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.create_document"><a class="viewcode-back" href="../../las.client.html#las.Client.create_document">[docs]</a>    <span class="k">def</span> <span class="nf">create_document</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">content</span><span class="p">:</span> <span class="n">Content</span><span class="p">,</span>
         <span class="n">content_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -583,7 +583,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/documents&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">body</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Client.list_documents"><a class="viewcode-back" href="../../las.html#las.Client.list_documents">[docs]</a>    <span class="k">def</span> <span class="nf">list_documents</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.list_documents"><a class="viewcode-back" href="../../las.client.html#las.Client.list_documents">[docs]</a>    <span class="k">def</span> <span class="nf">list_documents</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">consent_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Queryparam</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -619,7 +619,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/documents&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.delete_documents"><a class="viewcode-back" href="../../las.html#las.Client.delete_documents">[docs]</a>    <span class="k">def</span> <span class="nf">delete_documents</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.delete_documents"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_documents">[docs]</a>    <span class="k">def</span> <span class="nf">delete_documents</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">consent_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Queryparam</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -674,7 +674,7 @@
 
         <span class="k">return</span> <span class="n">response</span></div>
 
-<div class="viewcode-block" id="Client.get_document"><a class="viewcode-back" href="../../las.html#las.Client.get_document">[docs]</a>    <span class="k">def</span> <span class="nf">get_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.get_document"><a class="viewcode-back" href="../../las.client.html#las.Client.get_document">[docs]</a>    <span class="k">def</span> <span class="nf">get_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get document, calls the GET /documents/{documentId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -691,7 +691,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/documents/</span><span class="si">{</span><span class="n">document_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_document"><a class="viewcode-back" href="../../las.html#las.Client.update_document">[docs]</a>    <span class="k">def</span> <span class="nf">update_document</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.update_document"><a class="viewcode-back" href="../../las.client.html#las.Client.update_document">[docs]</a>    <span class="k">def</span> <span class="nf">update_document</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">document_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">ground_truth</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># For backwards compatibility reasons, this is placed before the *</span>
@@ -720,7 +720,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/documents/</span><span class="si">{</span><span class="n">document_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">body</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Client.delete_document"><a class="viewcode-back" href="../../las.html#las.Client.delete_document">[docs]</a>    <span class="k">def</span> <span class="nf">delete_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.delete_document"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_document">[docs]</a>    <span class="k">def</span> <span class="nf">delete_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Delete the document with the provided document_id, calls the DELETE /documents/{documentId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -737,7 +737,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/documents/</span><span class="si">{</span><span class="n">document_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.list_logs"><a class="viewcode-back" href="../../las.html#las.Client.list_logs">[docs]</a>    <span class="k">def</span> <span class="nf">list_logs</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.list_logs"><a class="viewcode-back" href="../../las.client.html#las.Client.list_logs">[docs]</a>    <span class="k">def</span> <span class="nf">list_logs</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">workflow_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -783,7 +783,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">params</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Client.get_log"><a class="viewcode-back" href="../../las.html#las.Client.get_log">[docs]</a>    <span class="k">def</span> <span class="nf">get_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.get_log"><a class="viewcode-back" href="../../las.client.html#las.Client.get_log">[docs]</a>    <span class="k">def</span> <span class="nf">get_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;get log, calls the GET /logs/{logId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -800,7 +800,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/logs/</span><span class="si">{</span><span class="n">log_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.create_model"><a class="viewcode-back" href="../../las.html#las.Client.create_model">[docs]</a>    <span class="k">def</span> <span class="nf">create_model</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.create_model"><a class="viewcode-back" href="../../las.client.html#las.Client.create_model">[docs]</a>    <span class="k">def</span> <span class="nf">create_model</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -842,7 +842,7 @@
         <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/models&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.list_models"><a class="viewcode-back" href="../../las.html#las.Client.list_models">[docs]</a>    <span class="k">def</span> <span class="nf">list_models</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.list_models"><a class="viewcode-back" href="../../las.client.html#las.Client.list_models">[docs]</a>    <span class="k">def</span> <span class="nf">list_models</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;List models available, calls the GET /models endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -865,7 +865,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/models&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.get_model"><a class="viewcode-back" href="../../las.html#las.Client.get_model">[docs]</a>    <span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.get_model"><a class="viewcode-back" href="../../las.client.html#las.Client.get_model">[docs]</a>    <span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get a model, calls the GET /models/{modelId} endpoint.</span>
 
 <span class="sd">        :param model_id: The Id of the model</span>
@@ -878,7 +878,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/models/</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_model"><a class="viewcode-back" href="../../las.html#las.Client.update_model">[docs]</a>    <span class="k">def</span> <span class="nf">update_model</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.update_model"><a class="viewcode-back" href="../../las.client.html#las.Client.update_model">[docs]</a>    <span class="k">def</span> <span class="nf">update_model</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -923,7 +923,7 @@
         <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/models/</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.delete_model"><a class="viewcode-back" href="../../las.html#las.Client.delete_model">[docs]</a>    <span class="k">def</span> <span class="nf">delete_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.delete_model"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_model">[docs]</a>    <span class="k">def</span> <span class="nf">delete_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Delete the model with the provided model_id, calls the DELETE /models/{modelId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -940,7 +940,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/models/</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.create_data_bundle"><a class="viewcode-back" href="../../las.html#las.Client.create_data_bundle">[docs]</a>    <span class="k">def</span> <span class="nf">create_data_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">,</span> <span class="n">dataset_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.create_data_bundle"><a class="viewcode-back" href="../../las.client.html#las.Client.create_data_bundle">[docs]</a>    <span class="k">def</span> <span class="nf">create_data_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">,</span> <span class="n">dataset_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates a data bundle, calls the POST /models/{modelId}/dataBundles endpoint.</span>
 
 <span class="sd">        :param model_id: Id of the model</span>
@@ -962,7 +962,7 @@
         <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/models/</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s1">/dataBundles&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.list_data_bundles"><a class="viewcode-back" href="../../las.html#las.Client.list_data_bundles">[docs]</a>    <span class="k">def</span> <span class="nf">list_data_bundles</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.list_data_bundles"><a class="viewcode-back" href="../../las.client.html#las.Client.list_data_bundles">[docs]</a>    <span class="k">def</span> <span class="nf">list_data_bundles</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">model_id</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -989,7 +989,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/models/</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s1">/dataBundles&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_data_bundle"><a class="viewcode-back" href="../../las.html#las.Client.update_data_bundle">[docs]</a>    <span class="k">def</span> <span class="nf">update_data_bundle</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.update_data_bundle"><a class="viewcode-back" href="../../las.client.html#las.Client.update_data_bundle">[docs]</a>    <span class="k">def</span> <span class="nf">update_data_bundle</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">data_bundle_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1013,7 +1013,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/models/</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s1">/dataBundles/</span><span class="si">{</span><span class="n">data_bundle_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">optional_args</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.delete_data_bundle"><a class="viewcode-back" href="../../las.html#las.Client.delete_data_bundle">[docs]</a>    <span class="k">def</span> <span class="nf">delete_data_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data_bundle_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.delete_data_bundle"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_data_bundle">[docs]</a>    <span class="k">def</span> <span class="nf">delete_data_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data_bundle_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Delete the data bundle with the provided data_bundle_id,</span>
 <span class="sd">        calls the DELETE /models/{modelId}/dataBundles/{dataBundleId} endpoint.</span>
 
@@ -1029,7 +1029,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/models/</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s1">/dataBundles/</span><span class="si">{</span><span class="n">data_bundle_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.get_organization"><a class="viewcode-back" href="../../las.html#las.Client.get_organization">[docs]</a>    <span class="k">def</span> <span class="nf">get_organization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organization_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.get_organization"><a class="viewcode-back" href="../../las.client.html#las.Client.get_organization">[docs]</a>    <span class="k">def</span> <span class="nf">get_organization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organization_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get an organization, calls the GET /organizations/{organizationId} endpoint.</span>
 
 <span class="sd">        :param organization_id: The Id of the organization</span>
@@ -1042,7 +1042,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/organizations/</span><span class="si">{</span><span class="n">organization_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_organization"><a class="viewcode-back" href="../../las.html#las.Client.update_organization">[docs]</a>    <span class="k">def</span> <span class="nf">update_organization</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.update_organization"><a class="viewcode-back" href="../../las.client.html#las.Client.update_organization">[docs]</a>    <span class="k">def</span> <span class="nf">update_organization</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">organization_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="o">**</span><span class="n">optional_args</span><span class="p">,</span>
@@ -1063,7 +1063,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/organizations/</span><span class="si">{</span><span class="n">organization_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">optional_args</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.create_prediction"><a class="viewcode-back" href="../../las.html#las.Client.create_prediction">[docs]</a>    <span class="k">def</span> <span class="nf">create_prediction</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.create_prediction"><a class="viewcode-back" href="../../las.client.html#las.Client.create_prediction">[docs]</a>    <span class="k">def</span> <span class="nf">create_prediction</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">document_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1105,7 +1105,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/predictions&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">body</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Client.list_predictions"><a class="viewcode-back" href="../../las.html#las.Client.list_predictions">[docs]</a>    <span class="k">def</span> <span class="nf">list_predictions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.list_predictions"><a class="viewcode-back" href="../../las.client.html#las.Client.list_predictions">[docs]</a>    <span class="k">def</span> <span class="nf">list_predictions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;List predictions available, calls the GET /predictions endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1128,7 +1128,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/predictions&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.create_secret"><a class="viewcode-back" href="../../las.html#las.Client.create_secret">[docs]</a>    <span class="k">def</span> <span class="nf">create_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.create_secret"><a class="viewcode-back" href="../../las.client.html#las.Client.create_secret">[docs]</a>    <span class="k">def</span> <span class="nf">create_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates an secret, calls the POST /secrets endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1154,7 +1154,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/secrets&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.list_secrets"><a class="viewcode-back" href="../../las.html#las.Client.list_secrets">[docs]</a>    <span class="k">def</span> <span class="nf">list_secrets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.list_secrets"><a class="viewcode-back" href="../../las.client.html#las.Client.list_secrets">[docs]</a>    <span class="k">def</span> <span class="nf">list_secrets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;List secrets available, calls the GET /secrets endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1177,7 +1177,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/secrets&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_secret"><a class="viewcode-back" href="../../las.html#las.Client.update_secret">[docs]</a>    <span class="k">def</span> <span class="nf">update_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secret_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.update_secret"><a class="viewcode-back" href="../../las.client.html#las.Client.update_secret">[docs]</a>    <span class="k">def</span> <span class="nf">update_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secret_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Updates an secret, calls the PATCH /secrets/secretId endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1203,7 +1203,7 @@
         <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/secrets/</span><span class="si">{</span><span class="n">secret_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.delete_secret"><a class="viewcode-back" href="../../las.html#las.Client.delete_secret">[docs]</a>    <span class="k">def</span> <span class="nf">delete_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secret_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.delete_secret"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_secret">[docs]</a>    <span class="k">def</span> <span class="nf">delete_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secret_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Delete the secret with the provided secret_id, calls the DELETE /secrets/{secretId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1220,7 +1220,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/secrets/</span><span class="si">{</span><span class="n">secret_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.create_transition"><a class="viewcode-back" href="../../las.html#las.Client.create_transition">[docs]</a>    <span class="k">def</span> <span class="nf">create_transition</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.create_transition"><a class="viewcode-back" href="../../las.client.html#las.Client.create_transition">[docs]</a>    <span class="k">def</span> <span class="nf">create_transition</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">transition_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1275,7 +1275,7 @@
         <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/transitions&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.list_transitions"><a class="viewcode-back" href="../../las.html#las.Client.list_transitions">[docs]</a>    <span class="k">def</span> <span class="nf">list_transitions</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.list_transitions"><a class="viewcode-back" href="../../las.client.html#las.Client.list_transitions">[docs]</a>    <span class="k">def</span> <span class="nf">list_transitions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">transition_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Queryparam</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1308,7 +1308,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">params</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Client.get_transition"><a class="viewcode-back" href="../../las.html#las.Client.get_transition">[docs]</a>    <span class="k">def</span> <span class="nf">get_transition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.get_transition"><a class="viewcode-back" href="../../las.client.html#las.Client.get_transition">[docs]</a>    <span class="k">def</span> <span class="nf">get_transition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get the transition with the provided transition_id, calls the GET /transitions/{transitionId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1325,7 +1325,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/transitions/</span><span class="si">{</span><span class="n">transition_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_transition"><a class="viewcode-back" href="../../las.html#las.Client.update_transition">[docs]</a>    <span class="k">def</span> <span class="nf">update_transition</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.update_transition"><a class="viewcode-back" href="../../las.client.html#las.Client.update_transition">[docs]</a>    <span class="k">def</span> <span class="nf">update_transition</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1377,7 +1377,7 @@
         <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/transitions/</span><span class="si">{</span><span class="n">transition_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.execute_transition"><a class="viewcode-back" href="../../las.html#las.Client.execute_transition">[docs]</a>    <span class="k">def</span> <span class="nf">execute_transition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.execute_transition"><a class="viewcode-back" href="../../las.client.html#las.Client.execute_transition">[docs]</a>    <span class="k">def</span> <span class="nf">execute_transition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Start executing a manual transition, calls the POST /transitions/{transitionId}/executions endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1395,7 +1395,7 @@
         <span class="n">endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/transitions/</span><span class="si">{</span><span class="n">transition_id</span><span class="si">}</span><span class="s1">/executions&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="p">{})</span></div>
 
-<div class="viewcode-block" id="Client.delete_transition"><a class="viewcode-back" href="../../las.html#las.Client.delete_transition">[docs]</a>    <span class="k">def</span> <span class="nf">delete_transition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.delete_transition"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_transition">[docs]</a>    <span class="k">def</span> <span class="nf">delete_transition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Delete the transition with the provided transition_id, calls the DELETE /transitions/{transitionId} endpoint.</span>
 <span class="sd">           Will fail if transition is in use by one or more workflows.</span>
 
@@ -1413,7 +1413,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/transitions/</span><span class="si">{</span><span class="n">transition_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.list_transition_executions"><a class="viewcode-back" href="../../las.html#las.Client.list_transition_executions">[docs]</a>    <span class="k">def</span> <span class="nf">list_transition_executions</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.list_transition_executions"><a class="viewcode-back" href="../../las.client.html#las.Client.list_transition_executions">[docs]</a>    <span class="k">def</span> <span class="nf">list_transition_executions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1461,7 +1461,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">params</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Client.get_transition_execution"><a class="viewcode-back" href="../../las.html#las.Client.get_transition_execution">[docs]</a>    <span class="k">def</span> <span class="nf">get_transition_execution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">execution_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.get_transition_execution"><a class="viewcode-back" href="../../las.client.html#las.Client.get_transition_execution">[docs]</a>    <span class="k">def</span> <span class="nf">get_transition_execution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">execution_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get an execution of a transition, calls the GET /transitions/{transitionId}/executions/{executionId} endpoint</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1481,7 +1481,7 @@
         <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/transitions/</span><span class="si">{</span><span class="n">transition_id</span><span class="si">}</span><span class="s1">/executions/</span><span class="si">{</span><span class="n">execution_id</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_transition_execution"><a class="viewcode-back" href="../../las.html#las.Client.update_transition_execution">[docs]</a>    <span class="k">def</span> <span class="nf">update_transition_execution</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.update_transition_execution"><a class="viewcode-back" href="../../las.client.html#las.Client.update_transition_execution">[docs]</a>    <span class="k">def</span> <span class="nf">update_transition_execution</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">execution_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1533,7 +1533,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">body</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Client.send_heartbeat"><a class="viewcode-back" href="../../las.html#las.Client.send_heartbeat">[docs]</a>    <span class="k">def</span> <span class="nf">send_heartbeat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">execution_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.send_heartbeat"><a class="viewcode-back" href="../../las.client.html#las.Client.send_heartbeat">[docs]</a>    <span class="k">def</span> <span class="nf">send_heartbeat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">execution_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Send heartbeat for a manual execution to signal that we are still working on it.</span>
 <span class="sd">        Must be done at minimum once every 60 seconds or the transition execution will time out,</span>
 <span class="sd">        calls the POST /transitions/{transitionId}/executions/{executionId}/heartbeats endpoint.</span>
@@ -1555,7 +1555,7 @@
         <span class="n">endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/transitions/</span><span class="si">{</span><span class="n">transition_id</span><span class="si">}</span><span class="s1">/executions/</span><span class="si">{</span><span class="n">execution_id</span><span class="si">}</span><span class="s1">/heartbeats&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="p">{})</span></div>
 
-<div class="viewcode-block" id="Client.create_user"><a class="viewcode-back" href="../../las.html#las.Client.create_user">[docs]</a>    <span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">app_client_id</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.create_user"><a class="viewcode-back" href="../../las.client.html#las.Client.create_user">[docs]</a>    <span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">app_client_id</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates a new user, calls the POST /users endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1581,7 +1581,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/users&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">body</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Client.list_users"><a class="viewcode-back" href="../../las.html#las.Client.list_users">[docs]</a>    <span class="k">def</span> <span class="nf">list_users</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.list_users"><a class="viewcode-back" href="../../las.client.html#las.Client.list_users">[docs]</a>    <span class="k">def</span> <span class="nf">list_users</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;List users, calls the GET /users endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1604,7 +1604,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/users&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.get_user"><a class="viewcode-back" href="../../las.html#las.Client.get_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.get_user"><a class="viewcode-back" href="../../las.client.html#las.Client.get_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get information about a specific user, calls the GET /users/{user_id} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1621,7 +1621,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/users/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_user"><a class="viewcode-back" href="../../las.html#las.Client.update_user">[docs]</a>    <span class="k">def</span> <span class="nf">update_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.update_user"><a class="viewcode-back" href="../../las.client.html#las.Client.update_user">[docs]</a>    <span class="k">def</span> <span class="nf">update_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Updates a user, calls the PATCH /users/{userId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1643,7 +1643,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/users/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">optional_args</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.delete_user"><a class="viewcode-back" href="../../las.html#las.Client.delete_user">[docs]</a>    <span class="k">def</span> <span class="nf">delete_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.delete_user"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_user">[docs]</a>    <span class="k">def</span> <span class="nf">delete_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Delete the user with the provided user_id, calls the DELETE /users/{userId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1660,7 +1660,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/users/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.create_workflow"><a class="viewcode-back" href="../../las.html#las.Client.create_workflow">[docs]</a>    <span class="k">def</span> <span class="nf">create_workflow</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.create_workflow"><a class="viewcode-back" href="../../las.client.html#las.Client.create_workflow">[docs]</a>    <span class="k">def</span> <span class="nf">create_workflow</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">specification</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1704,7 +1704,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/workflows&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.list_workflows"><a class="viewcode-back" href="../../las.html#las.Client.list_workflows">[docs]</a>    <span class="k">def</span> <span class="nf">list_workflows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.list_workflows"><a class="viewcode-back" href="../../las.client.html#las.Client.list_workflows">[docs]</a>    <span class="k">def</span> <span class="nf">list_workflows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;List workflows, calls the GET /workflows endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1727,7 +1727,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/workflows&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.get_workflow"><a class="viewcode-back" href="../../las.html#las.Client.get_workflow">[docs]</a>    <span class="k">def</span> <span class="nf">get_workflow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.get_workflow"><a class="viewcode-back" href="../../las.client.html#las.Client.get_workflow">[docs]</a>    <span class="k">def</span> <span class="nf">get_workflow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get the workflow with the provided workflow_id, calls the GET /workflows/{workflowId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1744,7 +1744,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/workflows/</span><span class="si">{</span><span class="n">workflow_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_workflow"><a class="viewcode-back" href="../../las.html#las.Client.update_workflow">[docs]</a>    <span class="k">def</span> <span class="nf">update_workflow</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.update_workflow"><a class="viewcode-back" href="../../las.client.html#las.Client.update_workflow">[docs]</a>    <span class="k">def</span> <span class="nf">update_workflow</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1783,7 +1783,7 @@
         <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/workflows/</span><span class="si">{</span><span class="n">workflow_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.delete_workflow"><a class="viewcode-back" href="../../las.html#las.Client.delete_workflow">[docs]</a>    <span class="k">def</span> <span class="nf">delete_workflow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.delete_workflow"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_workflow">[docs]</a>    <span class="k">def</span> <span class="nf">delete_workflow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Delete the workflow with the provided workflow_id, calls the DELETE /workflows/{workflowId} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1800,7 +1800,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/workflows/</span><span class="si">{</span><span class="n">workflow_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.execute_workflow"><a class="viewcode-back" href="../../las.html#las.Client.execute_workflow">[docs]</a>    <span class="k">def</span> <span class="nf">execute_workflow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.execute_workflow"><a class="viewcode-back" href="../../las.client.html#las.Client.execute_workflow">[docs]</a>    <span class="k">def</span> <span class="nf">execute_workflow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Start a workflow execution, calls the POST /workflows/{workflowId}/executions endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1822,7 +1822,7 @@
         <span class="n">endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/workflows/</span><span class="si">{</span><span class="n">workflow_id</span><span class="si">}</span><span class="s1">/executions&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;input&#39;</span><span class="p">:</span> <span class="n">content</span><span class="p">})</span></div>
 
-<div class="viewcode-block" id="Client.list_workflow_executions"><a class="viewcode-back" href="../../las.html#las.Client.list_workflow_executions">[docs]</a>    <span class="k">def</span> <span class="nf">list_workflow_executions</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.list_workflow_executions"><a class="viewcode-back" href="../../las.client.html#las.Client.list_workflow_executions">[docs]</a>    <span class="k">def</span> <span class="nf">list_workflow_executions</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
             <span class="o">*</span><span class="p">,</span>
@@ -1866,7 +1866,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.get_workflow_execution"><a class="viewcode-back" href="../../las.html#las.Client.get_workflow_execution">[docs]</a>    <span class="k">def</span> <span class="nf">get_workflow_execution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">execution_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.get_workflow_execution"><a class="viewcode-back" href="../../las.client.html#las.Client.get_workflow_execution">[docs]</a>    <span class="k">def</span> <span class="nf">get_workflow_execution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">execution_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get a workflow execution, calls the GET /workflows/{workflow_id}/executions/{execution_id} endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1886,7 +1886,7 @@
         <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/workflows/</span><span class="si">{</span><span class="n">workflow_id</span><span class="si">}</span><span class="s1">/executions/</span><span class="si">{</span><span class="n">execution_id</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_workflow_execution"><a class="viewcode-back" href="../../las.html#las.Client.update_workflow_execution">[docs]</a>    <span class="k">def</span> <span class="nf">update_workflow_execution</span><span class="p">(</span>
+<div class="viewcode-block" id="Client.update_workflow_execution"><a class="viewcode-back" href="../../las.client.html#las.Client.update_workflow_execution">[docs]</a>    <span class="k">def</span> <span class="nf">update_workflow_execution</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">execution_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1918,7 +1918,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">body</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Client.delete_workflow_execution"><a class="viewcode-back" href="../../las.html#las.Client.delete_workflow_execution">[docs]</a>    <span class="k">def</span> <span class="nf">delete_workflow_execution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">execution_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.delete_workflow_execution"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_workflow_execution">[docs]</a>    <span class="k">def</span> <span class="nf">delete_workflow_execution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">execution_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Deletes the execution with the provided execution_id from workflow_id,</span>
 <span class="sd">        calls the DELETE /workflows/{workflowId}/executions/{executionId} endpoint.</span>
 
@@ -1946,7 +1946,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Author.</p>
+    <p>&#169; Copyright 2020, Lucidtech.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

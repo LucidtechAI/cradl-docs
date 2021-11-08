@@ -1,6 +1,15 @@
 las package
 ===========
 
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   las.client
+   las.credentials
+
 Module contents
 ---------------
 
