@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Authentication
 
-Cradl requires you to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our CLI and SDKs will handle authentication automatically, but if you wish to use the REST API, you will need to authenticate manually.
+Cradl requires you to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our CLI and SDKs will handle authentication automatically, but if you wish to use the REST API directly, you will need to authenticate manually.
 
 ## Credentials
 
@@ -70,9 +70,9 @@ Since we are dealing with `client_credentials` we need to specify this in the UR
 Below is an example of getting an access token using cURL in bash.
 
 ```bash
-$ credentials="<your client id here>:<your client secret here>"
-$ base64_encoded_credentials=`echo -n $credentials | base64 -w 0`
-$ curl -X POST https://auth.lucidtech.ai/oauth2/token?grant_type=client_credentials -H "Content-Type: application/x-www-form-urlencoded" -H "Authorization: Basic $base64_encoded_credentials"
+credentials="<your client id here>:<your client secret here>"
+base64_encoded_credentials=`echo -n $credentials | base64 -w 0`
+curl -X POST https://auth.lucidtech.ai/oauth2/token?grant_type=client_credentials -H "Content-Type: application/x-www-form-urlencoded" -H "Authorization: Basic $base64_encoded_credentials"
 ```
 
 If everything is working as expected, the response should look similar to the following:
@@ -100,7 +100,7 @@ After successfully acquiring an access token from the previous step, we are read
 | Authorization | `Bearer <your access token here>` |
 
 ```bash
-$ access_token="<you access token here>"
-$ curl https://api.lucidtech.ai/v1/documents -H "Authorization: Bearer $access_token"
+access_token="<you access token here>"
+curl https://api.lucidtech.ai/v1/documents -H "Authorization: Bearer $access_token"
 ```
 
