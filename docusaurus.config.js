@@ -10,7 +10,7 @@ const config = {
   tagline: 'AI-powered data capture APIs for any document',
   url: 'https://docs.cradl.ai',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.png',
   organizationName: 'LucidtechAI', // Usually your GitHub org/user name.
