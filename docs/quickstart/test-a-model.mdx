@@ -5,7 +5,7 @@ sidebar_position: 3
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Make predictions
+# Making predictions
 
 To test a model you first need to have an active model. Make sure you have the correct **modelId** to the model you want to test.
 
@@ -53,10 +53,38 @@ client.create_prediction(document_id=document['documentId'], model_id='<modelId>
 * Go to the **models** section
 * Select the model you want to test, make sure that the status of the model is **active**.
 * Click on the tab named **Test**
-* Choose **Upload from device** and select a document you want to make predictions on 
+* Choose **Upload from device** and select a document you want to make predictions on
 
 </TabItem>
 </Tabs>
+
+The output should have a structure as shown below
+```json
+{
+  "predictionId": <predictionId>,
+  "modelId": <modelId>,
+  "documentId": <documentId>,
+  "predictions": [
+    {
+      "label": "total_amount",
+      "value": "5154.06",
+      "confidence": 0.9758162361908527
+    },
+    {
+      "label": "purchase_date",
+      "value": "2019-12-23",
+      "confidence": 0.96797316745869735
+    },
+  ],
+  "timestamp": 1629188787,
+  "inferenceTime": 2.7935566902160645
+}
+```
+:::info
+
+See the [confidence section](../concepts/predictions.mdx#confidence) to read more about confidence levels and how you can use them to feel confident in your model's predictions.
+
+:::
 
 
 If you want to learn more about the basics, check out [models](../concepts/models) and [predictions](../concepts/predictions) in the Concepts section
