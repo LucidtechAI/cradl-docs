@@ -6,6 +6,12 @@ sidebar_position: 3
 
 Cradl requires you to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our CLI and SDKs will handle authentication automatically, but if you wish to use the REST API directly, you will need to authenticate manually.
 
+:::tip Quickstart
+
+You can access our API from the [**Cradl App**](https://app.cradl.ai/) without any extra credentials, all you need to do is to [**Sign up**](https://app.cradl.ai/signup).
+
+:::
+
 ## Credentials
 
 **You should acquire a client id and client secret by creating an App client in the Cradl UI before continuing.** The client id and client secret are used to acquire access tokens for authorizing usage of Cradl.
@@ -52,7 +58,7 @@ export LAS_API_ENDPOINT="https://api.lucidtech.ai/v1"
 
 :::tip Get started!
 
-With the credentials in order you are ready to get started with the CLI or any of the SDKs
+With the credentials in order you are ready to get started with the [**CLI**](../reference/cli) or any of the **SDKs**
 
 :::
 ## Getting an access token manually
