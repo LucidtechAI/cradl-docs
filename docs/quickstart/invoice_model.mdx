@@ -5,46 +5,30 @@ sidebar_position: 1
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Training a model
-In this guide you will learn how to train a model that is customized to *your* invoices, and extracts the information *you* need.
+# Training your first model
+In this guide you will learn how to train an invoice model in Cradl that is tailored to these [sample invoices](/sample_invoices.zip).
+
+:::caution
+The sample invoices used for this guide serves only for demonstrational purposes, read more about data quantity and quality [here](../concepts/datasets).
+:::
 
 ### Prerequisites
-The following prerequisites are required to follow this guide:
-1. A Cradl account. If you don't have one, you can sign up [for free](https://cradl.ai).
-2. A [*dataset*](/concepts/datasets) of 5000 pairs of invoices and ground truths. See [the next section](#2-gather-training-data) for a concrete example.
+The only thing you need to get started is a Cradl account. If you don't have one, you can sign up [for free](https://cradl.ai).
 
 ## 1. Configure your model
 First, we need to create and configure our model.
- 1. In Cradl, go to [**Models**](https://app.cradl.ai/models) > [**New model**](https://app.cradl.ai/models).
+ 1. In Cradl, go to [**Models**](https://app.cradl.ai/models) > [**New model**](https://app.cradl.ai/models/new).
  2. Give your model a name, and add an optional description.
- 3. Add whichever fields you want your model to predict
+ 3. Choose the invoice template and press **Create model**.
+ 4. Make sure that the field names from the template matches the labels in the [sample invoices](/sample_invoices.zip).
 
-:::tip Field templates
-If you need inspiration, you can copy field definitions from one of the provided templates.
+:::info Matching fields
+To train a model, **the field names always need to match the labels** in the data.
 :::
 
-Foobar
-
-   **Field name**: The name of the field you want to extract. You are free to choose any name you like for your field, but keep in mind that the field names need to match the names in your dataset.
-
-   **Description**: An optional description for the field.
-
-   **Vocabulary**: The set of symbols that is allowed in a prediction of this field. Smaller vocabularies reduces training time.
-
-   **Max length**: The maximum number of symbols that a prediction of this field can contain. Shorter sequences reduces training time.
-
-![Add fields in Cradl](/img/use-cases/fields.png)
-
-## 2. Gather training data
-- Prepare training data locally - create pairs of invoices and ground truths as examplified below.
-
-
-:::info
-
-Download a folder with example invoices and ground truths [here](/sample_invoices.zip)
-
-:::
-
+## 2. Upload data
+1. Download the [sample invoices](/sample_invoices.zip) and unzip them to a local folder.
+2. Notice how the files are structured in pairs of images and json. These two components together make up a [**document**](../concepts/documents).
 
 <Tabs>
 <TabItem value="ground-truth" label="invoice-east-repair.json - Ground Truth" default>
@@ -74,21 +58,22 @@ Download a folder with example invoices and ground truths [here](/sample_invoice
 </TabItem>
 </Tabs>
 
-1. Go to [**Datasets**](https://app.cradl.ai/datasets) > [**New dataset**](https://app.cradl.ai/datasets/new).
-2. Go to [**Datasets**](https://app.cradl.ai/datasets) > YourDataset > Upload data.
-3. Select files and click **Start upload**.
-
-![upload data](/img/upload-data-app/upload-documents-cradl-1.png)
+3. Go to [**Datasets**](https://app.cradl.ai/datasets) > [**New dataset**](https://app.cradl.ai/datasets/new), give it a name and press **Create**.
+4. Go to [**Datasets**](https://app.cradl.ai/datasets) > YourDataset > Upload data and upload all the files from the [sample invoices](/sample_invoices.zip).
 
 ## 3. Train your model
-To make sure that your dataset is compatible with the model we will have to create a [data bundle](../concepts/training-data.mdx)
+To make sure that your dataset is compatible with the model we will have to create a [data bundle](../concepts/training-data.mdx).
 
-- Go to **Models > YourModel > Data bundles > Select Data**
-- Give your data bundle a name, and add an optional description.
-- Choose the dataset you want to train on.
-- Choose **Create Data Bundle** and wait for the data bundle summary to appear.
-- Inspect the summary to make sure that the training data is of sufficiently good quality to start training.
-- Go to **Models > YourModel > Training > New training** and choose the data bundle you created in the previous step.
+1. Go to **[Models](https://app.cradl.ai/models) > YourModel > Data bundles > Select Data**.
+2. Give your data bundle a name, and add an optional description.
+3. Choose the dataset you want to train on.
+4. Press **Create Data Bundle** and wait for the data bundle summary to appear.
+5. Inspect the summary to make sure that the training data is of sufficiently good quality to start training.
+6. Go to **[Models](https://app.cradl.ai/models) > YourModel > Training > New training** and choose the data bundle you created in the previous step.
 
-Congratulations! Your model will now be tailored to your data.
-You will be notified when your model is trained and ready to use.
+Congratulations! You have now requested a training. You will be notified when your model is trained and ready to use.
+
+:::tip
+Make some predictions on the already active community models [here](https://app.cradl.ai/test) to get an impression of how to use an active model.
+:::
+

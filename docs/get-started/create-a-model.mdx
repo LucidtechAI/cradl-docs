@@ -33,6 +33,7 @@ las models create --name "Receipt model" --width 1281 --height 801 --field-confi
 ```bash
 curl -X POST 'https://api.lucidtech.ai/v1/models' \
 --header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
 --data-raw '{
     "fieldConfig": {
       "total_amount": { "type": "amount", "maxLength": 20},

@@ -27,6 +27,12 @@ The credentials file should be placed in the following location, depending on th
 
 The credentials.cfg file should look like the following:
 
+
+:::info
+
+Only the api endpoint should have protocol (https) defined.
+
+:::
 ```ini
 [default]
 client_id = <your client id here>
@@ -44,12 +50,11 @@ export LAS_AUTH_ENDPOINT="auth.lucidtech.ai"
 export LAS_API_ENDPOINT="https://api.lucidtech.ai/v1"
 ```
 
-:::info
+:::tip Get started!
 
-Only the api endpoint should have protocol (https) defined.
+With the credentials in order you are ready to get started with the CLI or any of the SDKs
 
 :::
-
 ## Getting an access token manually
 
 To acquire an access token, we query the auth endpoint for access using our client id and client secret. This is done by performing an HTTP POST request to the token endpoint /oauth2/token with two headers provided. One header is 'Authorization' with base64 encoded client\_id and client secret and one header is 'Content-Type' which will always contain the same value: `application/x-www-form-urlencoded`.
