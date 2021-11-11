@@ -44,9 +44,11 @@ curl -X POST 'https://api.lucidtech.ai/v1/predictions' \
 <TabItem value="python" label="Python">
 
 ```python
+from pathlib import Path
+
 client.list_models() # See what models you have available
 client.get_model('<modelId>') # Make sure that the model is active
-document = client.create_document(b'<bytes data>', 'application/pdf')
+document = client.create_document(Path('document.pdf').read_bytes(), 'application/pdf')
 client.create_prediction(document_id=document['documentId'], model_id='<modelId>')
 ```
 
@@ -89,7 +91,4 @@ See the [confidence section](../concepts/predictions.mdx#confidence) to read mor
 
 :::
 
-
 If you want to learn more about the basics, check out [models](../concepts/models) and [predictions](../concepts/predictions) in the Concepts section.
-
-If you want to see more examples of how you can use your model to process your documents, check out the [Process documents](./serve-a-model) page.

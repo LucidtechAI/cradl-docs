@@ -33,7 +33,7 @@ curl -X POST 'https://api.lucidtech.ai/v1/datasets' \
 <TabItem value="python" label="Python">
 
 ```python
-dataset = client.create_dataset(name='Initial training data')
+dataset = client.create_dataset(name='Receipts', description='Initial training data')
 ```
 
 </TabItem>
@@ -149,8 +149,8 @@ For large-scale datasets we recommend using the `datasets create-documents` comm
 ### Multiple documents in pairs
 In order to upload all the documents in a folder, the following naming convention must be used:
 
-1. each document in the folder must have a corresponding ground truth file in JSON or YAML format.
-2. the ground truth is provided in the following format:
+1. Each document in the folder must have a corresponding ground truth file in JSON or YAML format.
+2. The ground truth is provided in the following format:
 ```json
 [
     {
@@ -178,7 +178,7 @@ my/new/training/data
 ├── invoice_c.png
 └── invoice_c.json
 ```
-When you have structured your data according to these 3 points you are ready to start uploading your data.
+When you have structured your data according to these three points you are ready to start uploading your data.
 
 ```shell
 las datasets create-documents <datasetId> my/new/training/data
@@ -240,11 +240,11 @@ This command handles interruptions gracefully and can be safely restarted withou
 
 From Cradl you can upload data in 3 simple steps.
 
-1. Press `Choose files to upload` in the "Upload data"-section to the right and choose all the files that you want to add to your dataset.
+1. Go to **[Datasets](https://app.cradl.ai/datasets) > YourDataset > Upload Data** and add files you want to upload.
 
 ![Screenshot of upload choice](/img/upload-data-app/upload-documents-cradl-1.png)
 
-2. Verify that the data you want to upload contains ground truth by looking at the "Files selected"-section.
-3. Start uploading your data by pressing `Start upload` in the upper right corner.
+2. Verify that the data you want to upload contains ground truth by looking at the section *Files selected*.
+3. Press **Start upload** in the upper right corner to upload the data.
 
 ![Screenshot of upload status](/img/upload-data-app/upload-documents-cradl-2.png)
