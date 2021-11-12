@@ -28,9 +28,9 @@ curl -X POST 'https://api.lucidtech.ai/v1/models/<model id>/dataBundles' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
-    "modelId": <modelId>,
+    "modelId": "<modelId>",
     "datasetIds": [
-        <datasetId>
+        "<datasetId>"
     ],
     "name": "Initial data report"
 }'
@@ -40,7 +40,7 @@ curl -X POST 'https://api.lucidtech.ai/v1/models/<model id>/dataBundles' \
 <TabItem value="python" label="Python">
 
 ```python
-data_bundle = client.create_data_bundle(model_id=<modelId>, dataset_ids=[<datasetId>], name='Initial data report')
+data_bundle = client.create_data_bundle(model_id="<modelId>", dataset_ids=["<datasetId>"], name='Initial data report')
 ```
 
 </TabItem>
@@ -53,7 +53,7 @@ data_bundle = client.create_data_bundle(model_id=<modelId>, dataset_ids=[<datase
   "name": "Initial data report",
   "datasets": [
     {
-      "datasetId": <datasetId>,
+      "datasetId": "<datasetId>",
       "numberOfDocuments": 3354,
       "createdTime": "2021-08-12T07:18:40.533029+0000",
       "retentionInDays": 1825,
@@ -90,7 +90,7 @@ curl 'https://api.lucidtech.ai/v1/models/<modelId>/dataBundles'
 <TabItem value="python" label="Python">
 
 ```python
-data_bundle = client.list_data_bundles(model_id=<modelId>)
+data_bundle = client.list_data_bundles(model_id="<modelId>")
 ```
 
 </TabItem>
@@ -100,7 +100,7 @@ data_bundle = client.list_data_bundles(model_id=<modelId>)
 {
   "dataBundles": [
     {
-      "dataBundleId": <dataBundleId>,
+      "dataBundleId": "<dataBundleId>",
       "datasets": [...],
       "status": "ready",
       ...,

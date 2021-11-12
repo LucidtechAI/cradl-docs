@@ -86,14 +86,14 @@ curl -X POST 'https://api.lucidtech.ai/v1/documents' \
 --data-raw '{
     "content": "JVBERi0xLjQ...",
     "contentType": "application/pdf",
-    "datasetId": <datasetId>
+    "datasetId": "<datasetId>"
 }'
 
 curl -X PATCH 'https://api.lucidtech.ai/v1/documents/\<documentId\>' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
-    "datasetId": <datasetId>
+    "datasetId": "<datasetId>"
   }'
 ```
 
@@ -101,9 +101,9 @@ curl -X PATCH 'https://api.lucidtech.ai/v1/documents/\<documentId\>' \
 <TabItem value="python" label="Python">
 
 ```python
-document = client.create_document(b'<bytes data>', 'application/pdf', datasetId=<datasetId>)
+document = client.create_document(b'<bytes data>', 'application/pdf', datasetId='<datasetId>')
 # or
-document = client.update_document(<documentId>, datasetId=<datasetId>)
+document = client.update_document('<documentId>', datasetId='<datasetId>')
 ```
 
 </TabItem>
@@ -135,7 +135,7 @@ curl -X DELETE 'https://api.lucidtech.ai/v1/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
-    "datasetId": <datasetId>
+    "datasetId": "<datasetId>"
  }'
 
  curl -X DELETE 'https://api.lucidtech.ai/v1/datasets/<datasetId>' \
@@ -147,7 +147,7 @@ curl -X DELETE 'https://api.lucidtech.ai/v1/documents' \
 <TabItem value="python" label="Python">
 
 ```python
-client.delete_dataset(dataset_id=<datasetId>, delete_documents=True)
+client.delete_dataset(dataset_id="<datasetId>", delete_documents=True)
 ```
 
 </TabItem>

@@ -41,13 +41,13 @@ dataset = client.create_dataset(name='Receipts', description='Initial training d
 
 ```json
 {
-  "datasetId": <datasetId>,
+  "datasetId": "<datasetId>",
   "description": "Initial training data",
   "name": "Receipts",
   "numberOfDocuments": 0,
   "createdTime": "2021-08-16T12:53:13.374930+0000",
   "updatedTime": null,
-  "createdBy": <appClientId>,
+  "createdBy": "<appClientId>",
   "updatedBy": null,
   "retentionInDays": 1825,
   "storageLocation": "EU",
@@ -86,7 +86,7 @@ curl -X POST 'https://api.lucidtech.ai/v1/documents' \
 --data-raw '{
     "content": "JVBERi0xLjQ...",
     "contentType": "application/pdf",
-    "datasetId": <datasetId>,
+    "datasetId": "<datasetId>",
     "groundTruth: [
       {
       "label": "total_amount",
@@ -108,7 +108,7 @@ ground_truth = [
   { 'label': 'total_amount', 'value': '300.00' },
   { 'label': 'date', 'value': '2020-02-28' }
 ]
-document = client.create_document(b'<bytes data>', 'application/pdf', ground_truth=ground_truth, dataset_id=<datasetId>)
+document = client.create_document(b'<bytes data>', 'application/pdf', ground_truth=ground_truth, dataset_id="<datasetId>")
 ```
 
 </TabItem>
@@ -116,14 +116,14 @@ document = client.create_document(b'<bytes data>', 'application/pdf', ground_tru
 
 ```json
 {
-  "documentId": <documentId>,
+  "documentId": "<documentId>",
   "contentType": "application/pdf",
   "retentionInDays": 1825,
   "createdTime": "2021-08-16T13:34:13.724393+0000",
   "updatedTime": null,
-  "createdBy": <appClientId>,
+  "createdBy": "<appClientId>",
   "updatedBy": null,
-  "datasetId": <datasetId>,
+  "datasetId": "<datasetId>",
   "groundTruth": [
     {
       "label": "total_amount",

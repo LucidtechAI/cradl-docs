@@ -34,8 +34,8 @@ curl -X POST 'https://api.lucidtech.ai/v1/predictions' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
-    "documentId": <documentId>,
-    "modelId": <modelId>
+    "documentId": "<documentId>",
+    "modelId": "<modelId>"
 }'
 ```
 
@@ -64,9 +64,9 @@ client.create_prediction(document_id=document['documentId'], model_id='<modelId>
 The output should have a structure as shown below
 ```json
 {
-  "predictionId": <predictionId>,
-  "modelId": <modelId>,
-  "documentId": <documentId>,
+  "predictionId": "<predictionId>",
+  "modelId": "<modelId>",
+  "documentId": "<documentId>",
   "predictions": [
     {
       "label": "total_amount",

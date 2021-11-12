@@ -246,7 +246,7 @@ curl -X POST 'https://api.lucidtech.ai/v1/documents' \
 --data-raw '{
     "content": "JVBERi0xLjQ...",
     "contentType": "application/pdf",
-    "consentId": <consentId>
+    "consentId": "<consentId>"
  }'
 ```
 
@@ -254,7 +254,7 @@ curl -X POST 'https://api.lucidtech.ai/v1/documents' \
 <TabItem value="python" label="Python">
 
 ```python
-document = client.create_document(b'<bytes data>', 'application/pdf', consent_id=<consentId>)
+document = client.create_document(b'<bytes data>', 'application/pdf', consent_id="<consentId>")
 ```
 
 </TabItem>
@@ -284,7 +284,7 @@ curl -X DELETE 'https://api.lucidtech.ai/v1/documents/<documentId>' \
 <TabItem value="python" label="Python">
 
 ```text
-client.delete_document(<documentId>)
+client.delete_document("<documentId>")
 ```
 
 </TabItem>
@@ -307,7 +307,7 @@ curl -X DELETE 'https://api.lucidtech.ai/v1/documents/<documentId>' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
-    "datasetId": <datasetId>
+    "datasetId": "<datasetId>"
  }'
 ```
 
@@ -315,7 +315,7 @@ curl -X DELETE 'https://api.lucidtech.ai/v1/documents/<documentId>' \
 <TabItem value="python" label="Python">
 
 ```python
-client.delete_documents(dataset_id=<datasetId>, delete_all=True)
+client.delete_documents(dataset_id="<datasetId>", delete_all=True)
 ```
 
 </TabItem>
