@@ -5,9 +5,8 @@ slug: /
 
 # What is Cradl?
 
-Cradl is a platform that enables developers to build their own document data capture APIs with deep learning.
-
-Our approach to data capture is quite different than most, and is centered around a single design goal:
+Cradl is a platform where developers can utilize deep learning to capture data from their documents.
+Use your own data to train advanced machine learning models through a simple API.
 
 :::info Design Philosophy
 Be the easiest way for developers to build _customized data capture APIs_ powered by _deep learning models_.
