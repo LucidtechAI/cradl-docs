@@ -13,8 +13,7 @@ To test a model you first need to have an active model. Make sure you have the c
 <TabItem value="cli" label="CLI" default>
 
 ```bash
-las models list # See what models you have available
-las models get <modelId> # Make sure that the model is active
+las models list # Pick an active model for testing
 las documents create receipt.pdf
 las predictions create <documentId> <modelId> # use the documentId from the previous step
 ```
@@ -46,8 +45,7 @@ curl -X POST 'https://api.lucidtech.ai/v1/predictions' \
 ```python
 from pathlib import Path
 
-client.list_models() # See what models you have available
-client.get_model('<modelId>') # Make sure that the model is active
+client.list_models() # Pick an active model for testing
 document = client.create_document(Path('document.pdf').read_bytes(), 'application/pdf')
 client.create_prediction(document_id=document['documentId'], model_id='<modelId>')
 ```
