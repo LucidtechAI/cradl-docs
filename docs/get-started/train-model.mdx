@@ -40,7 +40,7 @@ curl -X POST 'https://api.lucidtech.ai/v1/models/<model id>/dataBundles' \
 <TabItem value="python" label="Python">
 
 ```python
-data_bundle = client.create_data_bundle(model_id="<modelId>", dataset_ids=["<datasetId>"], name='Initial data report')
+data_bundle = client.create_data_bundle(model_id='<modelId>', dataset_ids=['<datasetId>'], name='Initial data report')
 ```
 
 </TabItem>
@@ -90,7 +90,7 @@ curl 'https://api.lucidtech.ai/v1/models/<modelId>/dataBundles'
 <TabItem value="python" label="Python">
 
 ```python
-data_bundle = client.list_data_bundles(model_id="<modelId>")
+data_bundle = client.list_data_bundles(model_id='<modelId>')
 ```
 
 </TabItem>

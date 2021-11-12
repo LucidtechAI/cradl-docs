@@ -42,10 +42,10 @@ curl -X POST 'https://api.lucidtech.ai/v1/models/<modelId>/dataBundles' \
 
 ```python
 data_bundle = client.create_data_bundle(
-    model_id=<model_id>, 
-    dataset_ids=[<datasetId_1>, <datasetId_2>], 
-    name="Invoice model training data v1",
-    description="Training data from first two datasets",
+    model_id='<modelId>', 
+    dataset_ids=['<datasetId_1>', '<datasetId_2>'], 
+    name='Invoice model training data v1',
+    description='Training data from first two datasets',
 )
 ```
 
@@ -97,8 +97,8 @@ curl -X PATCH 'https://api.lucidtech.ai/v1/models/<modelId>/dataBundles/<dataBun
 
 ```python
 data_bundle = client.update_data_bundle(
-    model_id="<modelId>", 
-    data_bundle_id="<dataBundleId>",
+    model_id='<modelId>', 
+    data_bundle_id='<dataBundleId>',
 )
 ```
 
