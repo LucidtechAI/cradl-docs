@@ -124,7 +124,7 @@ ground_truth = [
 ]
 document = client.create_document(b'<bytes data>', 'application/pdf', ground_truth=ground_truth)
 # or
-document = client.update_document(<document_id>, ground_truth=ground_truth)
+document = client.update_document('<documentId>', ground_truth=ground_truth)
 ```
 
 </TabItem>
@@ -254,7 +254,7 @@ curl -X POST 'https://api.lucidtech.ai/v1/documents' \
 <TabItem value="python" label="Python">
 
 ```python
-document = client.create_document(b'<bytes data>', 'application/pdf', consent_id='<consentId>')
+document = client.create_document(b'<bytes data>', 'application/pdf')
 ```
 
 </TabItem>
