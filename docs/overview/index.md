@@ -16,12 +16,7 @@ Be the easiest way for developers to build _customized data capture APIs_ powere
 
 Cradl is built for developers and works best if:
 * You are processing high volumes of semi-structured documents like invoices, receipts, forms, etc.
-* You require high-accuracy data capture
-
-:::tip Need inspiration?
-Check out some of our [use cases](/use-cases)!
-:::
-
+* You require high-accuracy data capture.
 
 ## Key concepts
 Cradl is centered around the following key concepts which you will frequently encounter in these docs:
