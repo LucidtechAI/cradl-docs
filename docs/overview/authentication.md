@@ -6,6 +6,12 @@ sidebar_position: 3
 
 Cradl requires you to authenticate using the [OAuth2 protocol](https://tools.ietf.org/html/rfc6749). Our CLI and SDKs will handle authentication automatically, but if you wish to use the REST API directly, you will need to authenticate manually.
 
+:::tip Quickstart
+
+You can access our API from the [**Cradl App**](https://app.cradl.ai/) without any extra credentials, all you need to do is to [**Sign up**](https://app.cradl.ai/signup).
+
+:::
+
 ## Credentials
 
 **You should acquire a client id and client secret by creating an App client in the Cradl UI before continuing.** The client id and client secret are used to acquire access tokens for authorizing usage of Cradl.
@@ -27,6 +33,12 @@ The credentials file should be placed in the following location, depending on th
 
 The credentials.cfg file should look like the following:
 
+
+:::info
+
+Only the api endpoint should have protocol (https) defined.
+
+:::
 ```ini
 [default]
 client_id = <your client id here>
@@ -44,12 +56,11 @@ export LAS_AUTH_ENDPOINT="auth.lucidtech.ai"
 export LAS_API_ENDPOINT="https://api.lucidtech.ai/v1"
 ```
 
-:::info
+:::tip Get started!
 
-Only the api endpoint should have protocol (https) defined.
+With the credentials in order you are ready to get started with the [**CLI**](../reference/cli) or any of the **SDKs**
 
 :::
-
 ## Getting an access token manually
 
 To acquire an access token, we query the auth endpoint for access using our client id and client secret. This is done by performing an HTTP POST request to the token endpoint /oauth2/token with two headers provided. One header is 'Authorization' with base64 encoded client\_id and client secret and one header is 'Content-Type' which will always contain the same value: `application/x-www-form-urlencoded`.

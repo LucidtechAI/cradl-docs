@@ -27,8 +27,8 @@ las predictions create <documentId> <modelId>
 curl -X POST 'https://api.lucidtech.ai/v1/predictions' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "documentId": "las:document:<documentId>",
-    "modelId": "las:model:<modelId>"
+    "documentId": "<documentId>",
+    "modelId": "<modelId>"
 }'
 ```
 
@@ -36,7 +36,7 @@ curl -X POST 'https://api.lucidtech.ai/v1/predictions' \
 <TabItem value="python" label="Python">
 
 ```python
-prediction = client.create_prediction(document_id=<documentId>, model_id=<modelId>)
+prediction = client.create_prediction(document_id='<documentId>', model_id='<modelId>')
 ```
 
 </TabItem>

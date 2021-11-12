@@ -55,7 +55,7 @@ const config = {
     ({
       colorMode: {
         respectPrefersColorScheme: true,
-        defaultMode: 'dark'
+        defaultMode: 'light'
       },
       navbar: {
         logo: {

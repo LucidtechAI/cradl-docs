@@ -3,30 +3,34 @@ sidebar_position: 2
 ---
 
 # Installation
-
-This guide assumes use of our **CLI** tool, **cURL,** or our **Python SDK**. To install these, follow the relevant steps below.
+:::info Prerequisites
+This installation guide assumes that you have Python 3.6 or higher and pip installed on your system.
+:::
 
 ## Command Line Interface \(CLI\)
-
-Our CLI allows you to access Cradl from the command line.
-
-**Prerequisites:** Python and pip
+Install the CLI from pip:
 
 ```bash
 pip install lucidtech-las-cli
+```
+
+Verify the installation:
+
+```bash
 las --help
 ```
 
 ## Python SDK
-
-**Prerequisites:** Python and pip
+Install our Python SDK from pip:
 
 ```bash
 pip install lucidtech-las
 ```
-Now open your python shell and import the client from the sdk in the following manner.
-```python
-from las import Client
+
+To verify the installation:
+
+```bash
+python -c 'from las import Client'
 ```
 
 ## Postman
