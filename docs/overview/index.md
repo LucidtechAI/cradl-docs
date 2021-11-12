@@ -34,7 +34,7 @@ Cradl is centered around the following key concepts which you will frequently en
 2. [**Documents**](/concepts/documents). A semi-structured document in a PDF or image format. Any language and any layout.
 3. [**Datasets**](/concepts/datasets). A dataset consists of many (typically thousands) of documents that are used to train a specific model. 
 4. [**Data bundles**](/concepts/training-data). A data bundle is a collection of one or more datasets and is bound to a specific model.
-5. [**Predictions**](/concepts/predictions). When your model is trained on a dataset, it can start capturing data from new and previously unseen documents.
+5. [**Predictions**](/concepts/predictions). When your model has finished training using your **Data Bundle** it can start capturing data from new and previously unseen documents.
 
 ## Getting started
 Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a free account, and start building.
