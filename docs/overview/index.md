@@ -15,12 +15,9 @@ Be the easiest way for developers to build _customized data capture APIs_ powere
 
 ## Who is Cradl for?
 
-Cradl is built for developers, and is used by developers e.g. in _financial institutions_, _public sector_, large newspapers and in ERP software companies. If your company:
-
-* process high volumes of semi-structured documents like invoices, receipts, forms, etc.
-* require high-accuracy data capture
-
-then Cradl is for you.
+Cradl is built for developers and works best if:
+* You are processing high volumes of semi-structured documents like invoices, receipts, forms, etc.
+* You require high-accuracy data capture
 
 :::tip Need inspiration?
 Check out some of our [use cases](/use-cases)!
