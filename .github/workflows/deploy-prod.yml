@@ -25,7 +25,7 @@ jobs:
 
       - name: Build
         run: |
-          npm ci && npm run build
+          npm install && npm run build
 
       - name: Deploy
         env:

@@ -34,9 +34,8 @@ jobs:
           pip install -r requirements.docs.txt
           pip install tox
           make docs
-          rm -rf ../static/python-docs/
+          rm -r ../static/python-docs/
           mv docs ../static/python-docs
-          git add ../static/python-docs
 
       - name: Check out java sdk
         uses: actions/checkout@master
@@ -63,7 +62,7 @@ jobs:
       - name: .NET SDK
         run: |
           cd net-sdk
-          doxygen documentation.conf
+          doxygen
           sed -i 's/inline="yes"/inline="no"/g' xml/* # Remove inline
           npx moxygen xml
           # sed -i '/^## Summary/,/^## Members/{/^## Summary/!{/^## Members/!d}}' api.md
@@ -78,14 +77,14 @@ jobs:
           repository: LucidtechAI/las-sdk-js
           path: js-sdk
 
-      - name: JavaScript SDK
-        run: |
-          cd js-sdk
-          npm install && npm run upgrade-lucidtech
-          npm run docs
-          # Remove links to source code lines
-          sed -i -E -e '/Defined in.*/d' -e '/\[.+\]\(.+#L.+\)/d' docs.md
-          mv docs.md ../docs/reference/sdks/js/latest.md
+#     - name: JavaScript SDK
+#       run: |
+#         cd js-sdk
+#         npm install && npm run upgrade-lucidtech
+#         npm run docs
+#         # Remove links to source code lines
+#         sed -i -E -e '/Defined in.*/d' -e '/\[.+\]\(.+#L.+\)/d' docs.md
+#         mv docs.md ../docs/reference/sdks/js/latest.md
 
       - name: Clean up
         run: |
