@@ -92,7 +92,6 @@ jobs:
           rm -rf python-sdk
           rm -rf js-sdk
           rm -rf net-sdk
-          rm package-lock.json
           rm -rf node_modules
 
       - name: Create Pull Request
