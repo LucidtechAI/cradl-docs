@@ -65,7 +65,7 @@ jobs:
       - name: .NET SDK
         run: |
           cd net-sdk
-          doxygen documentation.conf
+          doxygen
           sed -i 's/inline="yes"/inline="no"/g' xml/* # Remove inline
           npx moxygen xml
           # sed -i '/^## Summary/,/^## Members/{/^## Summary/!{/^## Members/!d}}' api.md
