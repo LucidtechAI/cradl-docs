@@ -34,11 +34,8 @@ jobs:
           pip install -r requirements.docs.txt
           pip install tox
           make docs
-          echo Docs 
           rm -r ../static/python-docs/
-          echo delete
           mv docs ../static/python-docs
-          echo moved 
 
       - name: Check out java sdk
         uses: actions/checkout@master
@@ -83,10 +80,14 @@ jobs:
       - name: JavaScript SDK
         run: |
           cd js-sdk
+          echo moved 
           npm install && npm run upgrade-lucidtech
+          echo installed
           npm run docs
+          echo docsRunned
           # Remove links to source code lines
           sed -i -E -e '/Defined in.*/d' -e '/\[.+\]\(.+#L.+\)/d' docs.md
+          echo SED
           mv docs.md ../docs/reference/sdks/js/latest.md
 
       - name: Clean up
