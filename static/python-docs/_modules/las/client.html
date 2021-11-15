@@ -116,8 +116,16 @@
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Status code </span><span class="si">{}</span><span class="s1"> body:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
 
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">400</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">BadRequest</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">403</span> <span class="ow">and</span> <span class="s1">&#39;Forbidden&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">raise</span> <span class="n">InvalidCredentialsException</span><span class="p">(</span><span class="s1">&#39;Credentials provided are not valid.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">429</span> <span class="ow">and</span> <span class="s1">&#39;Too Many Requests&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">raise</span> <span class="n">TooManyRequestsException</span><span class="p">(</span><span class="s1">&#39;You have reached the limit of requests per second.&#39;</span><span class="p">)</span>
@@ -196,6 +204,16 @@
 <div class="viewcode-block" id="LimitExceededException"><a class="viewcode-back" href="../../las.client.html#las.LimitExceededException">[docs]</a><span class="k">class</span> <span class="nc">LimitExceededException</span><span class="p">(</span><span class="n">ClientException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A LimitExceededException is raised if you have reached the limit of total requests per month</span>
 <span class="sd">    associated with your credentials.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="BadRequest"><a class="viewcode-back" href="../../las.client.html#las.BadRequest">[docs]</a><span class="k">class</span> <span class="nc">BadRequest</span><span class="p">(</span><span class="n">ClientException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;BadRequest is raised if you have made a request that is disqualified based on the input&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="NotFound"><a class="viewcode-back" href="../../las.client.html#las.NotFound">[docs]</a><span class="k">class</span> <span class="nc">NotFound</span><span class="p">(</span><span class="n">ClientException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;NotFound is raised when you try to access a resource that is not found&quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
 
@@ -1071,6 +1089,7 @@
         <span class="n">max_pages</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">auto_rotate</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">image_quality</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">postprocess_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Create a prediction on a document using specified model, calls the POST /predictions endpoint.</span>
 
@@ -1087,9 +1106,22 @@
 <span class="sd">        :param auto_rotate: Whether or not to let the API try different rotations on\</span>
 <span class="sd">            the document when running predictions</span>
 <span class="sd">        :type auto_rotate: bool, optional</span>
-<span class="sd">        :param image_quality: image quality for prediction &quot;LOW|HIGH&quot;. \</span>
+<span class="sd">        :param image_quality: Image quality for prediction &quot;LOW|HIGH&quot;. \</span>
 <span class="sd">            high quality could give better result but will also take longer time.</span>
 <span class="sd">        :type image_quality: int, optional</span>
+<span class="sd">        :param postprocess_config: Post processing configuration for prediction.</span>
+<span class="sd">            {</span>
+<span class="sd">                &#39;strategy&#39;: &#39;BEST_FIRST&#39; | &#39;BEST_N_PAGES&#39;,  (required)</span>
+<span class="sd">                &#39;parameters&#39;: {                             (required if strategy=BEST_N_PAGES, omit otherwise)</span>
+<span class="sd">                    &#39;n&#39;: int,                               (required if strategy=BEST_N_PAGES, omit otherwise)</span>
+<span class="sd">                    &#39;collapse&#39;: True | False                (optional if strategy=BEST_N_PAGES, omit otherwise)</span>
+<span class="sd">                }</span>
+<span class="sd">            }</span>
+<span class="sd">            Examples:</span>
+<span class="sd">            {&#39;strategy&#39;: &#39;BEST_FIRST&#39;}</span>
+<span class="sd">            {&#39;strategy&#39;: &#39;BEST_N_PAGES&#39;, &#39;parameters&#39;: {&#39;n&#39;: 3}}</span>
+<span class="sd">            {&#39;strategy&#39;: &#39;BEST_N_PAGES&#39;, &#39;parameters&#39;: {&#39;n&#39;: 3, &#39;collapse&#39;: False}}</span>
+<span class="sd">        :type postprocess_config: dict, optional</span>
 <span class="sd">        :return: Prediction response from REST API</span>
 <span class="sd">        :rtype: dict</span>
 
@@ -1102,6 +1134,7 @@
             <span class="s1">&#39;maxPages&#39;</span><span class="p">:</span> <span class="n">max_pages</span><span class="p">,</span>
             <span class="s1">&#39;autoRotate&#39;</span><span class="p">:</span> <span class="n">auto_rotate</span><span class="p">,</span>
             <span class="s1">&#39;imageQuality&#39;</span><span class="p">:</span> <span class="n">image_quality</span><span class="p">,</span>
+            <span class="s1">&#39;postprocessConfig&#39;</span><span class="p">:</span> <span class="n">postprocess_config</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/predictions&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">body</span><span class="p">))</span></div>
 

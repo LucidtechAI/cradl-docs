@@ -1,4 +1,4 @@
-# Latest
+# Summary
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
@@ -98,19 +98,19 @@ class ai::lucidtech::las::sdk::APIException
 `public JSONObject `[`listAppClients`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1abd1d1aa5a89f44c7e96ae950f430c679)`(`[`ListAppClientsOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_app_clients_options)` options)` | List appClients available, calls the GET /appClients endpoint.
 `public JSONObject `[`listAppClients`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a1196e062cb382cae5ff92a3120e55522)`()` | List appClients available, calls the GET /appClients endpoint.
 `public JSONObject `[`deleteAppClient`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a5ff507b6f52186e8ecbc042d757c9fce)`(String appClientId)` | Delete an appClient, calls the DELETE /appClients/{appClientId} endpoint.
-`public JSONObject `[`createAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a81740f0c48031ee80a5f330ad2469171)`(byte [] content,`[`CreateAssetOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_asset_options)` options)` | Create an asset, calls the POST /assets endpoint.
+`public JSONObject `[`createAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a81740f0c48031ee80a5f330ad2469171)`(byte[] content,`[`CreateAssetOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_asset_options)` options)` | Create an asset, calls the POST /assets endpoint.
 `public JSONObject `[`createAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a2bb92bb23b32701d31ac242555f86969)`(InputStream content,`[`CreateAssetOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_asset_options)` options)` | Create an asset, calls the POST /assets endpoint.
-`public JSONObject `[`createAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a793e80233e2a3f438e9c1a9d8bdbb987)`(byte [] content)` | Create an asset, calls the POST /assets endpoint.
+`public JSONObject `[`createAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a793e80233e2a3f438e9c1a9d8bdbb987)`(byte[] content)` | Create an asset, calls the POST /assets endpoint.
 `public JSONObject `[`createAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a921a5e0aaeb4f72b27af1279bb6b593c)`(InputStream content)` | Create an asset, calls the POST /assets endpoint.
 `public JSONObject `[`listAssets`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a4ed339d8860dadb783cf838ba51cb2d9)`(`[`ListAssetsOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_assets_options)` options)` | List assets available, calls the GET /assets endpoint.
 `public JSONObject `[`listAssets`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1adea123f22256156832896e2a65624381)`()` | List assets available, calls the GET /assets endpoint.
 `public JSONObject `[`getAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a9b38d5ce294e44ced1dbff1fd626c965)`(String assetId)` | Get asset, calls the GET /assets/{assetId} endpoint.
 `public JSONObject `[`updateAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a7b25f20184448f0780de690dd4419739)`(String assetId,`[`UpdateAssetOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options)` options)` | Update an asset, calls the PATCH /assets/{assetId} endpoint.
 `public JSONObject `[`deleteAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a6ebb01f58269acc06c34af7793bd2782)`(String assetId)` | Delete an asset, calls the DELETE /assets/{assetId} endpoint.
-`public JSONObject `[`createDocument`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a20f4fcce80169d0d9b5444c13c1ef20f)`(byte [] content,`[`ContentType`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_content_type)` contentType,`[`CreateDocumentOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_document_options)` options)` | Create a document, calls the POST /documents endpoint.
+`public JSONObject `[`createDocument`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a20f4fcce80169d0d9b5444c13c1ef20f)`(byte[] content,`[`ContentType`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_content_type)` contentType,`[`CreateDocumentOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_document_options)` options)` | Create a document, calls the POST /documents endpoint.
 `public JSONObject `[`createDocument`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1ac8925645725cd4cf79fe4d3503d394e7)`(InputStream content,`[`ContentType`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_content_type)` contentType,`[`CreateDocumentOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_document_options)` options)` | Create a document, calls the POST /documents endpoint.
 `public JSONObject `[`createDocument`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1aabaf95b529aad728a0d5543adcec737c)`(InputStream content,`[`ContentType`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_content_type)` contentType)` | Create a document, calls the POST /documents endpoint.
-`public JSONObject `[`createDocument`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a144f0fe029a55ef9491605a5e967974c)`(byte [] content,`[`ContentType`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_content_type)` contentType)` | Create a document, calls the POST /documents endpoint.
+`public JSONObject `[`createDocument`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a144f0fe029a55ef9491605a5e967974c)`(byte[] content,`[`ContentType`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_content_type)` contentType)` | Create a document, calls the POST /documents endpoint.
 `public JSONObject `[`listDocuments`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a51910821bf6df9383a09e9690dd3d891)`(`[`ListDocumentsOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_documents_options)` options)` | List documents, calls the GET /documents endpoint.
 `public JSONObject `[`listDocuments`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a15d880fed0ee9683e7f92c3a9966ba31)`()` | List documents, calls the GET /documents endpoint.
 `public JSONObject `[`deleteDocuments`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1ad749cabcdf8a0d28ffd8e19a78d1ba58)`(`[`DeleteDocumentsOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options)` options)` | Delete documents, calls the DELETE /documents endpoint.
@@ -194,7 +194,7 @@ Create an app client, calls the POST /appClients endpoint.
 Asset response from API 
 
 #### Exceptions
-* IOException General IOException 
+* `IOException` General IOException 
 
 * [`APIException`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_a_p_i_exception) Raised when API returns an erroneous status code 
 
@@ -285,7 +285,7 @@ AppClient response from REST API
 
 * [`MissingAccessTokenException`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_missing_access_token_exception) Raised if access token cannot be obtained
 
-#### `public JSONObject `[`createAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a81740f0c48031ee80a5f330ad2469171)`(byte [] content,`[`CreateAssetOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_asset_options)` options)` 
+#### `public JSONObject `[`createAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a81740f0c48031ee80a5f330ad2469171)`(byte[] content,`[`CreateAssetOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_asset_options)` options)` 
 
 Create an asset, calls the POST /assets endpoint.
 
@@ -327,7 +327,7 @@ Asset response from API
 
 * [`MissingAccessTokenException`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_missing_access_token_exception) Raised if access token cannot be obtained
 
-#### `public JSONObject `[`createAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a793e80233e2a3f438e9c1a9d8bdbb987)`(byte [] content)` 
+#### `public JSONObject `[`createAsset`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a793e80233e2a3f438e9c1a9d8bdbb987)`(byte[] content)` 
 
 Create an asset, calls the POST /assets endpoint.
 
@@ -449,7 +449,7 @@ Asset response from REST API
 
 * [`MissingAccessTokenException`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_missing_access_token_exception) Raised if access token cannot be obtained
 
-#### `public JSONObject `[`createDocument`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a20f4fcce80169d0d9b5444c13c1ef20f)`(byte [] content,`[`ContentType`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_content_type)` contentType,`[`CreateDocumentOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_document_options)` options)` 
+#### `public JSONObject `[`createDocument`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a20f4fcce80169d0d9b5444c13c1ef20f)`(byte[] content,`[`ContentType`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_content_type)` contentType,`[`CreateDocumentOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_document_options)` options)` 
 
 Create a document, calls the POST /documents endpoint.
 
@@ -516,7 +516,7 @@ Document response from REST API
 
 * [`MissingAccessTokenException`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_missing_access_token_exception) Raised if access token cannot be obtained
 
-#### `public JSONObject `[`createDocument`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a144f0fe029a55ef9491605a5e967974c)`(byte [] content,`[`ContentType`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_content_type)` contentType)` 
+#### `public JSONObject `[`createDocument`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_client_1a144f0fe029a55ef9491605a5e967974c)`(byte[] content,`[`ContentType`](#enumai_1_1lucidtech_1_1las_1_1sdk_1_1_content_type)` contentType)` 
 
 Create a document, calls the POST /documents endpoint.
 
@@ -1633,20 +1633,20 @@ class ai::lucidtech::las::sdk::CreateAppClientOptions
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setCallbackUrls`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a8bbf6466c0013be0d9a0e281abb5a431)`(String [] callbackUrls)` | 
-`public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setLogoutUrls`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a688e2c5f76413c0a94bd58ded8031ad0)`(String [] logoutUrls)` | 
-`public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setLoginUrls`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a9f60b0cec00958967603418b02b315e4)`(String [] loginUrls)` | 
+`public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setCallbackUrls`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a8bbf6466c0013be0d9a0e281abb5a431)`(String[] callbackUrls)` | 
+`public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setLogoutUrls`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a688e2c5f76413c0a94bd58ded8031ad0)`(String[] logoutUrls)` | 
+`public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setLoginUrls`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a9f60b0cec00958967603418b02b315e4)`(String[] loginUrls)` | 
 `public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setDefaultLoginUrl`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a1257aa6a3bf68cd43fa42b86f4cbda79)`(String defaultLoginUrl)` | 
 `public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setGenerateSecret`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1ac2a6827e706591140ddbecf7b271b769)`(Boolean generateSecret)` | 
 `public JSONObject `[`addOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1af7f534e88b1deeca96badce0ead0d131)`(JSONObject body)` | 
 
 ## Members
 
-#### `public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setCallbackUrls`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a8bbf6466c0013be0d9a0e281abb5a431)`(String [] callbackUrls)` 
+#### `public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setCallbackUrls`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a8bbf6466c0013be0d9a0e281abb5a431)`(String[] callbackUrls)` 
 
-#### `public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setLogoutUrls`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a688e2c5f76413c0a94bd58ded8031ad0)`(String [] logoutUrls)` 
+#### `public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setLogoutUrls`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a688e2c5f76413c0a94bd58ded8031ad0)`(String[] logoutUrls)` 
 
-#### `public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setLoginUrls`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a9f60b0cec00958967603418b02b315e4)`(String [] loginUrls)` 
+#### `public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setLoginUrls`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a9f60b0cec00958967603418b02b315e4)`(String[] loginUrls)` 
 
 #### `public `[`CreateAppClientOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options)` `[`setDefaultLoginUrl`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_create_app_client_options_1a1257aa6a3bf68cd43fa42b86f4cbda79)`(String defaultLoginUrl)` 
 
@@ -1872,15 +1872,15 @@ class ai::lucidtech::las::sdk::DeleteDocumentsOptions
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public `[`DeleteDocumentsOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options)` `[`setConsentId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1aaf5142e3fd86dbecf7a7993aa9321405)`(String [] consentId)` | 
-`public `[`DeleteDocumentsOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options)` `[`setDatasetId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1a39123acb8b4e7ec42e74ed508728576f)`(String [] datasetId)` | 
+`public `[`DeleteDocumentsOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options)` `[`setConsentId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1aaf5142e3fd86dbecf7a7993aa9321405)`(String[] consentId)` | 
+`public `[`DeleteDocumentsOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options)` `[`setDatasetId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1a39123acb8b4e7ec42e74ed508728576f)`(String[] datasetId)` | 
 `public List< NameValuePair > `[`addOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1a2eb8bd0865c082b4e62c7b58012d6e90)`(List< NameValuePair > parameters)` | 
 
 ## Members
 
-#### `public `[`DeleteDocumentsOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options)` `[`setConsentId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1aaf5142e3fd86dbecf7a7993aa9321405)`(String [] consentId)` 
+#### `public `[`DeleteDocumentsOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options)` `[`setConsentId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1aaf5142e3fd86dbecf7a7993aa9321405)`(String[] consentId)` 
 
-#### `public `[`DeleteDocumentsOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options)` `[`setDatasetId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1a39123acb8b4e7ec42e74ed508728576f)`(String [] datasetId)` 
+#### `public `[`DeleteDocumentsOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options)` `[`setDatasetId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1a39123acb8b4e7ec42e74ed508728576f)`(String[] datasetId)` 
 
 #### `public List< NameValuePair > `[`addOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_documents_options_1a2eb8bd0865c082b4e62c7b58012d6e90)`(List< NameValuePair > parameters)` 
 
@@ -1896,7 +1896,7 @@ class ai::lucidtech::las::sdk::DeleteDocumentsOptions
 `protected Integer `[`maxResults`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_resources_options_1a97dec40582607a971cd895f19f6224c0) | 
 `protected String `[`nextToken`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_resources_options_1a8fa40953575cd72e943fb1f596978780) | 
 `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_resources_options_1a4b2111f729d9973b908195c22c7791a6)`(List< NameValuePair > parameters,String key,String value)` | 
-`protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_resources_options_1a580624074ef99a8c57c23082afd86e41)`(List< NameValuePair > parameters,String key,String [] value)` | 
+`protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_resources_options_1a580624074ef99a8c57c23082afd86e41)`(List< NameValuePair > parameters,String key,String[] value)` | 
 `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_resources_options_1a4a5c053f58c4d20ca78bcbe9bdeb040a)`(List< NameValuePair > parameters,String key,Integer value)` | 
 
 ## Members
@@ -1913,7 +1913,7 @@ class ai::lucidtech::las::sdk::DeleteDocumentsOptions
 
 #### `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_resources_options_1a4b2111f729d9973b908195c22c7791a6)`(List< NameValuePair > parameters,String key,String value)` 
 
-#### `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_resources_options_1a580624074ef99a8c57c23082afd86e41)`(List< NameValuePair > parameters,String key,String [] value)` 
+#### `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_resources_options_1a580624074ef99a8c57c23082afd86e41)`(List< NameValuePair > parameters,String key,String[] value)` 
 
 #### `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_delete_resources_options_1a4a5c053f58c4d20ca78bcbe9bdeb040a)`(List< NameValuePair > parameters,String key,Integer value)` 
 
@@ -1932,7 +1932,7 @@ class ai::lucidtech::las::sdk::DockerTransitionParameters
 `public `[`DockerTransitionParameters`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters)` `[`setSecretId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters_1a5177a815e7989b6e86001076464b14eb)`(String secretId)` | 
 `public `[`DockerTransitionParameters`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters)` `[`setMemory`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters_1ae6c2d6e74e8c5c4b383399c7e066dedc)`(Integer memory)` | 
 `public `[`DockerTransitionParameters`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters)` `[`setCpu`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters_1a4ba534d7a6abe5ae3e0509c5e0a2ca7d)`(Integer cpu)` | 
-`public `[`DockerTransitionParameters`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters)` `[`setEnvironmentSecrets`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters_1af8c88a8d63800aad3e7180b82b0f5c0a)`(String [] environmentSecrets)` | 
+`public `[`DockerTransitionParameters`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters)` `[`setEnvironmentSecrets`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters_1af8c88a8d63800aad3e7180b82b0f5c0a)`(String[] environmentSecrets)` | 
 `public `[`DockerTransitionParameters`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters)` `[`setEnvironment`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters_1a4d2b42a01536ab100771164bf094d72f)`(Map< String, String > environment)` | 
 `public JSONObject `[`addOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters_1a14019f0d97b36b049fc956fef1f7ddb9)`(JSONObject body)` | 
 
@@ -1946,7 +1946,7 @@ class ai::lucidtech::las::sdk::DockerTransitionParameters
 
 #### `public `[`DockerTransitionParameters`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters)` `[`setCpu`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters_1a4ba534d7a6abe5ae3e0509c5e0a2ca7d)`(Integer cpu)` 
 
-#### `public `[`DockerTransitionParameters`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters)` `[`setEnvironmentSecrets`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters_1af8c88a8d63800aad3e7180b82b0f5c0a)`(String [] environmentSecrets)` 
+#### `public `[`DockerTransitionParameters`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters)` `[`setEnvironmentSecrets`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters_1af8c88a8d63800aad3e7180b82b0f5c0a)`(String[] environmentSecrets)` 
 
 #### `public `[`DockerTransitionParameters`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters)` `[`setEnvironment`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_docker_transition_parameters_1a4d2b42a01536ab100771164bf094d72f)`(Map< String, String > environment)` 
 
@@ -2128,7 +2128,7 @@ class ai::lucidtech::las::sdk::ListPredictionsOptions
 `public T `[`setNextToken`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_resources_options_1ad440c3772962e2041c3ae12b764dd8d2)`(String nextToken)` | 
 `public List< NameValuePair > `[`addOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_resources_options_1a8f68afbebbee2ac0aba55b66b2494544)`(List< NameValuePair > parameters)` | 
 `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_resources_options_1ab49f007cc96f6a52c18dde0a38ea411d)`(List< NameValuePair > parameters,String key,String value)` | 
-`protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_resources_options_1aa2061891ef9a12bde12d7377495a4a11)`(List< NameValuePair > parameters,String key,String [] value)` | 
+`protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_resources_options_1aa2061891ef9a12bde12d7377495a4a11)`(List< NameValuePair > parameters,String key,String[] value)` | 
 `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_resources_options_1af2aa8980cb2f0da53fb31ec25330d4e6)`(List< NameValuePair > parameters,String key,List< String > value)` | 
 `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_resources_options_1a58f6b6b0c2bcd4de76bac8e37828ffcf)`(List< NameValuePair > parameters,String key,Integer value)` | 
 
@@ -2142,7 +2142,7 @@ class ai::lucidtech::las::sdk::ListPredictionsOptions
 
 #### `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_resources_options_1ab49f007cc96f6a52c18dde0a38ea411d)`(List< NameValuePair > parameters,String key,String value)` 
 
-#### `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_resources_options_1aa2061891ef9a12bde12d7377495a4a11)`(List< NameValuePair > parameters,String key,String [] value)` 
+#### `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_resources_options_1aa2061891ef9a12bde12d7377495a4a11)`(List< NameValuePair > parameters,String key,String[] value)` 
 
 #### `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_list_resources_options_1af2aa8980cb2f0da53fb31ec25330d4e6)`(List< NameValuePair > parameters,String key,List< String > value)` 
 
@@ -2392,7 +2392,7 @@ class ai::lucidtech::las::sdk::NameAndDescriptionOptions
 `public abstract JSONObject `[`addOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_options_1af042ebeb57de514b06b47d5dba564271)`(JSONObject body)` | 
 `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_options_1a74fff33bfd302bf9f491646a7321b1f6)`(JSONObject body,String key,NullableString value)` | 
 `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_options_1aa2bf8cbc1fbc716662f4914fc0286abc)`(JSONObject body,String key,String value)` | 
-`protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_options_1a57e07f2c3373ec657d21ae12bcfa31c1)`(JSONObject body,String key,String [] value)` | 
+`protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_options_1a57e07f2c3373ec657d21ae12bcfa31c1)`(JSONObject body,String key,String[] value)` | 
 `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_options_1a26b1c75b9ca0f4c5cb48900046f3570c)`(JSONObject body,String key,Map< String, String > value)` | 
 `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_options_1ae2121fbab77e578b38b0b60b74c9413f)`(JSONObject body,String key,Boolean value)` | 
 `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_options_1a218043cdac8d64e067200d0018a2fed5)`(JSONObject body,String key,Integer value)` | 
@@ -2408,7 +2408,7 @@ class ai::lucidtech::las::sdk::NameAndDescriptionOptions
 
 #### `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_options_1aa2bf8cbc1fbc716662f4914fc0286abc)`(JSONObject body,String key,String value)` 
 
-#### `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_options_1a57e07f2c3373ec657d21ae12bcfa31c1)`(JSONObject body,String key,String [] value)` 
+#### `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_options_1a57e07f2c3373ec657d21ae12bcfa31c1)`(JSONObject body,String key,String[] value)` 
 
 #### `protected void `[`addOption`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_options_1a26b1c75b9ca0f4c5cb48900046f3570c)`(JSONObject body,String key,Map< String, String > value)` 
 
@@ -2490,14 +2490,14 @@ class ai::lucidtech::las::sdk::UpdateAssetOptions
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public `[`UpdateAssetOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options)` `[`setContent`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options_1a2c82436e7cf26983ee2c2d892d159773)`(byte [] content)` | 
+`public `[`UpdateAssetOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options)` `[`setContent`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options_1a2c82436e7cf26983ee2c2d892d159773)`(byte[] content)` | 
 `public `[`UpdateAssetOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options)` `[`setContent`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options_1ad86efbed928b01bc637eedda9f19c733)`(InputStream content)` | 
 `public JSONObject `[`addOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options_1a2218687452d7f93a8804da42d62ed743)`(JSONObject body)` | 
 `public JSONObject `[`toJson`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options_1ab48ca7bc3f50a8206ae680fa8e9fc3a3)`()` | 
 
 ## Members
 
-#### `public `[`UpdateAssetOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options)` `[`setContent`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options_1a2c82436e7cf26983ee2c2d892d159773)`(byte [] content)` 
+#### `public `[`UpdateAssetOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options)` `[`setContent`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options_1a2c82436e7cf26983ee2c2d892d159773)`(byte[] content)` 
 
 #### `public `[`UpdateAssetOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options)` `[`setContent`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_update_asset_options_1ad86efbed928b01bc637eedda9f19c733)`(InputStream content)` 
 
@@ -2694,7 +2694,7 @@ class ai::lucidtech::las::sdk::UserOptions
 --------------------------------|---------------------------------------------
 `public T `[`setName`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_user_options_1a62e7ed79765fac2ce5d2de5d2b662803)`(String name)` | 
 `public T `[`setAvatar`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_user_options_1a8fdc7232d40175cedaf11ed03b29ea5f)`(String avatar)` | 
-`public T `[`setAvatar`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_user_options_1a841b6c3d930d91e3b18e837dfb34ddaf)`(byte [] avatar)` | 
+`public T `[`setAvatar`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_user_options_1a841b6c3d930d91e3b18e837dfb34ddaf)`(byte[] avatar)` | 
 `public JSONObject `[`addOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_user_options_1acead66abd0a1bd27354b5ba014edcab3)`(JSONObject body)` | 
 `public JSONObject `[`toJson`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_user_options_1a2941ae250bac243108d2309bba6f1c27)`()` | 
 
@@ -2704,7 +2704,7 @@ class ai::lucidtech::las::sdk::UserOptions
 
 #### `public T `[`setAvatar`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_user_options_1a8fdc7232d40175cedaf11ed03b29ea5f)`(String avatar)` 
 
-#### `public T `[`setAvatar`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_user_options_1a841b6c3d930d91e3b18e837dfb34ddaf)`(byte [] avatar)` 
+#### `public T `[`setAvatar`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_user_options_1a841b6c3d930d91e3b18e837dfb34ddaf)`(byte[] avatar)` 
 
 #### `public JSONObject `[`addOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_user_options_1acead66abd0a1bd27354b5ba014edcab3)`(JSONObject body)` 
 
@@ -2723,7 +2723,7 @@ class ai::lucidtech::las::sdk::WorkflowCompletedConfig
 --------------------------------|---------------------------------------------
 `public `[`WorkflowCompletedConfig`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config)` `[`setImageUrl`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config_1a098d36b9e6bbd2fbe61552e897882c19)`(String imageUrl)` | 
 `public `[`WorkflowCompletedConfig`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config)` `[`setSecretId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config_1ac2dcc7edfbc11762c43d26343eef1c2d)`(String secretId)` | 
-`public `[`WorkflowCompletedConfig`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config)` `[`setEnvironmentSecrets`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config_1a8e29416dbfccb4320b35d2f8e0b7b09e)`(String [] environmentSecrets)` | 
+`public `[`WorkflowCompletedConfig`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config)` `[`setEnvironmentSecrets`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config_1a8e29416dbfccb4320b35d2f8e0b7b09e)`(String[] environmentSecrets)` | 
 `public `[`WorkflowCompletedConfig`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config)` `[`setEnvironment`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config_1a4c20fb980273b190060ce5c75acb315f)`(Map< String, String > environment)` | 
 `public JSONObject `[`addOptions`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config_1a23d1c29300aa639c9c11f99f95191004)`(JSONObject body)` | 
 
@@ -2733,7 +2733,7 @@ class ai::lucidtech::las::sdk::WorkflowCompletedConfig
 
 #### `public `[`WorkflowCompletedConfig`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config)` `[`setSecretId`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config_1ac2dcc7edfbc11762c43d26343eef1c2d)`(String secretId)` 
 
-#### `public `[`WorkflowCompletedConfig`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config)` `[`setEnvironmentSecrets`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config_1a8e29416dbfccb4320b35d2f8e0b7b09e)`(String [] environmentSecrets)` 
+#### `public `[`WorkflowCompletedConfig`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config)` `[`setEnvironmentSecrets`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config_1a8e29416dbfccb4320b35d2f8e0b7b09e)`(String[] environmentSecrets)` 
 
 #### `public `[`WorkflowCompletedConfig`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config)` `[`setEnvironment`](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_workflow_completed_config_1a4c20fb980273b190060ce5c75acb315f)`(Map< String, String > environment)` 
 
