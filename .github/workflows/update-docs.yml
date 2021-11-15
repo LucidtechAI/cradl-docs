@@ -34,7 +34,7 @@ jobs:
           pip install -r requirements.docs.txt
           pip install tox
           make docs
-          rm -rf ../static/python-docs/
+          git rm -r ../static/python-docs/
           mv docs ../static/python-docs
           git add ../static/python-docs
 
