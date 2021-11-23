@@ -37,3 +37,10 @@ Hide toggle in small viewports
   width: 25px;
   height: 25px;
 }
+
+@media screen and (max-width: 600px) {
+  .customLink {
+    display: none;
+  }
+}
+
