@@ -4,6 +4,8 @@
  * work well for content-centric websites.
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #5f59f7;
@@ -16,10 +18,14 @@
   --ifm-code-font-size: 95%;
   --ifm-heading-color: #3A3A3C;
   --ifm-menu-color: #3A3A3C;
+  --ifm-font-family-base: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont,
+  'Segoe UI', Helvetica, Arial, sans-serif;
 }
 
 html[data-theme='dark'] {
   /* any other colors you wish to overwrite */
+  --ifm-menu-color: rgb(214, 215, 221);
+  --ifm-heading-color: rgb(214, 215, 221);
 }
 
 .menu {
@@ -30,13 +36,17 @@ html[data-theme='dark'] {
   padding: 3px;
 }
 
+.theme-doc-sidebar-menu {
+  padding: 0 0 0 15px;
+}
+
 .theme-doc-sidebar-item-category-level-1 > .menu__link {
   font-weight: bold;
   margin-top: 1.5em;
   margin-bottom: 1em;
   text-transform: uppercase;
   font-size: 0.9rem;
-  color: #737379
+  color: #93939b;
 }
 
 .theme-doc-sidebar-item-category-level-1 > .menu__list {

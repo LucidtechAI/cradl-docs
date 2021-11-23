@@ -60,25 +60,17 @@ const config = {
       navbar: {
         logo: {
           alt: 'Cradl AI logo',
-          src: 'img/logo-light_mode.png',
-          srcDark: 'img/logo-dark_mode.png',
+          src: 'img/cradl-docs-black.svg',
+          srcDark: 'img/cradl-docs-white.svg',
           href: '/',
           target: '_self',
-        },
-        items: [
-          {
-            href: 'https://github.com/lucidtechAI',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
+        }
       },
       footer: {
         style: 'dark',
         logo: {
           alt: 'Cradl AI logo',
-          src: 'img/logo-light_mode.png',
-          srcDark: 'img/logo-dark_mode.png',
+          src: 'img/logo-dark_mode.png',
           href: '/',
         },
         links: [
