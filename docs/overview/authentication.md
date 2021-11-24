@@ -58,7 +58,7 @@ export LAS_API_ENDPOINT="https://api.lucidtech.ai/v1"
 
 :::tip Get started!
 
-With the credentials in order you are ready to get started with the [**CLI**](../reference/cli) or any of the **SDKs**
+With the credentials in order you are ready to get started with the [**CLI**](../reference/cli.md) or any of the **SDKs**
 
 :::
 ## Getting an access token manually
