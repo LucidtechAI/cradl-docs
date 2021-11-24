@@ -21,11 +21,11 @@ Cradl is built for developers and works best if:
 ## Key concepts
 Cradl is centered around the following key concepts which you will frequently encounter in these docs:
 
-1. [**Models**](../concepts/models). A model is a _machine learning model_ that can be trained to solve a specific document data extraction task, like capturing payment info from invoices.
-2. [**Documents**](../concepts/documents). A semi-structured document like an invoice, receipt, ID document, etc. in a PDF or image format. Any language and any layout.
-3. [**Datasets**](../concepts/datasets). A dataset consists of many (typically thousands) of documents that are used to train a specific model. 
-4. [**Data bundles**](../concepts/training-data). A data bundle is a collection of one or more datasets that has been prepared for **Model** training.
-5. [**Predictions**](../concepts/predictions). When your model has finished training using your **Data Bundle** it can start capturing data from new and previously unseen documents.
+1. [**Models**](/concepts/models.mdx). A model is a _machine learning model_ that can be trained to solve a specific document data extraction task, like capturing payment info from invoices.
+2. [**Documents**](../concepts/documents.mdx). A semi-structured document like an invoice, receipt, ID document, etc. in a PDF or image format. Any language and any layout.
+3. [**Datasets**](../concepts/datasets.mdx). A dataset consists of many (typically thousands) of documents that are used to train a specific model. 
+4. [**Data bundles**](../concepts/training-data.mdx). A data bundle is a collection of one or more datasets that has been prepared for **Model** training.
+5. [**Predictions**](../concepts/predictions.mdx). When your model has finished training using your **Data Bundle** it can start capturing data from new and previously unseen documents.
 
 ## Getting started
 Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a free account, and start building.
