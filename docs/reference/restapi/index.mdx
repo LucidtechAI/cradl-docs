@@ -12,10 +12,14 @@
 ### 2021-12-10
 
 - Removed status 'training' in /models. This status have been superseeded by endpoint /models/:id/trainings. /models with status 'training' have had their status to 'active' or 'inactive'
+- Added numberOfRunningTrainings to /models
 - Renamed status 'processing' to 'running' in /models/:id/dataBundles
 - Renamed status 'ready' to 'succeeded' in /models/:id/dataBundles
+- Renamed status 'training' to 'running' in /models/:id/trainings
+- Renamed status 'completed' to 'succeeded' in /models/:id/trainings
+- Renamed status 'aborted' to 'cancelled' in /models/:id/trainings
 - Added email notifications for /models/:id/trainings status change. Email notification will be sent to organization owner and user who initiated the training
-- Added trainingsCreated to 'monthlyUsageSummary' in /organizations
+- Added trainingsCreated to monthlyUsageSummary in /organizations
 - Added PATCH /models/:id/trainings
 - Fixed bug causing /workflows/:id/executions to be started twice in some rare cases
 
