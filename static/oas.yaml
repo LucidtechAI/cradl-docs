@@ -340,8 +340,8 @@ components:
           type: string
         status:
           enum:
-          - processing
-          - ready
+          - running
+          - succeeded
           - failed
           type: string
         summary:
@@ -458,8 +458,8 @@ components:
                 type: string
               status:
                 enum:
-                - processing
-                - ready
+                - running
+                - succeeded
                 - failed
                 type: string
               summary:
@@ -493,8 +493,8 @@ components:
         status:
           items:
             enum:
-            - processing
-            - ready
+            - running
+            - succeeded
             - failed
             type: string
           type: array
@@ -991,6 +991,9 @@ components:
         numberOfDataBundles:
           minimum: 0
           type: integer
+        numberOfRunningTrainings:
+          minimum: 0
+          type: integer
         preprocessConfig:
           additionalProperties: false
           properties:
@@ -1013,7 +1016,6 @@ components:
         status:
           enum:
           - active
-          - training
           - inactive
           type: string
         updatedBy:
@@ -1037,6 +1039,7 @@ components:
       - modelId
       - name
       - numberOfDataBundles
+      - numberOfRunningTrainings
       - preprocessConfig
       - status
       - updatedBy
@@ -1106,6 +1109,9 @@ components:
               numberOfDataBundles:
                 minimum: 0
                 type: integer
+              numberOfRunningTrainings:
+                minimum: 0
+                type: integer
               preprocessConfig:
                 additionalProperties: false
                 properties:
@@ -1128,7 +1134,6 @@ components:
               status:
                 enum:
                 - active
-                - training
                 - inactive
                 type: string
               updatedBy:
@@ -1152,6 +1157,7 @@ components:
             - modelId
             - name
             - numberOfDataBundles
+            - numberOfRunningTrainings
             - preprocessConfig
             - status
             - updatedBy
@@ -1483,12 +1489,6 @@ components:
           - imageQuality
           - maxPages
           type: object
-        status:
-          enum:
-          - active
-          - training
-          - inactive
-          type: string
         width:
           maximum: 1921
           minimum: 97
@@ -1524,6 +1524,23 @@ components:
           nullable: true
           type: string
       title: PATCH /secrets/{secretId}
+      type: object
+    PatchTrainingId:
+      additionalProperties: false
+      properties:
+        description:
+          maxLength: 4096
+          nullable: true
+          type: string
+        name:
+          maxLength: 4096
+          nullable: true
+          type: string
+        status:
+          enum:
+          - cancelled
+          type: string
+      title: PATCH /models/{modelId}/trainings/{trainingId}
       type: object
     PatchTransistionExecutionId:
       additionalProperties: false
@@ -2532,10 +2549,10 @@ components:
           enum:
           - waiting-for-approval
           - pending
-          - training
-          - completed
+          - running
+          - succeeded
           - failed
-          - aborted
+          - cancelled
           type: string
         trainingId:
           pattern: ^las:model-training:[a-f0-9]{32}$
@@ -2574,10 +2591,10 @@ components:
             enum:
             - waiting-for-approval
             - pending
-            - training
-            - completed
+            - running
+            - succeeded
             - failed
-            - aborted
+            - cancelled
             type: string
           type: array
         trainings:
@@ -2618,10 +2635,10 @@ components:
                 enum:
                 - waiting-for-approval
                 - pending
-                - training
-                - completed
+                - running
+                - succeeded
                 - failed
-                - aborted
+                - cancelled
                 type: string
               trainingId:
                 pattern: ^las:model-training:[a-f0-9]{32}$
@@ -3400,7 +3417,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2021-12-01T10:24:32Z'
+  version: '2021-12-09T16:46:33Z'
 openapi: 3.0.1
 paths:
   /appClients:
@@ -6979,6 +6996,147 @@ paths:
       security:
       - OAuth2:
         - api.lucidtech.ai/workflows.executions:write
+  /models/{modelId}/trainings/{trainingId}:
+    options:
+      parameters:
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: trainingId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Empty'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+    patch:
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: modelId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: trainingId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchTrainingId'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Training'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 403 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '415':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 415 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+      security:
+      - OAuth2:
+        - api.lucidtech.ai/predictions:write
   /organizations:
     options:
       requestBody:
