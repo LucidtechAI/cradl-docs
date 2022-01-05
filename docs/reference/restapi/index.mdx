@@ -9,6 +9,11 @@
 
 ## Changelog
 
+### 2022-01-05
+
+- Added retentionInDays to PATCH /datasets/:id. retentionInDays for /documents already associated with datasets will not be affected by changing retentionInDays of datasets.
+- Added containsPersonallyIdentifiableInformation to PATCH /datasets/:id
+
 ### 2021-12-10
 
 - Removed status 'training' in /models. Status 'training' have been superseded by endpoint /models/:id/trainings. /models with status 'training' have had their status to 'active' or 'inactive'

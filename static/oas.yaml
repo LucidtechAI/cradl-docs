@@ -1382,6 +1382,8 @@ components:
       additionalProperties: false
       minProperties: 1
       properties:
+        containsPersonallyIdentifiableInformation:
+          type: boolean
         description:
           maxLength: 4096
           nullable: true
@@ -1390,6 +1392,9 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        retentionInDays:
+          minimum: 1
+          type: integer
       title: PATCH /datasets/{datasetId}
       type: object
     PatchDocumentId:
@@ -3417,7 +3422,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2021-12-09T16:46:33Z'
+  version: '2022-01-05T10:05:45Z'
 openapi: 3.0.1
 paths:
   /appClients:
