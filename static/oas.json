@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2021-12-09T16:46:33Z"
+    "version": "2022-01-05T10:05:45Z"
   },
   "servers": [
     {
@@ -17732,6 +17732,10 @@
         "minProperties": 1,
         "type": "object",
         "properties": {
+          "retentionInDays": {
+            "minimum": 1,
+            "type": "integer"
+          },
           "name": {
             "maxLength": 4096,
             "type": "string",
@@ -17741,6 +17745,9 @@
             "maxLength": 4096,
             "type": "string",
             "nullable": true
+          },
+          "containsPersonallyIdentifiableInformation": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
