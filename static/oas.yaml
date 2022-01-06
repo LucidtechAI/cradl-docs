@@ -669,6 +669,10 @@ components:
         datasetId:
           pattern: ^las:dataset:[a-f0-9]{32}$
           type: string
+        description:
+          maxLength: 4096
+          nullable: true
+          type: string
         documentId:
           pattern: ^las:document:[a-f0-9]{32}$
           type: string
@@ -693,6 +697,10 @@ components:
             - value
             type: object
           type: array
+        name:
+          maxLength: 4096
+          nullable: true
+          type: string
         retentionInDays:
           minimum: 1
           type: integer
@@ -708,7 +716,9 @@ components:
       - contentType
       - createdBy
       - createdTime
+      - description
       - documentId
+      - name
       - retentionInDays
       - updatedBy
       - updatedTime
@@ -755,6 +765,10 @@ components:
               datasetId:
                 pattern: ^las:dataset:[a-f0-9]{32}$
                 type: string
+              description:
+                maxLength: 4096
+                nullable: true
+                type: string
               documentId:
                 pattern: ^las:document:[a-f0-9]{32}$
                 type: string
@@ -779,6 +793,10 @@ components:
                   - value
                   type: object
                 type: array
+              name:
+                maxLength: 4096
+                nullable: true
+                type: string
               retentionInDays:
                 minimum: 1
                 type: integer
@@ -794,7 +812,9 @@ components:
             - contentType
             - createdBy
             - createdTime
+            - description
             - documentId
+            - name
             - retentionInDays
             - updatedBy
             - updatedTime
@@ -1404,6 +1424,10 @@ components:
         datasetId:
           pattern: ^las:dataset:[a-f0-9]{32}$
           type: string
+        description:
+          maxLength: 4096
+          nullable: true
+          type: string
         groundTruth:
           items:
             additionalProperties: false
@@ -1425,6 +1449,10 @@ components:
             - value
             type: object
           type: array
+        name:
+          maxLength: 4096
+          nullable: true
+          type: string
         retentionInDays:
           minimum: 1
           type: integer
@@ -1906,6 +1934,10 @@ components:
         datasetId:
           pattern: ^las:dataset:[a-f0-9]{32}$
           type: string
+        description:
+          maxLength: 4096
+          nullable: true
+          type: string
         groundTruth:
           items:
             additionalProperties: false
@@ -1927,6 +1959,10 @@ components:
             - value
             type: object
           type: array
+        name:
+          maxLength: 4096
+          nullable: true
+          type: string
         retentionInDays:
           minimum: 1
           type: integer
@@ -3422,7 +3458,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2022-01-05T10:05:45Z'
+  version: '2022-01-06T10:15:39Z'
 openapi: 3.0.1
 paths:
   /appClients:
