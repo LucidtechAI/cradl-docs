@@ -3,11 +3,22 @@ sidebar_position: 1
 slug: /
 ---
 
-export const Box = ({ title, text, icon}) => (
-  <div style={{ display: 'flex', backgroundColor: '#111', border: '1px solid #333', borderRadius: '5px', width: '250px' }}>
-    <img src={icon} alt="Icon" />
-    <div>
+# Cradl Documentation
+
+export const Box = ({ title, text, icon, width='300px'}) => (
+  <div style={{ padding: '12px', display: 'flex', backgroundColor: '#222', border: '1px solid #444', borderRadius: '5px', width: width }}>
+    <img src={icon} alt="Icon" height="30px" />
+    <div style={{ padding: '2px 12px 16px 12px' }} >
       <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+  </div>
+)
+
+export const TextBox = ({ title, text, width='300px'}) => (
+  <div style={{ padding: '12px', display: 'flex', width: width }}>
+    <div style={{ padding: '2px 2px 2px 2px' }} >
+      <h3>{title}</h3>
       <p>{text}</p>
     </div>
   </div>
@@ -17,41 +28,43 @@ export const BoxContainer = (props) => (
   <div {...props} style={{ display: 'flex', flexWrap: 'wrap', gap: '16px'}} />
 )
 
-<BoxContainer>
-  <Box title="test" text="test" icon="urltoimage" />
-  <Box title="test" text="test" icon="urltoimage" />
-  <Box title="test" text="test" icon="urltoimage" />
-  <Box title="test" text="test" icon="urltoimage" />
-</BoxContainer>
+Learn how to use Cradl to train deep learning models to parse documents.
 
-# What is Cradl?
+## Getting Started
 
-Cradl is a platform where developers can utilize deep learning to capture data from their documents.
-Use your own data to train advanced machine learning models through a simple API.
-
-:::info Design Philosophy
-Be the easiest way for developers to build _customized data capture APIs_ powered by _deep learning models_.
-:::
-
-## Who is Cradl for?
-
-Cradl is built for developers and works best if:
-* You are processing high volumes of semi-structured documents like invoices, receipts, forms, etc.
-* You require high-accuracy data capture.
-* You require low-latency data capture.
-
-## Key concepts
-Cradl is centered around the following key concepts which you will frequently encounter in these docs:
-
-1. [**Models**](../concepts/models.mdx). A model is a _machine learning model_ that can be trained to solve a specific document data extraction task, like capturing payment info from invoices.
-2. [**Documents**](../concepts/documents.mdx). A semi-structured document like an invoice, receipt, ID document, etc. in a PDF or image format. Any language and any layout.
-3. [**Datasets**](../concepts/datasets.mdx). A dataset consists of many (typically thousands) of documents that are used to train a specific model. 
-4. [**Data bundles**](../concepts/training-data.mdx). A data bundle is a collection of one or more datasets that has been prepared for **Model** training.
-5. [**Predictions**](../concepts/predictions.mdx). When your model has finished training using your **Data Bundle** it can start capturing data from new and previously unseen documents.
-
-## Getting started
 Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a free account, and start building.
 
-![How Cradl works illustration](/img/how-cradl-works.png)
+<br/>
 
-Check out one of our quickstart guides, or read more about concepts to get a feel for how the platform works.
+<BoxContainer>
+  <Box title="Your first document parser" text="Follow the step-by-step instructions to create your first document parsing API using Cradl. This guide will take you through the basics you will need to know in order to train a machine learning model to parse documents." icon="/img/rocket.svg" width="450px" />
+</BoxContainer>
+
+<br/>
+
+## How can Cradl help you?
+
+<br/>
+
+<BoxContainer>
+  <TextBox title="Customizable Parsing" text="Our machine learning models are capable of learning any document layout and language. As long as you have the data, they can be trained to extract whatever you need them to. Strings, numbers, dates, line items, enums etc." width="450px"/>
+  <TextBox title="Unbound Accuracy" text="We design our models in TF2 with no third party dependencies to OCR engines or similar and is not restricted by any inherent accuracy limit such third party software might introduce. The more training data you have, the better accuracy you get." icon="/img/hourglass.svg" width="450px"/>
+  <TextBox title="Smooth Feedback Loops" text="We believe that with Cradl it is easier to implement feedback loops that enable continuous improvement because our machine learning models are trained on the very same actionable data that you need extracted. No need for additional metadata annotations like bounding boxes, PoS tagging or similar." width="450px"/>
+  <TextBox title="Integrate Anywhere" text="Integrate your trained model in your own software with easy-to-use SDKs or through our REST API. As long as you can communicate over HTTPS, you are good." width="450px"/>
+</BoxContainer>
+
+## Cradl Basics
+
+Get a better understanding of the inner workings by reading about our key concepts
+
+<br/>
+
+<BoxContainer>
+  <Box title="Model" text="A model is a machine learning model that can be trained to solve a specific document data extraction task, like capturing payment info from invoices." icon="/img/cogwheels-gear-svgrepo-com.svg" />
+  <Box title="Document" text="A semi-structured document like an invoice, receipt, ID document, etc. in a PDF or image format. Any language and any layout." icon="/img/browser-computing-svgrepo-com.svg" />
+  <Box title="Dataset" text="A dataset consists of many (typically thousands) of documents that are used to train a specific model. " icon="/img/share-svgrepo-com.svg" />
+  <Box title="Data Bundle" text="A data bundle is a collection of one or more datasets that has been prepared for Model training." icon="/img/database-svgrepo-com.svg" />
+  <Box title="Prediction" text="When your model has finished training using your Data Bundle it can start capturing data from new and previously unseen documents." icon="/img/coding-programming-language-svgrepo-com.svg" />
+</BoxContainer>
+
+<br/>
