@@ -3,6 +3,27 @@ sidebar_position: 1
 slug: /
 ---
 
+export const Box = ({ title, text, icon}) => (
+  <div style={{ display: 'flex', backgroundColor: '#111', border: '1px solid #333', borderRadius: '5px', width: '250px' }}>
+    <img src={icon} alt="Icon" />
+    <div>
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+  </div>
+)
+
+export const BoxContainer = (props) => (
+  <div {...props} style={{ display: 'flex', flexWrap: 'wrap', gap: '16px'}} />
+)
+
+<BoxContainer>
+  <Box title="test" text="test" icon="urltoimage" />
+  <Box title="test" text="test" icon="urltoimage" />
+  <Box title="test" text="test" icon="urltoimage" />
+  <Box title="test" text="test" icon="urltoimage" />
+</BoxContainer>
+
 # What is Cradl?
 
 Cradl is a platform where developers can utilize deep learning to capture data from their documents.

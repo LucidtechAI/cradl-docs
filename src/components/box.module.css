@@ -1,0 +1,14 @@
+.listContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.boxContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.boxContainer {
+  display: flex;
+  width: 250px;
+}
