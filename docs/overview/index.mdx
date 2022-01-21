@@ -15,6 +15,15 @@ export const Box = ({ title, text, icon, width='300px'}) => (
   </div>
 )
 
+export const SdkBox = ({ title, text, icon, width='300px'}) => (
+  <div style={{ padding: '20px', display: 'flex', backgroundColor: '#222', border: '1px solid #444', borderRadius: '5px', width: width }}>
+    <img src={icon} alt="Icon" height="30px" />
+    <div style={{ padding: '2px 0px 0px 20px' }} >
+      <h2>{title}</h2>
+    </div>
+  </div>
+)
+
 export const TextBox = ({ title, text, width='300px'}) => (
   <div style={{ padding: '12px', display: 'flex', width: width }}>
     <div style={{ padding: '2px 2px 2px 2px' }} >
@@ -68,3 +77,86 @@ Get a better understanding of the inner workings by reading about our key concep
 </BoxContainer>
 
 <br/>
+
+## Reference
+
+Choose a framework your are comfortable using.
+
+<br/>
+
+<BoxContainer>
+  <SdkBox title="CLI" text="" icon="/img/browser-coding-svgrepo-com.svg" />
+  <SdkBox title="REST API" text="" icon="/img/shield-antivirus-svgrepo-com.svg" />
+  <SdkBox title="Python SDK" text="" icon="/img/Python-logo-notext.svg" />
+  <SdkBox title="TypeScript SDK" text="" icon="/img/Typescript_logo_2020.svg" />
+  <SdkBox title="Java SDK" text="" icon="/img/java.svg" />
+  <SdkBox title=".NET SDK" text="" icon="/img/NET_Logo.svg" />
+</BoxContainer>
+
+<br/>
+
+## Release Notes
+
+### Improving the model training experience :rocket:
+
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+![How Cradl works illustration](/img/training-wizard.png)
+
+_- January 24th, 2022_
+
+### Showcasing our technology on playing cards :flower_playing_cards:
+
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+<img src="/img/usg-321-gaea-s-cradle.png" alt="Gaea's Cradle" width="450px"/>
+
+```json
+{
+  "predictions": [
+    {
+      "label": "colors",
+      "value": null,
+      "confidence": 0.999871
+    },
+    {
+      "label": "type_line",
+      "value": "LEGENDARY LAND",
+      "confidence": 0.9997073448553425
+    },
+    {
+      "label": "name",
+      "value": "GAEA'S CRADLE",
+      "confidence": 0.9996609019680994
+    },
+    {
+      "label": "mana_cost",
+      "value": null,
+      "confidence": 0.99949944
+    },
+    {
+      "label": "year",
+      "value": "1998",
+      "confidence": 0.9981614619891648
+    },
+    {
+      "label": "artist",
+      "value": "MARK ZUG",
+      "confidence": 0.9976284431398983
+    },
+    {
+      "label": "rarity",
+      "value": "RARE",
+      "confidence": 0.9015249222682709
+    },
+    {
+      "label": "set",
+      "value": "USG",
+      "confidence": 0.8496594708509172
+    }
+  ]
+}
+```
+
+_- January 10th, 2022_
+
