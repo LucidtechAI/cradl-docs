@@ -11,7 +11,8 @@ const config = {
   url: 'https://docs.cradl.ai',
   baseUrl: '/',
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'throw',
+  //onBrokenMarkdownLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.png',
   organizationName: 'LucidtechAI', // Usually your GitHub org/user name.
   projectName: 'cradl-docs', // Usually your repo name.

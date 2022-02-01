@@ -82,3 +82,7 @@ html[data-theme='dark'] {
 html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+h1 { font-size: xx-large; }
+h2 { font-size: x-large; }
+h3 { font-size: large; }
