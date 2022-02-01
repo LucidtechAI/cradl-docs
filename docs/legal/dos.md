@@ -8,7 +8,7 @@ All predictions made by the machine learning models shall be considered as sugge
 
 The following diagram illustrates the flow of document data when using the Service:
 
-![](/img/description-of-services.png)
+![Data Flow](/img/description-of-services.png)
 
 **Description of the processing:**
 
@@ -31,4 +31,4 @@ After the pre-processing, the following training routine is executed:
 
 ## **3. FEATURES**
 
-A complete description of features and capabilities of the Service is available in Lucidtech’s [documentation](https://docs.lucidtech.ai).
+A complete description of features and capabilities of the Service is available in Lucidtech’s [documentation](/).
