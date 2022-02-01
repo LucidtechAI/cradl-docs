@@ -8,7 +8,7 @@ All predictions made by the machine learning models shall be considered as sugge
 
 The following diagram illustrates the flow of document data when using the Service:
 
-![](https://lh3.googleusercontent.com/3twdaC-Msk6cKnEjX8gdWg9dhxS8IsIzuRz2w7BvCJ-6ChMOyG7ZO1iE\_M5M3ra0PPW\_xcfgNhUiq0BkRW5kgVLymbYtEtH5JBE1fL7JRPuegheUsGVpqKYE07qPlXuwXSYGpkU)
+![](/img/description-of-services.png)
 
 **Description of the processing:**
 
