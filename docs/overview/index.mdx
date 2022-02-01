@@ -6,7 +6,14 @@ slug: /
 # Cradl Documentation
 
 export const Box = ({ title, text, icon, width='300px'}) => (
-  <div style={{ padding: '12px', display: 'flex', backgroundColor: '#222', border: '1px solid #444', borderRadius: '5px', width: width }}>
+  <div style={{
+    padding: '12px',
+    display: 'flex',
+    backgroundColor: '#222',
+    border: '1px solid #444',
+    borderRadius: '5px',
+    width: width
+  }}>
     <img src={icon} alt="Icon" height="30px" />
     <div style={{ padding: '2px 12px 16px 12px' }} >
       <h2>{title}</h2>
@@ -16,7 +23,14 @@ export const Box = ({ title, text, icon, width='300px'}) => (
 )
 
 export const SdkBox = ({ title, text, icon, width='300px'}) => (
-  <div style={{ padding: '20px', display: 'flex', backgroundColor: '#222', border: '1px solid #444', borderRadius: '5px', width: width }}>
+  <div style={{
+    padding: '20px',
+    display: 'flex',
+    backgroundColor: '#222',
+    border: '1px solid #444',
+    borderRadius: '5px',
+    width: width
+  }}>
     <img src={icon} alt="Icon" height="30px" />
     <div style={{ padding: '2px 0px 0px 20px' }} >
       <h2>{title}</h2>
@@ -37,7 +51,7 @@ export const BoxContainer = (props) => (
   <div {...props} style={{ display: 'flex', flexWrap: 'wrap', gap: '16px'}} />
 )
 
-Learn how to use Cradl to train deep learning models to parse documents.
+Learn how to use Cradl to build document parsing APIs with deep learning.
 
 ## Getting Started
 
@@ -46,7 +60,12 @@ Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a fr
 <br/>
 
 <BoxContainer>
-  <Box title="Your first document parser" text="Follow the step-by-step instructions to create your first document parsing API using Cradl. This guide will take you through the basics you will need to know in order to train a machine learning model to parse documents." icon="/img/rocket.svg" width="450px" />
+  <Box title="Your first document parser" icon="/img/rocket.svg" width="450px" text="
+    Follow step-by-step instructions to create your first document parsing API using Cradl. This guide will take you
+    through the basics you will need to know in order to train a machine learning model to parse documents.
+  " />
+  <Box title="Get started quickly by extending community models" icon="/img/rocket.svg" width="450px" text="
+  " />
 </BoxContainer>
 
 <br/>
@@ -56,10 +75,48 @@ Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a fr
 <br/>
 
 <BoxContainer>
-  <TextBox title="Customizable Parsing" text="Our machine learning models are capable of learning any document layout and language. As long as you have the data, they can be trained to extract whatever you need them to. Strings, numbers, dates, line items, enums etc." width="450px"/>
-  <TextBox title="High Accuracy" text="We design our models in TF2 with no third party dependencies to OCR engines or similar and is not restricted by any inherent accuracy limit such third party software might introduce. The more training data you have, the better accuracy you get." icon="/img/hourglass.svg" width="450px"/>
-  <TextBox title="Smooth Feedback Loops" text="Cradl makes it is easier to implement feedback loops that enable continuous improvement because our machine learning models are trained on the very same actionable data that you need extracted. No need for additional metadata annotations like bounding boxes, PoS tagging or similar." width="450px"/>
-  <TextBox title="Integrate Anywhere" text="Integrate your trained model in your own software with easy-to-use SDKs or through our REST API. As long as you can communicate over HTTPS, you are good. Documents are parsed in real-time with an average processing time below 2 seconds." width="450px"/>
+  <TextBox title="Remove manual data entry from back-office tasks" width="450px" text="
+  " />
+  <TextBox title="Help your app users with pre-filled forms" width="450px" text="
+  " />
+  <TextBox title="Enable more automation in RPA or Low code" width="450px" text="
+  " />
+  <TextBox title="QA in document processing / validation / control" width="450px" text="
+  " />
+  <TextBox title="Augment chatbots" width="450px" text="
+  " />
+</BoxContainer>
+
+## Features
+
+<br/>
+
+<BoxContainer>
+  <TextBox title="Accurate" width="450px" text="
+    We design our models in TF2 with no third party dependencies to OCR engines or similar and is not restricted by any
+    inherent accuracy limit such third party software might introduce. The more training data you have, the better
+    accuracy you get.
+  " />
+  <TextBox title="Flexible" width="450px" text="
+    Our machine learning models are capable of learning any document layout and language. As long as you have the data,
+    they can be trained to extract whatever you need them to. Strings, numbers, dates, line items, enums etc.
+  " />
+  <TextBox title="Fast processing" width="450px" text="
+    Documents are parsed in real-time with an average processing time below 2 seconds.
+  " />
+  <TextBox title="Predictions you can trust" width="450px" text="
+    Integrate your trained model in your own software with easy-to-use SDKs or through our REST API. As long as you can
+    communicate over HTTPS, you are good.
+  " />
+  <TextBox title="Feedback loops that work" width="450px" text="
+    Cradl makes it is easier to implement feedback loops that enable continuous improvement because our machine
+    learning models are trained on the very same actionable data that you need extracted. No need for additional
+    metadata annotations like bounding boxes, PoS tagging or similar.
+  " />
+  <TextBox title="Integrate anywhere" width="450px" text="
+    Integrate your trained model in your own software with easy-to-use SDKs or through our REST API. As long as you can
+    communicate over HTTPS, you are good.
+  " />
 </BoxContainer>
 
 ## Cradl Basics
@@ -69,11 +126,27 @@ Get a better understanding of the inner workings by reading about our key concep
 <br/>
 
 <BoxContainer>
-  <Box title="Model" text="A model is a machine learning model that can be trained to solve a specific document data extraction task, like capturing payment info from invoices." icon="/img/cogwheels-gear-svgrepo-com.svg" />
-  <Box title="Document" text="A semi-structured document like an invoice, receipt, ID document, etc. in a PDF or image format. Any language and any layout." icon="/img/browser-computing-svgrepo-com.svg" />
-  <Box title="Dataset" text="A dataset consists of many (typically thousands) of documents that are used to train a specific model. " icon="/img/share-svgrepo-com.svg" />
-  <Box title="Data Bundle" text="A data bundle is a collection of one or more datasets that has been prepared for Model training." icon="/img/database-svgrepo-com.svg" />
-  <Box title="Prediction" text="When your model has finished training using your Data Bundle it can start capturing data from new and previously unseen documents." icon="/img/coding-programming-language-svgrepo-com.svg" />
+  <Box title="Model" icon="/img/cogwheels-gear-svgrepo-com.svg" text="
+    A model is a machine learning model that can be trained to solve a specific document data extraction task, like
+    capturing payment info from invoices.
+  " />
+  <Box title="Document" icon="/img/browser-computing-svgrepo-com.svg" text="
+    A semi-structured document like an invoice, receipt, ID document, etc. in a PDF or image format. Any language and
+    any layout.
+  " />
+  <Box title="Ground Truth" icon="/img/share-svgrepo-com.svg" text="
+    A dataset consists of many (typically thousands) of documents that are used to train a specific model.
+  " />
+  <Box title="Dataset" icon="/img/share-svgrepo-com.svg" text="
+    A dataset consists of many (typically thousands) of documents that are used to train a specific model.
+  " />
+  <Box title="Data Bundle -> Training" icon="/img/database-svgrepo-com.svg" text="
+    A data bundle is a collection of one or more datasets that has been prepared for Model training.
+  " />
+  <Box title="Prediction" icon="/img/coding-programming-language-svgrepo-com.svg" text="
+    When your model has finished training using your Data Bundle it can start capturing data from new and previously
+    unseen documents.
+  " />
 </BoxContainer>
 
 <br/>
@@ -92,71 +165,3 @@ Choose a framework your are comfortable using.
   <SdkBox title="Java SDK" text="" icon="/img/java.svg" />
   <SdkBox title=".NET SDK" text="" icon="/img/NET_Logo.svg" />
 </BoxContainer>
-
-<br/>
-
-## Release Notes
-
-### Improving the model training experience :rocket:
-
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-![How Cradl works illustration](/img/training-wizard.png)
-
-_- January 24th, 2022_
-
-### Showcasing our technology on playing cards :flower_playing_cards:
-
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-<img src="/img/usg-321-gaea-s-cradle.png" alt="Gaea's Cradle" width="450px"/>
-
-```json
-{
-  "predictions": [
-    {
-      "label": "colors",
-      "value": null,
-      "confidence": 0.999871
-    },
-    {
-      "label": "type_line",
-      "value": "LEGENDARY LAND",
-      "confidence": 0.9997073448553425
-    },
-    {
-      "label": "name",
-      "value": "GAEA'S CRADLE",
-      "confidence": 0.9996609019680994
-    },
-    {
-      "label": "mana_cost",
-      "value": null,
-      "confidence": 0.99949944
-    },
-    {
-      "label": "year",
-      "value": "1998",
-      "confidence": 0.9981614619891648
-    },
-    {
-      "label": "artist",
-      "value": "MARK ZUG",
-      "confidence": 0.9976284431398983
-    },
-    {
-      "label": "rarity",
-      "value": "RARE",
-      "confidence": 0.9015249222682709
-    },
-    {
-      "label": "set",
-      "value": "USG",
-      "confidence": 0.8496594708509172
-    }
-  ]
-}
-```
-
-_- January 10th, 2022_
-
