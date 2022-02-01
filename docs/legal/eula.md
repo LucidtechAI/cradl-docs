@@ -44,7 +44,7 @@ You will defend, indemnify and hold Lucidtech harmless from and against all clai
 
 By using the Service, you agree to having your personal data collected and processed pursuant to our Privacy Policy, whereas this Agreement is the legal basis of the processing of the personal data.&#x20;
 
-For information about how Lucidtech process personal data, where Lucidtech is the data controller, including the rights of the data subjects, please review our [Privacy Policy](/legal/privacy-policy).
+For information about how Lucidtech process personal data, where Lucidtech is the data controller, including the rights of the data subjects, please review our [Privacy Policy](privacy-policy).
 
 ## **8. CONFIDENTIALITY**
 
