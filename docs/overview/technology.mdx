@@ -1,0 +1,252 @@
+---
+sidebar_position: 4
+slug: /technology
+---
+
+# Technology
+
+export const Box = ({ title, text, icon, width='300px'}) => (
+  <div style={{ padding: '12px', display: 'flex', backgroundColor: '#222', border: '1px solid #444', borderRadius: '5px', width: width }}>
+    <img src={icon} alt="Icon" height="30px" />
+    <div style={{ padding: '2px 12px 16px 12px' }} >
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+  </div>
+)
+
+export const SdkBox = ({ title, text, icon, width='300px'}) => (
+  <div style={{ padding: '20px', display: 'flex', backgroundColor: '#222', border: '1px solid #444', borderRadius: '5px', width: width }}>
+    <img src={icon} alt="Icon" height="30px" />
+    <div style={{ padding: '2px 0px 0px 20px' }} >
+      <h2>{title}</h2>
+    </div>
+  </div>
+)
+
+export const TextBox = ({ title, text, width='300px'}) => (
+  <div style={{ padding: '12px', display: 'flex', width: width }}>
+    <div style={{ padding: '2px 2px 2px 2px' }} >
+      <h3>{title}</h3>
+      <p>{text}</p>
+    </div>
+  </div>
+)
+
+export const BoxContainer = (props) => (
+  <div {...props} style={{ display: 'flex', flexWrap: 'wrap', gap: '16px'}} />
+)
+
+
+### Why we built our own deep learning models
+
+#### Contextual information is important
+
+Documents are designed for human readability and contextual information such as layout, typing and logos are helping us
+quickly understand which piece of information is what we are looking for. We believe this to be true also for machine learning
+models
+
+
+Contextual information such as the aforementioned
+is not typically preserved in OCR software but is equally as important for a computer in achieving precise predictions
+in our opinion. Commercial OCR software such as Google's, Microsoft's or AWS' have gotten very good at extracting arbitrary
+text from any document, but we are typically left with just text and bounding boxes.
+
+Using OCR software with something like an NLP component on top of this
+imposes several challenges in our opinion.
+
+- Embeddings have priors potentially unrelated to your problem
+- Throw away bounding boxes or incorporate them in one way or another
+- OCR needs to support the language you need and sometimes you have to decide up front which language that is
+- Correcting incorrect OCRing is hard.
+- Dependency to a specific OCR model. OCR vendor might upgrade their models behind the scenes that change OCR results.
+While these changes could be small, our NLP model might be sensitive to changes in text and confidences.
+
+Emma model - we have tried
+
+#### Predictions you can trust
+
+To get satisfactory results when using AI for automation, it needs to be possible to determine when AI predictions
+likely are incorrect so that you can discard them or route them to a human for inspection. A major advantage of using
+machine learning is that predictions come with an estimate of how likely the prediction is to be correct - and conversely
+how likely they are to be incorrect. This estimate is usually called confidence. In designing our models we decided that
+it is paramount that confidences we provide are as precise as possible so that they can be trusted. To realise this, it
+made sense for us to design our models to be end-to-end, meaning that our models needed to be able to learn everything
+on its own by looking at just the pixels in the document and produce the desired outcome with no intermediate steps, handcrafted
+heuristics or algorithms.
+
+Ensemble models such as those combining OCR and NLP
+
+#### Making the training process easier
+
+One of the challenges in training supervised machine learning models is annotating data, usually a time
+consuming endeavor. Moreover these annotations are often metadata that you don't really care about - annotations
+like bounding boxes, Part-of-Speech tagging and so forth. We wanted to make the training process as smooth as possible
+and therefore designed our model to be trainable on data that users actually care about. We came up with a way to train only on actionable data - data that
+you are interested in and that are usable to you, without needing any information about where or how this information appears in the document.
+Consequently, if you are already processing documents, it will be easier for you to train a good model
+because it is much more likely that you have actionable data stored in a SQL database or similar, rather bounding boxes or
+Part-of-Speech tags.
+
+#### Feedback loops that work
+
+
+
+#### Privacy
+
+- Compliance and privacy concerns. Using an OCR API means sending your users' data to a third party. This could introduce
+compliance issues and privacy concerns. Another challenge is honouring GDPR's right to be forgotten effectively.
+
+#### Better MLOps
+
+
+### You deserve your own model
+
+### Accessibility of models
+
+
+
+Tech - Manifest - Visjon - Mission
+Vår visjon for denne problemstilling
+
+## Mål:
+- Bygge tillit til at det er dyp/solid tech i bunn som er verdt å satse på.
+  - Ikke bare et tynt lag på toppen av andre tjenester (Ikke føle seg "lurt", value for money)
+  - At det ligger seriøs satsning bak som er verdt å satse på
+  - Enig i approachen/visjon som produktet bygger på. Kjøper argumentene for approachen
+  - Ønske om å bygge en god tjeneste
+  - Så gjennomsiktig som mulig
+
+## Deep learning - Motivasjon
+- Why deep learning
+- Hvorfor har vi utviklet egne modeller?
+- TF2
+- No OCR dependencies, we have tried. Why is it bad? Need multiple boxes, information is present on multiple places.
+  What if information must be deduced from multiple places on the document?. What if OCR vendor change something, confidence thresholds?
+- Compliance
+- Supervised
+- Why not a pure NLP problem? Does not need language specific features like embeddings etc.
+- GIF av kule ML ting
+- A framework to easily build custom parsers. Not possible to manage rules / templates. Easier to feed GT data and just get something that works. Easier to maintain
+- Shorter time to market with DL models that work, rather than producing complex rules or annotate data with PoS/boxes etc.
+- Historical data
+- How humans read documents
+- Mention drawbacks too (while great services too - build your own NLP on top)
+- Noe Latex?
+- All in one model == end-to-end model
+- Transfer learning - effective
+- Debugging
+- Vi brukte NER boxing før og det funket OK
+
+#### End-to-end model & transfer learning
+
+## Deep learning - Motivasjon
+### Hvorfor deep learning?
+- Ende-til-ende
+### Hvorfor har vi utviklet egne modeller?
+- Predictions you can trust
+- Smooth feedback loops, end-to-end model, historisk data.
+- Får aldri trent bort OCR feil - artifacter (linjer som blir til tegn f.eks, logoer som blir helt feilpredikert)
+- en generell OCR motor må lære seg mye mer for at NLP blir bra etterpå
+- Contextual information, logo, tables, etc.
+- NLP is not the right tool for the job - kontekst vil alltid være et problem. Har diskretisert data på forhånd
+- Hvorfor dele opp problemet når det kan løses i et steg?
+- Trene på egen data, på en ende-til-ende måte
+- OCR-er er gode, men med en gang det oppstår quirks eller issues, så er du on your own. Vanskelig å rette opp i Google sin OCR f.eks
+- Debugging og trening lokalt
+### Hvorfor alle fortjener sin egen modell? Hvorfor investere i egen modell?
+- Problemet ditt er unikt nok til at det gir mening
+- Confidence fordeling er forskjellig - trenger å stole på confidence.
+- "Good biases"
+### Hvorfor være document agnostisk? balansen mellom generalisme og spesialisme
+- Best å la modellene lære det den trenger av kontekst osv. selv for å gjøre gode prediksjoner
+- Sammenligne med mer dokumentspesifikke algoritmer
+- Embeddings har prior biases kanskje urelatert til problemet ditt
+### Hvorfor er det skybasert?
+### Hva er vår datastrategi?
+
+## Any document, any language
+- One size fits none
+- Models don't care about layout or language
+- API might not support full vocabularies yet - contact our engineers?
+- Base model has learned document features that can be fine tuned to read any language / layout. Use deep learning analogies here, model layers etc.
+- Showcase some crazy models. MTG vs invoices
+- Train on as little as N data points, but achieve great results with M data points
+- Hadde vært nice med en graf fra faktisk experiment, N={5, 10, 20, 50, 100, 250, 1000}, som er interaktiv
+
+## Predictions you can trust
+- End-to-end model, pixels in JSON out
+- Model will learn reading and transforming text data by itself
+- Helping you understand the accuracy / automation trade off
+- How we calculate accuracy and automation, why it's good
+- Pick automation degree or accuracy
+- data / accuracy & automation graph, slider?
+- No third party dependencies to OCR APIs -> No risk of model changing over night, trust your confidence thresholds
+
+## Feedback loops that work
+- Training data is the same as output data
+- No need for additional metadata that doesn't naturally occur in the process
+- We will help you determining when to retrain
+- Can start using the model without training / setup feedback loop?
+- Model learn by looking at the correct GT values expected without the need for any additional information / metadata. PoS, boxes, etc.
+- CLI sette GT for å vise hvor enkelt det er med 'feedback loops'
+- Feedback loops er det samme som å oppdatere dokumentets verdier
+- Continuous training i stedet for feedback loops
+- Incremental training
+- Native feedback loops
+- End-to-end models
+
+## Developers first - show don't tell
+- We are developers, built with developers in mind
+- Good documentation and code examples
+- Community to share models and datasets for hobby use
+- A free subscription model for hobby projects
+- Good API interface, easy to use anywhere
+- SDKs in major languages
+
+## Cloud - scale
+- AWS, IaC, Utilize scalable technology and hardware as we seem fit.
+- Able to optimize due to producing our own ML models.
+- Fast processing
+- No need to deal with complex infrastructure
+- APIfication
+- Low code / RPA
+- Mention Drawbacks (no on prem)
+- Demokratisere tilgang til ML - vil ikke treffe massene pga tilgang
+- Oppsett og tunge modeller gjør det unfeasible
+- Lite team som oss, ikke praktisk mulig. Må støtte bredere HW, vanskelig å optimere.
+- Treig modell kan gå utover inntrykk
+- Support other deployment options in the future?
+- Roadmap: tradeoff mellom kost og speed
+- IP beskyttelse, patentering, lisensiering
+
+## Privacy, compliance and security - your data is your data
+- Don't share data or trained models
+- Pentest, AWS, best practices etc.
+- GDPR, implemented via API. No need for annoyingly complex data deletion processes
+- There is no silver bullet - sharing your model doesn't make sense. An invoice is not an invoice.
+- Big corporations want to leverage their data without helping other companies
+- Custom retention, mechanics implemented to honour these. Implications on training
+- Balance between transfer learning and data privacy
+- GDPR deleting data from OCR services on behalf of our customers
+- In order to attract big corps -> data privacy
+
+## Data strategy
+- Transfer learning er løsning på data/model privacy og læring på tvers av kunder
+- Generell styrking av modellen i tidligere lag
+- Illustrasjoner av transfer learning
+
+## Open Source
+- Explain why the models are not open source - maybe in the future?
+- We want your contribution
+- Synthetic
+- SDKs
+
+## Future
+- Roadmap?
+- RPA / Low code plugins
+- Release of workflows API (Currently in preview: link to docs)
+
+## About us - Our Story
+- Our values
+- Our team
