@@ -132,4 +132,4 @@ The Parties may claim damages in respect of any direct loss as specified in the 
 
 Upon termination of this DPA the Data Processor shall (i) cease all its Processing activities and (ii) upon the Data Controller’s choice, delete and/or return all Personal Data or copies thereof which is received on behalf of the Data Controller pursuant of this DPA. The duty to delete applies as long as Applicable Data Protection Law does not require the Personal Data to be stored.  The Data Processor may, subject to prior express approval of the Data Controller,  anonymize all Personal Data received from or on behalf of the Data Controller which is comprised by the DPA.&#x20;
 
-The Data Processor will permanently erase all Personal Data processed under the DPA (regardless of where and how they are stored), for which the Customer is Data Controller, unless the Data Processor is required by law to store the Personal Data.\
+The Data Processor will permanently erase all Personal Data processed under the DPA (regardless of where and how they are stored), for which the Customer is Data Controller, unless the Data Processor is required by law to store the Personal Data.
