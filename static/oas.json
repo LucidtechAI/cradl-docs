@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2022-01-20T13:54:42Z"
+    "version": "2022-02-04T09:55:21Z"
   },
   "servers": [
     {
@@ -14160,6 +14160,9 @@
         ],
         "type": "object",
         "properties": {
+          "metadata": {
+            "type": "object"
+          },
           "preprocessConfig": {
             "required": [
               "autoRotate",
@@ -14529,6 +14532,7 @@
           "createdTime",
           "description",
           "documentId",
+          "metadata",
           "name",
           "retentionInDays",
           "updatedBy",
@@ -14540,6 +14544,9 @@
             "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
             "type": "string",
             "nullable": true
+          },
+          "metadata": {
+            "type": "object"
           },
           "retentionInDays": {
             "minimum": 1,
@@ -14589,7 +14596,7 @@
                       "type": "number"
                     },
                     {
-                      "$ref": "#/definitions/groundTruthList"
+                      "$ref": "#/components/schemas/groundTruthList"
                     }
                   ]
                 }
@@ -14671,13 +14678,16 @@
                       "type": "number"
                     },
                     {
-                      "$ref": "#/definitions/groundTruthList"
+                      "$ref": "#/components/schemas/groundTruthList"
                     }
                   ]
                 }
               },
               "additionalProperties": false
             }
+          },
+          "metadata": {
+            "type": "object"
           },
           "retentionInDays": {
             "minimum": 1,
@@ -14834,6 +14844,7 @@
                 "datasetId",
                 "description",
                 "groundTruthSummary",
+                "metadata",
                 "numberOfDocuments",
                 "retentionInDays",
                 "storageLocation",
@@ -14847,6 +14858,9 @@
                   "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
                   "type": "string",
                   "nullable": true
+                },
+                "metadata": {
+                  "type": "object"
                 },
                 "retentionInDays": {
                   "maximum": 1825,
@@ -14917,6 +14931,7 @@
           "dataBundleIds",
           "description",
           "instanceType",
+          "metadata",
           "modelId",
           "name",
           "status",
@@ -14930,6 +14945,9 @@
             "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
             "type": "string",
             "nullable": true
+          },
+          "metadata": {
+            "type": "object"
           },
           "updatedBy": {
             "maxLength": 4096,
@@ -14957,11 +14975,6 @@
               "large-gpu"
             ]
           },
-          "name": {
-            "maxLength": 4096,
-            "type": "string",
-            "nullable": true
-          },
           "dataBundleIds": {
             "type": "array",
             "items": {
@@ -14969,13 +14982,18 @@
               "type": "string"
             }
           },
-          "description": {
+          "name": {
             "maxLength": 4096,
             "type": "string",
             "nullable": true
           },
           "createdTime": {
             "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 4096,
             "type": "string",
             "nullable": true
           },
@@ -15069,6 +15087,9 @@
                   "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
                   "type": "string",
                   "nullable": true
+                },
+                "metadata": {
+                  "type": "object"
                 },
                 "retentionInDays": {
                   "maximum": 1825,
@@ -15283,6 +15304,9 @@
                         "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
                         "type": "string",
                         "nullable": true
+                      },
+                      "metadata": {
+                        "type": "object"
                       },
                       "retentionInDays": {
                         "maximum": 1825,
@@ -15545,6 +15569,9 @@
         "title": "POST /models/{modelId}/trainings",
         "type": "object",
         "properties": {
+          "metadata": {
+            "type": "object"
+          },
           "instanceType": {
             "type": "string",
             "enum": [
@@ -15913,6 +15940,7 @@
                 "createdTime",
                 "description",
                 "documentId",
+                "metadata",
                 "name",
                 "retentionInDays",
                 "updatedBy",
@@ -15924,6 +15952,9 @@
                   "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
                   "type": "string",
                   "nullable": true
+                },
+                "metadata": {
+                  "type": "object"
                 },
                 "retentionInDays": {
                   "minimum": 1,
@@ -15973,7 +16004,7 @@
                             "type": "number"
                           },
                           {
-                            "$ref": "#/definitions/groundTruthList"
+                            "$ref": "#/components/schemas/groundTruthList"
                           }
                         ]
                       }
@@ -16378,6 +16409,7 @@
                 "description",
                 "fieldConfig",
                 "height",
+                "metadata",
                 "modelId",
                 "name",
                 "numberOfDataBundles",
@@ -16394,6 +16426,9 @@
                   "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
                   "type": "string",
                   "nullable": true
+                },
+                "metadata": {
+                  "type": "object"
                 },
                 "updatedBy": {
                   "maxLength": 4096,
@@ -17060,6 +17095,9 @@
         "title": "PATCH /models/{modelId}/trainings/{trainingId}",
         "type": "object",
         "properties": {
+          "metadata": {
+            "type": "object"
+          },
           "name": {
             "maxLength": 4096,
             "type": "string",
@@ -17463,6 +17501,7 @@
                 "dataBundleIds",
                 "description",
                 "instanceType",
+                "metadata",
                 "modelId",
                 "name",
                 "status",
@@ -17476,6 +17515,9 @@
                   "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
                   "type": "string",
                   "nullable": true
+                },
+                "metadata": {
+                  "type": "object"
                 },
                 "updatedBy": {
                   "maxLength": 4096,
@@ -17503,11 +17545,6 @@
                     "large-gpu"
                   ]
                 },
-                "name": {
-                  "maxLength": 4096,
-                  "type": "string",
-                  "nullable": true
-                },
                 "dataBundleIds": {
                   "type": "array",
                   "items": {
@@ -17515,13 +17552,18 @@
                     "type": "string"
                   }
                 },
-                "description": {
+                "name": {
                   "maxLength": 4096,
                   "type": "string",
                   "nullable": true
                 },
                 "createdTime": {
                   "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
+                  "type": "string",
+                  "nullable": true
+                },
+                "description": {
+                  "maxLength": 4096,
                   "type": "string",
                   "nullable": true
                 },
@@ -17606,6 +17648,9 @@
         "minProperties": 1,
         "type": "object",
         "properties": {
+          "metadata": {
+            "type": "object"
+          },
           "preprocessConfig": {
             "required": [
               "autoRotate",
@@ -17696,6 +17741,9 @@
         "title": "POST /datasets",
         "type": "object",
         "properties": {
+          "metadata": {
+            "type": "object"
+          },
           "retentionInDays": {
             "minimum": 1,
             "type": "integer"
@@ -17725,6 +17773,7 @@
           "datasetId",
           "description",
           "groundTruthSummary",
+          "metadata",
           "numberOfDocuments",
           "retentionInDays",
           "storageLocation",
@@ -17738,6 +17787,9 @@
             "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
             "type": "string",
             "nullable": true
+          },
+          "metadata": {
+            "type": "object"
           },
           "retentionInDays": {
             "maximum": 1825,
@@ -18223,7 +18275,7 @@
                       "type": "number"
                     },
                     {
-                      "$ref": "#/definitions/groundTruthList"
+                      "$ref": "#/components/schemas/groundTruthList"
                     }
                   ]
                 }
@@ -18234,6 +18286,9 @@
           "consentId": {
             "pattern": "^las:consent:[a-f0-9]{32}$",
             "type": "string"
+          },
+          "metadata": {
+            "type": "object"
           },
           "retentionInDays": {
             "minimum": 1,
@@ -18488,6 +18543,7 @@
           "description",
           "fieldConfig",
           "height",
+          "metadata",
           "modelId",
           "name",
           "numberOfDataBundles",
@@ -18504,6 +18560,9 @@
             "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
             "type": "string",
             "nullable": true
+          },
+          "metadata": {
+            "type": "object"
           },
           "updatedBy": {
             "maxLength": 4096,
@@ -18880,6 +18939,9 @@
         "minProperties": 1,
         "type": "object",
         "properties": {
+          "metadata": {
+            "type": "object"
+          },
           "retentionInDays": {
             "minimum": 1,
             "type": "integer"
@@ -18899,6 +18961,93 @@
           }
         },
         "additionalProperties": false
+      },
+      "groundTruthList": {
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 36,
+                  "pattern": "^[0-9A-Za-z_]+$"
+                },
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "$ref": "#/components/schemas/groundTruthList"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "label",
+                "value"
+              ]
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 36,
+                    "pattern": "^[0-9A-Za-z_]+$"
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 128
+                      },
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "$ref": "#/components/schemas/groundTruthList"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "label",
+                  "value"
+                ]
+              }
+            }
+          }
+        ]
       }
     },
     "securitySchemes": {

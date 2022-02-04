@@ -291,6 +291,8 @@ components:
                 type: string
               groundTruthSummary:
                 type: object
+              metadata:
+                type: object
               name:
                 maxLength: 4096
                 nullable: true
@@ -409,6 +411,8 @@ components:
                       type: string
                     groundTruthSummary:
                       type: object
+                    metadata:
+                      type: object
                     name:
                       maxLength: 4096
                       nullable: true
@@ -525,6 +529,8 @@ components:
           type: string
         groundTruthSummary:
           type: object
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -558,6 +564,7 @@ components:
       - datasetId
       - description
       - groundTruthSummary
+      - metadata
       - numberOfDocuments
       - retentionInDays
       - storageLocation
@@ -592,6 +599,8 @@ components:
                 type: string
               groundTruthSummary:
                 type: object
+              metadata:
+                type: object
               name:
                 maxLength: 4096
                 nullable: true
@@ -625,6 +634,7 @@ components:
             - datasetId
             - description
             - groundTruthSummary
+            - metadata
             - numberOfDocuments
             - retentionInDays
             - storageLocation
@@ -693,12 +703,14 @@ components:
                   type: string
                 - type: boolean
                 - type: number
-                - $ref: '#/definitions/groundTruthList'
+                - $ref: '#/components/schemas/groundTruthList'
             required:
             - label
             - value
             type: object
           type: array
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -720,6 +732,7 @@ components:
       - createdTime
       - description
       - documentId
+      - metadata
       - name
       - retentionInDays
       - updatedBy
@@ -791,12 +804,14 @@ components:
                         type: string
                       - type: boolean
                       - type: number
-                      - $ref: '#/definitions/groundTruthList'
+                      - $ref: '#/components/schemas/groundTruthList'
                   required:
                   - label
                   - value
                   type: object
                 type: array
+              metadata:
+                type: object
               name:
                 maxLength: 4096
                 nullable: true
@@ -818,6 +833,7 @@ components:
             - createdTime
             - description
             - documentId
+            - metadata
             - name
             - retentionInDays
             - updatedBy
@@ -1005,6 +1021,8 @@ components:
           maximum: 1921
           minimum: 97
           type: integer
+        metadata:
+          type: object
         modelId:
           pattern: ^las:model:[a-f0-9]{32}$
           type: string
@@ -1060,6 +1078,7 @@ components:
       - description
       - fieldConfig
       - height
+      - metadata
       - modelId
       - name
       - numberOfDataBundles
@@ -1123,6 +1142,8 @@ components:
                 maximum: 1921
                 minimum: 97
                 type: integer
+              metadata:
+                type: object
               modelId:
                 pattern: ^las:model:[a-f0-9]{32}$
                 type: string
@@ -1178,6 +1199,7 @@ components:
             - description
             - fieldConfig
             - height
+            - metadata
             - modelId
             - name
             - numberOfDataBundles
@@ -1417,6 +1439,8 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -1454,12 +1478,14 @@ components:
                   type: string
                 - type: boolean
                 - type: number
-                - $ref: '#/definitions/groundTruthList'
+                - $ref: '#/components/schemas/groundTruthList'
             required:
             - label
             - value
             type: object
           type: array
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -1510,6 +1536,8 @@ components:
           maximum: 1921
           minimum: 97
           type: integer
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -1596,6 +1624,8 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -2043,6 +2073,8 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -2093,12 +2125,14 @@ components:
                   type: string
                 - type: boolean
                 - type: number
-                - $ref: '#/definitions/groundTruthList'
+                - $ref: '#/components/schemas/groundTruthList'
             required:
             - label
             - value
             type: object
           type: array
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -2154,6 +2188,8 @@ components:
           maximum: 1921
           minimum: 97
           type: integer
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -2315,6 +2351,8 @@ components:
           - large-gpu
           nullable: true
           type: string
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -2732,6 +2770,8 @@ components:
           - medium-gpu
           - large-gpu
           type: string
+        metadata:
+          type: object
         modelId:
           pattern: ^las:model:[a-f0-9]{32}$
           type: string
@@ -2765,6 +2805,7 @@ components:
       - dataBundleIds
       - description
       - instanceType
+      - metadata
       - modelId
       - name
       - status
@@ -2818,6 +2859,8 @@ components:
                 - medium-gpu
                 - large-gpu
                 type: string
+              metadata:
+                type: object
               modelId:
                 pattern: ^las:model:[a-f0-9]{32}$
                 type: string
@@ -2851,6 +2894,7 @@ components:
             - dataBundleIds
             - description
             - instanceType
+            - metadata
             - modelId
             - name
             - status
@@ -3568,6 +3612,54 @@ components:
       - workflows
       title: workflows
       type: object
+    groundTruthList:
+      anyOf:
+      - items:
+          additionalProperties: false
+          properties:
+            label:
+              maxLength: 36
+              minLength: 1
+              pattern: ^[0-9A-Za-z_]+$
+              type: string
+            value:
+              anyOf:
+              - maxLength: 128
+                minLength: 0
+                type: string
+              - type: 'null'
+              - type: boolean
+              - type: number
+              - $ref: '#/components/schemas/groundTruthList'
+          required:
+          - label
+          - value
+          type: object
+        type: array
+      - items:
+          items:
+            additionalProperties: false
+            properties:
+              label:
+                maxLength: 36
+                minLength: 1
+                pattern: ^[0-9A-Za-z_]+$
+                type: string
+              value:
+                anyOf:
+                - maxLength: 128
+                  minLength: 0
+                  type: string
+                - type: 'null'
+                - type: boolean
+                - type: number
+                - $ref: '#/components/schemas/groundTruthList'
+            required:
+            - label
+            - value
+            type: object
+          type: array
+        type: array
   securitySchemes:
     OAuth2:
       flows:
@@ -3613,7 +3705,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2022-01-20T13:54:42Z'
+  version: '2022-02-04T09:55:21Z'
 openapi: 3.0.1
 paths:
   /appClients:
