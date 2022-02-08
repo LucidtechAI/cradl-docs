@@ -3,7 +3,7 @@ sidebar_position: 4
 slug: /technology
 ---
 
-# Technology
+# Technology Manifesto
 
 export const Box = ({ title, text, icon, width='300px'}) => (
   <div style={{ padding: '12px', display: 'flex', backgroundColor: '#222', border: '1px solid #444', borderRadius: '5px', width: width }}>
@@ -37,13 +37,16 @@ export const BoxContainer = (props) => (
   <div {...props} style={{ display: 'flex', flexWrap: 'wrap', gap: '16px'}} />
 )
 
+Why are we writing this?
 
 ### Why we built our own deep learning models
+
+Intro
 
 #### Contextual information is important
 
 Documents are designed for human readability and contextual information such as layout, typing and logos are helping us
-quickly understand which piece of information is what we are looking for. We believe this to be true also for machine learning
+(_humans_) quickly understand which piece of information is what we are looking for. We believe this to be true also for machine learning
 models
 
 
@@ -52,8 +55,7 @@ is not typically preserved in OCR software but is equally as important for a com
 in our opinion. Commercial OCR software such as Google's, Microsoft's or AWS' have gotten very good at extracting arbitrary
 text from any document, but we are typically left with just text and bounding boxes.
 
-Using OCR software with something like an NLP component on top of this
-imposes several challenges in our opinion.
+Using OCR software with something like an NLP component on top of this imposes several challenges in our opinion.
 
 - Embeddings have priors potentially unrelated to your problem
 - Throw away bounding boxes or incorporate them in one way or another
@@ -61,43 +63,48 @@ imposes several challenges in our opinion.
 - Correcting incorrect OCRing is hard.
 - Dependency to a specific OCR model. OCR vendor might upgrade their models behind the scenes that change OCR results.
 While these changes could be small, our NLP model might be sensitive to changes in text and confidences.
+- Context help in determining the confidence
 
 Emma model - we have tried
 
-#### Predictions you can trust
+#### Trustworthy predictions
 
-To get satisfactory results when using AI for automation, it needs to be possible to determine when AI predictions
+To get satisfactory results when using AI for automation, it should be possible to determine when AI predictions
 likely are incorrect so that you can discard them or route them to a human for inspection. A major advantage of using
-machine learning is that predictions come with an estimate of how likely the prediction is to be correct - and conversely
+machine learning is that predictions come with an estimate of how likely they are to be correct - and conversely
 how likely they are to be incorrect. This estimate is usually called confidence. In designing our models we decided that
-it is paramount that confidences we provide are as precise as possible so that they can be trusted. To realise this, it
-made sense for us to design our models to be end-to-end, meaning that our models needed to be able to learn everything
-on its own by looking at just the pixels in the document and produce the desired outcome with no intermediate steps, handcrafted
-heuristics or algorithms.
+it is paramount that confidences we produce are as precise as possible so that they can be trusted. To realize this, it
+made sense for us to design models that are end-to-end, meaning that they had to be able to learn everything
+on their own by looking at just the pixels in the document and produce the desired outcome with no intermediate steps,
+handcrafted heuristics or algorithms.
 
 Ensemble models such as those combining OCR and NLP
 
 #### Making the training process easier
 
-One of the challenges in training supervised machine learning models is annotating data, usually a time
-consuming endeavor. Moreover these annotations are often metadata that you don't really care about - annotations
-like bounding boxes, Part-of-Speech tagging and so forth. We wanted to make the training process as smooth as possible
-and therefore designed our model to be trainable on data that users actually care about. We came up with a way to train only on actionable data - data that
-you are interested in and that are usable to you, without needing any information about where or how this information appears in the document.
-Consequently, if you are already processing documents, it will be easier for you to train a good model
-because it is much more likely that you have actionable data stored in a SQL database or similar, rather bounding boxes or
-Part-of-Speech tags.
+A challenge in training supervised machine learning models is annotating data, which oftentimes is time
+consuming. Moreover, annotated data can contain metadata that you don't really care about but are required for
+the success of training a particular model. In extracting key values from documents, you generally don't care about
+things like bounding boxes or part-of-speech tags. We wanted to make the training process as smooth as possible
+and therefore designed our model to be trainable only on data that users actually need extracted without needing any
+information about where or how this information appears in the document. Consequently, if you are already processing
+documents on behalf of your users and have kept this kind of data in SQL databases or similar, it will be quicker for
+you to get a good working model.
 
-#### Feedback loops that work
+#### Simple feedback loops
 
 
 
 #### Privacy
 
-- Compliance and privacy concerns. Using an OCR API means sending your users' data to a third party. This could introduce
-compliance issues and privacy concerns. Another challenge is honouring GDPR's right to be forgotten effectively.
+Honouring users' right to be forgotten is challenging if the third party does not have support for programmatically
+deleting specific data. This challenge typically arises when using a managed OCR API.
+
+Data and model privacy
 
 #### Better MLOps
+
+
 
 
 ### You deserve your own model
