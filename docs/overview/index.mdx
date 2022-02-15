@@ -78,14 +78,22 @@ Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a fr
 
 <BoxContainer>
   <TextBox title="Remove manual data entry from back-office tasks" width="450px" text="
+    Free employees from mundane repetitive back-office tasks that require typing basic information from documents
+    into a system.
   " />
   <TextBox title="Help your app users with pre-filled forms" width="450px" text="
+    Reduce time your users spend filling out forms with information that could be automatically extracted from
+    documents using machine learning.
   " />
   <TextBox title="Enable more automation in RPA or Low code" width="450px" text="
+    Increase automation degree in robots or low code by leveraging machine learning to read and extract information
+    from documents that would otherwise require human intervention.
   " />
   <TextBox title="Quality assurance for document processing workflows" width="450px" text="
+    Detect and fix errors in workflows that stem from misinterpreted documents before they become problematic.
   " />
   <TextBox title="Augment chatbots" width="450px" text="
+    Make your chatbot experience better for your users by adding document parsing capabilities.
   " />
 </BoxContainer>
 
@@ -95,22 +103,22 @@ Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a fr
 
 <BoxContainer>
   <TextBox title="Accurate" width="450px" text="
-    Our deep learning models are designed for document parsing and our team of data scientists are working hard to make
-    sure you get state-of-the-art accuracy when training a parser on your documents.
+    Our deep learning models are designed for document parsing and our team of machine learning engineers are working
+    hard to make sure you get state-of-the-art accuracy when training a model on your documents.
   " />
   <TextBox title="Flexible" width="450px" text="
     Parse any document in any language. Our models learn by looking at examples of documents and ground truths without
-    any language specific constructs such as word embeddings or part-of-speech tags.
+    templates or any language specific constructs such as word embeddings or part-of-speech tags.
   " />
   <TextBox title="Trustworthy predictions" width="450px" text="
-    End-to-end machine learning models make confidence estimates trustworthy. Our models learn by looking at just the
-    pixels in the document to produce the desired outcome with no intermediate steps, handcrafted heuristics or
-    algorithms.
+    End-to-end machine learning models make confidence estimates trustworthy. Our models will learn layouts and reading
+    as needed with no intermediate steps, handcrafted heuristics or algorithms. Use confidence thresholds to filter
+    predictions that match your desired accuracy.
   " />
-  <TextBox title="Feedback loops that work" width="450px" text="
-    Simple ground truths that correspond exactly to inputs and outputs of model, no need for additional metadata such
-    as bounding boxes, part-of-speech tags or similar. Provide only the values you wish to extract, not where or how
-    those values appear in the document.
+  <TextBox title="Easy to get started" width="450px" text="
+    Build a dataset ready for training in short time with simple ground truths that correspond exactly to inputs and
+    outputs of model. There is no need for additional metadata such as bounding boxes, part-of-speech tags or similar.
+    Provide only the values you wish to extract, not where or how those values appear in the document.
   " />
   <TextBox title="Fast processing" width="450px" text="
     Parse documents with an average processing time below 2 seconds. We take care of optimization and deployment of
@@ -130,26 +138,21 @@ Get a better understanding of the inner workings by reading about our key concep
 
 <BoxContainer>
   <Box title="Model" icon="/img/cogwheels-gear-svgrepo-com.svg" text="
-    A model is a machine learning model that can be trained to solve a specific document data extraction task, like
-    capturing payment info from invoices.
+    A model is a machine learning model (behind the scenes) that is configured to extract a specific set of fields.
   " />
-  <Box title="Document" icon="/img/browser-computing-svgrepo-com.svg" text="
-    A semi-structured document like an invoice, receipt, ID document, etc. in a PDF or image format. Any language and
-    any layout.
-  " />
-  <Box title="Ground Truth" icon="/img/share-svgrepo-com.svg" text="
-    A dataset consists of many (typically thousands) of documents that are used to train a specific model.
+  <Box title="Document and Ground Truth" icon="/img/browser-computing-svgrepo-com.svg" text="
+    A document is a PDF or Image (JPEG, PNG, TIFF) and optionally a ground truth JSON with key-value pairs of
+    information present in the document.
   " />
   <Box title="Dataset" icon="/img/share-svgrepo-com.svg" text="
-    A dataset consists of many (typically thousands) of documents that are used to train a specific model.
+    A dataset consists of one or more documents and are typically used to train models.
   " />
   <Box title="Training" icon="/img/database-svgrepo-com.svg" text="
-    Train your Model using Datasets.
-    A data bundle is a collection of one or more datasets that has been prepared for Model training.
+    A model training can be done with one or more datasets. Documents contained in these datasets must have ground
+    truth defined.
   " />
   <Box title="Prediction" icon="/img/coding-programming-language-svgrepo-com.svg" text="
-    When your model has finished training using your Data Bundle it can start capturing data from new and previously
-    unseen documents.
+    When a model has finished training it can be used to make predictions on new documents.
   " />
 </BoxContainer>
 
