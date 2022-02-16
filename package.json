@@ -27,6 +27,7 @@
     "moxygen": "^0.8.0",
     "prism-react-renderer": "^1.2.1",
     "react": "^17.0.1",
+    "react-animated-term": "^2.0.0",
     "react-dom": "^17.0.1",
     "redocusaurus": "^0.4.6",
     "sass": "^1.43.4",

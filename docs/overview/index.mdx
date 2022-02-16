@@ -4,6 +4,8 @@ slug: /
 ---
 
 # Cradl Documentation
+import Terminal from 'react-animated-term'
+import 'react-animated-term/dist/react-animated-term.css'
 
 export const Box = ({ title, text, icon, width='300px'}) => (
   <div style={{
@@ -52,6 +54,37 @@ export const BoxContainer = (props) => (
 )
 
 Learn how to use Cradl to build document parsing APIs with deep learning.
+
+<Terminal
+  lines={[
+    {
+      'text': 'las documents create invoice.pdf',
+      'cmd': true
+    },
+    {
+      'text': JSON.stringify({
+        documentId: 'las:document:0123456789abcdef',
+        contentType: 'application/pdf'
+      }, null, 2),
+      'cmd': false
+    },
+    {
+      'text': 'las predictions create las:document:0123456789abcdef las:model:0123456789abcdef',
+      'cmd': true
+    },
+    {
+      'text': JSON.stringify({
+        predictions: [
+          {label: 'total_amount', value: '143.67', confidence: 0.9943225616},
+          {label: 'currency', value: 'USD', confidence: 0.9816354160}
+        ]
+      }, null, 2),
+      'cmd': false
+    }
+  ]}
+  interval={25}
+  height={450}
+/>
 
 ## Getting Started
 
