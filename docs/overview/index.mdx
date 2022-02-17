@@ -3,7 +3,8 @@ sidebar_position: 1
 slug: /
 ---
 
-# Cradl Documentation
+# Introduction
+
 import Terminal from 'react-animated-term'
 import 'react-animated-term/dist/react-animated-term.css'
 
@@ -53,12 +54,15 @@ export const BoxContainer = (props) => (
   <div {...props} style={{ display: 'flex', flexWrap: 'wrap', gap: '16px'}} />
 )
 
-Learn how to use Cradl to build document parsing APIs with deep learning. Cradl is an AI tool that makes it easy for
-any developer to build your own document parsing machine learning models for any document type.
+Learn how to use Cradl to build document parsing APIs with deep learning. Cradl is a tool that makes it easy for
+any developer to build their own document parsers for any document type or language.
 
-- Create high-accuracy document parsing AI models
-- Deploy your AI models to your solution using a simple REST-API
-- Re-train, iterate and improve, your deployed AI models seamlessly using feedback loops.
+- Create high-accuracy and low-latency document parsing deep learning models
+- Deploy your deep learning models to your solution using a simple REST API
+- Re-train, iterate and improve your deployed deep learning models seamlessly
+
+
+## Easy integration with our CLI, SDKs or REST API
 
 <Terminal
   lines={[
@@ -87,7 +91,7 @@ any developer to build your own document parsing machine learning models for any
     }
   ]}
   interval={25}
-  height={375}
+  height={350}
   width={450}
 />
 
@@ -113,37 +117,18 @@ Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a fr
 
 <br/>
 
-## How can Cradl help you?
+## Use Cases
 
 <br/>
 
 <BoxContainer>
-  <TextBox title="Remove manual data entry from back-office tasks" width="450px" text="
-    Free employees from mundane repetitive back-office tasks that require typing basic information from documents
-    into a system.
-  " />
-  <TextBox title="Help your app users with pre-filled forms" width="450px" text="
-    Reduce time your users spend filling out forms with information that could be automatically extracted from
-    documents using machine learning.
-  " />
-  <TextBox title="Enable more automation in RPA or Low code" width="450px" text="
-    Increase automation degree in robots or low code by leveraging machine learning to read and extract information
-    from documents that would otherwise require human intervention.
-  " />
-  <TextBox title="Quality assurance for document processing workflows" width="450px" text="
-    Detect and fix errors in workflows that stem from misinterpreted documents before they become problematic.
-  " />
-  <TextBox title="Augment chatbots" width="450px" text="
-    Make your chatbot experience better for your users by adding document parsing capabilities.
-  " />
-
-  <TextBox title="Automate your document processes" width="450px" text="
+  <TextBox title="Automate your document processing" width="450px" text="
   Automate the processing of documents like invoices and reduce time, cost and errors while letting your co-workers
   spend their time on more meaningful work.
   " />
   <TextBox title="Build outstanding user experiences" width="450px" text="
   Build amazing user experience and increase customer satisfaction by reducing friction
-  in onboarding, data entry or other document processes in your software.
+  in onboarding, data entry or other document flows in your software.
   " />
   <TextBox title="Give your robots and chatbots vision" width="450px" text="
   Enhance your RPA and chatbots with document vision capabilities to create new automation flows or increase automation in existing processes.
@@ -159,20 +144,18 @@ Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a fr
 <br/>
 
 <BoxContainer>
-  <TextBox title="Accurate" width="450px" text="
-    Our deep learning models are designed for document parsing and our team of machine learning engineers are working
-    hard to make sure you get state-of-the-art accuracy when training a model on your documents.
-  " />
-  <TextBox title="Flexible" width="450px" text="
-    Parse any document in any language. Our models learn by looking at examples of documents and ground truths without
-    templates or any language specific constructs such as word embeddings or part-of-speech tags.
+  <TextBox title="Accurate &amp; Flexible" width="450px" text="
+    Parse any document in any language. Our models are designed for document parsing and learn without requiring
+    templates or language specific constructs such as word embeddings or part-of-speech tags. Our team of machine
+    learning engineers are working hard to make sure you get state-of-the-art accuracy when training a model on your
+    documents.
   " />
   <TextBox title="Trustworthy predictions" width="450px" text="
     End-to-end machine learning models make confidence estimates trustworthy. Our models will learn layouts and reading
     as needed with no intermediate steps, handcrafted heuristics or algorithms. Use confidence thresholds to filter
     predictions that match your desired accuracy.
   " />
-  <TextBox title="Easy to get started" width="450px" text="
+  <TextBox title="Reduce time-to-value with historical data" width="450px" text="
     Build a dataset ready for training in short time with simple ground truths that correspond exactly to inputs and
     outputs of model. There is no need for additional metadata such as bounding boxes, part-of-speech tags or similar.
     Provide only the values you wish to extract, not where or how those values appear in the document.
@@ -180,10 +163,6 @@ Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a fr
   <TextBox title="Fast processing" width="450px" text="
     Parse documents with an average processing time below 2 seconds. We take care of optimization and deployment of
     models on bleeding edge hardware offered by AWS so that you always get low-latency processing.
-  " />
-  <TextBox title="Integrate anywhere" width="450px" text="
-    Integrate your trained model in your own software with easy-to-use SDKs or through our REST API. The only
-    requirement is that you can communicate over HTTPS.
   " />
 </BoxContainer>
 
