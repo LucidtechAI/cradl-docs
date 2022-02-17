@@ -19,7 +19,7 @@ export const Box = ({ title, text, icon, width='300px'}) => (
     <img src={icon} alt="Icon" height="30px" />
     <div style={{ padding: '2px 12px 16px 12px' }} >
       <h2>{title}</h2>
-      <p>{text}</p>
+      {typeof text == 'string' ? <p>{text}</p> : text.map((t) => {return <p>{t}</p>})}
     </div>
   </div>
 )
@@ -53,7 +53,12 @@ export const BoxContainer = (props) => (
   <div {...props} style={{ display: 'flex', flexWrap: 'wrap', gap: '16px'}} />
 )
 
-Learn how to use Cradl to build document parsing APIs with deep learning.
+Learn how to use Cradl to build document parsing APIs with deep learning. Cradl is an AI tool that makes it easy for
+any developer to build your own document parsing machine learning models for any document type.
+
+- Create high-accuracy document parsing AI models
+- Deploy your AI models to your solution using a simple REST-API
+- Re-train, iterate and improve, your deployed AI models seamlessly using feedback loops.
 
 <Terminal
   lines={[
@@ -69,21 +74,21 @@ Learn how to use Cradl to build document parsing APIs with deep learning.
       'cmd': false
     },
     {
-      'text': 'las predictions create las:document:0123456789abcdef las:model:0123456789abcdef',
+      'text': 'las predictions create las:document:123 las:model:123',
       'cmd': true
     },
     {
       'text': JSON.stringify({
         predictions: [
           {label: 'total_amount', value: '143.67', confidence: 0.9943225616},
-          {label: 'currency', value: 'USD', confidence: 0.9816354160}
         ]
       }, null, 2),
       'cmd': false
     }
   ]}
   interval={25}
-  height={450}
+  height={375}
+  width={450}
 />
 
 ## Getting Started
@@ -93,14 +98,17 @@ Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a fr
 <br/>
 
 <BoxContainer>
-  <Box title="Your first document parser" icon="/img/rocket.svg" width="450px" text="
-    Follow step-by-step instructions to create your first document parsing API using Cradl. You will learn all the
-    basics required to train your first model.
-  " />
-  <Box title="Build upon a community model" icon="/img/rocket.svg" width="450px" text="
-    Go live quickly and extend an already trained community model with new fields and fine-tune the model on your
-    documents.
-  " />
+  <Box title="Build your first document parser" icon="/img/rocket.svg" width="450px" text={[
+    "Follow step-by-step instructions to create your first document parsing API using Cradl. You will learn all the basics required to train your first model.",
+    "Start using the CLI ->",
+    "Start using the Web App ->",
+  ]} />
+  <Box title="Clone a community model" icon="/img/rocket.svg" width="450px" text={[
+    "Go live quickly and extend an already trained community model with new fields and fine-tune the model on your documents.",
+    "Clone Invoice model ->",
+    "Clone Receipt model ->",
+    "Clone W9 Tax forms model ->",
+  ]} />
 </BoxContainer>
 
 <br/>
