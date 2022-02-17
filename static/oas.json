@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2021-12-01T10:24:32Z"
+    "version": "2021-12-09T16:46:33Z"
   },
   "servers": [
     {
@@ -6147,6 +6147,246 @@
           {
             "OAuth2": [
               "api.lucidtech.ai/workflows.executions:write"
+            ]
+          }
+        ]
+      }
+    },
+    "/models/{modelId}/trainings/{trainingId}": {
+      "options": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "modelId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "trainingId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Empty"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Empty"
+                }
+              }
+            },
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Methods": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Content-Type",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "modelId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "trainingId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchTrainingId"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Training"
+                }
+              }
+            },
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "400 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "403 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "404 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "415 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "500 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "api.lucidtech.ai/predictions:write"
             ]
           }
         ]
@@ -13733,10 +13973,10 @@
             "enum": [
               "waiting-for-approval",
               "pending",
-              "training",
-              "completed",
+              "running",
+              "succeeded",
               "failed",
-              "aborted"
+              "cancelled"
             ]
           }
         },
@@ -13880,8 +14120,8 @@
           "status": {
             "type": "string",
             "enum": [
-              "processing",
-              "ready",
+              "running",
+              "succeeded",
               "failed"
             ]
           }
@@ -14094,8 +14334,8 @@
                 "status": {
                   "type": "string",
                   "enum": [
-                    "processing",
-                    "ready",
+                    "running",
+                    "succeeded",
                     "failed"
                   ]
                 }
@@ -14108,8 +14348,8 @@
             "items": {
               "type": "string",
               "enum": [
-                "processing",
-                "ready",
+                "running",
+                "succeeded",
                 "failed"
               ]
             }
@@ -15026,6 +15266,7 @@
                 "modelId",
                 "name",
                 "numberOfDataBundles",
+                "numberOfRunningTrainings",
                 "preprocessConfig",
                 "status",
                 "updatedBy",
@@ -15121,18 +15362,22 @@
                   "type": "string",
                   "nullable": true
                 },
+                "numberOfRunningTrainings": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
                 "name": {
                   "maxLength": 4096,
                   "type": "string",
                   "nullable": true
                 },
+                "numberOfDataBundles": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
                 "width": {
                   "maximum": 1921,
                   "minimum": 97,
-                  "type": "integer"
-                },
-                "numberOfDataBundles": {
-                  "minimum": 0,
                   "type": "integer"
                 },
                 "createdTime": {
@@ -15149,7 +15394,6 @@
                   "type": "string",
                   "enum": [
                     "active",
-                    "training",
                     "inactive"
                   ]
                 }
@@ -15674,6 +15918,29 @@
         "title": "POST /transitions/{transitionId}/executions/{executionId}/heartbeats",
         "type": "object"
       },
+      "PatchTrainingId": {
+        "title": "PATCH /models/{modelId}/trainings/{trainingId}",
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 4096,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 4096,
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "cancelled"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
       "PatchDataBundleId": {
         "title": "PATCH /models/{modelId}/dataBundles/{dataBundleId}",
         "type": "object",
@@ -16130,10 +16397,10 @@
                   "enum": [
                     "waiting-for-approval",
                     "pending",
-                    "training",
-                    "completed",
+                    "running",
+                    "succeeded",
                     "failed",
-                    "aborted"
+                    "cancelled"
                   ]
                 }
               },
@@ -16147,10 +16414,10 @@
               "enum": [
                 "waiting-for-approval",
                 "pending",
-                "training",
-                "completed",
+                "running",
+                "succeeded",
                 "failed",
-                "aborted"
+                "cancelled"
               ]
             }
           }
@@ -16288,14 +16555,6 @@
             "maximum": 1921,
             "minimum": 97,
             "type": "integer"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "active",
-              "training",
-              "inactive"
-            ]
           }
         },
         "additionalProperties": false
@@ -17088,6 +17347,7 @@
           "modelId",
           "name",
           "numberOfDataBundles",
+          "numberOfRunningTrainings",
           "preprocessConfig",
           "status",
           "updatedBy",
@@ -17183,18 +17443,22 @@
             "type": "string",
             "nullable": true
           },
+          "numberOfRunningTrainings": {
+            "minimum": 0,
+            "type": "integer"
+          },
           "name": {
             "maxLength": 4096,
             "type": "string",
             "nullable": true
           },
+          "numberOfDataBundles": {
+            "minimum": 0,
+            "type": "integer"
+          },
           "width": {
             "maximum": 1921,
             "minimum": 97,
-            "type": "integer"
-          },
-          "numberOfDataBundles": {
-            "minimum": 0,
             "type": "integer"
           },
           "createdTime": {
@@ -17211,7 +17475,6 @@
             "type": "string",
             "enum": [
               "active",
-              "training",
               "inactive"
             ]
           }
