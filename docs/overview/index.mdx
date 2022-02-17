@@ -45,7 +45,7 @@ export const TextBox = ({ title, text, width='300px'}) => (
   <div style={{ padding: '12px', display: 'flex', width: width }}>
     <div style={{ padding: '2px 2px 2px 2px' }} >
       <h3>{title}</h3>
-      <p>{text}</p>
+      {typeof text == 'string' ? <p>{text}</p> : text.map((t) => {return <p>{t}</p>})}
     </div>
   </div>
 )
@@ -55,58 +55,51 @@ export const BoxContainer = (props) => (
 )
 
 <BoxContainer>
-<div style={{display: 'flex', width: '40%'}}>
-<ol>
-<h3><li>Build</li></h3>
-<h3><li>Train</li> </h3>
-<h3><li>Deploy</li></h3>
-</ol>
-</div>
-<div style={{display: 'flex', width: '40%'}}>
-Learn how to use Cradl to build document parsing APIs with deep learning. Cradl is a tool that makes it easy for
-any developer to build their own document parsers for any document type or language.
-</div>
+  <TextBox title="Build your model" width="450px" text={[
+    "1. Create high-accuracy and low-latency document parsing deep learning models",
+    "2. Train and deploy your deep learning models to your solution using a simple REST API",
+    "3. Re-train, iterate and improve your deployed deep learning models seamlessly"
+  ]} />
+  <img src="/img/input_output.png" alt="Icon" height="270px" />
 </BoxContainer>
 
-
-## Easy integration with our CLI, SDKs or REST API
-
+### Use your models with our CLI, SDKs or REST API
 
 <BoxContainer>
-<div style={{display: 'flex', width: '40%'}}>
-<img src="/img/cradl_hero.jpeg" />
-</div>
-<div style={{display: 'flex', width: '50%'}}>
-<Terminal
-  lines={[
-    {
-      'text': 'las documents create invoice.pdf',
-      'cmd': true
-    },
-    {
-      'text': JSON.stringify({
-        documentId: 'las:document:0123456789abcdef',
-        contentType: 'application/pdf'
-      }, null, 2),
-      'cmd': false
-    },
-    {
-      'text': 'las predictions create las:document:123 las:model:123',
-      'cmd': true
-    },
-    {
-      'text': JSON.stringify({
-        predictions: [
-          {label: 'total_amount', value: '143.67', confidence: 0.9943225616},
-        ]
-      }, null, 2),
-      'cmd': false
-    }
-  ]}
-  interval={25}
-  height={350}
-/>
-</div>
+  <div style={{display: 'flex', width: '30%', padding: '0px 0px'}}>
+  <img src="/img/invoice.png" alt="Icon" height="100%" />
+  </div>
+  <div style={{display: 'flex', width: '65%'}}>
+  <Terminal
+    lines={[
+      {
+        'text': 'las documents create invoice.pdf',
+        'cmd': true
+      },
+      {
+        'text': JSON.stringify({
+          documentId: 'las:document:0123456789abcdef',
+          contentType: 'application/pdf'
+        }, null, 2),
+        'cmd': false
+      },
+      {
+        'text': 'las predictions create las:document:123 las:model:123',
+        'cmd': true
+      },
+      {
+        'text': JSON.stringify({
+          predictions: [
+            {label: 'total_amount', value: '143.67', confidence: 0.9943225616},
+          ]
+        }, null, 2),
+        'cmd': false
+      }
+    ]}
+    interval={25}
+    height={350}
+  />
+  </div>
 </BoxContainer>
 
 ## Getting Started
