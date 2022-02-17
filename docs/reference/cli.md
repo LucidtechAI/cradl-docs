@@ -2,7 +2,7 @@
 title: CLI
 ---
 
-# Command Line Interface \(CLI\)
+# Command Line Interface (CLI)
 
 Our CLI allows you to access Cradl from the command line.
 
