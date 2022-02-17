@@ -54,16 +54,29 @@ export const BoxContainer = (props) => (
   <div {...props} style={{ display: 'flex', flexWrap: 'wrap', gap: '16px'}} />
 )
 
+<BoxContainer>
+<div style={{display: 'flex', width: '40%'}}>
+<ol>
+<h3><li>Build</li></h3>
+<h3><li>Train</li> </h3>
+<h3><li>Deploy</li></h3>
+</ol>
+</div>
+<div style={{display: 'flex', width: '40%'}}>
 Learn how to use Cradl to build document parsing APIs with deep learning. Cradl is a tool that makes it easy for
 any developer to build their own document parsers for any document type or language.
-
-- Create high-accuracy and low-latency document parsing deep learning models
-- Deploy your deep learning models to your solution using a simple REST API
-- Re-train, iterate and improve your deployed deep learning models seamlessly
+</div>
+</BoxContainer>
 
 
 ## Easy integration with our CLI, SDKs or REST API
 
+
+<BoxContainer>
+<div style={{display: 'flex', width: '40%'}}>
+<img src="/img/cradl_hero.jpeg" />
+</div>
+<div style={{display: 'flex', width: '50%'}}>
 <Terminal
   lines={[
     {
@@ -92,8 +105,9 @@ any developer to build their own document parsers for any document type or langu
   ]}
   interval={25}
   height={350}
-  width={450}
 />
+</div>
+</BoxContainer>
 
 ## Getting Started
 
