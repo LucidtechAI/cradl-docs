@@ -8,66 +8,11 @@ slug: /
 import Terminal from 'react-animated-term'
 import 'react-animated-term/dist/react-animated-term.css'
 
-export const Box = ({ title, text, icon, width='300px'}) => (
-  <div style={{
-    padding: '12px',
-    display: 'flex',
-    backgroundColor: '#222',
-    border: '1px solid #444',
-    borderRadius: '5px',
-    width: width
-  }}>
-    <img src={icon} alt="Icon" height="30px" />
-    <div style={{ padding: '2px 12px 16px 12px' }} >
-      <h2>{title}</h2>
-      {typeof text == 'string' ? <p>{text}</p> : text.map((t) => {return <p>{t}</p>})}
-    </div>
-  </div>
-)
+import Box from '@site/src/components/Box';
+import BoxContainer from '@site/src/components/BoxContainer';
+import TextBox from '@site/src/components/TextBox';
+import HeaderTextBox from '@site/src/components/HeaderTextBox';
 
-export const SdkBox = ({ title, text, icon, width='300px'}) => (
-  <div style={{
-    padding: '20px',
-    display: 'flex',
-    backgroundColor: '#222',
-    border: '1px solid #444',
-    borderRadius: '5px',
-    width: width
-  }}>
-    <img src={icon} alt="Icon" height="30px" />
-    <div style={{ padding: '2px 0px 0px 20px' }} >
-      <h2>{title}</h2>
-    </div>
-  </div>
-)
-
-export const TextBox = ({ title, text, width='300px'}) => (
-  <div style={{ padding: '12px', display: 'flex', width: width }}>
-    <div style={{ padding: '2px 2px 2px 2px' }} >
-      <h3>{title}</h3>
-      {typeof text == 'string' ? <p>{text}</p> : text.map((t) => {return <p>{t}</p>})}
-    </div>
-  </div>
-)
-
-export const HeaderTextBox = ({ text, width='300px'}) => (
-  <div style={{ padding: '12px', display: 'flex', width: width }}>
-    <div style={{ padding: '2px 2px 2px 2px' }} >
-      {Object.keys(text).map((item, i) => {
-        return (
-          <div>
-            <h3>{item}</h3>
-            <p>{text[item]}</p>
-          </div>
-        )
-      })}
-    </div>
-  </div>
-)
-
-export const BoxContainer = (props) => (
-  <div {...props} style={{ display: 'flex', flexWrap: 'wrap', gap: '16px'}} />
-)
 
 <br/>
 
@@ -83,7 +28,8 @@ export const BoxContainer = (props) => (
 <br/>
 
 ## Use your models with our CLI, SDKs or REST API
-
+After training and deploying your document parsing model, you can start making predictions on your documents
+either through our CLI, SDK or by using the REST API directly from you favorite programming language.
 
 <BoxContainer>
   <div style={{display: 'flex', width: '65%'}}>
