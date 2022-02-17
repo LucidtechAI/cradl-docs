@@ -1,19 +1,35 @@
 import React from 'react'
+import styles from './Box.module.css';
+
+import { ArrowRight } from 'react-feather';
 
 
-export default ({ title, text, icon, width='300px'}) => (
-  <div style={{
-    padding: '12px',
-    display: 'flex',
-    backgroundColor: '#222',
-    border: '1px solid #444',
-    borderRadius: '5px',
-    width: width
-  }}>
-    <img src={icon} alt="Icon" height="30px" />
+export const Box = ({ title, text, icon, children, background, border, padding='12px', width='300px'}) => (
+  <div className={styles.box} style={{padding: padding, width: width, border: border, background: background}}>
+    { icon }
+
     <div style={{ padding: '2px 12px 16px 12px' }} >
-      <h2>{title}</h2>
-      {typeof text == 'string' ? <p>{text}</p> : text.map((t) => {return <p>{t}</p>})}
+      <h3>{title}</h3>
+      { text && <p>{text}</p>}
+      { children }
     </div>
   </div>
-)
+);
+
+export const SdkBox = ({ title, text, icon, width='300px'}) => (
+    <div className={styles.box} style={{padding: '20px', width: width}}>
+      <img src={icon} alt="Icon" height="30px" />
+      <div style={{ padding: '2px 0px 0px 20px' }} >
+        <h2>{title}</h2>
+      </div>
+    </div>
+);
+
+export const BoxAction = ({text, href, icon}) => (
+    <a className={styles.boxAction} href={href}>
+        <span className={styles.boxActionText}>{text}</span>
+        <ArrowRight />
+    </a>
+);
+
+export default Box;

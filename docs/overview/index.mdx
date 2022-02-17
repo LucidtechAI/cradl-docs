@@ -8,32 +8,68 @@ slug: /
 import Terminal from 'react-animated-term'
 import 'react-animated-term/dist/react-animated-term.css'
 
-import Box from '@site/src/components/Box';
+import { Box, SdkBox, BoxAction } from '@site/src/components/Box';
 import BoxContainer from '@site/src/components/BoxContainer';
 import TextBox from '@site/src/components/TextBox';
-import HeaderTextBox from '@site/src/components/HeaderTextBox';
+import HeaderText from '@site/src/components/HeaderText';
+import * as Icons from 'react-feather';
 
+import useThemeContext from '@theme/hooks/useThemeContext';
+
+export const ThemedTerminal = ({...props}) => {
+    const { isDarkTheme } = useThemeContext();
+    return <Terminal {...props} white={!isDarkTheme} />
+};
+
+
+Welcome to the developer documentation for Cradl, the platform for building and deploying document parsers with deep learning.
+Here you'll find an overview of core concepts, guides and reference documentations for APIs.
 
 <br/>
 
 <BoxContainer>
-  <HeaderTextBox width="450px" text={{
-    "Build": "Create high-accuracy and low-latency document parsing deep learning models",
-    "Train": "Train and deploy your deep learning models to your solution using a simple REST API",
-    "Integrate": "Re-train, iterate and improve your deployed deep learning models seamlessly"
-  }} />
+  <Box border="none" padding="12px" background="none" width="450px">
+      <HeaderText title="Build" text="Create high-accuracy and low-latency document parsing deep learning models" />
+      <HeaderText title="Train" text="Train and deploy your deep learning models to your solution using a simple REST API" />
+      <HeaderText title="Integrate" text="Re-train, iterate and improve your deployed deep learning models seamlessly" />
+  </Box>
   <img src="/img/model_overview.png" alt="Icon" height="350px" />
 </BoxContainer>
 
+## Getting started
+Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a free account, and start building.
+
 <br/>
 
-## Use your models with our CLI, SDKs or REST API
+<BoxContainer>
+  <Box title="Build your first document parser" width="450px">
+    <p>
+    Follow step-by-step instructions to create your first document parsing API using Cradl.
+    </p>
+    <BoxAction text="Get started with the CLI" href="/bar" />
+    <BoxAction text="Get started with the SDK" href="/bar" />
+    <BoxAction text="Get started with the web app" href="/bar" />
+  </Box>
+
+  <Box title="Clone a community model" width="450px">
+    <p>
+    Get up and running quickly, fine-tune a a pre-trained model on your documents.
+    </p>
+    <BoxAction text="Clone invoice model" href="/bar" />
+    <BoxAction text="Clone receipt model" href="/bar" />
+    <BoxAction text="Clone W9 tax form model" href="/bar" />
+  </Box>
+</BoxContainer>
+
+<br />
+
+
+## Making predictions with your trained model
 After training and deploying your document parsing model, you can start making predictions on your documents
 either through our CLI, SDK or by using the REST API directly from you favorite programming language.
 
-<BoxContainer>
-  <div style={{display: 'flex', width: '65%'}}>
-  <Terminal
+<div style={{display: 'flex', width: '75%'}}>
+  <ThemedTerminal
     lines={[
       {
         'text': 'las documents create invoice.pdf',
@@ -62,48 +98,52 @@ either through our CLI, SDK or by using the REST API directly from you favorite 
     interval={25}
     height={350}
   />
-  </div>
-</BoxContainer>
+</div>
 
-## Getting Started
+<br />
 
-Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a free account, and start building.
-
-<br/>
-
-<BoxContainer>
-  <Box title="Build your first document parser" icon="/img/rocket.svg" width="450px" text={[
-    "Follow step-by-step instructions to create your first document parsing API using Cradl. You will learn all the basics required to train your first model.",
-    "Start using the CLI ->",
-    "Start using the Web App ->",
-  ]} />
-  <Box title="Clone a community model" icon="/img/rocket.svg" width="450px" text={[
-    "Go live quickly and extend an already trained community model with new fields and fine-tune the model on your documents.",
-    "Clone Invoice model ->",
-    "Clone Receipt model ->",
-    "Clone W9 Tax forms model ->",
-  ]} />
-</BoxContainer>
-
-<br/>
-
-## Use Cases
+## Core concepts
+Get a better understanding of the inner workings by reading about our key concepts.
 
 <br/>
 
 <BoxContainer>
-  <TextBox title="Automate your document processing" width="450px" text="
+  <Box title="Model" width="450px" icon={<Icons.Box size={"48px"} color={"blue"} />} text="
+    A model is the most fundamental component of your document parser. Learn more about models here.
+  " />
+  <Box title="Dataset" width="450px" icon={<Icons.Database />} text="
+    Datasets are used to train your models, so understanding what makes a good dataset is critical to building a high accuracy parser.
+    "
+  />
+  <Box title="Training" width="450px" icon={<Icons.Cpu />} text="
+    A model training can be done with one or more datasets.
+    Documents contained in these datasets must have ground truth defined.
+  " />
+  <Box title="Prediction" width="450px" icon={<Icons.Activity size={48} color={"blue"} />} text="
+    When a model is trained and deploy, you're ready to make predictions on new documents.
+    Learn more about making predictions here.
+  " />
+</BoxContainer>
+
+<br/>
+
+
+
+## Use cases
+
+<BoxContainer>
+  <TextBox title="Automate your document processes" width="450px" text="
   Automate the processing of documents like invoices and reduce time, cost and errors while letting your co-workers
   spend their time on more meaningful work.
   " />
-  <TextBox title="Build outstanding user experiences" width="450px" text="
+  <TextBox title="Build great user experiences" width="450px" text="
   Build amazing user experience and increase customer satisfaction by reducing friction
   in onboarding, data entry or other document flows in your software.
   " />
   <TextBox title="Give your robots and chatbots vision" width="450px" text="
   Enhance your RPA and chatbots with document vision capabilities to create new automation flows or increase automation in existing processes.
   " />
-  <TextBox title="Automate auditing and compliance" width="450px" text="
+  <TextBox title="Automate auditing and compliance tasks" width="450px" text="
   Automate your employee expense audits and KYC compliance routines by automating
   the processing of expense reports, ID cards and proofs of residence.
   " />
@@ -114,61 +154,26 @@ Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a fr
 <br/>
 
 <BoxContainer>
-  <TextBox title="Accurate &amp; Flexible" width="450px" text="
-    Parse any document in any language. Our models are designed for document parsing and learn without requiring
-    templates or language specific constructs such as word embeddings or part-of-speech tags. Our team of machine
-    learning engineers are working hard to make sure you get state-of-the-art accuracy when training a model on your
-    documents.
-  " />
-  <TextBox title="Trustworthy predictions" width="450px" text="
-    End-to-end machine learning models make confidence estimates trustworthy. Our models will learn layouts and reading
-    as needed with no intermediate steps, handcrafted heuristics or algorithms. Use confidence thresholds to filter
-    predictions that match your desired accuracy.
+  <TextBox title="Accurate and flexible" width="450px" text="
+     By configuring and training a document parser for your documents, you ensure a
+     high accuracy document parsing while maintaining flexibilty and control."
+    />
+
+  <TextBox title="Confidence that you can trust" width="450px" text="
+    True end-to-end machine learning models means that you can trust Cradl's confidences
+    values and never lose control over accuracy.
   " />
   <TextBox title="Reduce time-to-value with historical data" width="450px" text="
-    Build a dataset ready for training in short time with simple ground truths that correspond exactly to inputs and
-    outputs of model. There is no need for additional metadata such as bounding boxes, part-of-speech tags or similar.
-    Provide only the values you wish to extract, not where or how those values appear in the document.
+    Build a large scale training datasets quickly from your historical data.
+    No need for bounding boxes or part-of-speech tagging during training.
   " />
   <TextBox title="Fast processing" width="450px" text="
-    Parse documents with an average processing time below 2 seconds. We take care of optimization and deployment of
-    models on bleeding edge hardware offered by AWS so that you always get low-latency processing.
+    Parse documents with an average processing time below 2 seconds.
+    Need even faster processing? Talk to us about custom deployment options.
   " />
 </BoxContainer>
-
-## Cradl Basics
-
-Get a better understanding of the inner workings by reading about our key concepts
-
-<br/>
-
-<BoxContainer>
-  <Box title="Model" icon="/img/cogwheels-gear-svgrepo-com.svg" text="
-    A model is a machine learning model (behind the scenes) that is configured to extract a specific set of fields.
-  " />
-  <Box title="Document and Ground Truth" icon="/img/browser-computing-svgrepo-com.svg" text="
-    A document is a PDF or Image (JPEG, PNG, TIFF) and optionally a ground truth JSON with key-value pairs of
-    information present in the document.
-  " />
-  <Box title="Dataset" icon="/img/share-svgrepo-com.svg" text="
-    A dataset consists of one or more documents and are typically used to train models.
-  " />
-  <Box title="Training" icon="/img/database-svgrepo-com.svg" text="
-    A model training can be done with one or more datasets. Documents contained in these datasets must have ground
-    truth defined.
-  " />
-  <Box title="Prediction" icon="/img/coding-programming-language-svgrepo-com.svg" text="
-    When a model has finished training it can be used to make predictions on new documents.
-  " />
-</BoxContainer>
-
-<br/>
 
 ## Reference
-
-Choose a framework your are comfortable using.
-
-<br/>
 
 <BoxContainer>
   <SdkBox title="CLI" text="" icon="/img/browser-coding-svgrepo-com.svg" />
