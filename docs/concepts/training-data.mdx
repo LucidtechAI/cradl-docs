@@ -8,8 +8,8 @@ import TabItem from '@theme/TabItem';
 # Training
 
 A _training_ in Cradl is the process of training a machine learning model on the data you provide.
-The process of training a model contains the following steps:
-1. User requests training.
+It can be summed up in 3 simple steps:
+1. User requests training in the Cradl app, or with one of our SDKs or CLI.
 2. Our team of Data Scientists verify that the training is feasible, and starts the training.
 3. User receives a new model that has been trained according to the request.
 
@@ -55,6 +55,10 @@ data_bundle = client.create_training(model_id='<modelId>', data_bundle_ids=['<da
 </TabItem>
 </Tabs>
 
+After the training is requested you will receive an email that verifies the request, and when the training is completed.
+You can also check the request of your training, by looking at its status.
+
+
 ## Data Bundle
 
 A _data bundle_ in Cradl is a model-specific collection of one or more [Datasets](datasets.mdx).
@@ -64,7 +68,8 @@ we require that any data bundles used for training must pass a statistical test 
 
 ### Creating a data bundle
 
-To create a data bundle for a model you must specify the `modelId` and one or more `datasetIds`, optionally giving it a name and description. See [Creating a model](models.mdx#creating-a-model) and [Creating a dataset](datasets.mdx#creating-a-dataset) for how to create models and datasets.
+To create a data bundle for a model you must specify the `modelId` and one or more `datasetIds`, optionally giving it a name and description.
+See [Creating a model](models.mdx#creating-a-model) and [Creating a dataset](datasets.mdx#creating-a-dataset) for more information on how to create models and datasets.
 
 <Tabs groupId="programming-language">
 <TabItem value="cli" label="CLI" default>
