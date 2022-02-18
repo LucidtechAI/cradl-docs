@@ -7,7 +7,7 @@ import TabItem from '@theme/TabItem';
 
 # Predictions
 
-A prediction in Cradle results from an application of an active, trained [Model](models.mdx) to a [Document](documents.mdx). It supplies the extracted data together with confidence values representing the probability that the extracted data is correct.
+A _prediction_ results from an application of an active, trained [Model](models.mdx) to a [Document](documents.mdx). It supplies the extracted data together with confidence values representing the probability that the extracted data is correct.
 
 ## Making a prediction
 
@@ -68,11 +68,11 @@ The above example shows an application to an example document. Each label in the
 
 ## Confidence
 
-Every field the model extracts has a corresponding confidence value. Our confidence is different from a traditional OCR confidence in that it not only estimates the probability that the characters are interpreted correctly, but also that it has extracted the correct information \(e.g. the total amount and not the VAT amount\). 
+Every field the model extracts has a corresponding confidence value. Our confidence is different from a traditional OCR confidence in that it not only estimates the probability that the characters are interpreted correctly, but also that it has extracted the correct information \(e.g. the total amount and not the VAT amount\).
 
 #### What does a good confidence value look like?
 
-What constitutes a good confidence value depends on how difficult it is to make a prediction for the field in question. For instance, account numbers often follow strict rules of composition and quite often located in obvious places, so a model can often confidently predict an account number once it has found a suitable candidate. On the other hand, predicting the name of a sales representative in a document can be hard, as it often requires reading a long string of characters which may be located in various places, often competing for attention with other names on the document. 
+What constitutes a good confidence value depends on how difficult it is to make a prediction for the field in question. For instance, account numbers often follow strict rules of composition and quite often located in obvious places, so a model can often confidently predict an account number once it has found a suitable candidate. On the other hand, predicting the name of a sales representative in a document can be hard, as it often requires reading a long string of characters which may be located in various places, often competing for attention with other names on the document.
 
 Your model will have different confidence profiles for each field, so while having a prediction with a confidence of 0.9 might be good for the sales representative name, it might be on the low end of confidence for the bank account number. Determining what is a good confidence should be handled on a field-by-field basis, but as a rule of thumb, confidences below 0.7 can be considered uncertain, confidences between 0.7 and 0.9 are more often than not correct, and confidences above 0.9 could be considered good, with confidences of 0.99 and above being near-certain.
 
