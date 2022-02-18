@@ -27,15 +27,6 @@ export const TextBox =({ title, text, icon, width='300px'}) => (
   </div>
 );
 
-export const SdkBox = ({ title, text, icon, width='300px'}) => (
-    <div className={styles.box} style={{padding: '20px', width: width}}>
-      <img src={icon} alt="Icon" height="30px" />
-      <div style={{ padding: '2px 0px 0px 20px' }} >
-        <h2>{title}</h2>
-      </div>
-    </div>
-);
-
 export const BoxAction = ({text, href, icon}) => (
     <a className={styles.boxAction} href={href}>
         <span className={styles.boxActionText}>{text}</span>
