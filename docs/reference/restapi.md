@@ -10,7 +10,7 @@ title: REST API
 
 ## Reference
 
-- See full reference [here](../../../rest-api-reference)
+- See full reference [here](/rest-api-reference)
 
 ## Changelog
 
