@@ -13,18 +13,27 @@
   width: 250px;
 }
 
-.box {
+.box, .textBox {
    display: flex;
    border-radius: 5px;
-   border: 1px solid #ddd;
 }
 
-.box svg {
+.box { border: 1px solid #ddd; }
+
+.box svg, .textBox svg {
     min-width: 32px;
     min-height: 32px;
     color: #5f59f7;
+}
+
+.box svg {
     margin-right: 0.5em;
     margin-left: 0.5em;
+}
+
+.textBox svg {
+    margin-right: 1em;
+    margin-left: 1em;
 }
 
 html[data-theme='dark'] .box {

@@ -8,9 +8,8 @@ slug: /
 import Terminal from 'react-animated-term'
 import 'react-animated-term/dist/react-animated-term.css'
 
-import { Box, SdkBox, BoxAction } from '@site/src/components/Box';
+import { Box, TextBox, SdkBox, BoxAction } from '@site/src/components/Box';
 import BoxContainer from '@site/src/components/BoxContainer';
-import TextBox from '@site/src/components/TextBox';
 import HeaderText from '@site/src/components/HeaderText';
 import * as Icons from 'react-feather';
 
@@ -154,20 +153,20 @@ Get a better understanding of the inner workings by reading about our key concep
 <br/>
 
 <BoxContainer>
-  <TextBox title="Accurate and flexible" width="450px" text="
-     By configuring and training a document parser for your documents, you ensure a
-     high accuracy document parsing while maintaining flexibilty and control."
+  <TextBox title="Accurate and flexible" icon={<Icons.MapPin />} width="450px" text="
+     By configuring and training a document parser for your documents, you ensure 
+     high accuracy document parsing without losing flexibilty."
     />
 
-  <TextBox title="Confidence that you can trust" width="450px" text="
+  <TextBox title="Confidence that you can trust" icon={<Icons.Shield />} width="450px" text="
     True end-to-end machine learning models means that you can trust Cradl's confidences
     values and never lose control over accuracy.
   " />
-  <TextBox title="Reduce time-to-value with historical data" width="450px" text="
+  <TextBox title="Reduce time-to-value with historical data" icon={<Icons.Clock />} width="450px" text="
     Build a large scale training datasets quickly from your historical data.
     No need for bounding boxes or part-of-speech tagging during training.
   " />
-  <TextBox title="Fast processing" width="450px" text="
+  <TextBox title="Fast processing" width="450px" icon={<Icons.TrendingUp />}text="
     Parse documents with an average processing time below 2 seconds.
     Need even faster processing? Talk to us about custom deployment options.
   " />

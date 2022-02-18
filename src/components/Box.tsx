@@ -16,6 +16,17 @@ export const Box = ({ title, text, icon, children, background, border, padding='
   </div>
 );
 
+export const TextBox =({ title, text, icon, width='300px'}) => (
+  <div className={styles.textBox} style={{width: width}}>
+    { icon }
+
+    <div style={{ padding: '2px 2px 2px 2px' }} >
+      <h3>{title}</h3>
+      {typeof text == 'string' ? <p>{text}</p> : text.map((t) => {return <p>{t}</p>})}
+    </div>
+  </div>
+);
+
 export const SdkBox = ({ title, text, icon, width='300px'}) => (
     <div className={styles.box} style={{padding: '20px', width: width}}>
       <img src={icon} alt="Icon" height="30px" />
