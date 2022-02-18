@@ -20,7 +20,7 @@
     },
     {
       "pattern": "^/",
-      "replacement": "{{BASEURL}}/"
+      "replacement": "{{BASEURL}}/docs/"
     }
   ],
   "httpHeaders": [
