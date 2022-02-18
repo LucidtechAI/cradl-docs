@@ -1,8 +1,13 @@
+---
+sidebar_position: 3
+title: Python SDK
+---
+
 # Overview
 
 ## Reference
 
-- See full reference <a href="../../../../../python-docs/index.html" target="_blank">here</a>.
+- See full reference <a href="../../../python-docs/index.html" target="_blank">here</a>.
 
 ## Installation
 The python SDK for Cradl can be downloaded from `pip`:
@@ -19,7 +24,7 @@ you are ready to enhance your document-flow with the las client:
 from las import Client
 client = Client()
 ```
-If you are new to Cradl we recommend you to check out the [key concepts](../../../concepts/models.mdx)
+If you are new to Cradl we recommend you to check out the [key concepts](../concepts/models.mdx)
 for a better understanding of what is possible with Cradl.
 
 The Python SDK is open-source, and the code can be found [here](https://github.com/LucidtechAI/las-sdk-python).
