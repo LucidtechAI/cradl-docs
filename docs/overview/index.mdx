@@ -5,6 +5,7 @@ slug: /
 
 # Introduction
 
+import { useHistory } from '@docusaurus/router';
 import Terminal from 'react-animated-term'
 import 'react-animated-term/dist/react-animated-term.css'
 
@@ -18,6 +19,11 @@ import useThemeContext from '@theme/hooks/useThemeContext';
 export const ThemedTerminal = ({...props}) => {
     const { isDarkTheme } = useThemeContext();
     return <Terminal {...props} white={!isDarkTheme} />
+};
+
+export const LinkBox = ({url, ...props}) => {
+    const history = useHistory();
+    return <Box {...props} clickable onClick={() => history.push(url)} />
 };
 
 
@@ -106,18 +112,18 @@ Get a better understanding of the inner workings by reading about our key concep
 <br/>
 
 <BoxContainer>
-  <Box title="Model" width="450px" icon={<Icons.Box size={"48px"} color={"blue"} />} text="
+  <LinkBox title="Model" width="450px" icon={<Icons.Box size={"48px"} />} url="/concepts/models" text="
     A model is the most fundamental component of your document parser. Learn more about models here.
   " />
-  <Box title="Dataset" width="450px" icon={<Icons.Database />} text="
+  <LinkBox title="Dataset" width="450px" icon={<Icons.Database />} url="/concepts/datasets" text="
     Datasets are used to train your models, so understanding what makes a good dataset is critical to building a high accuracy parser.
     "
   />
-  <Box title="Training" width="450px" icon={<Icons.Cpu />} text="
+  <LinkBox title="Training" width="450px" icon={<Icons.Cpu />} url="/concepts/training-data" text="
     A model training can be done with one or more datasets.
     Documents contained in these datasets must have ground truth defined.
   " />
-  <Box title="Prediction" width="450px" icon={<Icons.Activity size={48} color={"blue"} />} text="
+  <LinkBox title="Prediction" width="450px" icon={<Icons.Activity size={48} />} url="/concepts/predictions" text="
     When a model is trained and deploy, you're ready to make predictions on new documents.
     Learn more about making predictions here.
   " />
@@ -175,15 +181,15 @@ Get a better understanding of the inner workings by reading about our key concep
 <BoxContainer>
   <Box title="CLI and REST API" width="450px">
     <p>
-    Check out our easy to use CLI or REST API reference.
+    Browse our CLI and REST API reference.
     </p>
     <BoxAction text="Get started with the CLI" href="/reference/cli" />
     <BoxAction text="Get started with the REST API" href="/reference/restapi/index" />
   </Box>
 
-  <Box title="Client Libraries (SDKs)" width="450px">
+  <Box title="Client libraries" width="450px">
     <p>
-    To make development easy we’ve developed SDKs for popular languages.
+    Check out one of our SDKs.
     </p>
     <BoxAction text="Get started with the Python SDK" href="/reference/sdks/python/index" />
     <BoxAction text="Get started with the JavaScript SDK" href="/reference/sdks/js/index" />

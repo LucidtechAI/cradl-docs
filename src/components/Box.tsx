@@ -4,8 +4,14 @@ import styles from './Box.module.css';
 import { ArrowRight } from 'react-feather';
 
 
-export const Box = ({ title, text, icon, children, background, border, padding='12px', width='300px'}) => (
-  <div className={styles.box} style={{padding: padding, width: width, border: border, background: background}}>
+export const Box = ({ title, text, icon, onClick, children, background, border, clickable, padding='12px', width='300px'}) => (
+  <div className={styles.box} style={{
+      padding: padding,
+      width: width,
+      border: border,
+      background: background,
+      cursor: clickable ? 'pointer' : 'auto'
+      }} onClick={onClick}>
     { icon }
 
     <div style={{ padding: '2px 12px 16px 12px' }} >
