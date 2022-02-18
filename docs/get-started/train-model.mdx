@@ -11,7 +11,13 @@ import TabItem from '@theme/TabItem';
 
 We have now defined a model and created a dataset. The next step is to train the model, but first we need to tell it what data to use when training. At this point, it would also be wise to take a step back and make sure that our training data is of good quality, so that the outcome of the training will be satisfactory. Good quality training data is varied and has lots of examples for all the fields we want the model to extract.
 
-To tell the model which data to use, we select datasets containing our training data and attach them to the model in the form of a [data bundle](../concepts/training-data.mdx). Doing so will automatically create a [data quality report](../concepts/training-data.mdx#data-report) on the training data.
+:::tip
+
+The simplest way to start a training is to use the training wizard in the Cradl app, just go to [**Models**](https://app.cradl.ai/models) > **Your model** > **Training jobs** > **New training**.
+
+:::
+
+To tell the model which data to use, we select datasets containing our training data and attach them to the model in the form of a [ata bundle](../concepts/training-data.mdx). Doing so will automatically create a [data quality report](../concepts/training-data.mdx#data-report) on the training data.
 
 <Tabs groupId="programming-language">
 <TabItem value="cli" label="CLI" default>
@@ -24,7 +30,7 @@ las models create-data-bundle --name "Initial data report" <modelId> <datasetId>
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'https://api.lucidtech.ai/v1/models/<model id>/dataBundles' \
+curl -X POST 'https://api.lucidtech.ai/v1/models/<modelId>/dataBundles' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJra...' \
 --data-raw '{
@@ -48,8 +54,8 @@ data_bundle = client.create_data_bundle(model_id='<modelId>', dataset_ids=['<dat
 
 ```json
 {
-  "dataBundleId": "las:model-data-bundle:<data bundle id>",
-  "modelId": "las:model:<model id>",
+  "dataBundleId": "las:model-data-bundle:<dataBundleId>",
+  "modelId": "las:model:<modelId>",
   "name": "Initial data report",
   "datasets": [
     {
@@ -155,17 +161,37 @@ Check out the [**data quality section**](../concepts/training-data.mdx#data-qual
 
 ## Request training
 
-Once you're satisfied with your training data, you can make a request to train your model. Training of models may only be requested through the Cradl UI for now - the API will have this feature publically available soon!
+Once you're satisfied with your training data, you can make a request to train your model.
 
-1. **[Models](https://app.cradl.ai/models) > YourModel > Training jobs > New training**.
+<Tabs groupId="programming-language">
+<TabItem value="cli" label="CLI" default>
 
-![Screenshot of training tab page](/img/train-a-model/training-tab-page.png)
+```bash
+las models create-training --name "Initial training of receipt model" <modelId> <dataBundleId>
+```
 
-2. Select data bundles to train on, and press **Start training**.
+</TabItem>
+<TabItem value="curl" label="cURL">
 
-![Screenshot of training dataset selection page](/img/train-a-model/dataset-selection.png)
+```bash
+curl -X POST 'https://api.lucidtech.ai/v1/models/<modelId>/trainings' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJra...' \
+--data-raw '{
+    "modelId": "<modelId>",
+    "dataBundleIds": [
+        "<dataBundleId>"
+    ],
+    "name": "Initial training of receipt model"
+}'
+```
 
-3. Verify that your training request was successful by inspecting the table in **[Models](https://app.cradl.ai/models) > YourModel > Training jobs**.
+</TabItem>
+<TabItem value="python" label="Python">
 
-![Screenshot of training job listing](/img/train-a-model/training-job-list.png)
+```python
+data_bundle = client.create_training(model_id='<modelId>', data_bundle_ids=['<dataBundleId>'], name='Initial training of receipt model')
+```
 
+</TabItem>
+</Tabs>

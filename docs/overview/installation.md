@@ -41,7 +41,7 @@ You can find the Open API specification file in [JSON](pathname:///oas.json) or 
 
 We also have SDK's in Java, JavaScript and .NET. See references section for detailed use of every SDK
 
-- [Python](../reference/sdks/python.mdx)
+- [Python](../reference/sdks/python/index.mdx)
 - [.NET](../reference/sdks/dotnet/index.mdx)
 - [Java](../reference/sdks/java/index.mdx)
 - [JavaScript](../reference/sdks/js/index.mdx)

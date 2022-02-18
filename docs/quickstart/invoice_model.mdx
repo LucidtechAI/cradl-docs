@@ -15,18 +15,8 @@ The sample invoices used for this guide serves only for demonstrational purposes
 ### Prerequisites
 The only thing you need to get started is a Cradl account. If you don't have one, you can sign up [for free](https://cradl.ai).
 
-## 1. Configure your model
-First, we need to create and configure our model.
- 1. In Cradl, go to [**Models**](https://app.cradl.ai/models) > [**New model**](https://app.cradl.ai/models/new).
- 2. Give your model a name, and add an optional description.
- 3. Choose the invoice template and press **Create model**.
- 4. Make sure that the field names from the template matches the labels in the [sample invoices](/sample_invoices.zip).
-
-:::info Matching fields
-To train a model, **the field names always need to match the labels** in the data.
-:::
-
-## 2. Upload data
+## 1. Prepare your training data
+Before we enter Cradl to start the training, we make sure that we have data to train on.
 1. Download the [sample invoices](/sample_invoices.zip) and unzip them to a local folder.
 2. Notice how the files are structured in pairs of images and JSON. These two components together make up a [**document**](../concepts/documents).
 
@@ -58,20 +48,26 @@ To train a model, **the field names always need to match the labels** in the dat
 </TabItem>
 </Tabs>
 
-3. Go to [**Datasets**](https://app.cradl.ai/datasets) > [**New dataset**](https://app.cradl.ai/datasets/new), give it a name and press **Create**.
-4. Go to [**Datasets**](https://app.cradl.ai/datasets) > YourDataset > Upload data and upload all the files from the [sample invoices](/sample_invoices.zip).
+## 2. Configure your model
+We are now ready to enter Cradl and put our data to use.
+1. In Cradl, go to [**Models**](https://app.cradl.ai/models) > [**New model**](https://app.cradl.ai/models/new).
+2. Give your model a name, and add an optional description.
+3. Choose the invoice template and press **Create model**.
+4. In the *Model overview* section press **Go to training** and then **New training**.
+
+:::info Matching fields
+To train a model, **the field names always need to match the labels** in the data.
+:::
 
 ## 3. Train your model
-To make sure that your dataset is compatible with the model we will have to create a [data bundle](../concepts/training-data.mdx).
+You should now be in the training wizard, if not just go to
+[**Models**](https://app.cradl.ai/models) > **Your model** > **Training jobs** > **New training**.
+1. Choose **Create new dataset**, give your dataset a name and add an optional description.
+2. Choose all the files you prepared in the first step and press start upload, remember to add both JSONs and PDFs.
+3. Generate a data report, this step will be more important when dealing with real data.
+4. Leave the default settings and press **Start model training** to send a training request.
 
-1. Go to **[Models](https://app.cradl.ai/models) > YourModel > Data bundles > Select Data**.
-2. Give your data bundle a name, and add an optional description.
-3. Choose the dataset you want to train on.
-4. Press **Create Data Bundle** and wait for the data bundle summary to appear.
-5. Inspect the summary to make sure that the training data is of sufficiently good quality to start training.
-6. Go to **[Models](https://app.cradl.ai/models) > YourModel > Training > New training** and choose the data bundle you created in the previous step.
-
-Congratulations! You have now requested a training. You will be notified when your model is trained and ready to use.
+Congratulations! You have now requested a training. You will soon hear from us regarding your training, and you can expect your model to be ready within two days!
 
 :::tip
 Make some predictions on the already active community models [here](https://app.cradl.ai/test) to get an impression of how to use an active model.
