@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Box.module.css';
+import Link from '@docusaurus/Link';
 
 import { ArrowRight } from 'react-feather';
 
@@ -34,10 +35,10 @@ export const TextBox =({ title, text, icon, width='300px'}) => (
 );
 
 export const BoxAction = ({text, href, icon}) => (
-    <a className={styles.boxAction} href={href}>
+    <Link className={styles.boxAction} to={href}>
         <span className={styles.boxActionText}>{text}</span>
         <ArrowRight />
-    </a>
+    </Link>
 );
 
 export default Box;
