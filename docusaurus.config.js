@@ -67,7 +67,6 @@ const config = {
         }
       },
       footer: {
-        style: 'dark',
         logo: {
           alt: 'Cradl AI logo',
           src: 'img/logo-dark_mode.png',
