@@ -14,10 +14,10 @@ import BoxContainer from '@site/src/components/BoxContainer';
 import HeaderText from '@site/src/components/HeaderText';
 import * as Icons from 'react-feather';
 
-import useThemeContext from '@theme/hooks/useThemeContext';
+import { useColorMode } from '@docusaurus/theme-common';
 
 export const ThemedTerminal = ({...props}) => {
-    const { isDarkTheme } = useThemeContext();
+    const { isDarkTheme } = useColorMode();
     return <Terminal {...props} white={!isDarkTheme} />
 };
 
