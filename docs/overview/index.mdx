@@ -6,9 +6,8 @@ slug: /
 # Introduction
 
 import { useHistory } from '@docusaurus/router';
-import Terminal from 'react-animated-term'
-import 'react-animated-term/dist/react-animated-term.css'
-
+import Terminal from 'react-animated-term';
+import '@site/src/components/react-animated-term.css';
 import { Box, TextBox, SdkBox, BoxAction } from '@site/src/components/Box';
 import BoxContainer from '@site/src/components/BoxContainer';
 import HeaderText from '@site/src/components/HeaderText';
@@ -96,7 +95,6 @@ either through our CLI, SDK or by using the REST API directly from you favorite 
     ]}
     interval={25}
     height={350}
-    white={!useColorMode().isDarkTheme}
   />
 </div>
 
