@@ -7,13 +7,11 @@ slug: /
 
 import { useHistory } from '@docusaurus/router';
 import Terminal from 'react-animated-term';
-import '@site/src/components/react-animated-term.css';
-import { Box, TextBox, SdkBox, BoxAction } from '@site/src/components/Box';
+import 'react-animated-term/dist/react-animated-term.css'
+import { Box, TextBox, BoxAction } from '@site/src/components/Box';
 import BoxContainer from '@site/src/components/BoxContainer';
 import HeaderText from '@site/src/components/HeaderText';
 import * as Icons from 'react-feather';
-
-import { useColorMode } from '@docusaurus/theme-common';
 
 export const LinkBox = ({url, ...props}) => {
     const history = useHistory();
@@ -27,10 +25,10 @@ learning. Here you'll find an overview of core concepts, guides and reference do
 <br/>
 
 <BoxContainer>
-  <Box border="none" padding="12px" background="none" width="400px">
-      <HeaderText title="Build" text="Create high-accuracy and low-latency document parsing deep learning models" />
-      <HeaderText title="Train" text="Train and deploy your deep learning models to your solution using a simple REST API" />
-      <HeaderText title="Integrate" text="Re-train, iterate and improve your deployed deep learning models seamlessly" />
+  <Box border="none" padding="6px" background="none" width="400px">
+    <HeaderText icon="/img/steps/01.svg" title="Build" text="Build and train high-accuracy document parsing models for any document." />
+    <HeaderText icon="/img/steps/02.svg" title="Deploy" text="Deploy and integrate your model with developer-friendly REST API." />
+    <HeaderText icon="/img/steps/03.svg" title="Improve" text="Continuously improve your deployed model over time with seamless feedback loops." />
   </Box>
   <img src="/img/model_overview.png" alt="Cradl Web App" width="500px" />
 </BoxContainer>
@@ -43,7 +41,7 @@ Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a fr
 <BoxContainer>
   <Box title="Build your first document parser" width="450px">
     <p>
-    Follow step-by-step instructions to create your first document parsing API using Cradl.
+    Follow step-by-step instructions to create your first model with Cradl.
     </p>
     <BoxAction text="Get started with the CLI" href="/get-started/create-a-model" />
     <BoxAction text="Get started with the Python SDK" href="/get-started/create-a-model" />
@@ -52,7 +50,7 @@ Ready to get started with Cradl? [Sign up](https://app.cradl.ai/signup) for a fr
 
   <Box title="Clone a community model" width="450px">
     <p>
-    Get up and running quickly, fine-tune a pre-trained model on your documents.
+    Get up and running quickly by fine-tuning a pre-trained model on your documents.
     </p>
     <BoxAction text="Clone invoice model" href="https://app.cradl.ai/models" />
     <BoxAction text="Clone receipt model" href="https://app.cradl.ai/models" />
@@ -107,7 +105,7 @@ Get a better understanding of the inner workings by reading about our key concep
 
 <BoxContainer>
   <LinkBox title="Model" width="450px" icon={<Icons.Box size={"48px"} />} url="/concepts/models" text="
-    A model is the most fundamental component of your document parser. Learn more about models here.
+    A model is the most fundamental component of your document parser. Read more about models here.
   " />
   <LinkBox title="Dataset" width="450px" icon={<Icons.Database />} url="/concepts/datasets" text="
     Datasets are used to train your models, so understanding what makes a good dataset is critical to building a high
@@ -119,7 +117,7 @@ Get a better understanding of the inner workings by reading about our key concep
   " />
   <LinkBox title="Prediction" width="450px" icon={<Icons.Activity size={48} />} url="/concepts/predictions" text="
     When a model is trained and deploy, you're ready to make predictions on new documents.
-    Learn more about making predictions here.
+    Read more about making predictions here.
   " />
 </BoxContainer>
 
