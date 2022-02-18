@@ -16,11 +16,6 @@ import * as Icons from 'react-feather';
 
 import { useColorMode } from '@docusaurus/theme-common';
 
-export const ThemedTerminal = ({...props}) => {
-    const { isDarkTheme } = useColorMode();
-    return <Terminal {...props} white={!isDarkTheme} />
-};
-
 export const LinkBox = ({url, ...props}) => {
     const history = useHistory();
     return <Box {...props} clickable onClick={() => history.push(url)} />
@@ -73,7 +68,7 @@ After training and deploying your document parsing model, you can start making p
 either through our CLI, SDK or by using the REST API directly from you favorite programming language.
 
 <div style={{display: 'flex', width: '75%'}}>
-  <ThemedTerminal
+  <Terminal
     lines={[
       {
         'text': 'las documents create invoice.pdf',
@@ -101,6 +96,7 @@ either through our CLI, SDK or by using the REST API directly from you favorite 
     ]}
     interval={25}
     height={350}
+    white={!useColorMode().isDarkTheme}
   />
 </div>
 
