@@ -11,6 +11,9 @@
     },
     {
       "pattern": "^https://api.lucidtech.ai"
+    },
+    {
+      "pattern": "^/rest-api-reference"
     }
   ],
   "replacementPatterns": [
