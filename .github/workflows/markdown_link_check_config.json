@@ -11,6 +11,9 @@
     },
     {
       "pattern": "^https://api.lucidtech.ai"
+    },
+    {
+      "pattern": "^/rest-api-reference"
     }
   ],
   "replacementPatterns": [
@@ -20,7 +23,7 @@
     },
     {
       "pattern": "^/",
-      "replacement": "{{BASEURL}}/"
+      "replacement": "{{BASEURL}}/docs/"
     }
   ],
   "httpHeaders": [

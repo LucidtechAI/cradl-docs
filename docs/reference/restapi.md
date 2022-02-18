@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+title: REST API
+---
+
 # Rest API
 
 - You can find the Open API specification file in [JSON](pathname:///oas.json) or [YAML](pathname:///oas.yaml)
@@ -5,7 +10,7 @@
 
 ## Reference
 
-- See full reference [here](../../../rest-api-reference)
+- See full reference [here](/rest-api-reference)
 
 ## Changelog
 
