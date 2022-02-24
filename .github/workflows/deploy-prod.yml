@@ -24,6 +24,8 @@ jobs:
           python-version: '3.x'
 
       - name: Build
+        env:
+          PLAUSIBLE_DOMAIN: ${{ secrets.PRODUCTION_PLAUSIBLE_DOMAIN }}
         run: |
           npm ci --legacy-peer-deps && npm run build
 

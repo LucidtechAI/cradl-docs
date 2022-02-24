@@ -24,6 +24,8 @@ jobs:
           python-version: '3.x'
 
       - name: Build
+        env:
+          PLAUSIBLE_DOMAIN: ${{ secrets.BETA_PLAUSIBLE_DOMAIN }}
         run: |
           npm ci && npm run build
 

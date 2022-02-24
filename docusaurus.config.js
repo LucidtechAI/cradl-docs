@@ -16,6 +16,13 @@ const config = {
   organizationName: 'LucidtechAI', // Usually your GitHub org/user name.
   projectName: 'cradl-docs', // Usually your repo name.
   plugins: ['docusaurus-plugin-sass', require.resolve('docusaurus-lunr-search')],
+  scripts: [
+    {
+      src: 'https://plausible.io/js/plausible.js',
+      defer: true,
+      "data-domain": process.env.PLAUSIBLE_DOMAIN,
+    },
+  ],
   presets: [
     [
       '@docusaurus/preset-classic',
