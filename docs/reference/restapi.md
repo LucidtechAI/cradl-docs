@@ -14,6 +14,12 @@ title: REST API
 
 ## Changelog
 
+### 2022-03-09
+
+- Added trainingId to POST /predictions. You can now make predictions with a trainingId to test out new trainings.
+- Added trainingId to /models. The trainingId for a model specifies which training is the one that's currently being used when making predictions.
+- Added trainingId to PATCH /models/:id
+
 ### 2022-02-02
 
 - Added metadata to /datasets

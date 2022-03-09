@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2022-02-04T09:55:21Z"
+    "version": "2022-03-09T10:14:35Z"
   },
   "servers": [
     {
@@ -16416,6 +16416,7 @@
                 "numberOfRunningTrainings",
                 "preprocessConfig",
                 "status",
+                "trainingId",
                 "updatedBy",
                 "updatedTime",
                 "width"
@@ -16432,6 +16433,11 @@
                 },
                 "updatedBy": {
                   "maxLength": 4096,
+                  "type": "string",
+                  "nullable": true
+                },
+                "trainingId": {
+                  "pattern": "^las:model-training:[a-f0-9]{32}$",
                   "type": "string",
                   "nullable": true
                 },
@@ -17093,6 +17099,7 @@
       },
       "PatchTrainingId": {
         "title": "PATCH /models/{modelId}/trainings/{trainingId}",
+        "minProperties": 1,
         "type": "object",
         "properties": {
           "metadata": {
@@ -17119,6 +17126,7 @@
       },
       "PatchDataBundleId": {
         "title": "PATCH /models/{modelId}/dataBundles/{dataBundleId}",
+        "minProperties": 1,
         "type": "object",
         "properties": {
           "name": {
@@ -17142,6 +17150,10 @@
         ],
         "type": "object",
         "properties": {
+          "trainingId": {
+            "pattern": "^las:model-training:[a-f0-9]{32}$",
+            "type": "string"
+          },
           "modelId": {
             "pattern": "^las:model:[a-f0-9]{32}$",
             "type": "string"
@@ -17677,15 +17689,19 @@
             },
             "additionalProperties": false
           },
-          "width": {
-            "maximum": 1921,
-            "minimum": 97,
-            "type": "integer"
+          "trainingId": {
+            "pattern": "^las:model-training:[a-f0-9]{32}$",
+            "type": "string"
           },
           "name": {
             "maxLength": 4096,
             "type": "string",
             "nullable": true
+          },
+          "width": {
+            "maximum": 1921,
+            "minimum": 97,
+            "type": "integer"
           },
           "description": {
             "maxLength": 4096,
@@ -18550,6 +18566,7 @@
           "numberOfRunningTrainings",
           "preprocessConfig",
           "status",
+          "trainingId",
           "updatedBy",
           "updatedTime",
           "width"
@@ -18566,6 +18583,11 @@
           },
           "updatedBy": {
             "maxLength": 4096,
+            "type": "string",
+            "nullable": true
+          },
+          "trainingId": {
+            "pattern": "^las:model-training:[a-f0-9]{32}$",
             "type": "string",
             "nullable": true
           },
