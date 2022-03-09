@@ -1060,6 +1060,10 @@ components:
           - active
           - inactive
           type: string
+        trainingId:
+          nullable: true
+          pattern: ^las:model-training:[a-f0-9]{32}$
+          type: string
         updatedBy:
           maxLength: 4096
           nullable: true
@@ -1085,6 +1089,7 @@ components:
       - numberOfRunningTrainings
       - preprocessConfig
       - status
+      - trainingId
       - updatedBy
       - updatedTime
       - width
@@ -1181,6 +1186,10 @@ components:
                 - active
                 - inactive
                 type: string
+              trainingId:
+                nullable: true
+                pattern: ^las:model-training:[a-f0-9]{32}$
+                type: string
               updatedBy:
                 maxLength: 4096
                 nullable: true
@@ -1206,6 +1215,7 @@ components:
             - numberOfRunningTrainings
             - preprocessConfig
             - status
+            - trainingId
             - updatedBy
             - updatedTime
             - width
@@ -1418,6 +1428,7 @@ components:
       type: object
     PatchDataBundleId:
       additionalProperties: false
+      minProperties: 1
       properties:
         description:
           maxLength: 4096
@@ -1561,6 +1572,9 @@ components:
           - imageQuality
           - maxPages
           type: object
+        trainingId:
+          pattern: ^las:model-training:[a-f0-9]{32}$
+          type: string
         width:
           maximum: 1921
           minimum: 97
@@ -1619,6 +1633,7 @@ components:
       type: object
     PatchTrainingId:
       additionalProperties: false
+      minProperties: 1
       properties:
         description:
           maxLength: 4096
@@ -2288,6 +2303,9 @@ components:
             - parameters
             - strategy
             type: object
+        trainingId:
+          pattern: ^las:model-training:[a-f0-9]{32}$
+          type: string
       required:
       - documentId
       - modelId
@@ -3705,7 +3723,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2022-02-04T09:55:21Z'
+  version: '2022-03-09T10:14:35Z'
 openapi: 3.0.1
 paths:
   /appClients:
