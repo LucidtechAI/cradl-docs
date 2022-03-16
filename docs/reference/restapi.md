@@ -14,6 +14,32 @@ title: REST API
 
 ## Changelog
 
+### 2022-03-16
+
+- `width` and `height` is no longer required in `POST /models` and will default to `801` and `1281`.
+- `maxLength` is no longer required for fields specified in `fieldConfig` in `/models`.
+- Added type `enum` to fields specified in `fieldConfig` in `/models`. Specify valid enum values by using the key `enum` for fields with `enum` type. See below for example of how to do this.
+- Added `monthlyNumberOfActiveModelsUsed`, `monthlyNumberOfFieldPredictionsUsed` and `monthlyNumberOfGpuHoursUsed` to /organizations
+- Fixed a bug causing creation of `summary` in `/models/:id/dataBundles` to fail when using number values in JSON for fields of type `digits`.
+
+Example of valid `fieldConfig` after the changes:
+```json
+{
+  "dueDate": {
+    "type": "date",
+    "description": "Due date on invoice"
+  },
+  "totalAmount": {
+    "type": "amount",
+    "maxLength": 12
+  },
+  "category": {
+    "type": "enum",
+    "enum": ["TRANSPORTATION", "ACCOMMODATION", "OTHER"]
+  }
+}
+```
+
 ### 2022-03-09
 
 - Added trainingId to POST /predictions. You can now make predictions with a trainingId to test out new trainings.
