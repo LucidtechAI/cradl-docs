@@ -56,9 +56,7 @@ dataset = client.create_dataset(name='Receipts', description='Initial training d
 }
 ```
 
-## Upload documents
-
-### Single document
+## Adding documents to a dataset
 
 After the dataset is created we can start uploading [documents](../concepts/documents.mdx) and assign them to our dataset. Since we want to use the documents for training, we'll also provide [ground truth values](../concepts/documents.mdx#setting-ground-truths) that will define the correct output for the model on each document. Note that the labels in the ground truth must match the field names we defined in our model.
 
@@ -143,10 +141,13 @@ You can also assign your documents to a new dataset later through the API.
 
 :::
 
+## Batch upload
+
 Uploading documents one by one can be useful for testing purposes, but is not recommended for large scale training datasets.
 For large-scale datasets we recommend using the `datasets create-documents` command from the [CLI](../reference/cli.md) . This allows you to upload your dataset in a fast and consistent way, without worrying about looping over all the documents yourself.
 
-### Multiple documents in pairs
+### Alternative 1: Documents and ground truths with same file name prefix
+
 In order to upload all the documents in a folder, the following naming convention must be used:
 
 1. Each document in the folder must have a corresponding ground truth file in JSON or YAML format.
@@ -190,7 +191,8 @@ If some of your documents are missing ground-truths they will simply be skipped.
 
 :::
 
-### Multiple documents from specification
+### Alternative 2: Use a JSON file to specify ground truths for all documents
+
 The other alternative is to specify a file that contains all the paths and ground truths to the documents we want to upload, let us call it `upload-specification.json`.
 Below is an example of how this file would look if we only want to upload two documents.
 ```json
@@ -236,7 +238,7 @@ las datasets create-documents <datasetId> upload-specification.json
 ```
 This command handles interruptions gracefully and can be safely restarted without having to worry about duplicate documents being uploaded.
 
-### Using the App
+### Alternative 3: Using the web app
 
 From Cradl you can upload data in 3 simple steps.
 
