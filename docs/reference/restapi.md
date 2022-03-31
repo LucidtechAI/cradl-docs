@@ -20,7 +20,6 @@ title: REST API
 - Fixed a bug causing users to not be added to organization in `POST /users`.
 - Added optional `metadata` to `/users`
 - Added optional `trainingId` to `/predictions` response
-- Correctly parsing fields defined as lists in `POST /models/:id/dataBundles`
 
 ### 2022-03-16
 
