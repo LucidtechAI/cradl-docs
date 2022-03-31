@@ -697,7 +697,7 @@ components:
                 type: string
               value:
                 anyOf:
-                - maxLength: 128
+                - maxLength: 512
                   minLength: 0
                   nullable: true
                   type: string
@@ -798,7 +798,7 @@ components:
                       type: string
                     value:
                       anyOf:
-                      - maxLength: 128
+                      - maxLength: 512
                         minLength: 0
                         nullable: true
                         type: string
@@ -1001,7 +1001,7 @@ components:
                   type: string
                 type: array
               maxLength:
-                maximum: 100
+                maximum: 512
                 minimum: 1
                 type: integer
               type:
@@ -1014,6 +1014,7 @@ components:
                 - digits
                 - enum
                 - letter
+                - lines
                 - number
                 - phone
                 - string
@@ -1132,7 +1133,7 @@ components:
                         type: string
                       type: array
                     maxLength:
-                      maximum: 100
+                      maximum: 512
                       minimum: 1
                       type: integer
                     type:
@@ -1145,6 +1146,7 @@ components:
                       - digits
                       - enum
                       - letter
+                      - lines
                       - number
                       - phone
                       - string
@@ -1505,7 +1507,7 @@ components:
                 type: string
               value:
                 anyOf:
-                - maxLength: 128
+                - maxLength: 512
                   minLength: 0
                   nullable: true
                   type: string
@@ -1549,7 +1551,7 @@ components:
                   type: string
                 type: array
               maxLength:
-                maximum: 100
+                maximum: 512
                 minimum: 1
                 type: integer
               type:
@@ -1562,6 +1564,7 @@ components:
                 - digits
                 - enum
                 - letter
+                - lines
                 - number
                 - phone
                 - string
@@ -1758,6 +1761,8 @@ components:
           maxLength: 131072
           nullable: true
           type: string
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -2161,7 +2166,7 @@ components:
                 type: string
               value:
                 anyOf:
-                - maxLength: 128
+                - maxLength: 512
                   minLength: 0
                   nullable: true
                   type: string
@@ -2210,7 +2215,7 @@ components:
                   type: string
                 type: array
               maxLength:
-                maximum: 100
+                maximum: 512
                 minimum: 1
                 type: integer
               type:
@@ -2223,6 +2228,7 @@ components:
                 - digits
                 - enum
                 - letter
+                - lines
                 - number
                 - phone
                 - string
@@ -2494,6 +2500,8 @@ components:
         email:
           pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
           type: string
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -2600,7 +2608,7 @@ components:
                 pattern: ^[0-9A-Za-z-_]+$
                 type: string
               value:
-                maxLength: 64
+                maxLength: 512
                 minLength: 1
                 nullable: true
                 type: string
@@ -2613,6 +2621,10 @@ components:
         timestamp:
           minimum: 1
           type: integer
+        trainingId:
+          nullable: true
+          pattern: ^las:model-training:[a-f0-9]{32}$
+          type: string
       required:
       - documentId
       - inferenceTime
@@ -2659,7 +2671,7 @@ components:
                       pattern: ^[0-9A-Za-z-_]+$
                       type: string
                     value:
-                      maxLength: 64
+                      maxLength: 512
                       minLength: 1
                       nullable: true
                       type: string
@@ -2672,6 +2684,10 @@ components:
               timestamp:
                 minimum: 1
                 type: integer
+              trainingId:
+                nullable: true
+                pattern: ^las:model-training:[a-f0-9]{32}$
+                type: string
             required:
             - documentId
             - inferenceTime
@@ -3264,6 +3280,8 @@ components:
         email:
           pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
           type: string
+        metadata:
+          type: object
         name:
           maxLength: 4096
           nullable: true
@@ -3314,6 +3332,8 @@ components:
               email:
                 pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
                 type: string
+              metadata:
+                type: object
               name:
                 maxLength: 4096
                 nullable: true
@@ -3680,7 +3700,7 @@ components:
               type: string
             value:
               anyOf:
-              - maxLength: 128
+              - maxLength: 512
                 minLength: 0
                 type: string
               - type: 'null'
@@ -3703,7 +3723,7 @@ components:
                 type: string
               value:
                 anyOf:
-                - maxLength: 128
+                - maxLength: 512
                   minLength: 0
                   type: string
                 - type: 'null'
@@ -3761,7 +3781,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2022-03-16T10:07:09Z'
+  version: '2022-03-31T12:40:11Z'
 openapi: 3.0.1
 paths:
   /appClients:
