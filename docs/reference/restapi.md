@@ -14,6 +14,13 @@ title: REST API
 
 ## Changelog
 
+### 2022-03-31
+
+- Increased limit of `maxLength` for fields specified in `fieldConfig` in `/models` to `512`.
+- Fixed a bug causing users to not be added to organization in `POST /users`.
+- Added optional `metadata` to `/users`
+- Added optional `trainingId` to `/predictions` response
+
 ### 2022-03-16
 
 - `width` and `height` is no longer required in `POST /models` and will default to `801` and `1281`.
