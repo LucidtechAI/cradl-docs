@@ -14,6 +14,10 @@ title: REST API
 
 ## Changelog
 
+### 2022-04-05
+
+- You can now use `/models` with `status=inactive` in `POST /predictions` if you provide a `training` with `status=succeeded`.
+
 ### 2022-03-31
 
 - Increased limit of `maxLength` for fields specified in `fieldConfig` in `/models` to `512`.
