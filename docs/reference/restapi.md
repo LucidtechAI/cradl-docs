@@ -16,7 +16,7 @@ title: REST API
 
 ### 2022-04-05
 
-- You can now use `/models` with `status=inactive` in `POST /predictions` if you provide a `training` with `status=succeeded`.
+- You can now use `/models` with `status=inactive` in `POST /predictions` if you provide a `trainingId` with `status=succeeded`.
 
 ### 2022-03-31
 
