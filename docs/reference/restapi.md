@@ -14,6 +14,14 @@ title: REST API
 
 ## Changelog
 
+### 2022-04-12
+
+- Added `sortBy` query parameter to `GET /documents`
+- Added `order` query parameter to `GET /documents`
+- Added `sortBy` query parameter to `GET /predictions`
+- Added `order` query parameter to `GET /predictions`
+- Providing `null` as `groundTruth` to `PATCH /documents/:id` is now supported
+
 ### 2022-04-05
 
 - You can now use `/models` with `status=inactive` in `POST /predictions` if you provide a `trainingId` with `status=succeeded`.
