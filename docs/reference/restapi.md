@@ -14,6 +14,18 @@ title: REST API
 
 ## Changelog
 
+### 2022-04-12
+
+- Added `sortBy` query parameter to `GET /documents`
+- Added `order` query parameter to `GET /documents`
+- Providing `null` as `groundTruth` to `PATCH /documents/:id` is now supported
+- Added `sortBy` query parameter to `GET /predictions`
+- Added `order` query parameter to `GET /predictions`
+- Added `createdBy` to `/predictions`
+- Added `createdTime` to `/predictions`
+- `timestamp` in `/predictions` is deprecated and will be removed after October 11th, 2022
+- Added `planId` to `PATCH /organizations/:id`
+
 ### 2022-04-05
 
 - You can now use `/models` with `status=inactive` in `POST /predictions` if you provide a `trainingId` with `status=succeeded`.
