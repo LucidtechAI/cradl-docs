@@ -18,12 +18,12 @@ title: REST API
 
 - Added `sortBy` query parameter to `GET /documents`
 - Added `order` query parameter to `GET /documents`
+- Providing `null` as `groundTruth` to `PATCH /documents/:id` is now supported
 - Added `sortBy` query parameter to `GET /predictions`
 - Added `order` query parameter to `GET /predictions`
-- Providing `null` as `groundTruth` to `PATCH /documents/:id` is now supported
 - Added `createdBy` to `/predictions`
 - Added `createdTime` to `/predictions`
-- Added `timestamp` in `/predictions` is deprecated and will be removed after October 11th, 2022
+- `timestamp` in `/predictions` is deprecated and will be removed after October 11th, 2022
 - Added `planId` to `PATCH /organizations/:id`
 
 ### 2022-04-05
