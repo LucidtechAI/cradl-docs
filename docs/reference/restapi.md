@@ -14,6 +14,16 @@ title: REST API
 
 ## Changelog
 
+### 2022-04-22
+
+- Added `DELETE /paymentMethods/:id`
+- Added `GET /paymentMethods/:id`
+- Added `GET /paymentMethods`
+- Added `PATCH /paymentMethods/:id`
+- Added `POST /paymentMethods`
+- Added `paymentMethodId` to `PATCH /organizations/:id`
+- Fixed bug causing `/models/:id/dataBundles` to fail with `status=failed` if `/datasets` provided have 0 examples of any label defined in `fieldConfig` in `/models` 
+
 ### 2022-04-12
 
 - Added `sortBy` query parameter to `GET /documents`
