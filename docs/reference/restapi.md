@@ -14,6 +14,15 @@ title: REST API
 
 ## Changelog
 
+### 2022-04-22
+
+- Added `DELETE /paymentMethods/:id`
+- Added `GET /paymentMethods/:id`
+- Added `GET /paymentMethods`
+- Added `PATCH /paymentMethods/:id`
+- Added `POST /paymentMethods`
+- Added `paymentMethodId` to `PATCH /organizations/:id`
+
 ### 2022-04-12
 
 - Added `sortBy` query parameter to `GET /documents`
