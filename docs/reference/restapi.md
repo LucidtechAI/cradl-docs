@@ -14,6 +14,10 @@ title: REST API
 
 ## Changelog
 
+### 2022-05-10
+
+- You may now set `trainingId` to `null` in `PATCH /models/:id` to make the model `inactive`
+
 ### 2022-04-22
 
 - Added `DELETE /paymentMethods/:id`

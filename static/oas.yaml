@@ -1612,6 +1612,7 @@ components:
           - maxPages
           type: object
         trainingId:
+          nullable: true
           pattern: ^las:model-training:[a-f0-9]{32}$
           type: string
         width:
@@ -1715,6 +1716,7 @@ components:
           additionalProperties: false
           properties:
             message:
+              maxLength: 256
               type: string
           required:
           - message
@@ -3818,7 +3820,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2022-04-12T13:43:42Z'
+  version: '2022-05-09T16:23:55Z'
 openapi: 3.0.1
 paths:
   /appClients:

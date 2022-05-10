@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2022-04-12T13:43:42Z"
+    "version": "2022-05-09T16:23:55Z"
   },
   "servers": [
     {
@@ -16690,6 +16690,7 @@
             "type": "object",
             "properties": {
               "message": {
+                "maxLength": 256,
                 "type": "string"
               }
             },
@@ -17820,7 +17821,8 @@
           },
           "trainingId": {
             "pattern": "^las:model-training:[a-f0-9]{32}$",
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "name": {
             "maxLength": 4096,
