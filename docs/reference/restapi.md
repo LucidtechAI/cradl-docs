@@ -20,7 +20,6 @@ title: REST API
     - Enumerations must be unique and from `1` to `512` characters long
     - Maximum number of enumerations allowed is `500`
     - Added support for more characters in enumerations
-    - Enumerations must be unique
 
 ### 2022-05-10
 
