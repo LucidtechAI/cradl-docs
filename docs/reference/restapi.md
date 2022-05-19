@@ -14,6 +14,13 @@ title: REST API
 
 ## Changelog
 
+### 2022-05-19
+
+- Updates to the `enum` type in `fieldConfig`:
+    - Enumerations must be unique and from `1` to `512` characters long
+    - Maximum number of enumerations allowed is `500`
+    - Added support for more characters in enumerations
+
 ### 2022-05-10
 
 - You may now set `trainingId` to `null` in `PATCH /models/:id` to make the model `inactive`
