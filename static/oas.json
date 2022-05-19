@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2022-05-09T16:23:55Z"
+    "version": "2022-05-16T15:40:15Z"
   },
   "servers": [
     {
@@ -14266,9 +14266,14 @@
                   "type": "integer"
                 },
                 "enum": {
+                  "maxItems": 500,
+                  "minItems": 1,
+                  "uniqueItems": true,
                   "type": "array",
                   "items": {
-                    "pattern": "[0-9A-Za-z-_]+",
+                    "maxLength": 512,
+                    "minLength": 1,
+                    "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
                     "type": "string"
                   }
                 }
@@ -16584,9 +16589,14 @@
                         "type": "integer"
                       },
                       "enum": {
+                        "maxItems": 500,
+                        "minItems": 1,
+                        "uniqueItems": true,
                         "type": "array",
                         "items": {
-                          "pattern": "[0-9A-Za-z-_]+",
+                          "maxLength": 512,
+                          "minLength": 1,
+                          "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
                           "type": "string"
                         }
                       }
@@ -17875,9 +17885,14 @@
                   "type": "integer"
                 },
                 "enum": {
+                  "maxItems": 500,
+                  "minItems": 1,
+                  "uniqueItems": true,
                   "type": "array",
                   "items": {
-                    "pattern": "[0-9A-Za-z-_]+",
+                    "maxLength": 512,
+                    "minLength": 1,
+                    "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
                     "type": "string"
                   }
                 }
@@ -18781,9 +18796,14 @@
                   "type": "integer"
                 },
                 "enum": {
+                  "maxItems": 500,
+                  "minItems": 1,
+                  "uniqueItems": true,
                   "type": "array",
                   "items": {
-                    "pattern": "[0-9A-Za-z-_]+",
+                    "maxLength": 512,
+                    "minLength": 1,
+                    "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
                     "type": "string"
                   }
                 }
