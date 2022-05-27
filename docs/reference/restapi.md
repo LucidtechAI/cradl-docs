@@ -14,6 +14,10 @@ title: REST API
 
 ## Changelog
 
+### 2022-05-27
+
+- Added optional `postprocessConfig` to `/models`
+
 ### 2022-05-19
 
 - Updates to the `enum` type in `fieldConfig`:
