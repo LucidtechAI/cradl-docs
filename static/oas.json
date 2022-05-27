@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2022-05-16T15:40:15Z"
+    "version": "2022-05-24T12:23:54Z"
   },
   "servers": [
     {
@@ -14215,6 +14215,57 @@
             },
             "additionalProperties": false
           },
+          "postprocessConfig": {
+            "oneOf": [
+              {
+                "required": [
+                  "strategy"
+                ],
+                "type": "object",
+                "properties": {
+                  "strategy": {
+                    "type": "string",
+                    "enum": [
+                      "BEST_FIRST"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "required": [
+                  "parameters",
+                  "strategy"
+                ],
+                "type": "object",
+                "properties": {
+                  "strategy": {
+                    "type": "string",
+                    "enum": [
+                      "BEST_N_PAGES"
+                    ]
+                  },
+                  "parameters": {
+                    "required": [
+                      "n"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "n": {
+                        "maximum": 3,
+                        "minimum": 1,
+                        "type": "integer"
+                      },
+                      "collapse": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
+                "additionalProperties": false
+              }
+            ]
+          },
           "name": {
             "maxLength": 4096,
             "type": "string",
@@ -16548,6 +16599,57 @@
                   "pattern": "^las:model:[a-f0-9]{32}$",
                   "type": "string"
                 },
+                "postprocessConfig": {
+                  "oneOf": [
+                    {
+                      "required": [
+                        "strategy"
+                      ],
+                      "type": "object",
+                      "properties": {
+                        "strategy": {
+                          "type": "string",
+                          "enum": [
+                            "BEST_FIRST"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    {
+                      "required": [
+                        "parameters",
+                        "strategy"
+                      ],
+                      "type": "object",
+                      "properties": {
+                        "strategy": {
+                          "type": "string",
+                          "enum": [
+                            "BEST_N_PAGES"
+                          ]
+                        },
+                        "parameters": {
+                          "required": [
+                            "n"
+                          ],
+                          "type": "object",
+                          "properties": {
+                            "n": {
+                              "maximum": 3,
+                              "minimum": 1,
+                              "type": "integer"
+                            },
+                            "collapse": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  ]
+                },
                 "description": {
                   "maxLength": 4096,
                   "type": "string",
@@ -17834,6 +17936,57 @@
             "type": "string",
             "nullable": true
           },
+          "postprocessConfig": {
+            "oneOf": [
+              {
+                "required": [
+                  "strategy"
+                ],
+                "type": "object",
+                "properties": {
+                  "strategy": {
+                    "type": "string",
+                    "enum": [
+                      "BEST_FIRST"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "required": [
+                  "parameters",
+                  "strategy"
+                ],
+                "type": "object",
+                "properties": {
+                  "strategy": {
+                    "type": "string",
+                    "enum": [
+                      "BEST_N_PAGES"
+                    ]
+                  },
+                  "parameters": {
+                    "required": [
+                      "n"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "n": {
+                        "maximum": 3,
+                        "minimum": 1,
+                        "type": "integer"
+                      },
+                      "collapse": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
+                "additionalProperties": false
+              }
+            ]
+          },
           "name": {
             "maxLength": 4096,
             "type": "string",
@@ -18754,6 +18907,57 @@
           "modelId": {
             "pattern": "^las:model:[a-f0-9]{32}$",
             "type": "string"
+          },
+          "postprocessConfig": {
+            "oneOf": [
+              {
+                "required": [
+                  "strategy"
+                ],
+                "type": "object",
+                "properties": {
+                  "strategy": {
+                    "type": "string",
+                    "enum": [
+                      "BEST_FIRST"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "required": [
+                  "parameters",
+                  "strategy"
+                ],
+                "type": "object",
+                "properties": {
+                  "strategy": {
+                    "type": "string",
+                    "enum": [
+                      "BEST_N_PAGES"
+                    ]
+                  },
+                  "parameters": {
+                    "required": [
+                      "n"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "n": {
+                        "maximum": 3,
+                        "minimum": 1,
+                        "type": "integer"
+                      },
+                      "collapse": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
+                "additionalProperties": false
+              }
+            ]
           },
           "description": {
             "maxLength": 4096,
