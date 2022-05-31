@@ -45,7 +45,7 @@ Client to invoke api methods from Lucidtech AI Services.
 `public object `[`ListDatasets`](#a00046_1a0d2fe04da4566e86f5988c10aba8fee7)`(int? maxResults,string? nextToken)` | List datasets available, calls the GET /datasets endpoint.
 `public object `[`UpdateDataset`](#a00046_1abb805616b3c28f137f57a6458dcec18b)`(string datasetId,Dictionary< string, string?>? attributes)` | Updates an existing dataset, calls the PATCH /datasets/{datasetId} endpoint.
 `public object `[`DeleteDataset`](#a00046_1a9d124051fdb2024a4623e19e624fa5d7)`(string datasetId,bool deleteDocuments)` | Delete a dataset, calls the DELETE /datasets/{datasetId} endpoint.
-`public object `[`CreatePrediction`](#a00046_1a4cb78d4caa5b0a3f6c077eec720bd4d2)`(string documentId,string modelId,int? maxPages,bool? autoRotate,string? imageQuality)` | Run inference and create a prediction, calls the POST /predictions endpoint.
+`public object `[`CreatePrediction`](#a00046_1a0d5b71553d28eedb6e67afcc388e3039)`(string documentId,string modelId,int? maxPages,bool? autoRotate,string? imageQuality,Dictionary< string, object >? postprocessConfig)` | Run inference and create a prediction, calls the POST /predictions endpoint.
 `public object `[`ListPredictions`](#a00046_1aa07c60058c89b9d2464ec8ccd2037a18)`(int? maxResults,string? nextToken)` | List predictions available, calls the GET /predictions endpoint.
 `public object `[`ListLogs`](#a00046_1a48c31f9df10d39e5f6303032572c946d)`(string? transitionId,string? transitionExecutionId,string? workflowId,string? workflowExecutionId,int? maxResults,string? nextToken)` | List logs, calls the GET /logs endpoint.
 `public object `[`CreateModel`](#a00046_1a46244b6d90855b929dd5c6b8a07cbfef)`(int width,int height,Dictionary< string, object > fieldConfig,Dictionary< string, object >? preprocessConfig,string? name,string? description,Dictionary< string, string?>? attributes)` | Creates a model, calls the POST /models endpoint.
@@ -412,7 +412,7 @@ Delete a dataset, calls the DELETE /datasets/{datasetId} endpoint.
 #### Returns
 Dataset response from REST API
 
-#### `public object `[`CreatePrediction`](#a00046_1a4cb78d4caa5b0a3f6c077eec720bd4d2)`(string documentId,string modelId,int? maxPages,bool? autoRotate,string? imageQuality)` 
+#### `public object `[`CreatePrediction`](#a00046_1a0d5b71553d28eedb6e67afcc388e3039)`(string documentId,string modelId,int? maxPages,bool? autoRotate,string? imageQuality,Dictionary< string, object >? postprocessConfig)` 
 
 Run inference and create a prediction, calls the POST /predictions endpoint.
 

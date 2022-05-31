@@ -75,7 +75,7 @@
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">json.decoder</span> <span class="kn">import</span> <span class="n">JSONDecodeError</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
-<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span><span class="p">,</span> <span class="n">quote</span>
 
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">backoff</span> <span class="kn">import</span> <span class="n">expo</span><span class="p">,</span> <span class="n">on_exception</span>  <span class="c1"># type: ignore</span>
@@ -228,26 +228,28 @@
         <span class="sd">&quot;&quot;&quot;:param credentials: Credentials to use, instance of :py:class:`~las.Credentials`</span>
 <span class="sd">        :type credentials: Credentials&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">credentials</span> <span class="o">=</span> <span class="n">credentials</span> <span class="ow">or</span> <span class="n">guess_credentials</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">credentials</span><span class="o">.</span><span class="n">api_endpoint</span>
 
     <span class="nd">@on_exception</span><span class="p">(</span><span class="n">expo</span><span class="p">,</span> <span class="n">TooManyRequestsException</span><span class="p">,</span> <span class="n">max_tries</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
     <span class="nd">@on_exception</span><span class="p">(</span><span class="n">expo</span><span class="p">,</span> <span class="n">RequestException</span><span class="p">,</span> <span class="n">max_tries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">giveup</span><span class="o">=</span><span class="n">_fatal_code</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">_make_request</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">requests_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
-        <span class="n">signing_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">body</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Make signed headers, use them to make a HTTP request of arbitrary form and return the result</span>
 <span class="sd">        as decoded JSON. Optionally pass a payload to JSON-dump and parameters for the request call.&quot;&quot;&quot;</span>
 
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="n">params</span><span class="p">}</span>
         <span class="kc">None</span> <span class="k">if</span> <span class="n">body</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">body</span><span class="p">)})</span>
-        <span class="n">uri</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span><span class="si">}{</span><span class="n">signing_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">uri</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">credentials</span><span class="o">.</span><span class="n">api_endpoint</span><span class="si">}{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">credentials</span><span class="o">.</span><span class="n">access_token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
             <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+            <span class="o">**</span><span class="p">(</span><span class="n">extra_headers</span> <span class="ow">or</span> <span class="p">{}),</span>
         <span class="p">}</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests_fn</span><span class="p">(</span>
             <span class="n">url</span><span class="o">=</span><span class="n">uri</span><span class="o">.</span><span class="n">geturl</span><span class="p">(),</span>
@@ -263,7 +265,7 @@
         <span class="n">callback_urls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">login_urls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">default_login_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">optional_args</span>
+        <span class="o">**</span><span class="n">optional_args</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates an appClient, calls the POST /appClients endpoint.</span>
 
@@ -470,20 +472,116 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/assets/</span><span class="si">{</span><span class="n">asset_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.create_dataset"><a class="viewcode-back" href="../../las.client.html#las.Client.create_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">create_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.create_payment_method"><a class="viewcode-back" href="../../las.client.html#las.Client.create_payment_method">[docs]</a>    <span class="k">def</span> <span class="nf">create_payment_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Creates a payment_method, calls the POST /paymentMethods endpoint.</span>
+
+<span class="sd">        :param name: Name of the payment method</span>
+<span class="sd">        :type name: str, optional</span>
+<span class="sd">        :param description: Description of the payment method</span>
+<span class="sd">        :type description: str, optional</span>
+<span class="sd">        :return: PaymentMethod response from REST API</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
+<span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/paymentMethods&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">optional_args</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.list_payment_methods"><a class="viewcode-back" href="../../las.client.html#las.Client.list_payment_methods">[docs]</a>    <span class="k">def</span> <span class="nf">list_payment_methods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;List payment_methods available, calls the GET /paymentMethods endpoint.</span>
+
+<span class="sd">        :param max_results: Maximum number of results to be returned</span>
+<span class="sd">        :type max_results: int, optional</span>
+<span class="sd">        :param next_token: A unique token for each page, use the returned token to retrieve the next page.</span>
+<span class="sd">        :type next_token: str, optional</span>
+<span class="sd">        :return: PaymentMethods response from REST API without the content of each payment method</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
+<span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;maxResults&#39;</span><span class="p">:</span> <span class="n">max_results</span><span class="p">,</span>
+            <span class="s1">&#39;nextToken&#39;</span><span class="p">:</span> <span class="n">next_token</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/paymentMethods&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.get_payment_method"><a class="viewcode-back" href="../../las.client.html#las.Client.get_payment_method">[docs]</a>    <span class="k">def</span> <span class="nf">get_payment_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payment_method_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get payment_method, calls the GET /paymentMethods/{paymentMethodId} endpoint.</span>
+
+<span class="sd">        :param payment_method_id: Id of the payment method</span>
+<span class="sd">        :type payment_method_id: str</span>
+<span class="sd">        :return: PaymentMethod response from REST API</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
+<span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/paymentMethods/</span><span class="si">{</span><span class="n">payment_method_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.update_payment_method"><a class="viewcode-back" href="../../las.client.html#las.Client.update_payment_method">[docs]</a>    <span class="k">def</span> <span class="nf">update_payment_method</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">payment_method_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">stripe_setup_intent_secret</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">optional_args</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Updates a payment_method, calls the PATCH /paymentMethods/{paymentMethodId} endpoint.</span>
+
+<span class="sd">        :param payment_method_id: Id of the payment method</span>
+<span class="sd">        :type payment_method_id: str</span>
+<span class="sd">        :param stripe_setup_intent_secret: Stripe setup intent secret as returned from create_payment_method</span>
+<span class="sd">        :type stripe_setup_intent_secret: str, optional</span>
+<span class="sd">        :param name: Name of the payment method</span>
+<span class="sd">        :type name: str, optional</span>
+<span class="sd">        :param description: Description of the payment method</span>
+<span class="sd">        :type description: str, optional</span>
+<span class="sd">        :return: PaymentMethod response from REST API</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
+<span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">body</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">optional_args</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">stripe_setup_intent_secret</span><span class="p">:</span>
+            <span class="n">body</span><span class="p">[</span><span class="s1">&#39;stripeSetupIntentSecret&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stripe_setup_intent_secret</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/paymentMethods/</span><span class="si">{</span><span class="n">payment_method_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.delete_payment_method"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_payment_method">[docs]</a>    <span class="k">def</span> <span class="nf">delete_payment_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payment_method_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Delete the payment_method with the provided payment_method_id, calls the DELETE \</span>
+<span class="sd">/paymentMethods/{paymentMethodId} endpoint.</span>
+
+<span class="sd">        :param payment_method_id: Id of the payment method</span>
+<span class="sd">        :type payment_method_id: str</span>
+<span class="sd">        :return: PaymentMethod response from REST API</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
+<span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/paymentMethods/</span><span class="si">{</span><span class="n">payment_method_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.create_dataset"><a class="viewcode-back" href="../../las.client.html#las.Client.create_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">create_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates a dataset, calls the POST /datasets endpoint.</span>
 
 <span class="sd">        :param name: Name of the dataset</span>
 <span class="sd">        :type name: str, optional</span>
 <span class="sd">        :param description: Description of the dataset</span>
 <span class="sd">        :type description: str, optional</span>
+<span class="sd">        :param metadata: Dictionary that can be used to store additional information</span>
+<span class="sd">        :type metadata: dict, optional</span>
 <span class="sd">        :return: Dataset response from REST API</span>
 <span class="sd">        :rtype: dict</span>
 
 <span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
 <span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/datasets&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">optional_args</span><span class="p">)</span></div>
+        <span class="n">body</span> <span class="o">=</span> <span class="n">dictstrip</span><span class="p">({</span><span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">})</span>
+        <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/datasets&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Client.list_datasets"><a class="viewcode-back" href="../../las.client.html#las.Client.list_datasets">[docs]</a>    <span class="k">def</span> <span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;List datasets available, calls the GET /datasets endpoint.</span>
@@ -517,7 +615,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/datasets/</span><span class="si">{</span><span class="n">dataset_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.update_dataset"><a class="viewcode-back" href="../../las.client.html#las.Client.update_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">update_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_id</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.update_dataset"><a class="viewcode-back" href="../../las.client.html#las.Client.update_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">update_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_id</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Updates a dataset, calls the PATCH /datasets/{datasetId} endpoint.</span>
 
 <span class="sd">        :param dataset_id: Id of the dataset</span>
@@ -526,13 +624,18 @@
 <span class="sd">        :type name: str, optional</span>
 <span class="sd">        :param description: Description of the dataset</span>
 <span class="sd">        :type description: str, optional</span>
+<span class="sd">        :param metadata: Dictionary that can be used to store additional information</span>
+<span class="sd">        :type metadata: dict, optional</span>
 <span class="sd">        :return: Dataset response from REST API</span>
 <span class="sd">        :rtype: dict</span>
 
 <span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
 <span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/datasets/</span><span class="si">{</span><span class="n">dataset_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">optional_args</span><span class="p">)</span></div>
+
+        <span class="n">body</span> <span class="o">=</span> <span class="n">dictstrip</span><span class="p">({</span><span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">})</span>
+        <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/datasets/</span><span class="si">{</span><span class="n">dataset_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Client.delete_dataset"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">delete_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delete_documents</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Delete the dataset with the provided dataset_id, calls the DELETE /datasets/{datasetId} endpoint.</span>
@@ -561,6 +664,7 @@
         <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">ground_truth</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">retention_in_days</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates a document, calls the POST /documents endpoint.</span>
 
@@ -579,6 +683,8 @@
 <span class="sd">        :param ground_truth: List of items {&#39;label&#39;: label, &#39;value&#39;: value} \</span>
 <span class="sd">            representing the ground truth values for the document</span>
 <span class="sd">        :type ground_truth: Sequence [ Dict [ str, Union [ str, bool ]  ] ], optional</span>
+<span class="sd">        :param metadata: Dictionary that can be used to store additional information</span>
+<span class="sd">        :type metadata: dict, optional</span>
 <span class="sd">        :return: Document response from REST API</span>
 <span class="sd">        :rtype: dict</span>
 
@@ -598,6 +704,7 @@
             <span class="s1">&#39;datasetId&#39;</span><span class="p">:</span> <span class="n">dataset_id</span><span class="p">,</span>
             <span class="s1">&#39;groundTruth&#39;</span><span class="p">:</span> <span class="n">ground_truth</span><span class="p">,</span>
             <span class="s1">&#39;retentionInDays&#39;</span><span class="p">:</span> <span class="n">retention_in_days</span><span class="p">,</span>
+            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/documents&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">body</span><span class="p">))</span></div>
 
@@ -608,6 +715,8 @@
         <span class="n">dataset_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Queryparam</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">order</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sort_by</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;List documents available for inference, calls the GET /documents endpoint.</span>
 
@@ -623,6 +732,10 @@
 <span class="sd">        :type max_results: int, optional</span>
 <span class="sd">        :param next_token: A unique token for each page, use the returned token to retrieve the next page.</span>
 <span class="sd">        :type next_token: str, optional</span>
+<span class="sd">        :param order: Order of the executions, either &#39;ascending&#39; or &#39;descending&#39;</span>
+<span class="sd">        :type order: str, optional</span>
+<span class="sd">        :param sort_by: the sorting variable of the executions, currently only supports &#39;createdTime&#39;</span>
+<span class="sd">        :type sort_by: str, optional</span>
 <span class="sd">        :return: Documents response from REST API</span>
 <span class="sd">        :rtype: dict</span>
 
@@ -634,8 +747,10 @@
             <span class="s1">&#39;datasetId&#39;</span><span class="p">:</span> <span class="n">dataset_id</span><span class="p">,</span>
             <span class="s1">&#39;maxResults&#39;</span><span class="p">:</span> <span class="n">max_results</span><span class="p">,</span>
             <span class="s1">&#39;nextToken&#39;</span><span class="p">:</span> <span class="n">next_token</span><span class="p">,</span>
+            <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="n">order</span><span class="p">,</span>
+            <span class="s1">&#39;sortBy&#39;</span><span class="p">:</span> <span class="n">sort_by</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/documents&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/documents&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">params</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Client.delete_documents"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_documents">[docs]</a>    <span class="k">def</span> <span class="nf">delete_documents</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -714,6 +829,7 @@
         <span class="n">document_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">ground_truth</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># For backwards compatibility reasons, this is placed before the *</span>
         <span class="o">*</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Update ground truth for a document, calls the PATCH /documents/{documentId} endpoint.</span>
@@ -726,6 +842,8 @@
 <span class="sd">        :type dataset_id: str, optional</span>
 <span class="sd">        :param ground_truth: List of items {label: value} representing the ground truth values for the document</span>
 <span class="sd">        :type ground_truth: Sequence [ Dict [ str, Union [ str, bool ]  ] ], optional</span>
+<span class="sd">        :param metadata: Dictionary that can be used to store additional information</span>
+<span class="sd">        :type metadata: dict, optional</span>
 <span class="sd">        :return: Document response from REST API</span>
 <span class="sd">        :rtype: dict</span>
 
@@ -735,6 +853,7 @@
         <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;groundTruth&#39;</span><span class="p">:</span> <span class="n">ground_truth</span><span class="p">,</span>
             <span class="s1">&#39;datasetId&#39;</span><span class="p">:</span> <span class="n">dataset_id</span><span class="p">,</span>
+            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/documents/</span><span class="si">{</span><span class="n">document_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">body</span><span class="p">))</span></div>
 
@@ -820,29 +939,35 @@
 
 <div class="viewcode-block" id="Client.create_model"><a class="viewcode-back" href="../../las.client.html#las.Client.create_model">[docs]</a>    <span class="k">def</span> <span class="nf">create_model</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">field_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
+        <span class="n">width</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">height</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">preprocess_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">postprocess_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">optional_args</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates a model, calls the POST /models endpoint.</span>
 
-<span class="sd">        :param width: The number of pixels to be used for the input image width of your model</span>
-<span class="sd">        :type width: int</span>
-<span class="sd">        :param height: The number of pixels to be used for the input image height of your model</span>
-<span class="sd">        :type height: int</span>
 <span class="sd">        :param field_config: Specification of the fields that the model is going to predict</span>
 <span class="sd">        :type field_config: dict</span>
+<span class="sd">        :param width: The number of pixels to be used for the input image width of your model</span>
+<span class="sd">        :type width: int, optional</span>
+<span class="sd">        :param height: The number of pixels to be used for the input image height of your model</span>
+<span class="sd">        :type height: int, optional</span>
 <span class="sd">        :param preprocess_config: Specification of the processing steps prior to the prediction of an image</span>
 <span class="sd">        :type preprocess_config: dict</span>
+<span class="sd">        :param postprocess_config: Specification of the processing steps after the prediction of an image</span>
+<span class="sd">        :type postprocess_config: dict</span>
 <span class="sd">        :param name: Name of the model</span>
-<span class="sd">        :type name: str, optionalQ</span>
+<span class="sd">        :type name: str, optional</span>
 <span class="sd">        :param description: Description of the model</span>
 <span class="sd">        :type description: str, optional</span>
+<span class="sd">        :param metadata: Dictionary that can be used to store additional information</span>
+<span class="sd">        :type metadata: dict, optional</span>
 <span class="sd">        :return: Model response from REST API</span>
 <span class="sd">        :rtype: dict</span>
 
@@ -854,8 +979,10 @@
             <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
             <span class="s1">&#39;fieldConfig&#39;</span><span class="p">:</span> <span class="n">field_config</span><span class="p">,</span>
             <span class="s1">&#39;preprocessConfig&#39;</span><span class="p">:</span> <span class="n">preprocess_config</span><span class="p">,</span>
+            <span class="s1">&#39;postprocessConfig&#39;</span><span class="p">:</span> <span class="n">postprocess_config</span><span class="p">,</span>
             <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
             <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">,</span>
         <span class="p">})</span>
         <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/models&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
@@ -904,7 +1031,8 @@
         <span class="n">height</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">field_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">preprocess_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">status</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">postprocess_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">optional_args</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Updates a model, calls the PATCH /models/{modelId} endpoint.</span>
@@ -919,8 +1047,12 @@
 <span class="sd">        :type field_config: dict</span>
 <span class="sd">        :param preprocess_config: Specification of the processing steps prior to the prediction of an image</span>
 <span class="sd">        :type preprocess_config: dict</span>
-<span class="sd">        :param status: New status for the model</span>
-<span class="sd">        :type status: str, optional</span>
+<span class="sd">        :param postprocess_config: Specification of the processing steps after the prediction of an image</span>
+<span class="sd">        :type postprocess_config: dict</span>
+<span class="sd">        :param metadata: Dictionary that can be used to store additional information</span>
+<span class="sd">        :type metadata: dict, optional</span>
+<span class="sd">        :param training_id: Use training_id for model inference in POST /predictions</span>
+<span class="sd">        :type training_id: str, optional</span>
 <span class="sd">        :param name: Name of the model</span>
 <span class="sd">        :type name: str, optional</span>
 <span class="sd">        :param description: Description of the model</span>
@@ -935,8 +1067,9 @@
             <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
             <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
             <span class="s1">&#39;fieldConfig&#39;</span><span class="p">:</span> <span class="n">field_config</span><span class="p">,</span>
+            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">,</span>
             <span class="s1">&#39;preprocessConfig&#39;</span><span class="p">:</span> <span class="n">preprocess_config</span><span class="p">,</span>
-            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
+            <span class="s1">&#39;postprocessConfig&#39;</span><span class="p">:</span> <span class="n">postprocess_config</span><span class="p">,</span>
         <span class="p">})</span>
         <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/models/</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
@@ -979,6 +1112,91 @@
         <span class="n">body</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;datasetIds&#39;</span><span class="p">:</span> <span class="n">dataset_ids</span><span class="p">}</span>
         <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/models/</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s1">/dataBundles&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.create_training"><a class="viewcode-back" href="../../las.client.html#las.Client.create_training">[docs]</a>    <span class="k">def</span> <span class="nf">create_training</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">model_id</span><span class="p">,</span>
+        <span class="n">data_bundle_ids</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">instance_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">optional_args</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Requests a training, calls the POST /models/{modelId}/trainings endpoint.</span>
+
+<span class="sd">        :param model_id: Id of the model</span>
+<span class="sd">        :type model_id: str</span>
+<span class="sd">        :param data_bundle_ids: Data bundle ids that will be used for training</span>
+<span class="sd">        :type data_bundle_ids: List[str]</span>
+<span class="sd">        :param instance_type: The type of instance that will be used for training</span>
+<span class="sd">        :type instance_type: List[str]</span>
+<span class="sd">        :param name: Name of the data bundle</span>
+<span class="sd">        :type name: str, optional</span>
+<span class="sd">        :param description: Description of the training</span>
+<span class="sd">        :type description: str, optional</span>
+<span class="sd">        :param metadata: Dictionary that can be used to store additional information</span>
+<span class="sd">        :type metadata: dict, optional</span>
+<span class="sd">        :return: Training response from REST API</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
+<span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">body</span> <span class="o">=</span> <span class="n">dictstrip</span><span class="p">({</span>
+            <span class="s1">&#39;dataBundleIds&#39;</span><span class="p">:</span> <span class="n">data_bundle_ids</span><span class="p">,</span>
+            <span class="s1">&#39;instanceType&#39;</span><span class="p">:</span> <span class="n">instance_type</span><span class="p">,</span>
+            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">,</span>
+        <span class="p">})</span>
+        <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/models/</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s1">/trainings&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.list_trainings"><a class="viewcode-back" href="../../las.client.html#las.Client.list_trainings">[docs]</a>    <span class="k">def</span> <span class="nf">list_trainings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;List trainings available, calls the GET /models/{modelId}/trainings endpoint.</span>
+
+<span class="sd">        :param model_id: Id of the model</span>
+<span class="sd">        :type model_id: str</span>
+<span class="sd">        :param max_results: Maximum number of results to be returned</span>
+<span class="sd">        :type max_results: int, optional</span>
+<span class="sd">        :param next_token: A unique token for each page, use the returned token to retrieve the next page.</span>
+<span class="sd">        :type next_token: str, optional</span>
+<span class="sd">        :return: Trainings response from REST API</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
+<span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;maxResults&#39;</span><span class="p">:</span> <span class="n">max_results</span><span class="p">,</span>
+            <span class="s1">&#39;nextToken&#39;</span><span class="p">:</span> <span class="n">next_token</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/models/</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s1">/trainings&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.update_training"><a class="viewcode-back" href="../../las.client.html#las.Client.update_training">[docs]</a>    <span class="k">def</span> <span class="nf">update_training</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">training_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">optional_args</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Updates a training, calls the PATCH /models/{modelId}/trainings/{trainingId} endpoint.</span>
+
+<span class="sd">        :param model_id: Id of the model</span>
+<span class="sd">        :type model_id: str</span>
+<span class="sd">        :param training_id: Id of the training</span>
+<span class="sd">        :type training_id: str</span>
+<span class="sd">        :param name: Name of the training</span>
+<span class="sd">        :type name: str, optional</span>
+<span class="sd">        :param description: Description of the training</span>
+<span class="sd">        :type description: str, optional</span>
+<span class="sd">        :param metadata: Dictionary that can be used to store additional information</span>
+<span class="sd">        :type metadata: dict, optional</span>
+<span class="sd">        :return: Training response from REST API</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
+<span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/models/</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s1">/trainings/</span><span class="si">{</span><span class="n">training_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">optional_args</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Client.list_data_bundles"><a class="viewcode-back" href="../../las.client.html#las.Client.list_data_bundles">[docs]</a>    <span class="k">def</span> <span class="nf">list_data_bundles</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1063,12 +1281,16 @@
 <div class="viewcode-block" id="Client.update_organization"><a class="viewcode-back" href="../../las.client.html#las.Client.update_organization">[docs]</a>    <span class="k">def</span> <span class="nf">update_organization</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">organization_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">payment_method_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">optional_args</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Updates an organization, calls the PATCH /organizations/{organizationId} endpoint.</span>
 
-<span class="sd">        :param organization_id: The Id of the organization</span>
+<span class="sd">        :param organization_id: Id of organization</span>
 <span class="sd">        :type organization_id: str, optional</span>
+<span class="sd">        :param payment_method_id: Id of paymentMethod to use</span>
+<span class="sd">        :type payment_method_id: str, optional</span>
 <span class="sd">        :param name: Name of the organization</span>
 <span class="sd">        :type name: str, optional</span>
 <span class="sd">        :param description: Description of the organization</span>
@@ -1079,13 +1301,18 @@
 <span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
 <span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/organizations/</span><span class="si">{</span><span class="n">organization_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">optional_args</span><span class="p">)</span></div>
+        <span class="n">body</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">optional_args</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">payment_method_id</span><span class="p">:</span>
+            <span class="n">body</span><span class="p">[</span><span class="s1">&#39;paymentMethodId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">payment_method_id</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/organizations/</span><span class="si">{</span><span class="n">organization_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Client.create_prediction"><a class="viewcode-back" href="../../las.client.html#las.Client.create_prediction">[docs]</a>    <span class="k">def</span> <span class="nf">create_prediction</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">document_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
+        <span class="n">training_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">max_pages</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">auto_rotate</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">image_quality</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1099,8 +1326,10 @@
 
 <span class="sd">        :param document_id: Id of the document to run inference and create a prediction on</span>
 <span class="sd">        :type document_id: str</span>
-<span class="sd">        :param model_id: Id of the model to use for inference</span>
+<span class="sd">        :param model_id: Id of the model to use for predictions</span>
 <span class="sd">        :type model_id: str</span>
+<span class="sd">        :param training_id: Id of training to use for predictions</span>
+<span class="sd">        :type training_id: str</span>
 <span class="sd">        :param max_pages: Maximum number of pages to run predictions on</span>
 <span class="sd">        :type max_pages: int, optional</span>
 <span class="sd">        :param auto_rotate: Whether or not to let the API try different rotations on\</span>
@@ -1131,6 +1360,7 @@
         <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;documentId&#39;</span><span class="p">:</span> <span class="n">document_id</span><span class="p">,</span>
             <span class="s1">&#39;modelId&#39;</span><span class="p">:</span> <span class="n">model_id</span><span class="p">,</span>
+            <span class="s1">&#39;trainingId&#39;</span><span class="p">:</span> <span class="n">training_id</span><span class="p">,</span>
             <span class="s1">&#39;maxPages&#39;</span><span class="p">:</span> <span class="n">max_pages</span><span class="p">,</span>
             <span class="s1">&#39;autoRotate&#39;</span><span class="p">:</span> <span class="n">auto_rotate</span><span class="p">,</span>
             <span class="s1">&#39;imageQuality&#39;</span><span class="p">:</span> <span class="n">image_quality</span><span class="p">,</span>
@@ -1138,7 +1368,14 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="s1">&#39;/predictions&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">body</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Client.list_predictions"><a class="viewcode-back" href="../../las.client.html#las.Client.list_predictions">[docs]</a>    <span class="k">def</span> <span class="nf">list_predictions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="Client.list_predictions"><a class="viewcode-back" href="../../las.client.html#las.Client.list_predictions">[docs]</a>    <span class="k">def</span> <span class="nf">list_predictions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">order</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sort_by</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;List predictions available, calls the GET /predictions endpoint.</span>
 
 <span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
@@ -1149,6 +1386,10 @@
 <span class="sd">        :type max_results: int, optional</span>
 <span class="sd">        :param next_token: A unique token for each page, use the returned token to retrieve the next page.</span>
 <span class="sd">        :type next_token: str, optional</span>
+<span class="sd">        :param order: Order of the executions, either &#39;ascending&#39; or &#39;descending&#39;</span>
+<span class="sd">        :type order: str, optional</span>
+<span class="sd">        :param sort_by: the sorting variable of the executions, currently only supports &#39;createdTime&#39;</span>
+<span class="sd">        :type sort_by: str, optional</span>
 <span class="sd">        :return: Predictions response from REST API without the content of each prediction</span>
 <span class="sd">        :rtype: dict</span>
 
@@ -1158,8 +1399,54 @@
         <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;maxResults&#39;</span><span class="p">:</span> <span class="n">max_results</span><span class="p">,</span>
             <span class="s1">&#39;nextToken&#39;</span><span class="p">:</span> <span class="n">next_token</span><span class="p">,</span>
+            <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="n">order</span><span class="p">,</span>
+            <span class="s1">&#39;sortBy&#39;</span><span class="p">:</span> <span class="n">sort_by</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/predictions&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/predictions&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">params</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Client.get_plan"><a class="viewcode-back" href="../../las.client.html#las.Client.get_plan">[docs]</a>    <span class="k">def</span> <span class="nf">get_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get information about a specific plan, calls the GET /plans/{plan_id} endpoint.</span>
+
+<span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
+<span class="sd">        &gt;&gt;&gt; client = Client()</span>
+<span class="sd">        &gt;&gt;&gt; client.get_plan(&#39;&lt;plan_id&gt;&#39;)</span>
+
+<span class="sd">        :param plan_id: Id of the plan</span>
+<span class="sd">        :type plan_id: str</span>
+<span class="sd">        :return: Plan response from REST API</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
+<span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/plans/</span><span class="si">{</span><span class="n">quote</span><span class="p">(</span><span class="n">plan_id</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.list_plans"><a class="viewcode-back" href="../../las.client.html#las.Client.list_plans">[docs]</a>    <span class="k">def</span> <span class="nf">list_plans</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">owner</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Queryparam</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;List plans available, calls the GET /plans endpoint.</span>
+
+<span class="sd">        &gt;&gt;&gt; from las.client import Client</span>
+<span class="sd">        &gt;&gt;&gt; client = Client()</span>
+<span class="sd">        &gt;&gt;&gt; client.list_plans()</span>
+
+<span class="sd">        :param owner: Organizations to retrieve plans from</span>
+<span class="sd">        :type owner: Queryparam, optional</span>
+<span class="sd">        :param max_results: Maximum number of results to be returned</span>
+<span class="sd">        :type max_results: int, optional</span>
+<span class="sd">        :param next_token: A unique token for each page, use the returned token to retrieve the next page.</span>
+<span class="sd">        :type next_token: str, optional</span>
+<span class="sd">        :return: Plans response from REST API</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
+<span class="sd">    :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="n">owner</span><span class="p">,</span>
+            <span class="s1">&#39;maxResults&#39;</span><span class="p">:</span> <span class="n">max_results</span><span class="p">,</span>
+            <span class="s1">&#39;nextToken&#39;</span><span class="p">:</span> <span class="n">next_token</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s1">&#39;/plans&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">params</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Client.create_secret"><a class="viewcode-back" href="../../las.client.html#las.Client.create_secret">[docs]</a>    <span class="k">def</span> <span class="nf">create_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="o">**</span><span class="n">optional_args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates an secret, calls the POST /secrets endpoint.</span>
