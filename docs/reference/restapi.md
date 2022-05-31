@@ -14,6 +14,10 @@ title: REST API
 
 ## Changelog
 
+### 2022-05-31
+
+- `groundTruthSummary` in `/datasets` is now also counting nested values. This change will not affect existing counts.
+
 ### 2022-05-27
 
 - Added optional `postprocessConfig` to `/models`
