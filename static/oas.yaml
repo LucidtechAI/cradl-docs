@@ -3972,7 +3972,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2022-05-24T12:23:54Z'
+  version: '2022-05-31T13:09:34Z'
 openapi: 3.0.1
 paths:
   /appClients:
