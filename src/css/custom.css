@@ -72,6 +72,10 @@ html[data-theme='dark'] {
   margin-left: 0.5em;
 }
 
+.navbar__title {
+  margin-left: 0.5em;
+}
+
 .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.1);
   display: block;

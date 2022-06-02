@@ -65,6 +65,7 @@ const config = {
         defaultMode: 'light'
       },
       navbar: {
+        title: 'Docs',
         logo: {
           alt: 'Cradl AI logo',
           src: 'img/cradl-docs-black.svg',
