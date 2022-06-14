@@ -27,7 +27,7 @@ jobs:
         env:
           PLAUSIBLE_DOMAIN: ${{ secrets.BETA_PLAUSIBLE_DOMAIN }}
         run: |
-          npm ci && npm run build
+          npm ci --legacy-peer-deps && npm run build
 
       - name: Deploy
         env:
