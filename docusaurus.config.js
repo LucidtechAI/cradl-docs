@@ -10,7 +10,6 @@ const config = {
   tagline: 'AI-powered data capture APIs for any document',
   url: 'https://docs.cradl.ai',
   baseUrl: '/',
-  trailingSlash: false,
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.png',
