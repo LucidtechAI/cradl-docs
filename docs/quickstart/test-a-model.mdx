@@ -7,10 +7,18 @@ import TabItem from '@theme/TabItem';
 
 # Making predictions
 
-To test a model you first need to have an active model. Make sure you have the correct **modelId** to the model you want to test.
+Before you can make predictions with a model it needs to be trained and active. If you want to make predictions through the CLI, cURL or with one of the SDKs, make sure that you have the **modelId**
+for the model you would like to test. The modelId can be found under __[Models](https://app.cradl.ai/model-testing) -> Your model -> Overview__.
 
 <Tabs groupId="programming-language">
-<TabItem value="cli" label="CLI" default>
+<TabItem value="app" label="App" default>
+
+Go to [**Model testing**](https://app.cradl.ai/model-testing) and select the model you want to use. You can either use a document from one of your datasets
+or upload a document from your computer.
+
+</TabItem>
+
+<TabItem value="cli" label="CLI">
 
 ```bash
 las models list # Pick an active model for testing
@@ -51,13 +59,6 @@ client.create_prediction(document_id=document['documentId'], model_id='<modelId>
 ```
 
 </TabItem>
-<TabItem value="app" label="App">
-
-* Go to [**Model testing**](https://app.cradl.ai/model-testing).
-* Select the model you want to test.
-* Choose **Upload from device** and select a document you want to make predictions on.
-
-</TabItem>
 </Tabs>
 
 The output should have a structure as shown below
@@ -83,9 +84,7 @@ The output should have a structure as shown below
 }
 ```
 :::info
-
 See the [confidence section](../concepts/predictions.mdx#confidence) to read more about confidence levels and how you can use them to feel confident in your model's predictions.
-
 :::
 
 If you want to learn more about the basics, check out [models](../concepts/models) and [predictions](../concepts/predictions) in the Concepts section.
