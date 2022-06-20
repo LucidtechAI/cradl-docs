@@ -67,7 +67,7 @@ Make sure that the labels in your ground truth files matches exactly the names o
 In the example above, notice that the due date is written as an ISO formatted date __"2019-02-26"__ even though on the document it is written as __"26/02/2019"__.
 This is perfectly fine as long as you do this consistently for all dates in your ground truth. This can also be useful for other fields which require _normalization_,
 such as amounts where you can 
-write e.g. __"1500.36"__ in the ground truth even if it says e.g. __"$1.500,36"__ on the document.
+write e.g. __"1500.36"__ in the ground truth even if it says e.g. __"$1,500.36"__ on the document.
 
 :::tip Using historical data
 Ground truths only consist of labels and values and _do not_ require positional information like bounding boxes. Therefore they can often be 
