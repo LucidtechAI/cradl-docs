@@ -22,12 +22,12 @@
       "replacement": "file://some/conventional/folder/.attachments"
     },
     {
-      "pattern": "^/",
-      "replacement": "{{BASEURL}}/docs/"
-    },
-    {
       "pattern": "^/img",
       "replacement": "{{BASEURL}}/static/img"
+    },
+    {
+      "pattern": "^/",
+      "replacement": "{{BASEURL}}/docs/"
     }
   ],
   "httpHeaders": [
