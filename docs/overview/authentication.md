@@ -115,3 +115,7 @@ access_token="<you access token here>"
 curl https://api.lucidtech.ai/v1/documents -H "Authorization: Bearer $access_token"
 ```
 
+## Postman
+
+![](/img/postman_auth_0.png)
+![](/img/postman_auth_1.png)
