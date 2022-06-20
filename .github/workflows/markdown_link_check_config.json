@@ -24,6 +24,10 @@
     {
       "pattern": "^/",
       "replacement": "{{BASEURL}}/docs/"
+    },
+    {
+      "pattern": "^/img",
+      "replacement": "{{BASEURL}}/static/img"
     }
   ],
   "httpHeaders": [
