@@ -36,7 +36,7 @@ scoop install python
 ```
 
 Install the CLI from pip:
-```
+```bash
 pip install lucidtech-las-cli
 ```
 
