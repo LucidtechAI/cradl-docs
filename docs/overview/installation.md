@@ -20,6 +20,24 @@ Verify the installation:
 las --help
 ```
 
+
+## Windows
+An easy way to get Python installed and added to your PATH variable on Windows is by using [Scoop](https://scoop.sh/).
+
+Open PowerShell and follow Scoop installation instruction:
+```bash
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser # Optional: Needed to run a remote script the first time
+irm get.scoop.sh | iex
+```
+Install Python and pip:
+```bash
+scoop install python
+```
+Install the CLI from pip:
+```
+pip install lucidtech-las-cli
+```
+
 ## Python SDK
 Install our Python SDK from pip:
 
