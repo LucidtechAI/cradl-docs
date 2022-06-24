@@ -16,7 +16,7 @@ title: REST API
 
 ### 2022-06-24
 
-- Added `evaluation` to `models/:id/trainings`
+- Added `evaluation` to `/models/:id/trainings`
 
 ### 2022-05-31
 
