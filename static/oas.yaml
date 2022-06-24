@@ -3019,6 +3019,8 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        evaluation:
+          type: object
         gpuHours:
           minimum: 0
           type: integer
@@ -3062,6 +3064,7 @@ components:
       - createdTime
       - dataBundleIds
       - description
+      - evaluation
       - gpuHours
       - instanceType
       - metadata
@@ -3112,6 +3115,8 @@ components:
                 maxLength: 4096
                 nullable: true
                 type: string
+              evaluation:
+                type: object
               gpuHours:
                 minimum: 0
                 type: integer
@@ -3155,6 +3160,7 @@ components:
             - createdTime
             - dataBundleIds
             - description
+            - evaluation
             - gpuHours
             - instanceType
             - metadata
@@ -3972,7 +3978,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2022-05-31T13:09:34Z'
+  version: '2022-06-23T15:06:51Z'
 openapi: 3.0.1
 paths:
   /appClients:

@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2022-05-31T13:09:34Z"
+    "version": "2022-06-23T15:06:51Z"
   },
   "servers": [
     {
@@ -15023,6 +15023,7 @@
           "createdTime",
           "dataBundleIds",
           "description",
+          "evaluation",
           "gpuHours",
           "instanceType",
           "metadata",
@@ -15072,6 +15073,9 @@
             "maxLength": 4096,
             "type": "string",
             "nullable": true
+          },
+          "evaluation": {
+            "type": "object"
           },
           "createdBy": {
             "maxLength": 4096,
@@ -17749,6 +17753,7 @@
                 "createdTime",
                 "dataBundleIds",
                 "description",
+                "evaluation",
                 "gpuHours",
                 "instanceType",
                 "metadata",
@@ -17798,6 +17803,9 @@
                   "maxLength": 4096,
                   "type": "string",
                   "nullable": true
+                },
+                "evaluation": {
+                  "type": "object"
                 },
                 "createdBy": {
                   "maxLength": 4096,
