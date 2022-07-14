@@ -6,19 +6,31 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 # Training an invoice model
-In this guide you will learn how to train an invoice model in Cradl that is tailored to these [sample invoices](/sample_invoices.zip).
+In this guide you will learn how to train your own invoice model with Cradl. We will use the following [sample dataset](/sample_invoices.zip), but you can
+also use your own dataset when following this guide.
 
-:::caution
-The sample invoices used for this guide serves only for demonstrational purposes, read more about data quantity and quality [here](../concepts/datasets).
+:::info
+The sample invoices are for demonstrational purposes only. In order to train a good model for invoice parsing, we recommend that
+you use a real [dataset](../concepts/datasets) with invoices extracted from e.g. a database or an ERP system.
 :::
 
 ### Prerequisites
-The only thing you need to get started is a Cradl account. If you don't have one, you can sign up [for free](https://cradl.ai).
+To follow this guide, you will need a Cradl account. If you don't have one, you can sign up for a free account [here](https://cradl.ai).
 
-## 1. Prepare your training data
-Before we enter Cradl to start the training, we make sure that we have data to train on.
-1. Download the [sample invoices](/sample_invoices.zip) and unzip them to a local folder.
-2. Notice how the files are structured in pairs of images and JSON. These two components together make up a [**document**](../concepts/documents).
+## 1. Configure your model
+Log in to Cradl and do the following:
+
+1. Go to [**Models**](https://app.cradl.ai/models) > [**New model**](https://app.cradl.ai/models/new).
+2. Give your model a name and optionally a description.
+3. Add three fields _invoice_id_, _total_amount_ and _due_date_ to your model. Make sure that the _type_ of the fields are _String_, _Amount_ and _Date_ respectively.
+4. Click __Create Model__ when you are done.
+
+## 2. Prepare training data
+Now that you have a model, the next step is to prepare training data. Download the [sample invoices](/sample_invoices.zip) and unzip them to a local folder.
+Notice that the files are structured in pairs such as _invoice1.pdf_ and _invoice1.json_. The JSON-file is called a _ground truth_, and each invoice in your dataset
+must have a corresponding _ground truth_-file.
+
+Here is an example of how an invoice and corresponding ground truth file may look like:
 
 <Tabs>
 <TabItem value="ground-truth" label="invoice-east-repair.json - Ground Truth" default>
@@ -26,8 +38,8 @@ Before we enter Cradl to start the training, we make sure that we have data to t
 ```json
 [
    {
-      "label": "vendor_name",
-      "value": "East Repair Inc."
+      "label": "invoice_id",
+      "value": "US-001"
    },
    {
       "label": "total_amount",
@@ -48,28 +60,31 @@ Before we enter Cradl to start the training, we make sure that we have data to t
 </TabItem>
 </Tabs>
 
-## 2. Configure your model
-We are now ready to enter Cradl and put our data to use.
-1. In Cradl, go to [**Models**](https://app.cradl.ai/models) > [**New model**](https://app.cradl.ai/models/new).
-2. Give your model a name, and add an optional description.
-3. Choose the invoice template and press **Create model**.
-4. In the *Model overview* section press **Go to training** and then **New training**.
-
-:::info Matching fields
-To train a model, **the field names always need to match the labels** in the data.
+:::caution
+Make sure that the labels in your ground truth files matches exactly the names of the fields you defined in your model.
 :::
 
-## 3. Train your model
-You should now be in the training wizard, if not just go to
-[**Models**](https://app.cradl.ai/models) > **Your model** > **Training jobs** > **New training**.
-1. Choose **Create new dataset**, give your dataset a name and add an optional description.
-2. Choose all the files you prepared in the first step and press start upload, remember to add both JSONs and PDFs.
-3. Generate a data report, this step will be more important when dealing with real data.
+In the example above, notice that the due date is written as an ISO formatted date __"2019-02-26"__ even though on the document it is written as __"26/02/2019"__.
+Similarly, an Amount-field would be written as __"1500.36"__ in the ground truth even if it says e.g. __"$1,500.36"__ on the document.
+
+:::tip Using historical data
+Ground truths only consist of labels and values and _do not_ require positional information like bounding boxes. Therefore they can often be 
+_generated automatically_ by extracting invoices from e.g. a database or an ERP system. This enables you to train on thousands or even millions
+of documents without having to go through a manual labelling process.
+:::
+
+
+## 3. Start training
+Now we are ready to train our model.
+
+1. Go to [**Models**](https://app.cradl.ai/models) > **Your model** > **Training jobs** > **New training**.
+2. Choose **Create new dataset**. Give your dataset a descriptive name.
+2. Upload the dataset you prepared in the previous step. Remember to include both ground truths (JSON) and PDFs.
+3. Generate a data report. The data report enables you to inspect your training data to ensure that everything is correct.
 4. Leave the default settings and press **Start model training** to send a training request.
 
-Congratulations! You have now requested a training. You will soon hear from us regarding your training, and you can expect your model to be ready within two days!
+Congratulations, you have now started your first training! Once the training is complete, you can start using your model in production.
 
-:::tip
-Make some predictions on the already active community models [here](https://app.cradl.ai/test) to get an impression of how to use an active model.
-:::
 
+## 4. Make predictions
+Once you have a trained model, your are ready to start [making predictions](test-a-model).
