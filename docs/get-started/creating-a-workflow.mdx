@@ -1,0 +1,225 @@
+---
+sidebar_position: 4
+---
+
+# Setting up a workflow
+
+import { useHistory } from '@docusaurus/router';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Box, TextBox, BoxAction } from '@site/src/components/Box';
+import BoxContainer from '@site/src/components/BoxContainer';
+import HeaderText from '@site/src/components/HeaderText';
+
+import * as Icons from 'react-feather';
+
+export const LinkBox = ({url, ...props}) => {
+    const history = useHistory();
+    return <Box {...props} clickable onClick={() => history.push(url)} />
+};
+
+When predictions are missing or have low confidence, a _human in the loop_ may be needed. In this guide we will cover the following topics:
+
+<BoxContainer>
+  <Box border="none" padding="6px" background="none" width="400px">
+    <HeaderText icon="/img/steps/01.svg" title="Creating a workflow" text="First we will learn how to deploy and configure a default workflow for a model." />
+    <HeaderText icon="/img/steps/02.svg" title="Starting a workflow execution" text="Then we will show how the workflow can be executed using Cradl's CLI and SDKs." />
+    <HeaderText icon="/img/steps/03.svg" title="Exporting documents" text="... and finally how documents can be exported by configuring a webhook." />
+  </Box>
+  <img src="/img/model_overview.png" alt="Cradl Web App" width="500px" />
+</BoxContainer>
+
+## Prerequisites
+In order to follow this guide, make sure that you have:
+
+1. [Installed the command-line interface (CLI)](/overview/installation)
+2. [Created and downloaded API credentials](/overview/authentication)
+3. [Created a model](https://app.cradl.ai/models/new)
+
+<br />
+
+:::info Only available for paid plans
+You must be on one of the paid plans in order to use the workflow functionality.
+:::
+
+## Creating a workflow
+Now we will set up a default workflow for a model. Before we can do that, we need to find the ID of the model we want to set up a workflow for. The model ID can be copied
+from the _Overview_-tab of your model, or you can use the CLI or SDKs:
+
+<Tabs>
+<TabItem value="bash" label="CLI">
+
+```bash
+$ las models list 
+{
+  "models": [
+    {
+      "modelId": "las:model:<my-model-id>",
+      "name": "My invoice model"
+      "description": "A brand new model for reading invoices",
+      ...
+    },
+  ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+
+Now that we have our model ID, let's create a workflow:
+
+<Tabs>
+<TabItem value="bash" label="CLI">
+
+```bash
+$ las workflows create-default --from-model-id las:model:<my-model-id> 
+
+Creating secrets ... Done.
+Creating assets ... Done.
+Creating datasets ... Done.
+Creating transitions ... Done.
+Creating workflow ... Done.
+
+{
+  "workflowId": "las:workflow:<my-workflow-id>"
+  "createdTime": "foobar",
+  ...
+}
+```
+</TabItem>
+</Tabs>
+
+In the next section, we'll take a closer look at what our auto-generated workflow does.
+
+:::info
+Auto-generated workflows are currently only supported by the CLI.
+:::
+
+### Workflows, transitions and executions
+A workflow is defined by a series of _transitions_ which mutate the state of your _workflow execution_. There are two types of transitions; _manual_
+transition which mutates the state based on input from a user, and _docker_ transition which mutates the state programatically in a Docker-container.
+At each step in the workflow, the current state is given as input to the transition, and the output of the transition is the new state.
+When a new workflow execution is created, an _initial state_ is provided.
+
+
+## Starting a workflow execution
+Let's test our new workflow by creating a new workflow execution. The initial state of the workflow executions is provided as a JSON object, and the workflow we just generated assumes that the initial state is on the form
+`{"documentId": "las:document:<document-id>"}`.
+
+<Tabs>
+<TabItem value="bash" label="CLI">
+
+
+```bash
+$ las create document mydocument.pdf > input.json
+
+$ las workflows execute las:workflow:<my-workflow-id> input.json
+{
+  "workflowId": "las:workflow:<my-workflow-id>"
+  "executionId": "las:workflow-execution:<my-execution-id>"
+  ...
+}
+```
+
+</TabItem>
+</Tabs>
+
+Now that we have created a workflow execution, the following steps are executed:
+
+1. The initial state will be provided as input to the first transition (_Preprocess_).
+   The transition will create a [Prediction](/concepts/predictions) on the provided document.
+2. If the _confidence_ of any field predicted is below certain thresholds, a manual transition will be invoked
+   so that an end user can validate that the predictions are correct.
+3. In the last transition (_Postprocess), the _ground truth_ of the document is updated and the document is assigned to a [Dataset](/concepts/datasets)
+   so that it can be used for training. This transition is also responsible for _exporting_ the document.
+
+
+## Exporting documents
+To customize the exporting functionality, we have two options:
+
+1. We can use one of the default export options (webhooks or file export)
+3. Write a custom Docker image
+
+In this section, we will cover how to use the default export options. Before we get started, make sure to find the ID of the Postprocess-transition:
+
+```bash
+$ las transitions list
+[
+  {
+    "name": "Postprocess transition for workflow [..]",
+    "transitionId": "las:transition:<transition-id>",
+    ...
+  }
+}
+```
+
+### Alternative 1: Configuring a webhook
+In order to configure the Postprocess-transition to use a webhook, we need to set the environment variable `WEBHOOK_URI` on our Postprocess-transition.
+Updating environment variables will overwrite any exising environment variables that are set, so make sure to include them as well:
+
+```bash
+$ las transitions get las:transition:<transition-id>
+{
+  "transitionId": "las:transition:<transition-id>",
+  "name": "Postprocess transition for workflow [...]",
+  "transitionType": "docker",
+  ...
+  "parameters": {
+    "environment": {
+      "DATASET_ID": "las:dataset:<dataset-id>",
+      "FIELD_CONFIG_ASSET_ID": "las:asset:<asset-id>",
+      "MODEL_ID": "las:model:<model-id>"
+    },
+    ...
+  },
+  ...
+}
+```
+
+Copy the old environment variables plus our new environment variable to a new file called `env.json`:
+
+```bash
+$ echo '{
+    "DATASET_ID": "las:dataset:<dataset-id>",
+    "FIELD_CONFIG_ASSET_ID": "las:asset:<asset-id>",
+    "MODEL_ID": "las:model:<model-id>",
+    "WEBHOOK_URI": "https://my.webhook.com/a"
+}' > env.json
+
+```
+
+Now we update the environment variables for the Postprocess-transition:
+
+```bash
+$ las transitions update las:transitions:<transition-id> --environment env.json
+```
+
+The next time the Postprocess-transition is run, the result of the workflow execution will be posted to the specified URL.
+
+### Alternative 2: File export using SSH/SCP
+Coming soon.
+
+## Reference
+
+<br />
+
+<BoxContainer>
+  <Box title="CLI and REST API" width="450px">
+    <p>
+    Browse our CLI and REST API reference.
+    </p>
+    <BoxAction text="Get started with the CLI" href="/reference/cli" />
+    <BoxAction text="Get started with the REST API" href="/reference/restapi" />
+  </Box>
+
+  <Box title="Client libraries" width="450px">
+    <p>
+    Check out one of our SDKs.
+    </p>
+    <BoxAction text="Get started with the Python SDK" href="/reference/python" />
+    <BoxAction text="Get started with the JavaScript SDK" href="/reference/sdks/js" />
+    <BoxAction text="Get started with the .NET SDK" href="/reference/sdks/dotnet" />
+    <BoxAction text="Get started with the Java SDK" href="/reference/sdks/java" />
+  </Box>
+</BoxContainer>
