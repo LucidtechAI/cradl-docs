@@ -211,19 +211,19 @@ where the `<field_type>` is one of the following:
       <td><b><code>string</code></b>
       </td>
       <td>String of characters</td>
-      <td
-     >
+      <td>
         <p><code>␣0123456789</code>
         </p>
         <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
         <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
         </p>
-        <p><code>!&quot;#$%&amp;&apos;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;</code>
+        <p><code>!&quot;#$%&amp;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;</code>
         </p>
-        </td>
-        <td><code>Any</code>
-        </td>
+      </td>
+      <td>
+        <code>Any</code>
+      </td>
     </tr>
     <tr>
       <td><b><code>digits</code></b>
@@ -234,29 +234,13 @@ where the `<field_type>` is one of the following:
       <td><code>Any</code>
       </td>
     </tr>
-  </tbody>
-</table>
-
-The following `<field_types>` are also considered valid but may be deprecated later:
-
-<table>
-  <thead>
     <tr>
-      <th><b>Field type</b>
-      </th>
-      <th><b>Data format</b>
-      </th>
-      <th><b>Characters in output</b>
-      </th>
-      <th><b>Output format</b>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><b><code>alphanum</code></b>
+      <td>
+        <b><code>enum</code></b>
       </td>
-      <td>String of alphanumeric characters (including space)</td>
+      <td>
+        List of enumerations
+      </td>
       <td>
         <p><code>␣0123456789</code>
         </p>
@@ -264,75 +248,37 @@ The following `<field_types>` are also considered valid but may be deprecated la
         </p>
         <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
         </p>
+        <p><code>!&quot;#$%&amp;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;</code>
+        </p>
       </td>
-      <td><code>Any</code>
+      <td>
+        <code>Any</code>
       </td>
     </tr>
     <tr>
-      <td><b><code>alphanumext</code></b>
+      <td>
+        <b><code>lines</code></b>
       </td>
-      <td>String of alphanumeric characters with common special characters (including space)</td>
-      <td
-     >
+      <td>
+        Nested structure representing line items / tables
+      </td>
+      <td>
         <p><code>␣0123456789</code>
         </p>
         <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
         <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
         </p>
-        <p><code>&amp;,-./\</code>
+        <p><code>!&quot;#$%&amp;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;</code>
         </p>
-        </td>
-        <td><code>Any</code>
-        </td>
-    </tr>
-    <tr>
-      <td><b><code>all</code></b>
       </td>
-      <td>String of alphanumeric characters with more special characters (including space)</td>
-      <td
-     >
-        <p><code>␣0123456789</code>
-        </p>
-        <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
-        </p>
-        <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
-        </p>
-        <p><code>!&quot;#$%&amp;&apos;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;</code>
-        </p>
-        </td>
-        <td><code>Any</code>
-        </td>
-    </tr>
-    <tr>
-      <td><b><code>letter</code></b>
-      </td>
-      <td>String of latin characters (including space)</td>
-      <td><code>␣ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
-      </td>
-      <td><code>Any</code>
-      </td>
-    </tr>
-    <tr>
-      <td><b><code>number</code></b>
-      </td>
-      <td>String of digits (including space)</td>
-      <td><code>␣0123456789</code>
-      </td>
-      <td><code>Any</code>
-      </td>
-    </tr>
-    <tr>
-      <td><b><code>phone</code></b>
-      </td>
-      <td>Phone number, country code optional</td>
-      <td><code>+0123456789</code>
-      </td>
-      <td><code>Same as input format, w/o whitespace</code>
+      <td>
+        <code>Any</code>
       </td>
     </tr>
   </tbody>
 </table>
+
 
 ## Selecting training data
 
