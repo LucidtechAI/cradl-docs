@@ -220,3 +220,16 @@ To ensure that your data is correct, you should inspect it beforehand by taking 
 You want to extract the due date of invoices, but due to clerical errors, some of the data entered into your archive system is actually the date of payment, which may be different from the due date. If such errors are present in only a few documents, it will not pose a large issue when training. However, if this is a systematic error, you should either discard the erroneous data and obtain new, correct data, or correct the erroneous data before training.
 
 :::
+
+#### Error handling
+
+The datasets you select for training might contain errors or values that are unexpected for specific label types. We are trying to catch these during creation of the data bundle and give you an overview so that you can take measures to fix the data before training a model.
+
+Errors are divided into two categories:
+- Errors on document level prefixed with DE, meaning that the entire document could not be processed for some reason and is entirely discarded
+- Errors on label level prefixed with LE, meaning that one or more labels in the ground truth of the document could not be parsed correctly and is ignored during training
+
+| Error Code | Description |
+| :--- | :--- |
+| DE001 | Generic document error. Something went wrong in parsing the document, we cannot give you more concrete information as of now. |
+| LE001 | Generic label error. Something went wrong in parsing the label, we cannot give you more concrete information as of now. |
