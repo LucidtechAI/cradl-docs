@@ -164,6 +164,10 @@ components:
         content:
           minLength: 1
           type: string
+        contentMD5:
+          maxLength: 4096
+          nullable: true
+          type: string
         createdBy:
           maxLength: 4096
           nullable: true
@@ -190,6 +194,7 @@ components:
           type: string
       required:
       - assetId
+      - contentMD5
       - createdBy
       - createdTime
       - description
@@ -210,6 +215,10 @@ components:
                 type: string
               content:
                 minLength: 1
+                type: string
+              contentMD5:
+                maxLength: 4096
+                nullable: true
                 type: string
               createdBy:
                 maxLength: 4096
@@ -237,6 +246,7 @@ components:
                 type: string
             required:
             - assetId
+            - contentMD5
             - createdBy
             - createdTime
             - description
@@ -340,6 +350,9 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        retentionInDays:
+          minimum: 1
+          type: integer
         status:
           enum:
           - running
@@ -460,6 +473,9 @@ components:
                 maxLength: 4096
                 nullable: true
                 type: string
+              retentionInDays:
+                minimum: 1
+                type: integer
               status:
                 enum:
                 - running
@@ -652,6 +668,81 @@ components:
       - nextToken
       title: datasets
       type: object
+    DeploymentEnvironment:
+      additionalProperties: false
+      properties:
+        deploymentEnvironmentId:
+          pattern: ^las:deployment-environment:[a-z0-9-_]+(|:@[a-z0-9-_]+|:[0-9]+)$
+          type: string
+        description:
+          maxLength: 4096
+          nullable: true
+          type: string
+        name:
+          maxLength: 4096
+          nullable: true
+          type: string
+        organizationId:
+          nullable: true
+          pattern: ^las:organization:[a-z0-9-_]+$
+          type: string
+        status:
+          enum:
+          - available
+          - unavailable
+          type: string
+      required:
+      - deploymentEnvironmentId
+      - description
+      - name
+      - organizationId
+      - status
+      title: deploymentEnvironment
+      type: object
+    DeploymentEnvironments:
+      additionalProperties: false
+      properties:
+        deploymentEnvironments:
+          items:
+            additionalProperties: false
+            properties:
+              deploymentEnvironmentId:
+                pattern: ^las:deployment-environment:[a-z0-9-_]+(|:@[a-z0-9-_]+|:[0-9]+)$
+                type: string
+              description:
+                maxLength: 4096
+                nullable: true
+                type: string
+              name:
+                maxLength: 4096
+                nullable: true
+                type: string
+              organizationId:
+                nullable: true
+                pattern: ^las:organization:[a-z0-9-_]+$
+                type: string
+              status:
+                enum:
+                - available
+                - unavailable
+                type: string
+            required:
+            - deploymentEnvironmentId
+            - description
+            - name
+            - organizationId
+            - status
+            type: object
+          type: array
+        nextToken:
+          maxLength: 4096
+          nullable: true
+          type: string
+      required:
+      - deploymentEnvironments
+      - nextToken
+      title: deploymentEnvironments
+      type: object
     Document:
       additionalProperties: false
       properties:
@@ -660,6 +751,10 @@ components:
           type: string
         content:
           minLength: 1
+          type: string
+        contentMD5:
+          maxLength: 4096
+          nullable: true
           type: string
         contentType:
           enum:
@@ -727,6 +822,7 @@ components:
           pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
           type: string
       required:
+      - contentMD5
       - contentType
       - createdBy
       - createdTime
@@ -761,6 +857,10 @@ components:
                 type: string
               content:
                 minLength: 1
+                type: string
+              contentMD5:
+                maxLength: 4096
+                nullable: true
                 type: string
               contentType:
                 enum:
@@ -828,6 +928,7 @@ components:
                 pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
                 type: string
             required:
+            - contentMD5
             - contentType
             - createdBy
             - createdTime
@@ -1021,17 +1122,12 @@ components:
                 type: integer
               type:
                 enum:
-                - all
-                - alphanum
-                - alphanumext
                 - amount
                 - date
                 - digits
                 - enum
-                - letter
                 - lines
-                - number
-                - phone
+                - numeric
                 - string
                 type: string
             required:
@@ -1191,17 +1287,12 @@ components:
                       type: integer
                     type:
                       enum:
-                      - all
-                      - alphanum
-                      - alphanumext
                       - amount
                       - date
                       - digits
                       - enum
-                      - letter
                       - lines
-                      - number
-                      - phone
+                      - numeric
                       - string
                       type: string
                   required:
@@ -1357,7 +1448,7 @@ components:
           type: integer
         monthlyNumberOfGpuHoursUsed:
           minimum: 0
-          type: integer
+          type: number
         monthlyNumberOfPredictionsAllowed:
           minimum: 0
           type: integer
@@ -1647,17 +1738,12 @@ components:
                 type: integer
               type:
                 enum:
-                - all
-                - alphanum
-                - alphanumext
                 - amount
                 - date
                 - digits
                 - enum
-                - letter
                 - lines
-                - number
-                - phone
+                - numeric
                 - string
                 type: string
             required:
@@ -1792,6 +1878,10 @@ components:
       additionalProperties: false
       minProperties: 1
       properties:
+        deploymentEnvironmentId:
+          nullable: true
+          pattern: ^(|las:organization:[a-z0-9-_]+/)las:deployment-environment:[a-z0-9-_]+(|:@[a-z0-9-_]+|:[0-9]+)$
+          type: string
         description:
           maxLength: 4096
           nullable: true
@@ -1830,7 +1920,7 @@ components:
           additionalProperties: false
           properties:
             message:
-              maxLength: 256
+              maxLength: 4096
               type: string
           required:
           - message
@@ -2165,7 +2255,7 @@ components:
       required:
       - nextToken
       - plans
-      title: models
+      title: plans
       type: object
     PostAppClients:
       additionalProperties: false
@@ -2275,6 +2365,7 @@ components:
           - image/jpeg
           - image/png
           - image/tiff
+          nullable: true
           type: string
         datasetId:
           pattern: ^las:dataset:[a-f0-9]{32}$
@@ -2354,17 +2445,12 @@ components:
                 type: integer
               type:
                 enum:
-                - all
-                - alphanum
-                - alphanumext
                 - amount
                 - date
                 - digits
                 - enum
-                - letter
                 - lines
-                - number
-                - phone
+                - numeric
                 - string
                 type: string
             required:
@@ -2560,6 +2646,8 @@ components:
             type: string
           minItems: 1
           type: array
+        dataScientistAssistance:
+          type: boolean
         description:
           maxLength: 4096
           nullable: true
@@ -3015,6 +3103,12 @@ components:
             pattern: ^las:model-data-bundle:[a-f0-9]{32}$
             type: string
           type: array
+        dataScientistAssistance:
+          type: boolean
+        deploymentEnvironmentId:
+          nullable: true
+          pattern: ^(|las:organization:[a-z0-9-_]+/)las:deployment-environment:[a-z0-9-_]+(|:@[a-z0-9-_]+|:[0-9]+)$
+          type: string
         description:
           maxLength: 4096
           nullable: true
@@ -3023,7 +3117,7 @@ components:
           type: object
         gpuHours:
           minimum: 0
-          type: integer
+          type: number
         instanceType:
           enum:
           - small-gpu
@@ -3111,6 +3205,12 @@ components:
                   pattern: ^las:model-data-bundle:[a-f0-9]{32}$
                   type: string
                 type: array
+              dataScientistAssistance:
+                type: boolean
+              deploymentEnvironmentId:
+                nullable: true
+                pattern: ^(|las:organization:[a-z0-9-_]+/)las:deployment-environment:[a-z0-9-_]+(|:@[a-z0-9-_]+|:[0-9]+)$
+                type: string
               description:
                 maxLength: 4096
                 nullable: true
@@ -3119,7 +3219,7 @@ components:
                 type: object
               gpuHours:
                 minimum: 0
-                type: integer
+                type: number
               instanceType:
                 enum:
                 - small-gpu
@@ -3946,6 +4046,7 @@ components:
             api.lucidtech.ai/databundles:write: Write permissions
             api.lucidtech.ai/datasets:read: Read permissions
             api.lucidtech.ai/datasets:write: Write permissions
+            api.lucidtech.ai/deploymentenvironments:read: Read permissions
             api.lucidtech.ai/documents:read: Read permissions
             api.lucidtech.ai/documents:write: Write permissions
             api.lucidtech.ai/logs:read: Read permissions
@@ -3978,7 +4079,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2022-06-23T15:06:51Z'
+  version: '2022-09-09T08:58:28Z'
 openapi: 3.0.1
 paths:
   /appClients:
@@ -5453,6 +5554,247 @@ paths:
       security:
       - OAuth2:
         - api.lucidtech.ai/datasets:write
+  /deploymentEnvironments:
+    get:
+      parameters:
+      - in: query
+        name: owner
+        schema:
+          type: string
+      - in: query
+        name: nextToken
+        schema:
+          type: string
+      - in: query
+        name: maxResults
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentEnvironments'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 403 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '415':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 415 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+      security:
+      - OAuth2:
+        - api.lucidtech.ai/secrets:read
+    options:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Empty'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+  /deploymentEnvironments/{deploymentEnvironmentId}:
+    get:
+      parameters:
+      - in: path
+        name: deploymentEnvironmentId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentEnvironment'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 403 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '415':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 415 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+      security:
+      - OAuth2:
+        - api.lucidtech.ai/organizations:read
+    options:
+      parameters:
+      - in: path
+        name: deploymentEnvironmentId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Empty'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
   /documents:
     delete:
       parameters:
