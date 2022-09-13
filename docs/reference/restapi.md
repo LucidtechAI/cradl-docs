@@ -14,6 +14,15 @@ title: REST API
 
 ## Changelog
 
+
+### 2022-09-13
+
+- Several improvements have been made to `summary` in `/models/:id/dataBundles`. You can now see which `/documents` are duplicates, which `groundTruth` values are duplicates, the distribution of characters and lengths of your data. You can also see which `documents` had errors in them while processing the data and which labels in the `groundTruth` that were erroneous. For a complete list of error codes see [list of error codes](/concepts/training-data.mdx#error-handling)
+- Removed deprecated types `all`, `alphanum`, `alphanumext`, `letter`, `number` and `phone` in `fieldConfig` in `/models`. 
+- Added type `numeric` to `fieldConfig` in `/models`
+- Added `contentMD5` to `/documents`
+- Added `retentionInDays` to `/models/:id/dataBundles`. This change reflects that PII can occur in data bundles and should thus be removed in accordance with the DPA.
+
 ### 2022-06-24
 
 - Added `evaluation` to `/models/:id/trainings`
