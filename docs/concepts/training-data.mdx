@@ -220,3 +220,21 @@ To ensure that your data is correct, you should inspect it beforehand by taking 
 You want to extract the due date of invoices, but due to clerical errors, some of the data entered into your archive system is actually the date of payment, which may be different from the due date. If such errors are present in only a few documents, it will not pose a large issue when training. However, if this is a systematic error, you should either discard the erroneous data and obtain new, correct data, or correct the erroneous data before training.
 
 :::
+
+#### Error handling
+
+The datasets you select for training might contain errors or values that are unexpected for specific label types. We are trying to catch these when you create a data bundle and give you an overview so that you can correct your data before training your model.
+
+Errors are divided into two categories:
+- Errors on document level prefixed with DE, meaning that the entire document could not be processed and is omitted from the training. 
+- Errors on label level prefixed with LE, meaning that one or more labels in the ground truth of the document could not be parsed correctly and is ignored during training
+
+| Error Code | Description |
+| :--- | :--- |
+| DE001 | Generic document error. Something went wrong in parsing the document, we cannot give you more concrete information as of now. |
+| LE001 | Generic label error. Something went wrong in parsing the label, we cannot give you more concrete information as of now. |
+| LE002 | Invalid date error. Date value must be a string on ISO format `YYYY-MM-DD`. |
+| LE003 | Invalid amount error. Amount value must be a string, int or float and is parsed with two decimals, such as `123.45` or `-123.45`. |
+| LE004 | Invalid numeric error. Numeric value must be a string, int or float. If value is string it must be parseable as a number. |
+| LE005 | Invalid digits error. Digits value must only contain `0123456789`. |
+| LE006 | Invalid enum error. Enum value is not defined in `enum` array of field in `fieldConfig`. |
