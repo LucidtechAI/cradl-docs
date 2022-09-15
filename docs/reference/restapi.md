@@ -14,6 +14,12 @@ title: REST API
 
 ## Changelog
 
+### 2022-09-15
+
+- Added query parameter `documentId` to `GET /documents`
+- Fixed a bug causing `/models/:id/dataBundles` to fail with status `failed` when certain combinations of `ground_truth` value `types` and `model.fieldConfig` were present.
+- Fixed a bug causing `/models/:id/dataBundles` to show `validity=1.0` when no `ground_truth` values were successfully parsed.
+- Fixed a bug causing `/models/:id/dataBundles` to fail with status `failed` when no documents with valid `ground_truth` values were present.
 
 ### 2022-09-13
 
