@@ -4079,7 +4079,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2022-09-09T08:58:28Z'
+  version: '2022-09-15T11:21:55Z'
 openapi: 3.0.1
 paths:
   /appClients:
@@ -5899,10 +5899,6 @@ paths:
     get:
       parameters:
       - in: query
-        name: consentId
-        schema:
-          type: string
-      - in: query
         name: datasetId
         schema:
           type: string
@@ -5911,15 +5907,23 @@ paths:
         schema:
           type: string
       - in: query
+        name: order
+        schema:
+          type: string
+      - in: query
+        name: documentId
+        schema:
+          type: string
+      - in: query
+        name: consentId
+        schema:
+          type: string
+      - in: query
         name: maxResults
         schema:
           type: string
       - in: query
         name: sortBy
-        schema:
-          type: string
-      - in: query
-        name: order
         schema:
           type: string
       responses:
