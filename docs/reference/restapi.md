@@ -14,6 +14,12 @@ title: REST API
 
 ## Changelog
 
+### 2022-09-27
+
+- Fixed a bug causing `POST /predictions` to fail with TIFF images containing 2 or more pages.
+- Fixed a bug causing community `/datasets` and `/models` to not be added to new users. Existing users that were affected by this bug must contact support to have them added to their organization.
+- Added additional `cpu` (`512`, `1024`) and `memory` (`4096`, `8192`) options for docker `/transitions`.
+
 ### 2022-09-15
 
 - Added query parameter `documentId` to `GET /documents`
