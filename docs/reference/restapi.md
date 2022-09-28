@@ -14,7 +14,7 @@ title: REST API
 
 ## Changelog
 
-### 2022-09-30
+### 2022-09-28
 
 - Added `parameters` to `PATCH /transitions/:id`. Use `parameters` to update transitions with `transitionType=docker` or `transitionType=manual` specific parameters.
 - Added `parameters.cpu`, `parameters.memory`, `parameters.imageUrl`, `parameters.secretId`, `parameters.environment` and `parameters.environmentSecrets` to `PATCH /transitions/:id` for `transitionType=docker`.
