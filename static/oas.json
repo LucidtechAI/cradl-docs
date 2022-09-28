@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2022-09-27T12:33:29Z"
+    "version": "2022-09-28T13:02:34Z"
   },
   "servers": [
     {
@@ -13629,7 +13629,14 @@
         "parameters": [
           {
             "in": "query",
-            "name": "status",
+            "name": "fromStartTime",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "toStartTime",
             "schema": {
               "type": "string"
             }
@@ -13651,6 +13658,20 @@
           },
           {
             "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
             "name": "maxResults",
             "schema": {
               "type": "string"
@@ -13659,13 +13680,6 @@
           {
             "in": "query",
             "name": "sortBy",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "query",
-            "name": "order",
             "schema": {
               "type": "string"
             }
@@ -17311,9 +17325,6 @@
               "type": "string"
             }
           },
-          "outputJsonSchema": {
-            "type": "object"
-          },
           "assets": {
             "type": "object",
             "properties": {
@@ -17327,6 +17338,9 @@
               "type": "string"
             }
           },
+          "outputJsonSchema": {
+            "type": "object"
+          },
           "name": {
             "maxLength": 4096,
             "type": "string",
@@ -17339,6 +17353,74 @@
           },
           "inputJsonSchema": {
             "type": "object"
+          },
+          "parameters": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "environmentSecrets": {
+                    "type": "array",
+                    "items": {
+                      "pattern": "^las:secret:[a-f0-9]{32}$",
+                      "type": "string"
+                    }
+                  },
+                  "environment": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  },
+                  "memory": {
+                    "type": "integer",
+                    "enum": [
+                      512,
+                      1024,
+                      2048,
+                      4096,
+                      8192
+                    ]
+                  },
+                  "imageUrl": {
+                    "type": "string"
+                  },
+                  "secretId": {
+                    "pattern": "^las:secret:[a-f0-9]{32}$",
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "cpu": {
+                    "type": "integer",
+                    "enum": [
+                      256,
+                      512,
+                      1024
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "assets": {
+                    "type": "object",
+                    "properties": {
+                      "jsRemoteComponent": {
+                        "pattern": "^las:asset:[a-f0-9]{32}$",
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": {
+                      "pattern": "^las:asset:[a-f0-9]{32}$",
+                      "type": "string"
+                    }
+                  }
+                },
+                "additionalProperties": false
+              }
+            ]
           }
         },
         "additionalProperties": false

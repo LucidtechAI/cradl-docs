@@ -19,7 +19,7 @@ title: REST API
 - Added `parameters` to `PATCH /transitions/:id`. Use `parameters` to update transitions with `transitionType=docker` or `transitionType=manual` specific parameters.
 - Added `parameters.cpu`, `parameters.memory`, `parameters.imageUrl`, `parameters.secretId`, `parameters.environment` and `parameters.environmentSecrets` to `PATCH /transitions/:id` for `transitionType=docker`.
 - Added `parameters.assets` to `PATCH /transitions/:id` for `transitionType=manual`.
-- Deprecated `environment`, `environmentSecrets` and `assets` in `PATCH /transitions/:id` and will be removed on December 16th. Use `parameters.environment`, `parameters.environmentSecrets` and `parameters.assets` instead. 
+- Deprecated `environment`, `environmentSecrets` and `assets` in `PATCH /transitions/:id` and will be removed on December 16th. Use `parameters.environment`, `parameters.environmentSecrets` and `parameters.assets` instead.
 - Added query parameter `fromStartTime` and `toStartTime` to `GET /workflows/:id/executions`.
 - Fixed a bug causing `GET /documents/:id` to fail with status code 500.
 - Fixed a bug causing `POST /predictions` to fail with status code 500.
