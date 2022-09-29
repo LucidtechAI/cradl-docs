@@ -10,6 +10,7 @@ components:
           items:
             pattern: ^http://localhost.*|^https://.*
             type: string
+          nullable: true
           type: array
         clientId:
           type: string
@@ -37,11 +38,13 @@ components:
           items:
             pattern: ^http://localhost.*|^https://.*
             type: string
+          nullable: true
           type: array
         logoutUrls:
           items:
             pattern: ^http://localhost.*|^https://.*
             type: string
+          nullable: true
           type: array
         name:
           maxLength: 4096
@@ -85,6 +88,7 @@ components:
                 items:
                   pattern: ^http://localhost.*|^https://.*
                   type: string
+                nullable: true
                 type: array
               clientId:
                 type: string
@@ -112,11 +116,13 @@ components:
                 items:
                   pattern: ^http://localhost.*|^https://.*
                   type: string
+                nullable: true
                 type: array
               logoutUrls:
                 items:
                   pattern: ^http://localhost.*|^https://.*
                   type: string
+                nullable: true
                 type: array
               name:
                 maxLength: 4096
@@ -302,6 +308,7 @@ components:
               groundTruthSummary:
                 type: object
               metadata:
+                nullable: true
                 type: object
               name:
                 maxLength: 4096
@@ -360,6 +367,7 @@ components:
           - failed
           type: string
         summary:
+          nullable: true
           type: object
         updatedBy:
           maxLength: 4096
@@ -425,6 +433,7 @@ components:
                     groundTruthSummary:
                       type: object
                     metadata:
+                      nullable: true
                       type: object
                     name:
                       maxLength: 4096
@@ -483,6 +492,7 @@ components:
                 - failed
                 type: string
               summary:
+                nullable: true
                 type: object
               updatedBy:
                 maxLength: 4096
@@ -546,6 +556,7 @@ components:
         groundTruthSummary:
           type: object
         metadata:
+          nullable: true
           type: object
         name:
           maxLength: 4096
@@ -616,6 +627,7 @@ components:
               groundTruthSummary:
                 type: object
               metadata:
+                nullable: true
                 type: object
               name:
                 maxLength: 4096
@@ -804,15 +816,19 @@ components:
                   minLength: 0
                   nullable: true
                   type: string
-                - type: boolean
-                - type: number
+                - nullable: true
+                  type: boolean
+                - nullable: true
+                  type: number
                 - $ref: '#/components/schemas/groundTruthList'
+                  nullable: true
             required:
             - label
             - value
             type: object
           type: array
         metadata:
+          nullable: true
           type: object
         name:
           maxLength: 4096
@@ -910,15 +926,19 @@ components:
                         minLength: 0
                         nullable: true
                         type: string
-                      - type: boolean
-                      - type: number
+                      - nullable: true
+                        type: boolean
+                      - nullable: true
+                        type: number
                       - $ref: '#/components/schemas/groundTruthList'
+                        nullable: true
                   required:
                   - label
                   - value
                   type: object
                 type: array
               metadata:
+                nullable: true
                 type: object
               name:
                 maxLength: 4096
@@ -1000,6 +1020,7 @@ components:
             type: string
           - pattern: ^las:transition:commons-[0-9A-Za-z-]+$
             type: string
+          nullable: true
         workflowExecutionId:
           nullable: true
           pattern: ^las:workflow-execution:[a-f0-9]{32}$
@@ -1045,6 +1066,7 @@ components:
                   type: string
                 - pattern: ^las:transition:commons-[0-9A-Za-z-]+$
                   type: string
+                nullable: true
               workflowExecutionId:
                 nullable: true
                 pattern: ^las:workflow-execution:[a-f0-9]{32}$
@@ -1141,12 +1163,14 @@ components:
             required:
             - type
             type: object
+          nullable: true
           type: object
         height:
           maximum: 1921
           minimum: 97
           type: integer
         metadata:
+          nullable: true
           type: object
         modelId:
           pattern: ^las:model:[a-f0-9]{32}$
@@ -1306,12 +1330,14 @@ components:
                   required:
                   - type
                   type: object
+                nullable: true
                 type: object
               height:
                 maximum: 1921
                 minimum: 97
                 type: integer
               metadata:
+                nullable: true
                 type: object
               modelId:
                 pattern: ^las:model:[a-f0-9]{32}$
@@ -1702,13 +1728,17 @@ components:
                   minLength: 0
                   nullable: true
                   type: string
-                - type: boolean
-                - type: number
+                - nullable: true
+                  type: boolean
+                - nullable: true
+                  type: number
                 - $ref: '#/components/schemas/groundTruthList'
+                  nullable: true
             required:
             - label
             - value
             type: object
+          nullable: true
           type: array
         metadata:
           type: object
@@ -1997,11 +2027,13 @@ components:
               environment:
                 additionalProperties:
                   type: string
+                nullable: true
                 type: object
               environmentSecrets:
                 items:
                   pattern: ^las:secret:[a-f0-9]{32}$
                   type: string
+                nullable: true
                 type: array
               imageUrl:
                 type: string
@@ -2120,6 +2152,7 @@ components:
           nullable: true
           type: string
         details:
+          nullable: true
           type: object
         name:
           maxLength: 4096
@@ -2179,6 +2212,7 @@ components:
                 nullable: true
                 type: string
               details:
+                nullable: true
                 type: object
               name:
                 maxLength: 4096
@@ -2223,6 +2257,7 @@ components:
       additionalProperties: false
       properties:
         activeModels:
+          nullable: true
           type: object
         available:
           type: boolean
@@ -2237,15 +2272,19 @@ components:
           nullable: true
           type: string
         fieldPredictions:
+          nullable: true
           type: object
         gpuHours:
+          nullable: true
           type: object
         latest:
           minimum: 1
           type: integer
         license:
+          nullable: true
           type: object
         modelDeploymentUnits:
+          nullable: true
           type: object
         name:
           maxLength: 4096
@@ -2279,6 +2318,7 @@ components:
             additionalProperties: false
             properties:
               activeModels:
+                nullable: true
                 type: object
               available:
                 type: boolean
@@ -2293,15 +2333,19 @@ components:
                 nullable: true
                 type: string
               fieldPredictions:
+                nullable: true
                 type: object
               gpuHours:
+                nullable: true
                 type: object
               latest:
                 minimum: 1
                 type: integer
               license:
+                nullable: true
                 type: object
               modelDeploymentUnits:
+                nullable: true
                 type: object
               name:
                 maxLength: 4096
@@ -2460,9 +2504,12 @@ components:
                   minLength: 0
                   nullable: true
                   type: string
-                - type: boolean
-                - type: number
+                - nullable: true
+                  type: boolean
+                - nullable: true
+                  type: number
                 - $ref: '#/components/schemas/groundTruthList'
+                  nullable: true
             required:
             - label
             - value
@@ -3192,6 +3239,7 @@ components:
           type: object
         gpuHours:
           minimum: 0
+          nullable: true
           type: number
         instanceType:
           enum:
@@ -3200,6 +3248,7 @@ components:
           - large-gpu
           type: string
         metadata:
+          nullable: true
           type: object
         modelId:
           pattern: ^las:model:[a-f0-9]{32}$
@@ -3294,6 +3343,7 @@ components:
                 type: object
               gpuHours:
                 minimum: 0
+                nullable: true
                 type: number
               instanceType:
                 enum:
@@ -3302,6 +3352,7 @@ components:
                 - large-gpu
                 type: string
               metadata:
+                nullable: true
                 type: object
               modelId:
                 pattern: ^las:model:[a-f0-9]{32}$
@@ -3437,6 +3488,7 @@ components:
           pattern: ^las:transition-execution:[a-f0-9]{32}$
           type: string
         input:
+          nullable: true
           type: object
         logId:
           nullable: true
@@ -3487,6 +3539,7 @@ components:
                 pattern: ^las:transition-execution:[a-f0-9]{32}$
                 type: string
               input:
+                nullable: true
                 type: object
               logId:
                 nullable: true
@@ -3653,6 +3706,7 @@ components:
           pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
           type: string
         metadata:
+          nullable: true
           type: object
         name:
           maxLength: 4096
@@ -3705,6 +3759,7 @@ components:
                 pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
                 type: string
               metadata:
+                nullable: true
                 type: object
               name:
                 maxLength: 4096
@@ -3740,6 +3795,7 @@ components:
       properties:
         completedConfig:
           additionalProperties: false
+          nullable: true
           properties:
             environment:
               additionalProperties:
@@ -3772,6 +3828,7 @@ components:
           type: string
         errorConfig:
           additionalProperties: false
+          nullable: true
           properties:
             email:
               pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
@@ -3836,12 +3893,14 @@ components:
           pattern: ^las:workflow-execution:[a-f0-9]{32}$
           type: string
         input:
+          nullable: true
           type: object
         logId:
           nullable: true
           pattern: ^las:log:[a-f0-9]{32}$
           type: string
         output:
+          nullable: true
           type: object
         startTime:
           nullable: true
@@ -3857,6 +3916,7 @@ components:
           - error
           type: string
         transitionExecutions:
+          nullable: true
           type: object
         workflowId:
           pattern: ^las:workflow:[a-f0-9]{32}$
@@ -3903,12 +3963,14 @@ components:
                 pattern: ^las:workflow-execution:[a-f0-9]{32}$
                 type: string
               input:
+                nullable: true
                 type: object
               logId:
                 nullable: true
                 pattern: ^las:log:[a-f0-9]{32}$
                 type: string
               output:
+                nullable: true
                 type: object
               startTime:
                 nullable: true
@@ -3924,6 +3986,7 @@ components:
                 - error
                 type: string
               transitionExecutions:
+                nullable: true
                 type: object
               workflowId:
                 pattern: ^las:workflow:[a-f0-9]{32}$
@@ -3986,6 +4049,7 @@ components:
             properties:
               completedConfig:
                 additionalProperties: false
+                nullable: true
                 properties:
                   environment:
                     additionalProperties:
@@ -4018,6 +4082,7 @@ components:
                 type: string
               errorConfig:
                 additionalProperties: false
+                nullable: true
                 properties:
                   email:
                     pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
