@@ -1984,6 +1984,52 @@ components:
           type: string
         outputJsonSchema:
           type: object
+        parameters:
+          anyOf:
+          - additionalProperties: false
+            properties:
+              cpu:
+                enum:
+                - 256
+                - 512
+                - 1024
+                type: integer
+              environment:
+                additionalProperties:
+                  type: string
+                type: object
+              environmentSecrets:
+                items:
+                  pattern: ^las:secret:[a-f0-9]{32}$
+                  type: string
+                type: array
+              imageUrl:
+                type: string
+              memory:
+                enum:
+                - 512
+                - 1024
+                - 2048
+                - 4096
+                - 8192
+                type: integer
+              secretId:
+                nullable: true
+                pattern: ^las:secret:[a-f0-9]{32}$
+                type: string
+            type: object
+          - additionalProperties: false
+            properties:
+              assets:
+                additionalProperties:
+                  pattern: ^las:asset:[a-f0-9]{32}$
+                  type: string
+                properties:
+                  jsRemoteComponent:
+                    pattern: ^las:asset:[a-f0-9]{32}$
+                    type: string
+                type: object
+            type: object
       title: PATCH /transitions/{transitionId}
       type: object
     PatchUserId:
@@ -4108,7 +4154,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2022-09-27T12:33:29Z'
+  version: '2022-09-28T13:02:34Z'
 openapi: 3.0.1
 paths:
   /appClients:
@@ -12046,7 +12092,11 @@ paths:
     get:
       parameters:
       - in: query
-        name: status
+        name: fromStartTime
+        schema:
+          type: string
+      - in: query
+        name: toStartTime
         schema:
           type: string
       - in: path
@@ -12059,15 +12109,19 @@ paths:
         schema:
           type: string
       - in: query
+        name: order
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+      - in: query
         name: maxResults
         schema:
           type: string
       - in: query
         name: sortBy
-        schema:
-          type: string
-      - in: query
-        name: order
         schema:
           type: string
       responses:
