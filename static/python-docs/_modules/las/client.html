@@ -93,6 +93,14 @@
 <span class="n">Queryparam</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 
 
+<div class="viewcode-block" id="datetimestr"><a class="viewcode-back" href="../../las.client.html#las.datetimestr">[docs]</a><span class="k">def</span> <span class="nf">datetimestr</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">datetime</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">d</span><span class="o">.</span><span class="n">tzinfo</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">astimezone</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">d</span></div>
+
+
 <div class="viewcode-block" id="dictstrip"><a class="viewcode-back" href="../../las.client.html#las.dictstrip">[docs]</a><span class="k">def</span> <span class="nf">dictstrip</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Given a dict, return the dict with keys mapping to falsey values removed.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="p">}</span></div>
@@ -184,6 +192,11 @@
     <span class="k">return</span> <span class="n">b64encode</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="n">content_type</span>
 
 
+<div class="viewcode-block" id="EmptyRequestError"><a class="viewcode-back" href="../../las.client.html#las.EmptyRequestError">[docs]</a><span class="k">class</span> <span class="nc">EmptyRequestError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An EmptyRequestError is raised if the request body is empty when expected not to be empty.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
 <div class="viewcode-block" id="ClientException"><a class="viewcode-back" href="../../las.client.html#las.ClientException">[docs]</a><span class="k">class</span> <span class="nc">ClientException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A ClientException is raised if the client refuses to</span>
 <span class="sd">    send request due to incorrect usage or bad request data.&quot;&quot;&quot;</span>
@@ -241,6 +254,9 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Make signed headers, use them to make a HTTP request of arbitrary form and return the result</span>
 <span class="sd">        as decoded JSON. Optionally pass a payload to JSON-dump and parameters for the request call.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span> <span class="ow">and</span> <span class="n">requests_fn</span> <span class="ow">in</span> <span class="p">[</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">EmptyRequestError</span>
 
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="n">params</span><span class="p">}</span>
         <span class="kc">None</span> <span class="k">if</span> <span class="n">body</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">body</span><span class="p">)})</span>
@@ -850,12 +866,13 @@
 <span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
 <span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="n">dictstrip</span><span class="p">({</span>
             <span class="s1">&#39;groundTruth&#39;</span><span class="p">:</span> <span class="n">ground_truth</span><span class="p">,</span>
             <span class="s1">&#39;datasetId&#39;</span><span class="p">:</span> <span class="n">dataset_id</span><span class="p">,</span>
             <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">,</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/documents/</span><span class="si">{</span><span class="n">document_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">body</span><span class="p">))</span></div>
+        <span class="p">})</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/documents/</span><span class="si">{</span><span class="n">document_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Client.delete_document"><a class="viewcode-back" href="../../las.client.html#las.Client.delete_document">[docs]</a>    <span class="k">def</span> <span class="nf">delete_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Delete the document with the provided document_id, calls the DELETE /documents/{documentId} endpoint.</span>
@@ -1652,8 +1669,9 @@
         <span class="n">in_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">out_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">assets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">environment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">environment_secrets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">cpu</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">memory</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">image_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">optional_args</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Updates a transition, calls the PATCH /transitions/{transitionId} endpoint.</span>
@@ -1681,6 +1699,14 @@
 <span class="sd">        :param environment_secrets: \</span>
 <span class="sd">            A list of secretIds that contains environment variables to use for a docker transition</span>
 <span class="sd">        :type environment_secrets: list, optional</span>
+<span class="sd">        :param cpu: Number of CPU units to use for a docker transition</span>
+<span class="sd">        :type cpu: int, optional</span>
+<span class="sd">        :param memory: Memory in MiB to use for a docker transition</span>
+<span class="sd">        :type memory: int, optional</span>
+<span class="sd">        :param image_url: Docker image url to use for a docker transition</span>
+<span class="sd">        :type image_url: str, optional</span>
+<span class="sd">        :param secret_id: Secret containing a username and password if image_url points to a private docker image</span>
+<span class="sd">        :type secret_id: str, optional</span>
 <span class="sd">        :return: Transition response from REST API</span>
 <span class="sd">        :rtype: dict</span>
 
@@ -1690,10 +1716,24 @@
         <span class="n">body</span> <span class="o">=</span> <span class="n">dictstrip</span><span class="p">({</span>
             <span class="s1">&#39;inputJsonSchema&#39;</span><span class="p">:</span> <span class="n">in_schema</span><span class="p">,</span>
             <span class="s1">&#39;outputJsonSchema&#39;</span><span class="p">:</span> <span class="n">out_schema</span><span class="p">,</span>
-            <span class="s1">&#39;assets&#39;</span><span class="p">:</span> <span class="n">assets</span><span class="p">,</span>
-            <span class="s1">&#39;environment&#39;</span><span class="p">:</span> <span class="n">environment</span><span class="p">,</span>
-            <span class="s1">&#39;environmentSecrets&#39;</span><span class="p">:</span> <span class="n">environment_secrets</span><span class="p">,</span>
         <span class="p">})</span>
+
+        <span class="n">parameters</span> <span class="o">=</span> <span class="n">dictstrip</span><span class="p">({</span>
+            <span class="s1">&#39;assets&#39;</span><span class="p">:</span> <span class="n">assets</span><span class="p">,</span>
+            <span class="s1">&#39;cpu&#39;</span><span class="p">:</span> <span class="n">cpu</span><span class="p">,</span>
+            <span class="s1">&#39;imageUrl&#39;</span><span class="p">:</span> <span class="n">image_url</span><span class="p">,</span>
+            <span class="s1">&#39;memory&#39;</span><span class="p">:</span> <span class="n">memory</span><span class="p">,</span>
+        <span class="p">})</span>
+
+        <span class="k">if</span> <span class="s1">&#39;environment&#39;</span> <span class="ow">in</span> <span class="n">optional_args</span><span class="p">:</span>
+            <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;environment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">optional_args</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;environment&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;environment_secrets&#39;</span> <span class="ow">in</span> <span class="n">optional_args</span><span class="p">:</span>
+            <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;environmentSecrets&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">optional_args</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;environment_secrets&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;secret_id&#39;</span> <span class="ow">in</span> <span class="n">optional_args</span><span class="p">:</span>
+            <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;secretId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">optional_args</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;secret_id&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="n">body</span><span class="p">[</span><span class="s1">&#39;parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameters</span>
+
         <span class="n">body</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">optional_args</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;/transitions/</span><span class="si">{</span><span class="n">transition_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
 
@@ -1839,17 +1879,13 @@
 <span class="sd">        :raises: :py:class:`~las.InvalidCredentialsException`, :py:class:`~las.TooManyRequestsException`,\</span>
 <span class="sd"> :py:class:`~las.LimitExceededException`, :py:class:`requests.exception.RequestException`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">start_time</span><span class="o">.</span><span class="n">tzinfo</span><span class="p">:</span>
-                <span class="n">start_time</span> <span class="o">=</span> <span class="n">start_time</span><span class="o">.</span><span class="n">astimezone</span><span class="p">()</span>
-            <span class="n">start_time</span> <span class="o">=</span> <span class="n">start_time</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
 
         <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/transitions/</span><span class="si">{</span><span class="n">transition_id</span><span class="si">}</span><span class="s1">/executions/</span><span class="si">{</span><span class="n">execution_id</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
             <span class="s1">&#39;output&#39;</span><span class="p">:</span> <span class="n">output</span><span class="p">,</span>
             <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="n">error</span><span class="p">,</span>
-            <span class="s1">&#39;startTime&#39;</span><span class="p">:</span> <span class="n">start_time</span><span class="p">,</span>
+            <span class="s1">&#39;startTime&#39;</span><span class="p">:</span> <span class="n">datetimestr</span><span class="p">(</span><span class="n">start_time</span><span class="p">),</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">dictstrip</span><span class="p">(</span><span class="n">body</span><span class="p">))</span></div>
 
@@ -2143,14 +2179,16 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;input&#39;</span><span class="p">:</span> <span class="n">content</span><span class="p">})</span></div>
 
 <div class="viewcode-block" id="Client.list_workflow_executions"><a class="viewcode-back" href="../../las.client.html#las.Client.list_workflow_executions">[docs]</a>    <span class="k">def</span> <span class="nf">list_workflow_executions</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-            <span class="o">*</span><span class="p">,</span>
-            <span class="n">status</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Queryparam</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">sort_by</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">order</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">status</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Queryparam</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sort_by</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">order</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">max_results</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">next_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">from_start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">datetime</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">to_start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">datetime</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;List executions in a workflow, calls the GET /workflows/{workflowId}/executions endpoint.</span>
 
@@ -2170,6 +2208,10 @@
 <span class="sd">        :type max_results: int, optional</span>
 <span class="sd">        :param next_token: A unique token for each page, use the returned token to retrieve the next page.</span>
 <span class="sd">        :type next_token: str, optional</span>
+<span class="sd">        :param from_start_time: Specify a datetime range for start_time with from_start_time as lower bound</span>
+<span class="sd">        :type from_start_time: str or datetime, optional</span>
+<span class="sd">        :param to_start_time: Specify a datetime range for start_time with to_start_time as upper bound</span>
+<span class="sd">        :type to_start_time: str or datetime, optional</span>
 <span class="sd">        :return: Workflow executions responses from REST API</span>
 <span class="sd">        :rtype: dict</span>
 
@@ -2184,6 +2226,11 @@
             <span class="s1">&#39;maxResults&#39;</span><span class="p">:</span> <span class="n">max_results</span><span class="p">,</span>
             <span class="s1">&#39;nextToken&#39;</span><span class="p">:</span> <span class="n">next_token</span><span class="p">,</span>
         <span class="p">}</span>
+
+        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">from_start_time</span><span class="p">,</span> <span class="n">to_start_time</span><span class="p">]):</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">&#39;fromStartTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetimestr</span><span class="p">(</span><span class="n">from_start_time</span><span class="p">)</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">&#39;toStartTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetimestr</span><span class="p">(</span><span class="n">to_start_time</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Client.get_workflow_execution"><a class="viewcode-back" href="../../las.client.html#las.Client.get_workflow_execution">[docs]</a>    <span class="k">def</span> <span class="nf">get_workflow_execution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">execution_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
