@@ -131,7 +131,7 @@ Now that we have created a workflow execution, the following steps are executed:
    The transition will create a [Prediction](/concepts/predictions) on the provided document.
 2. If the _confidence_ of any field predicted is below a certain threshold, a manual transition will be invoked
    so that an end user can validate that the predictions are correct.
-3. In the last transition (_Postprocess), the _ground truth_ of the document is updated and the document is assigned to a [Dataset](/concepts/datasets)
+3. In the last transition (_Postprocess_), the _ground truth_ of the document is updated and the document is assigned to a [Dataset](/concepts/datasets)
    so that it can be used for training. This transition is also responsible for _exporting_ the document.
 
 
