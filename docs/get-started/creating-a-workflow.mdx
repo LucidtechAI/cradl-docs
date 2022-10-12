@@ -73,7 +73,7 @@ Now that we have our model ID, let's create a workflow:
 <TabItem value="bash" label="CLI">
 
 ```bash
-$ las workflows create-default --from-model-id las:model:<my-model-id> 
+$ las workflows create-default --from-model-id las:model:<my-model-id>  <name>
 
 Creating secrets ... Done.
 Creating assets ... Done.
@@ -83,7 +83,7 @@ Creating workflow ... Done.
 
 {
   "workflowId": "las:workflow:<my-workflow-id>"
-  "createdTime": "foobar",
+  "createdTime": "2022-01-01T12:00:00.000000+0000",
   ...
 }
 ```
@@ -167,7 +167,7 @@ $ las transitions get las:transition:<transition-id>
   "parameters": {
     "environment": {
       "DATASET_ID": "las:dataset:<dataset-id>",
-      "FIELD_CONFIG_ASSET_ID": "las:asset:<asset-id>",
+      "FORM_CONFIG_ASSET_ID": "las:asset:<asset-id>",
       "MODEL_ID": "las:model:<model-id>"
     },
     ...
@@ -181,7 +181,7 @@ Copy the old environment variables plus our new environment variable to a new fi
 ```bash
 $ echo '{
     "DATASET_ID": "las:dataset:<dataset-id>",
-    "FIELD_CONFIG_ASSET_ID": "las:asset:<asset-id>",
+    "FORM_CONFIG_ASSET_ID": "las:asset:<asset-id>",
     "MODEL_ID": "las:model:<model-id>",
     "WEBHOOK_URI": "https://my.webhook.com/a"
 }' > env.json
@@ -191,7 +191,7 @@ $ echo '{
 Now we update the environment variables for the Postprocess-transition:
 
 ```bash
-$ las transitions update las:transitions:<transition-id> --environment env.json
+$ las transitions update las:transition:<transition-id> --environment env.json
 ```
 
 The next time the Postprocess-transition is run, the result of the workflow execution will be posted to the specified URL.
