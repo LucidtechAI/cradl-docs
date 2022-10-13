@@ -3002,9 +3002,6 @@ components:
             - value
             type: object
           type: array
-        timestamp:
-          minimum: 1
-          type: integer
         trainingId:
           nullable: true
           pattern: ^las:model-training:[a-f0-9]{32}$
@@ -3015,7 +3012,6 @@ components:
       - modelId
       - predictionId
       - predictions
-      - timestamp
       title: prediction
       type: object
     Predictions:
@@ -3078,9 +3074,6 @@ components:
                   - value
                   type: object
                 type: array
-              timestamp:
-                minimum: 1
-                type: integer
               trainingId:
                 nullable: true
                 pattern: ^las:model-training:[a-f0-9]{32}$
@@ -3091,7 +3084,6 @@ components:
             - modelId
             - predictionId
             - predictions
-            - timestamp
             type: object
           type: array
         sortBy:
@@ -4219,7 +4211,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2022-09-28T13:02:34Z'
+  version: '2022-10-13T08:51:21Z'
 openapi: 3.0.1
 paths:
   /appClients:
