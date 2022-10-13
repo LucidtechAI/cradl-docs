@@ -232,9 +232,11 @@ Errors are divided into two categories:
 | Error Code | Description |
 | :--- | :--- |
 | DE001 | Generic document error. Something went wrong in parsing the document, we cannot give you more concrete information as of now. |
+| DE002 | Missing ground truth error. No ground truth found in document. |
 | LE001 | Generic label error. Something went wrong in parsing the label, we cannot give you more concrete information as of now. |
 | LE002 | Invalid date error. Date value must be a string on ISO format `YYYY-MM-DD`. |
 | LE003 | Invalid amount error. Amount value must be a string, int or float and is parsed with two decimals, such as `123.45` or `-123.45`. |
 | LE004 | Invalid numeric error. Numeric value must be a string, int or float. If value is string it must be parseable as a number. |
 | LE005 | Invalid digits error. Digits value must only contain `0123456789`. |
 | LE006 | Invalid enum error. Enum value is not defined in `enum` array of field in `fieldConfig`. |
+| LE007 | Invalid label value. Value is incompatible with given field type in `fieldConfig`. |

@@ -14,6 +14,11 @@ title: REST API
 
 ## Changelog
 
+### 2022-10-13
+
+- Removed deprecated `timestamp` from `/predictions`
+- Deprecated `height`, `width` in `/models`. They will be deleted on December 12th, 2022.
+
 ### 2022-09-28
 
 - Added `parameters` to `PATCH /transitions/:id`. Use `parameters` to update transitions with `transitionType=docker` or `transitionType=manual` specific parameters.

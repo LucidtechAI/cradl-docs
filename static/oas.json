@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2022-09-28T13:02:34Z"
+    "version": "2022-10-13T08:51:21Z"
   },
   "servers": [
     {
@@ -16193,8 +16193,7 @@
           "inferenceTime",
           "modelId",
           "predictionId",
-          "predictions",
-          "timestamp"
+          "predictions"
         ],
         "type": "object",
         "properties": {
@@ -16259,10 +16258,6 @@
               },
               "additionalProperties": false
             }
-          },
-          "timestamp": {
-            "minimum": 1,
-            "type": "integer"
           }
         },
         "additionalProperties": false
@@ -16718,8 +16713,7 @@
                 "inferenceTime",
                 "modelId",
                 "predictionId",
-                "predictions",
-                "timestamp"
+                "predictions"
               ],
               "type": "object",
               "properties": {
@@ -16784,10 +16778,6 @@
                     },
                     "additionalProperties": false
                   }
-                },
-                "timestamp": {
-                  "minimum": 1,
-                  "type": "integer"
                 }
               },
               "additionalProperties": false
