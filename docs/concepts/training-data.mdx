@@ -225,9 +225,10 @@ You want to extract the due date of invoices, but due to clerical errors, some o
 
 The datasets you select for training might contain errors or values that are unexpected for specific label types. We are trying to catch these when you create a data bundle and give you an overview so that you can correct your data before training your model.
 
-Errors are divided into two categories:
+Errors are divided into the following categories:
 - Errors on document level prefixed with DE, meaning that the entire document could not be processed and is omitted from the training. 
-- Errors on label level prefixed with LE, meaning that one or more labels in the ground truth of the document could not be parsed correctly and is ignored during training
+- Errors on label level prefixed with LE, meaning that one or more labels in the ground truth of the document could not be parsed correctly and is ignored during training.
+- Errors on trainability level are prefixed with TE, meaning that the entire label is un-trainable, and therefore ignored during training.
 
 | Error Code | Description |
 | :--- | :--- |
@@ -240,3 +241,7 @@ Errors are divided into two categories:
 | LE005 | Invalid digits error. Digits value must only contain `0123456789`. |
 | LE006 | Invalid enum error. Enum value is not defined in `enum` array of field in `fieldConfig`. |
 | LE007 | Invalid label value. Value is incompatible with given field type in `fieldConfig`. |
+| TE001 | Too few label values. There are too few ground truth values to be able to train on the given label. |
+| TE002 | Too few unique values. The ground truth values for the given label needs to be more varied. |
+| TE003 | Too unevenly distributed enum values. One or more of the enum values have considerable fewer examples than the others. Consider restructuring the enum categories. |
+| TE004 | Too few distinct enum values. Need more varied enum examples in order to train on the label. |
