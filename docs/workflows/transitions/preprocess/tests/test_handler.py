@@ -14,25 +14,29 @@ def env():
         'TRANSITION_ID': 'xyz',
         'EXECUTION_ID': 'xyz',
         'MODEL_ID': 'las:model:xyz',
-        'FIELD_CONFIG_ASSET_ID': 'las:asset:xyz'
+        'FORM_CONFIG_ASSET_ID': 'las:asset:xyz'
     }
 
 
 @pytest.fixture
-def field_config():
+def form_config():
     yield base64.b64encode(json.dumps({
-        'total_amount': {
-            'type': 'amount',
-            'confidenceLevels': {'automated': 0.98, 'high': 0.97, 'medium': 0.9, 'low': 0.5}
-        },
-        'due_date': {
-            'type': 'date',
-            'confidenceLevels': {'automated': 0.98, 'high': 0.97, 'medium': 0.9, 'low': 0.5}
-        },
-        'invoice_id': {
-            'type': 'string',
-            'confidenceLevels': {'automated': 0.98, 'high': 0.97, 'medium': 0.9, 'low': 0.5},
-            'required': False
+        'config': {
+            'fields': {
+                'total_amount': {
+                    'type': 'amount',
+                    'confidenceLevels': {'automated': 0.98, 'high': 0.97, 'medium': 0.9, 'low': 0.5}
+                },
+                'due_date': {
+                    'type': 'date',
+                    'confidenceLevels': {'automated': 0.98, 'high': 0.97, 'medium': 0.9, 'low': 0.5}
+                },
+                'invoice_id': {
+                    'type': 'string',
+                    'confidenceLevels': {'automated': 0.98, 'high': 0.97, 'medium': 0.9, 'low': 0.5},
+                    'required': False
+                }
+            }
         }
     }).encode('utf-8'))
     
@@ -41,9 +45,9 @@ def field_config():
 @patch('las.Client.get_transition_execution')
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.get_asset')
-def test_run_module(get_asset, update_excs, get_excs, create_pred, field_config, env):
+def test_run_module(get_asset, update_excs, get_excs, create_pred, form_config, env):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
-    get_asset.return_value = {'content': field_config}
+    get_asset.return_value = {'content': form_config}
 
     with patch.dict('preprocess.make_predictions.os.environ', env):
         runpy.run_module(preprocess.__name__)
@@ -65,10 +69,10 @@ def test_run_module(get_asset, update_excs, get_excs, create_pred, field_config,
 @patch('las.Client.get_asset')
 def test_low_confidence_predictions(
     get_asset, update_excs, get_excs, create_pred,
-    field_config, prediction, env
+    form_config, prediction, env
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
-    get_asset.return_value = {'content': field_config}
+    get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': prediction}
 
     with patch.dict('preprocess.make_predictions.os.environ', env):
@@ -99,10 +103,10 @@ def test_low_confidence_predictions(
 @patch('las.Client.get_asset')
 def test_high_confidence_predictions(
     get_asset, update_excs, get_excs, create_pred,
-    field_config, prediction, env
+    form_config, prediction, env
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
-    get_asset.return_value = {'content': field_config}
+    get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': prediction}
 
     with patch.dict('preprocess.make_predictions.os.environ', env):

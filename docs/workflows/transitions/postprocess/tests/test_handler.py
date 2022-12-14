@@ -10,12 +10,6 @@ from unittest.mock import patch
 
 
 @pytest.fixture
-def field_config():
-    yield base64.b64encode(json.dumps({
-        'total_amount': {},
-    }).encode('utf-8'))
-
-
 @patch('las.Client.get_transition_execution')
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.update_document')

@@ -13,13 +13,13 @@ def required_labels(field_config):
 def make_predictions(las_client, event):
     document_id = event['documentId']
     model_id = os.environ['MODEL_ID']
-    field_config_id = os.environ['FIELD_CONFIG_ASSET_ID']
+    form_config_id = os.environ['FORM_CONFIG_ASSET_ID']
     
     logging.info(f'Processing event:')
     logging.info(json.dumps(event, indent=2))
 
-    field_config_asset = las_client.get_asset(field_config_id)
-    field_config = json.loads(base64.b64decode(field_config_asset['content']))
+    form_config_asset = las_client.get_asset(form_config_id)
+    form_config = json.loads(base64.b64decode(form_config_asset['content']))
     
     output = {}
     skip_validation = False
@@ -29,6 +29,8 @@ def make_predictions(las_client, event):
         logging.info(f'Created predicitons {predictions}')
 
         if predictions:
+            field_config = form_config['config']['fields']
+
             def above_threshold_or_optional(prediction):
                 label, confidence = prediction['label'], prediction['confidence']
                 threshold = field_config[label]['confidenceLevels']
