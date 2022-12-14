@@ -13,13 +13,14 @@ def required_labels(field_config):
 def make_predictions(las_client, event):
     document_id = event['documentId']
     model_id = os.environ['MODEL_ID']
-    field_config_id = os.environ['FIELD_CONFIG_ASSET_ID']
+    form_config_id = os.environ['FORM_CONFIG_ASSET_ID']
     
     logging.info(f'Processing event:')
     logging.info(json.dumps(event, indent=2))
 
-    field_config_asset = las_client.get_asset(field_config_id)
-    field_config = json.loads(base64.b64decode(field_config_asset['content']))
+    form_config_asset = las_client.get_asset(form_config_id)
+    form_config = json.loads(base64.b64decode(form_config_asset['content']))
+    field_config = form_config['config']['fields']
     
     output = {}
     skip_validation = False
@@ -49,6 +50,7 @@ def make_predictions(las_client, event):
     
     if skip_validation:
         output['verified'] = {p['label']: p['value'] for p in predictions} 
+        output['validationSkipped'] = True
 
     return {
         'documentId': document_id,
