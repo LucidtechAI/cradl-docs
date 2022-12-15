@@ -5,8 +5,29 @@ import json
 import base64
 
 
+logging.getLogger().setLevel(logging.INFO)
+
+
 def required_labels(field_config):
     return set([label for label in field_config if field_config[label].get('required', True)])
+
+
+def filter_optional_fields(predictions, field_config):
+    def predicate(p):
+        conf_threshold = field_config[p['label']]['confidenceLevels']['low']
+        return p['label'] in required_labels(field_config) or conf_threshold < p['confidence']
+    
+    return list(filter(predicate, predictions))
+
+
+def filter_by_top1(predictions):
+    labels = set(map(lambda p: p['label'], predictions))
+    
+    def top1(label):
+        preds = filter(lambda f: f['label'] == label, predictions)
+        return max(preds, key=lambda p: p['confidence'])
+
+    return [top1(label) for label in labels]
 
 
 @las.transition_handler
@@ -38,13 +59,15 @@ def make_predictions(las_client, event):
 
                 return (threshold['automated'] <= confidence) or (is_optional and confidence < threshold['low'])
             
-            all_above_or_optional = all(map(above_threshold_or_optional, predictions))
+            all_above_or_optional = all(map(above_threshold_or_optional, filter_by_top1(predictions)))
             has_all_required_labels = required_labels(field_config) <= set(map(lambda p: p['label'], predictions))
             skip_validation = has_all_required_labels and all_above_or_optional
             
             logging.info(f'All predictions above threshold (or optional): {all_above_or_optional}')
             logging.info(f'All required labels exist: {has_all_required_labels}')
-
+            
+            # Filter out optional fields where confidence < low
+            predictions = filter_optional_fields(predictions, field_config)
             output = {'predictions': predictions}
     except las.client.BadRequest as e:
         logging.exception(e)

@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.9-alpine
 
 WORKDIR /root
 
@@ -7,6 +7,7 @@ ENV EXECUTION_ID not_provided
 
 COPY requirements.txt .
 
+RUN apk add build-base openssl-dev
 RUN pip install -r requirements.txt
 
 COPY postprocess postprocess
