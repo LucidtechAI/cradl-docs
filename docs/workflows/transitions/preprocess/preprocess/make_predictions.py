@@ -51,7 +51,6 @@ def make_predictions(las_client, event):
     
     if skip_validation:
         output['verified'] = {p['label']: p['value'] for p in predictions} 
-        output['validationSkipped'] = True
 
     return {
         'documentId': document_id,

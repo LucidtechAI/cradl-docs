@@ -24,6 +24,7 @@ def test_handler(get_asset, update_document, update_transition_excs, get_transit
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
+            'needsValidation': False,
             'verified': {}
         }
     }
@@ -46,6 +47,7 @@ def test_webhook(update_document, update_transition_excs, get_transition_excs):
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
+            'needsValidation': True,
             'verified': {}
         }
     }
