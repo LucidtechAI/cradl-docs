@@ -14,7 +14,7 @@ title: REST API
 
 ## Changelog
 
-### 2023-01-02
+### 2022-12-20
 
 - Added `warmStartConfig` to `POST /models/:id/trainings`. Use this parameter to specify which `trainingId` to continue training from. 
 - Added support for nested output for `/predictions`.
