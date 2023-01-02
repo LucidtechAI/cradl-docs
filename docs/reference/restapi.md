@@ -14,6 +14,11 @@ title: REST API
 
 ## Changelog
 
+### 2023-01-02
+
+- Added `warmStortConfig` to `POST /models/:id/trainings`. Use this parameter to specify which `trainingId` to continue training from. 
+- Added support for nested output for `/predictions`.
+
 ### 2022-10-13
 
 - Removed deprecated `timestamp` from `/predictions`
