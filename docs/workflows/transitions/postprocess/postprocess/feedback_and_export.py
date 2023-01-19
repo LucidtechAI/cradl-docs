@@ -8,9 +8,14 @@ import requests
 
 def post_feedback(las_client: las.Client, document_id: str, dataset_id: str, verified: dict):
     logging.info(f'Posting feedback to dataset {dataset_id}: {verified}...')
-
+    
+    
     try:
-        ground_truth = [{'label': k, 'value': v} for k, v in verified.items()]
+        document = las_client.get_document(document_id=document_id)
+        old_ground_truth = {g['label']: g['value'] for g in document.get('groundTruth', [])}
+        new_ground_truth = {**old_ground_truth, **verified}
+
+        ground_truth = [{'label': k, 'value': v} for k, v in new_ground_truth.items()]
 
         response = las_client.update_document(
             document_id=document_id,
@@ -27,7 +32,7 @@ def feedback_and_export(las_client, event):
     document_id = event['documentId']
     verified = event['verified']
     dataset_id = os.environ.get('DATASET_ID')
-    skipped_validation = not event['needsValidation']
+    skipped_validation = not event.get('needsValidation', True)
     
     post_feedback(las_client, document_id, dataset_id, verified if not skipped_validation else {})
 
