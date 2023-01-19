@@ -10,12 +10,6 @@ from unittest.mock import patch
 
 
 @pytest.fixture
-def field_config():
-    yield base64.b64encode(json.dumps({
-        'total_amount': {},
-    }).encode('utf-8'))
-
-
 @patch('las.Client.get_transition_execution')
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.update_document')
@@ -30,6 +24,7 @@ def test_handler(get_asset, update_document, update_transition_excs, get_transit
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
+            'needsValidation': False,
             'verified': {}
         }
     }
@@ -52,6 +47,7 @@ def test_webhook(update_document, update_transition_excs, get_transition_excs):
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
+            'needsValidation': True,
             'verified': {}
         }
     }
