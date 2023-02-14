@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2022-12-20T13:07:11Z"
+    "version": "2023-02-10T09:59:56Z"
   },
   "servers": [
     {
@@ -4505,6 +4505,13 @@
     "/models": {
       "get": {
         "parameters": [
+          {
+            "in": "query",
+            "name": "owner",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "in": "query",
             "name": "nextToken",
@@ -15595,7 +15602,7 @@
             "type": "string"
           },
           "modelId": {
-            "pattern": "^las:model:[a-f0-9]{32}$",
+            "pattern": "^las:model:[a-z0-9-_]+$",
             "type": "string"
           },
           "gpuHours": {
@@ -15691,7 +15698,7 @@
             "nullable": true
           },
           "modelId": {
-            "pattern": "^las:model:[a-f0-9]{32}$",
+            "pattern": "^las:model:[a-z0-9-_]+$",
             "type": "string"
           },
           "createdBy": {
@@ -15920,7 +15927,7 @@
                   "nullable": true
                 },
                 "modelId": {
-                  "pattern": "^las:model:[a-f0-9]{32}$",
+                  "pattern": "^las:model:[a-z0-9-_]+$",
                   "type": "string"
                 },
                 "createdBy": {
@@ -16305,7 +16312,7 @@
             "nullable": true
           },
           "modelId": {
-            "pattern": "^las:model:[a-f0-9]{32}$",
+            "pattern": "^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$",
             "type": "string"
           },
           "createdTime": {
@@ -16348,6 +16355,10 @@
                       "pattern": "^[0-9A-Za-z-_]+$",
                       "type": "string"
                     },
+                    "page": {
+                      "minimum": 0,
+                      "type": "integer"
+                    },
                     "value": {
                       "maxLength": 512,
                       "minLength": 1,
@@ -16369,6 +16380,10 @@
                       "minLength": 1,
                       "pattern": "^[0-9A-Za-z-_]+$",
                       "type": "string"
+                    },
+                    "page": {
+                      "minimum": 0,
+                      "type": "integer"
                     },
                     "value": {
                       "type": "array",
@@ -16392,6 +16407,10 @@
                               "minLength": 1,
                               "pattern": "^[0-9A-Za-z-_]+$",
                               "type": "string"
+                            },
+                            "page": {
+                              "minimum": 0,
+                              "type": "integer"
                             },
                             "value": {
                               "maxLength": 512,
@@ -16879,7 +16898,7 @@
                   "nullable": true
                 },
                 "modelId": {
-                  "pattern": "^las:model:[a-f0-9]{32}$",
+                  "pattern": "^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$",
                   "type": "string"
                 },
                 "createdTime": {
@@ -16922,6 +16941,10 @@
                             "pattern": "^[0-9A-Za-z-_]+$",
                             "type": "string"
                           },
+                          "page": {
+                            "minimum": 0,
+                            "type": "integer"
+                          },
                           "value": {
                             "maxLength": 512,
                             "minLength": 1,
@@ -16943,6 +16966,10 @@
                             "minLength": 1,
                             "pattern": "^[0-9A-Za-z-_]+$",
                             "type": "string"
+                          },
+                          "page": {
+                            "minimum": 0,
+                            "type": "integer"
                           },
                           "value": {
                             "type": "array",
@@ -16966,6 +16993,10 @@
                                     "minLength": 1,
                                     "pattern": "^[0-9A-Za-z-_]+$",
                                     "type": "string"
+                                  },
+                                  "page": {
+                                    "minimum": 0,
+                                    "type": "integer"
                                   },
                                   "value": {
                                     "maxLength": 512,
@@ -17268,6 +17299,7 @@
                 "name",
                 "numberOfDataBundles",
                 "numberOfRunningTrainings",
+                "organizationId",
                 "preprocessConfig",
                 "status",
                 "trainingId",
@@ -17297,7 +17329,7 @@
                   "nullable": true
                 },
                 "modelId": {
-                  "pattern": "^las:model:[a-f0-9]{32}$",
+                  "pattern": "^las:model:[a-z0-9-_]+$",
                   "type": "string"
                 },
                 "postprocessConfig": {
@@ -17463,6 +17495,10 @@
                     ]
                   },
                   "nullable": true
+                },
+                "organizationId": {
+                  "pattern": "^las:organization:[a-z0-9-_]+$",
+                  "type": "string"
                 },
                 "preprocessConfig": {
                   "required": [
@@ -18348,7 +18384,7 @@
             "type": "string"
           },
           "modelId": {
-            "pattern": "^las:model:[a-f0-9]{32}$",
+            "pattern": "^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$",
             "type": "string"
           },
           "postprocessConfig": {
@@ -18788,7 +18824,7 @@
                   "type": "string"
                 },
                 "modelId": {
-                  "pattern": "^las:model:[a-f0-9]{32}$",
+                  "pattern": "^las:model:[a-z0-9-_]+$",
                   "type": "string"
                 },
                 "gpuHours": {
@@ -19971,6 +20007,7 @@
           "name",
           "numberOfDataBundles",
           "numberOfRunningTrainings",
+          "organizationId",
           "preprocessConfig",
           "status",
           "trainingId",
@@ -20000,7 +20037,7 @@
             "nullable": true
           },
           "modelId": {
-            "pattern": "^las:model:[a-f0-9]{32}$",
+            "pattern": "^las:model:[a-z0-9-_]+$",
             "type": "string"
           },
           "postprocessConfig": {
@@ -20166,6 +20203,10 @@
               ]
             },
             "nullable": true
+          },
+          "organizationId": {
+            "pattern": "^las:organization:[a-z0-9-_]+$",
+            "type": "string"
           },
           "preprocessConfig": {
             "required": [
