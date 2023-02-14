@@ -351,7 +351,7 @@ components:
           nullable: true
           type: string
         modelId:
-          pattern: ^las:model:[a-f0-9]{32}$
+          pattern: ^las:model:[a-z0-9-_]+$
           type: string
         name:
           maxLength: 4096
@@ -476,7 +476,7 @@ components:
                 nullable: true
                 type: string
               modelId:
-                pattern: ^las:model:[a-f0-9]{32}$
+                pattern: ^las:model:[a-z0-9-_]+$
                 type: string
               name:
                 maxLength: 4096
@@ -1217,7 +1217,7 @@ components:
           nullable: true
           type: object
         modelId:
-          pattern: ^las:model:[a-f0-9]{32}$
+          pattern: ^las:model:[a-z0-9-_]+$
           type: string
         name:
           maxLength: 4096
@@ -1229,6 +1229,9 @@ components:
         numberOfRunningTrainings:
           minimum: 0
           type: integer
+        organizationId:
+          pattern: ^las:organization:[a-z0-9-_]+$
+          type: string
         postprocessConfig:
           oneOf:
           - additionalProperties: false
@@ -1312,6 +1315,7 @@ components:
       - name
       - numberOfDataBundles
       - numberOfRunningTrainings
+      - organizationId
       - preprocessConfig
       - status
       - trainingId
@@ -1428,7 +1432,7 @@ components:
                 nullable: true
                 type: object
               modelId:
-                pattern: ^las:model:[a-f0-9]{32}$
+                pattern: ^las:model:[a-z0-9-_]+$
                 type: string
               name:
                 maxLength: 4096
@@ -1440,6 +1444,9 @@ components:
               numberOfRunningTrainings:
                 minimum: 0
                 type: integer
+              organizationId:
+                pattern: ^las:organization:[a-z0-9-_]+$
+                type: string
               postprocessConfig:
                 oneOf:
                 - additionalProperties: false
@@ -1523,6 +1530,7 @@ components:
             - name
             - numberOfDataBundles
             - numberOfRunningTrainings
+            - organizationId
             - preprocessConfig
             - status
             - trainingId
@@ -2851,7 +2859,7 @@ components:
           minimum: 1
           type: integer
         modelId:
-          pattern: ^las:model:[a-f0-9]{32}$
+          pattern: ^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$
           type: string
         postprocessConfig:
           oneOf:
@@ -3158,7 +3166,7 @@ components:
           minimum: 0
           type: number
         modelId:
-          pattern: ^las:model:[a-f0-9]{32}$
+          pattern: ^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$
           type: string
         predictionId:
           pattern: ^las:prediction:[a-f0-9]{32}$
@@ -3177,6 +3185,9 @@ components:
                   minLength: 1
                   pattern: ^[0-9A-Za-z-_]+$
                   type: string
+                page:
+                  minimum: 0
+                  type: integer
                 value:
                   maxLength: 512
                   minLength: 1
@@ -3194,6 +3205,9 @@ components:
                   minLength: 1
                   pattern: ^[0-9A-Za-z-_]+$
                   type: string
+                page:
+                  minimum: 0
+                  type: integer
                 value:
                   items:
                     items:
@@ -3208,6 +3222,9 @@ components:
                           minLength: 1
                           pattern: ^[0-9A-Za-z-_]+$
                           type: string
+                        page:
+                          minimum: 0
+                          type: integer
                         value:
                           maxLength: 512
                           minLength: 1
@@ -3268,7 +3285,7 @@ components:
                 minimum: 0
                 type: number
               modelId:
-                pattern: ^las:model:[a-f0-9]{32}$
+                pattern: ^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$
                 type: string
               predictionId:
                 pattern: ^las:prediction:[a-f0-9]{32}$
@@ -3287,6 +3304,9 @@ components:
                         minLength: 1
                         pattern: ^[0-9A-Za-z-_]+$
                         type: string
+                      page:
+                        minimum: 0
+                        type: integer
                       value:
                         maxLength: 512
                         minLength: 1
@@ -3304,6 +3324,9 @@ components:
                         minLength: 1
                         pattern: ^[0-9A-Za-z-_]+$
                         type: string
+                      page:
+                        minimum: 0
+                        type: integer
                       value:
                         items:
                           items:
@@ -3318,6 +3341,9 @@ components:
                                 minLength: 1
                                 pattern: ^[0-9A-Za-z-_]+$
                                 type: string
+                              page:
+                                minimum: 0
+                                type: integer
                               value:
                                 maxLength: 512
                                 minLength: 1
@@ -3504,7 +3530,7 @@ components:
           nullable: true
           type: object
         modelId:
-          pattern: ^las:model:[a-f0-9]{32}$
+          pattern: ^las:model:[a-z0-9-_]+$
           type: string
         name:
           maxLength: 4096
@@ -3621,7 +3647,7 @@ components:
                 nullable: true
                 type: object
               modelId:
-                pattern: ^las:model:[a-f0-9]{32}$
+                pattern: ^las:model:[a-z0-9-_]+$
                 type: string
               name:
                 maxLength: 4096
@@ -4498,7 +4524,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2022-12-20T13:07:11Z'
+  version: '2023-02-10T09:59:56Z'
 openapi: 3.0.1
 paths:
   /appClients:
@@ -7115,6 +7141,10 @@ paths:
   /models:
     get:
       parameters:
+      - in: query
+        name: owner
+        schema:
+          type: string
       - in: query
         name: nextToken
         schema:

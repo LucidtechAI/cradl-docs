@@ -14,6 +14,12 @@ title: REST API
 
 ## Changelog
 
+### 2022-02-10
+
+- Added `page` to predictions in `/predictions` when page information is available.
+- Added `owner` query parameter to `GET /models`. Use this feature to list pre-trained models. `GET /models?owner=las:organization:cradl`
+- Added support for creating predictions using a pre-trained model. Specify the organization that owns the model to `POST /predictions` using the composite `modelId` form (e.g. `las:organization:cradl/las:model:invoice`)
+
 ### 2022-12-20
 
 - Added `warmStartConfig` to `POST /models/:id/trainings`. Use this parameter to specify which `trainingId` to continue training from. 
