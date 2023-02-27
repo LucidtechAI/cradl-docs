@@ -14,6 +14,10 @@ title: REST API
 
 ## Changelog
 
+### 2022-02-27
+
+- Added optional `rotation` to `POST /predictions`
+
 ### 2022-02-10
 
 - Added `page` to predictions in `/predictions` when page information is available.

@@ -4,7 +4,7 @@ components:
       additionalProperties: false
       properties:
         appClientId:
-          pattern: ^las:app-client:[a-f0-9]{32}$
+          pattern: ^las:app-client:[a-z0-9-_]+$
           type: string
         callbackUrls:
           items:
@@ -82,7 +82,7 @@ components:
             additionalProperties: false
             properties:
               appClientId:
-                pattern: ^las:app-client:[a-f0-9]{32}$
+                pattern: ^las:app-client:[a-z0-9-_]+$
                 type: string
               callbackUrls:
                 items:
@@ -1551,6 +1551,10 @@ components:
     Organization:
       additionalProperties: false
       properties:
+        clientId:
+          nullable: true
+          pattern: ^[0-9a-z]+$
+          type: string
         deploymentsAllowed:
           type: object
         deploymentsCreated:
@@ -2893,6 +2897,13 @@ components:
             - parameters
             - strategy
             type: object
+        rotation:
+          enum:
+          - 0
+          - 90
+          - 180
+          - 270
+          type: integer
         trainingId:
           pattern: ^las:model-training:[a-f0-9]{32}$
           type: string
@@ -3060,7 +3071,7 @@ components:
       additionalProperties: false
       properties:
         appClientId:
-          pattern: ^las:app-client:[a-f0-9]{32}$
+          pattern: ^las:app-client:[a-z0-9-_]+$
           type: string
         avatar:
           maxLength: 131072
@@ -3185,6 +3196,14 @@ components:
                   minLength: 1
                   pattern: ^[0-9A-Za-z-_]+$
                   type: string
+                location:
+                  items:
+                    maximum: 1
+                    minimum: 0
+                    type: number
+                  maxItems: 4
+                  minItems: 4
+                  type: array
                 page:
                   minimum: 0
                   type: integer
@@ -3222,6 +3241,14 @@ components:
                           minLength: 1
                           pattern: ^[0-9A-Za-z-_]+$
                           type: string
+                        location:
+                          items:
+                            maximum: 1
+                            minimum: 0
+                            type: number
+                          maxItems: 4
+                          minItems: 4
+                          type: array
                         page:
                           minimum: 0
                           type: integer
@@ -3304,6 +3331,14 @@ components:
                         minLength: 1
                         pattern: ^[0-9A-Za-z-_]+$
                         type: string
+                      location:
+                        items:
+                          maximum: 1
+                          minimum: 0
+                          type: number
+                        maxItems: 4
+                        minItems: 4
+                        type: array
                       page:
                         minimum: 0
                         type: integer
@@ -3341,6 +3376,14 @@ components:
                                 minLength: 1
                                 pattern: ^[0-9A-Za-z-_]+$
                                 type: string
+                              location:
+                                items:
+                                  maximum: 1
+                                  minimum: 0
+                                  type: number
+                                maxItems: 4
+                                minItems: 4
+                                type: array
                               page:
                                 minimum: 0
                                 type: integer
@@ -4017,6 +4060,10 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        profileId:
+          nullable: true
+          pattern: ^las:profile:[a-f0-9]{32}$
+          type: string
         updatedBy:
           maxLength: 4096
           nullable: true
@@ -4069,6 +4116,10 @@ components:
               name:
                 maxLength: 4096
                 nullable: true
+                type: string
+              profileId:
+                nullable: true
+                pattern: ^las:profile:[a-f0-9]{32}$
                 type: string
               updatedBy:
                 maxLength: 4096
@@ -4179,7 +4230,7 @@ components:
             anyOf:
             - pattern: ^las:user:[a-f0-9]{32}$
               type: string
-            - pattern: ^las:app-client:[a-f0-9]{32}$
+            - pattern: ^las:app-client:[a-z0-9-_]+$
               type: string
           type: array
         completedTaskLogId:
@@ -4249,7 +4300,7 @@ components:
                   anyOf:
                   - pattern: ^las:user:[a-f0-9]{32}$
                     type: string
-                  - pattern: ^las:app-client:[a-f0-9]{32}$
+                  - pattern: ^las:app-client:[a-z0-9-_]+$
                     type: string
                 type: array
               completedTaskLogId:
@@ -4504,6 +4555,8 @@ components:
             api.lucidtech.ai/plans:read: Read permissions
             api.lucidtech.ai/predictions:read: Read permissions
             api.lucidtech.ai/predictions:write: Write permissions
+            api.lucidtech.ai/profiles:read: Read permissions
+            api.lucidtech.ai/profiles:write: Write permissions
             api.lucidtech.ai/secrets:read: Read permissions
             api.lucidtech.ai/secrets:write: Write permissions
             api.lucidtech.ai/signup:write: Write permissions
@@ -4524,7 +4577,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-02-10T09:59:56Z'
+  version: '2023-02-23T12:39:32Z'
 openapi: 3.0.1
 paths:
   /appClients:
