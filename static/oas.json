@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2023-02-10T09:59:56Z"
+    "version": "2023-02-23T12:39:32Z"
   },
   "servers": [
     {
@@ -15088,6 +15088,11 @@
                   "type": "string",
                   "nullable": true
                 },
+                "profileId": {
+                  "pattern": "^las:profile:[a-f0-9]{32}$",
+                  "type": "string",
+                  "nullable": true
+                },
                 "name": {
                   "maxLength": 4096,
                   "type": "string",
@@ -16349,6 +16354,16 @@
                       "minimum": 0,
                       "type": "number"
                     },
+                    "location": {
+                      "maxItems": 4,
+                      "minItems": 4,
+                      "type": "array",
+                      "items": {
+                        "maximum": 1,
+                        "minimum": 0,
+                        "type": "number"
+                      }
+                    },
                     "label": {
                       "maxLength": 36,
                       "minLength": 1,
@@ -16401,6 +16416,16 @@
                               "maximum": 1,
                               "minimum": 0,
                               "type": "number"
+                            },
+                            "location": {
+                              "maxItems": 4,
+                              "minItems": 4,
+                              "type": "array",
+                              "items": {
+                                "maximum": 1,
+                                "minimum": 0,
+                                "type": "number"
+                              }
                             },
                             "label": {
                               "maxLength": 36,
@@ -16935,6 +16960,16 @@
                             "minimum": 0,
                             "type": "number"
                           },
+                          "location": {
+                            "maxItems": 4,
+                            "minItems": 4,
+                            "type": "array",
+                            "items": {
+                              "maximum": 1,
+                              "minimum": 0,
+                              "type": "number"
+                            }
+                          },
                           "label": {
                             "maxLength": 36,
                             "minLength": 1,
@@ -16987,6 +17022,16 @@
                                     "maximum": 1,
                                     "minimum": 0,
                                     "type": "number"
+                                  },
+                                  "location": {
+                                    "maxItems": 4,
+                                    "minItems": 4,
+                                    "type": "array",
+                                    "items": {
+                                      "maximum": 1,
+                                      "minimum": 0,
+                                      "type": "number"
+                                    }
                                   },
                                   "label": {
                                     "maxLength": 36,
@@ -17117,7 +17162,7 @@
             "type": "string"
           },
           "appClientId": {
-            "pattern": "^las:app-client:[a-f0-9]{32}$",
+            "pattern": "^las:app-client:[a-z0-9-_]+$",
             "type": "string"
           }
         },
@@ -17251,7 +17296,7 @@
                   "type": "string"
                 },
                 {
-                  "pattern": "^las:app-client:[a-f0-9]{32}$",
+                  "pattern": "^las:app-client:[a-z0-9-_]+$",
                   "type": "string"
                 }
               ]
@@ -17845,7 +17890,7 @@
                         "type": "string"
                       },
                       {
-                        "pattern": "^las:app-client:[a-f0-9]{32}$",
+                        "pattern": "^las:app-client:[a-z0-9-_]+$",
                         "type": "string"
                       }
                     ]
@@ -18124,6 +18169,11 @@
             "minimum": 0,
             "type": "integer"
           },
+          "clientId": {
+            "pattern": "^[0-9a-z]+$",
+            "type": "string",
+            "nullable": true
+          },
           "updatedBy": {
             "maxLength": 4096,
             "type": "string",
@@ -18225,6 +18275,11 @@
           },
           "createdBy": {
             "maxLength": 4096,
+            "type": "string",
+            "nullable": true
+          },
+          "profileId": {
+            "pattern": "^las:profile:[a-f0-9]{32}$",
             "type": "string",
             "nullable": true
           },
@@ -18436,6 +18491,15 @@
                 },
                 "additionalProperties": false
               }
+            ]
+          },
+          "rotation": {
+            "type": "integer",
+            "enum": [
+              0,
+              90,
+              180,
+              270
             ]
           },
           "maxPages": {
@@ -18731,7 +18795,7 @@
                   "type": "string"
                 },
                 "appClientId": {
-                  "pattern": "^las:app-client:[a-f0-9]{32}$",
+                  "pattern": "^las:app-client:[a-z0-9-_]+$",
                   "type": "string"
                 }
               },
@@ -19677,7 +19741,7 @@
             "nullable": true
           },
           "appClientId": {
-            "pattern": "^las:app-client:[a-f0-9]{32}$",
+            "pattern": "^las:app-client:[a-z0-9-_]+$",
             "type": "string"
           },
           "email": {
@@ -20675,6 +20739,8 @@
               "api.lucidtech.ai/plans:read": "Read permissions",
               "api.lucidtech.ai/predictions:read": "Read permissions",
               "api.lucidtech.ai/predictions:write": "Write permissions",
+              "api.lucidtech.ai/profiles:read": "Read permissions",
+              "api.lucidtech.ai/profiles:write": "Write permissions",
               "api.lucidtech.ai/secrets:read": "Read permissions",
               "api.lucidtech.ai/secrets:write": "Write permissions",
               "api.lucidtech.ai/signup:write": "Write permissions",
