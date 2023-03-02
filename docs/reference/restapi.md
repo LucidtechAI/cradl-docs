@@ -14,6 +14,16 @@ title: REST API
 
 ## Changelog
 
+### 2022-03-02
+
+- Added signin with Google.
+- Added `GET /profiles/:id`, `GET /profiles/me`.
+- Added `PATCH /profiles/me`.
+- Added `POST /organizations`.
+- Added `GET /organizations`.
+- Deprecated `avatar`, `name` and `email` in `/users`, they will be removed May 20th 2023. Use `/profiles` instead
+- Removed `POST /signup`.
+
 ### 2022-02-27
 
 - Added optional `rotation` to `POST /predictions`
