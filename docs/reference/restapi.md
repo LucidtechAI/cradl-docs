@@ -14,12 +14,12 @@ title: REST API
 
 ## Changelog
 
-### 2022-03-23
+### 2023-03-23
 
 - Added `preprocessConfig` and `postprocessConfig` to `/predictions`
 - Removed deprecated `width` and `height` from `/models`
 
-### 2022-03-02
+### 2023-03-02
 
 - Added signin with Google.
 - Added `GET /profiles/:id`, `GET /profiles/me`.
@@ -29,11 +29,11 @@ title: REST API
 - Deprecated `avatar`, `name` and `email` in `/users`, they will be removed May 20th 2023. Use `/profiles` instead
 - Removed `POST /signup`.
 
-### 2022-02-27
+### 2023-02-27
 
 - Added optional `rotation` to `POST /predictions`
 
-### 2022-02-10
+### 2023-02-10
 
 - Added `page` to predictions in `/predictions` when page information is available.
 - Added `owner` query parameter to `GET /models`. Use this feature to list pre-trained models. `GET /models?owner=las:organization:cradl`
