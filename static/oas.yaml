@@ -1209,10 +1209,6 @@ components:
               type: object
           nullable: true
           type: object
-        height:
-          maximum: 1921
-          minimum: 97
-          type: integer
         metadata:
           nullable: true
           type: object
@@ -1300,16 +1296,11 @@ components:
           nullable: true
           pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
           type: string
-        width:
-          maximum: 1921
-          minimum: 97
-          type: integer
       required:
       - createdBy
       - createdTime
       - description
       - fieldConfig
-      - height
       - metadata
       - modelId
       - name
@@ -1321,7 +1312,6 @@ components:
       - trainingId
       - updatedBy
       - updatedTime
-      - width
       title: model
       type: object
     Models:
@@ -1424,10 +1414,6 @@ components:
                     type: object
                 nullable: true
                 type: object
-              height:
-                maximum: 1921
-                minimum: 97
-                type: integer
               metadata:
                 nullable: true
                 type: object
@@ -1515,16 +1501,11 @@ components:
                 nullable: true
                 pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
                 type: string
-              width:
-                maximum: 1921
-                minimum: 97
-                type: integer
             required:
             - createdBy
             - createdTime
             - description
             - fieldConfig
-            - height
             - metadata
             - modelId
             - name
@@ -1536,7 +1517,6 @@ components:
             - trainingId
             - updatedBy
             - updatedTime
-            - width
             type: object
           type: array
         nextToken:
@@ -1579,6 +1559,9 @@ components:
           minimum: 0
           type: integer
         monthlyNumberOfDocumentsCreated:
+          minimum: 0
+          type: integer
+        monthlyNumberOfFieldPredictionsAllowed:
           minimum: 0
           type: integer
         monthlyNumberOfFieldPredictionsUsed:
@@ -1695,6 +1678,7 @@ components:
       - monthlyNumberOfDataBundlesCreated
       - monthlyNumberOfDocumentsAllowed
       - monthlyNumberOfDocumentsCreated
+      - monthlyNumberOfFieldPredictionsAllowed
       - monthlyNumberOfFieldPredictionsUsed
       - monthlyNumberOfGpuHoursUsed
       - monthlyNumberOfPredictionsAllowed
@@ -1767,6 +1751,9 @@ components:
                 minimum: 0
                 type: integer
               monthlyNumberOfDocumentsCreated:
+                minimum: 0
+                type: integer
+              monthlyNumberOfFieldPredictionsAllowed:
                 minimum: 0
                 type: integer
               monthlyNumberOfFieldPredictionsUsed:
@@ -1883,6 +1870,7 @@ components:
             - monthlyNumberOfDataBundlesCreated
             - monthlyNumberOfDocumentsAllowed
             - monthlyNumberOfDocumentsCreated
+            - monthlyNumberOfFieldPredictionsAllowed
             - monthlyNumberOfFieldPredictionsUsed
             - monthlyNumberOfGpuHoursUsed
             - monthlyNumberOfPredictionsAllowed
@@ -2132,10 +2120,6 @@ components:
               - type
               type: object
           type: object
-        height:
-          maximum: 1921
-          minimum: 97
-          type: integer
         metadata:
           type: object
         name:
@@ -2197,10 +2181,6 @@ components:
           nullable: true
           pattern: ^las:model-training:[a-f0-9]{32}$
           type: string
-        width:
-          maximum: 1921
-          minimum: 97
-          type: integer
       title: PATCH /models/modelId
       type: object
     PatchOrganizationId:
@@ -2956,10 +2936,6 @@ components:
               - type
               type: object
           type: object
-        height:
-          maximum: 1921
-          minimum: 97
-          type: integer
         metadata:
           type: object
         name:
@@ -3017,10 +2993,6 @@ components:
           - imageQuality
           - maxPages
           type: object
-        width:
-          maximum: 1921
-          minimum: 97
-          type: integer
       required:
       - fieldConfig
       title: POST /models
@@ -3130,27 +3102,6 @@ components:
       required:
       - data
       title: POST /secrets
-      type: object
-    PostSignUp:
-      additionalProperties: false
-      properties:
-        email:
-          pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
-          type: string
-        name:
-          maxLength: 4096
-          nullable: true
-          type: string
-        password:
-          pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.\[\]{}\(\)?\-"!@#%&/,><':;|_~`])\S{8,99}$
-          type: string
-        reCaptchaResponse:
-          type: string
-      required:
-      - email
-      - password
-      - reCaptchaResponse
-      title: POST /users
       type: object
     PostTrainings:
       additionalProperties: false
@@ -3381,6 +3332,39 @@ components:
         modelId:
           pattern: ^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$
           type: string
+        postprocessConfig:
+          nullable: true
+          oneOf:
+          - additionalProperties: false
+            properties:
+              strategy:
+                enum:
+                - BEST_FIRST
+                type: string
+            required:
+            - strategy
+            type: object
+          - additionalProperties: false
+            properties:
+              parameters:
+                properties:
+                  collapse:
+                    type: boolean
+                  n:
+                    maximum: 3
+                    minimum: 1
+                    type: integer
+                required:
+                - n
+                type: object
+              strategy:
+                enum:
+                - BEST_N_PAGES
+                type: string
+            required:
+            - parameters
+            - strategy
+            type: object
         predictionId:
           pattern: ^las:prediction:[a-f0-9]{32}$
           type: string
@@ -3471,6 +3455,26 @@ components:
               - value
               type: object
           type: array
+        preprocessConfig:
+          additionalProperties: false
+          nullable: true
+          properties:
+            autoRotate:
+              type: boolean
+            imageQuality:
+              enum:
+              - LOW
+              - HIGH
+              type: string
+            maxPages:
+              maximum: 3
+              minimum: 1
+              type: integer
+          required:
+          - autoRotate
+          - imageQuality
+          - maxPages
+          type: object
         trainingId:
           nullable: true
           pattern: ^las:model-training:[a-f0-9]{32}$
@@ -3516,6 +3520,39 @@ components:
               modelId:
                 pattern: ^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$
                 type: string
+              postprocessConfig:
+                nullable: true
+                oneOf:
+                - additionalProperties: false
+                  properties:
+                    strategy:
+                      enum:
+                      - BEST_FIRST
+                      type: string
+                  required:
+                  - strategy
+                  type: object
+                - additionalProperties: false
+                  properties:
+                    parameters:
+                      properties:
+                        collapse:
+                          type: boolean
+                        n:
+                          maximum: 3
+                          minimum: 1
+                          type: integer
+                      required:
+                      - n
+                      type: object
+                    strategy:
+                      enum:
+                      - BEST_N_PAGES
+                      type: string
+                  required:
+                  - parameters
+                  - strategy
+                  type: object
               predictionId:
                 pattern: ^las:prediction:[a-f0-9]{32}$
                 type: string
@@ -3606,6 +3643,26 @@ components:
                     - value
                     type: object
                 type: array
+              preprocessConfig:
+                additionalProperties: false
+                nullable: true
+                properties:
+                  autoRotate:
+                    type: boolean
+                  imageQuality:
+                    enum:
+                    - LOW
+                    - HIGH
+                    type: string
+                  maxPages:
+                    maximum: 3
+                    minimum: 1
+                    type: integer
+                required:
+                - autoRotate
+                - imageQuality
+                - maxPages
+                type: object
               trainingId:
                 nullable: true
                 pattern: ^las:model-training:[a-f0-9]{32}$
@@ -3656,6 +3713,12 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        numberOfOrganizationsAllowed:
+          minimum: 0
+          type: integer
+        numberOfOrganizationsCreated:
+          minimum: 0
+          type: integer
         picture:
           maxLength: 4096
           nullable: true
@@ -3763,19 +3826,6 @@ components:
       - nextToken
       - secrets
       title: secrets
-      type: object
-    SignUp:
-      additionalProperties: false
-      properties:
-        clientId:
-          type: string
-        username:
-          pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
-          type: string
-      required:
-      - clientId
-      - username
-      title: signup
       type: object
     Training:
       additionalProperties: false
@@ -4822,7 +4872,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-03-01T16:45:37Z'
+  version: '2023-03-23T15:40:40Z'
 openapi: 3.0.1
 paths:
   /appClients:
@@ -10852,123 +10902,6 @@ paths:
       security:
       - OAuth2:
         - api.lucidtech.ai/secrets:write
-  /signup:
-    options:
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Empty'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Empty'
-          description: 200 response
-          headers:
-            Access-Control-Allow-Headers:
-              schema:
-                type: string
-            Access-Control-Allow-Methods:
-              schema:
-                type: string
-            Access-Control-Allow-Origin:
-              schema:
-                type: string
-    post:
-      parameters:
-      - in: header
-        name: Content-Type
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PostSignUp'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SignUp'
-          description: 200 response
-          headers:
-            Access-Control-Allow-Headers:
-              schema:
-                type: string
-            Access-Control-Allow-Origin:
-              schema:
-                type: string
-        '400':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: 400 response
-          headers:
-            Access-Control-Allow-Headers:
-              schema:
-                type: string
-            Access-Control-Allow-Origin:
-              schema:
-                type: string
-        '403':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: 403 response
-          headers:
-            Access-Control-Allow-Headers:
-              schema:
-                type: string
-            Access-Control-Allow-Origin:
-              schema:
-                type: string
-        '404':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: 404 response
-          headers:
-            Access-Control-Allow-Headers:
-              schema:
-                type: string
-            Access-Control-Allow-Origin:
-              schema:
-                type: string
-        '415':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: 415 response
-          headers:
-            Access-Control-Allow-Headers:
-              schema:
-                type: string
-            Access-Control-Allow-Origin:
-              schema:
-                type: string
-        '500':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: 500 response
-          headers:
-            Access-Control-Allow-Headers:
-              schema:
-                type: string
-            Access-Control-Allow-Origin:
-              schema:
-                type: string
   /transitions:
     get:
       parameters:

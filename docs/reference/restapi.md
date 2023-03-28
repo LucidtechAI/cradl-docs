@@ -14,6 +14,11 @@ title: REST API
 
 ## Changelog
 
+### 2022-03-23
+
+- Added `preprocessConfig` and `postprocessConfig` to `/predictions`
+- Removed deprecated `width` and `height` from `/models`
+
 ### 2022-03-02
 
 - Added signin with Google.
