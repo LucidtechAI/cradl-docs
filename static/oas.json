@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2023-03-01T16:45:37Z"
+    "version": "2023-03-23T15:40:40Z"
   },
   "servers": [
     {
@@ -10361,205 +10361,6 @@
         ]
       }
     },
-    "/signup": {
-      "options": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Empty"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Empty"
-                }
-              }
-            },
-            "description": "200 response",
-            "headers": {
-              "Access-Control-Allow-Headers": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Methods": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Content-Type",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PostSignUp"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SignUp"
-                }
-              }
-            },
-            "description": "200 response",
-            "headers": {
-              "Access-Control-Allow-Headers": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            },
-            "description": "400 response",
-            "headers": {
-              "Access-Control-Allow-Headers": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "403": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            },
-            "description": "403 response",
-            "headers": {
-              "Access-Control-Allow-Headers": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            },
-            "description": "404 response",
-            "headers": {
-              "Access-Control-Allow-Headers": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "415": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            },
-            "description": "415 response",
-            "headers": {
-              "Access-Control-Allow-Headers": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            },
-            "description": "500 response",
-            "headers": {
-              "Access-Control-Allow-Headers": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/transitions": {
       "get": {
         "parameters": [
@@ -15395,11 +15196,6 @@
             "type": "string",
             "nullable": true
           },
-          "width": {
-            "maximum": 1921,
-            "minimum": 97,
-            "type": "integer"
-          },
           "description": {
             "maxLength": 4096,
             "type": "string",
@@ -15511,11 +15307,6 @@
                 }
               ]
             }
-          },
-          "height": {
-            "maximum": 1921,
-            "minimum": 97,
-            "type": "integer"
           }
         },
         "additionalProperties": false
@@ -16999,6 +16790,33 @@
         ],
         "type": "object",
         "properties": {
+          "preprocessConfig": {
+            "required": [
+              "autoRotate",
+              "imageQuality",
+              "maxPages"
+            ],
+            "type": "object",
+            "properties": {
+              "maxPages": {
+                "maximum": 3,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "autoRotate": {
+                "type": "boolean"
+              },
+              "imageQuality": {
+                "type": "string",
+                "enum": [
+                  "LOW",
+                  "HIGH"
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "nullable": true
+          },
           "trainingId": {
             "pattern": "^las:model-training:[a-f0-9]{32}$",
             "type": "string",
@@ -17012,6 +16830,58 @@
           "modelId": {
             "pattern": "^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$",
             "type": "string"
+          },
+          "postprocessConfig": {
+            "oneOf": [
+              {
+                "required": [
+                  "strategy"
+                ],
+                "type": "object",
+                "properties": {
+                  "strategy": {
+                    "type": "string",
+                    "enum": [
+                      "BEST_FIRST"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "required": [
+                  "parameters",
+                  "strategy"
+                ],
+                "type": "object",
+                "properties": {
+                  "strategy": {
+                    "type": "string",
+                    "enum": [
+                      "BEST_N_PAGES"
+                    ]
+                  },
+                  "parameters": {
+                    "required": [
+                      "n"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "n": {
+                        "maximum": 3,
+                        "minimum": 1,
+                        "type": "integer"
+                      },
+                      "collapse": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
+                "additionalProperties": false
+              }
+            ],
+            "nullable": true
           },
           "createdTime": {
             "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
@@ -17246,34 +17116,6 @@
             },
             "additionalProperties": false,
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "PostSignUp": {
-        "title": "POST /users",
-        "required": [
-          "email",
-          "password",
-          "reCaptchaResponse"
-        ],
-        "type": "object",
-        "properties": {
-          "password": {
-            "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\^$*.\\[\\]{}\\(\\)?\\-\"!@#%&/,><':;|_~`])\\S{8,99}$",
-            "type": "string"
-          },
-          "reCaptchaResponse": {
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 4096,
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "pattern": "^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\\.)+[A-Za-z]{2,}$",
-            "type": "string"
           }
         },
         "additionalProperties": false
@@ -17605,6 +17447,33 @@
               ],
               "type": "object",
               "properties": {
+                "preprocessConfig": {
+                  "required": [
+                    "autoRotate",
+                    "imageQuality",
+                    "maxPages"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "maxPages": {
+                      "maximum": 3,
+                      "minimum": 1,
+                      "type": "integer"
+                    },
+                    "autoRotate": {
+                      "type": "boolean"
+                    },
+                    "imageQuality": {
+                      "type": "string",
+                      "enum": [
+                        "LOW",
+                        "HIGH"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "nullable": true
+                },
                 "trainingId": {
                   "pattern": "^las:model-training:[a-f0-9]{32}$",
                   "type": "string",
@@ -17618,6 +17487,58 @@
                 "modelId": {
                   "pattern": "^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$",
                   "type": "string"
+                },
+                "postprocessConfig": {
+                  "oneOf": [
+                    {
+                      "required": [
+                        "strategy"
+                      ],
+                      "type": "object",
+                      "properties": {
+                        "strategy": {
+                          "type": "string",
+                          "enum": [
+                            "BEST_FIRST"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    {
+                      "required": [
+                        "parameters",
+                        "strategy"
+                      ],
+                      "type": "object",
+                      "properties": {
+                        "strategy": {
+                          "type": "string",
+                          "enum": [
+                            "BEST_N_PAGES"
+                          ]
+                        },
+                        "parameters": {
+                          "required": [
+                            "n"
+                          ],
+                          "type": "object",
+                          "properties": {
+                            "n": {
+                              "maximum": 3,
+                              "minimum": 1,
+                              "type": "integer"
+                            },
+                            "collapse": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  ],
+                  "nullable": true
                 },
                 "createdTime": {
                   "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
@@ -18031,7 +17952,6 @@
                 "createdTime",
                 "description",
                 "fieldConfig",
-                "height",
                 "metadata",
                 "modelId",
                 "name",
@@ -18042,8 +17962,7 @@
                 "status",
                 "trainingId",
                 "updatedBy",
-                "updatedTime",
-                "width"
+                "updatedTime"
               ],
               "type": "object",
               "properties": {
@@ -18282,20 +18201,10 @@
                   "minimum": 0,
                   "type": "integer"
                 },
-                "width": {
-                  "maximum": 1921,
-                  "minimum": 97,
-                  "type": "integer"
-                },
                 "createdTime": {
                   "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
                   "type": "string",
                   "nullable": true
-                },
-                "height": {
-                  "maximum": 1921,
-                  "minimum": 97,
-                  "type": "integer"
                 },
                 "status": {
                   "type": "string",
@@ -18650,24 +18559,6 @@
         },
         "additionalProperties": false
       },
-      "SignUp": {
-        "title": "signup",
-        "required": [
-          "clientId",
-          "username"
-        ],
-        "type": "object",
-        "properties": {
-          "clientId": {
-            "type": "string"
-          },
-          "username": {
-            "pattern": "^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\\.)+[A-Za-z]{2,}$",
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
       "DeploymentEnvironment": {
         "title": "deploymentEnvironment",
         "required": [
@@ -18723,6 +18614,7 @@
           "monthlyNumberOfDataBundlesCreated",
           "monthlyNumberOfDocumentsAllowed",
           "monthlyNumberOfDocumentsCreated",
+          "monthlyNumberOfFieldPredictionsAllowed",
           "monthlyNumberOfFieldPredictionsUsed",
           "monthlyNumberOfGpuHoursUsed",
           "monthlyNumberOfPredictionsAllowed",
@@ -18921,6 +18813,10 @@
             "type": "integer"
           },
           "monthlyNumberOfTrainingsAllowed": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "monthlyNumberOfFieldPredictionsAllowed": {
             "minimum": 0,
             "type": "integer"
           },
@@ -19232,6 +19128,14 @@
           "metadata": {
             "type": "object",
             "nullable": true
+          },
+          "numberOfOrganizationsAllowed": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "numberOfOrganizationsCreated": {
+            "minimum": 0,
+            "type": "integer"
           },
           "profileId": {
             "pattern": "^las:profile:[a-f0-9]{32}$",
@@ -19855,11 +19759,6 @@
             "type": "string",
             "nullable": true
           },
-          "width": {
-            "maximum": 1921,
-            "minimum": 97,
-            "type": "integer"
-          },
           "description": {
             "maxLength": 4096,
             "type": "string",
@@ -19971,11 +19870,6 @@
                 }
               ]
             }
-          },
-          "height": {
-            "maximum": 1921,
-            "minimum": 97,
-            "type": "integer"
           }
         },
         "additionalProperties": false
@@ -20832,6 +20726,7 @@
                 "monthlyNumberOfDataBundlesCreated",
                 "monthlyNumberOfDocumentsAllowed",
                 "monthlyNumberOfDocumentsCreated",
+                "monthlyNumberOfFieldPredictionsAllowed",
                 "monthlyNumberOfFieldPredictionsUsed",
                 "monthlyNumberOfGpuHoursUsed",
                 "monthlyNumberOfPredictionsAllowed",
@@ -21033,6 +20928,10 @@
                   "minimum": 0,
                   "type": "integer"
                 },
+                "monthlyNumberOfFieldPredictionsAllowed": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
                 "name": {
                   "maxLength": 4096,
                   "type": "string",
@@ -21060,7 +20959,6 @@
           "createdTime",
           "description",
           "fieldConfig",
-          "height",
           "metadata",
           "modelId",
           "name",
@@ -21071,8 +20969,7 @@
           "status",
           "trainingId",
           "updatedBy",
-          "updatedTime",
-          "width"
+          "updatedTime"
         ],
         "type": "object",
         "properties": {
@@ -21311,20 +21208,10 @@
             "minimum": 0,
             "type": "integer"
           },
-          "width": {
-            "maximum": 1921,
-            "minimum": 97,
-            "type": "integer"
-          },
           "createdTime": {
             "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
             "type": "string",
             "nullable": true
-          },
-          "height": {
-            "maximum": 1921,
-            "minimum": 97,
-            "type": "integer"
           },
           "status": {
             "type": "string",
