@@ -1,6 +1,6 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { convert } from 'openapi-to-postmanv2';
 import { Collection, RequestAuth } from 'postman-collection';
+import { convert } from 'openapi-to-postmanv2';
+import { readFileSync, writeFileSync } from 'fs';
 
 function setAuth(parent) {
   for (let member of parent.items.members) {
@@ -19,13 +19,14 @@ function setAuth(parent) {
 }
 
 const oas_yaml = readFileSync('../static/oas.yaml', {encoding: 'utf-8'});
+
 convert({type: 'string', data: oas_yaml}, {}, (error, conversion) => {
   if (error) {
     console.log(`Error when converting OAS spec to Postman Collection: ${error}`);
   } else if (!conversion.result) {
     console.log(`Error when converting OAS spec to Postman Collection: ${conversion.reason}`);
   } else {
-    console.log(`Successfully converted.`);
+    console.log('Successfully converted.');
     let collection = new Collection(conversion.output[0].data);
     collection.auth = new RequestAuth({
       type: 'oauth2',
@@ -39,7 +40,5 @@ convert({type: 'string', data: oas_yaml}, {}, (error, conversion) => {
     });
     setAuth(collection);
     writeFileSync('postman_collection.json', JSON.stringify(collection, null, 2));
-
-    //console.log(collection.items.members[4].items.members[0].request.auth.toJSON());
   }
 });
