@@ -3,7 +3,7 @@ import { convert } from 'openapi-to-postmanv2';
 import { readFileSync, writeFileSync } from 'fs';
 
 function setAuth(parent) {
-  for (let member of parent.items.members) {
+  for (const member of parent.items.members) {
     if (member.items) {
       setAuth(member);
     }
@@ -27,7 +27,7 @@ convert({type: 'string', data: oasYaml}, {}, (error, conversion) => {
     console.log(`Error when converting OAS spec to Postman Collection: ${conversion.reason}`);
   } else {
     console.log('Successfully converted.');
-    let collection = new Collection(conversion.output[0].data);
+    const collection = new Collection(conversion.output[0].data);
     collection.auth = new RequestAuth({
       type: 'oauth2',
       oauth2: [
