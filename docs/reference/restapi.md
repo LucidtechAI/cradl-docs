@@ -11,6 +11,7 @@ title: REST API
 ## Reference
 
 - See full reference [here](/rest-api-reference)
+- See full reference on [Postman](https://www.postman.com/cradlai)
 
 ## Changelog
 
