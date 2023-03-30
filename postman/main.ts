@@ -18,9 +18,9 @@ function setAuth(parent) {
   }
 }
 
-const oas_yaml = readFileSync('../static/oas.yaml', {encoding: 'utf-8'});
+const oasYaml = readFileSync('../static/oas.yaml', {encoding: 'utf-8'});
 
-convert({type: 'string', data: oas_yaml}, {}, (error, conversion) => {
+convert({type: 'string', data: oasYaml}, {}, (error, conversion) => {
   if (error) {
     console.log(`Error when converting OAS spec to Postman Collection: ${error}`);
   } else if (!conversion.result) {
