@@ -22,9 +22,9 @@ const oasYaml = readFileSync('../static/oas.yaml', {encoding: 'utf-8'});
 
 convert({type: 'string', data: oasYaml}, {}, (error, conversion) => {
   if (error) {
-    console.log(`Error when converting OAS spec to Postman Collection: ${error}`);
+    console.error(`Error when converting OAS spec to Postman Collection: ${error}`);
   } else if (!conversion.result) {
-    console.log(`Error when converting OAS spec to Postman Collection: ${conversion.reason}`);
+    console.error(`Error when converting OAS spec to Postman Collection: ${conversion.reason}`);
   } else {
     console.log('Successfully converted.');
     const collection = new Collection(conversion.output[0].data);
