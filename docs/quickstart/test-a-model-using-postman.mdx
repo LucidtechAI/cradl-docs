@@ -1,0 +1,92 @@
+---
+sidebar_position: 4
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Parse Invoice using Postman
+
+This is a short demonstration of how you can parse an invoice in Cradl using our 
+[Postman Collection](https://www.postman.com/cradlai).
+
+## Sign up to Cradl and create API credentials
+
+To begin you'll need to [sign up](https://app.cradl.ai/login?redirect=signup&utm_campaign=docs) and create an 
+[app client](https://app.cradl.ai/appclients) and download the file containing client ID and client secret. These
+values are needed for authorization when using the API.
+
+## Configure authorization in Postman
+
+Go to our [postman page](https://www.postman.com/cradlai) and locate our API listed under the "APIs" tab. There should 
+only be one API there named "Cradl". Fork the Collection and navigate to the Authorization settings of the collection
+as shown below.
+
+![Fork collection](/img/postman/postman0.png)
+
+Edit the Client ID and Client Secret and add the values for client ID and client secret that you downloaded in the 
+Cradl app from the previous step. When you are done adding your client ID and secret, click on the 
+"Get New Access Token" button and validate that you are getting an "Access Token". Then click the "Use Token" button in 
+the dialog that appears.
+
+![Client ID and secret](/img/postman/postman2.png)
+
+## Upload and parse an image or PDF invoice
+
+In order to parse an invoice in Cradl we need to make two API calls, one that uploads a 
+[document](../concepts/documents) and another that parses it and creates [predictions](../concepts/predictions).
+
+To upload a document we need to invoke `POST /documents` with a JSON payload containing the image or PDF as a base64 
+encoded string together with its content mime type. Cradl supports `image/jpeg`, `image/png`, `image/tiff` and
+`application/pdf` content types. Since there is no easy way of converting a file to base64 directly in Postman, we'll 
+show how you can achieve this using the `base64` program on linux.
+
+```bash
+$ base64 <invoice filename> -w 0
+```
+
+Copy the output and paste it in the JSON body as the value of the key "content" and put the corresponding mime type as 
+value for the key "contentType", ignore all other parameters for now. Note the `documentId` from the API JSON response 
+body as we'll need this value for the next part.
+
+![POST /documents](/img/postman/postman3.png)
+
+:::info
+If you get an "Unauthorized" response from the API, click on the "Authorization" tab of the request. "Type" should be
+"Inherit auth from parent", but due to a limitation in Postman we'll have to reselect "Inherit auth from parent" for 
+the request to update headers from configuring Client ID and secret earlier.
+:::
+
+Finally, we are ready to create predictions on our invoice and to do that you'll need to invoke `POST /predictions`
+with `documentId` from the previous step and with a `modelId`. The `modelId` determines which 
+[model](../concepts/models) we are using to create predictions. Cradl offers several out-of-the-box models that you can
+use, and they have deterministic values for `modelId`, namely `las:organization:cradl/las:model:invoice` and 
+`las:organization:cradl/las:model:receipt`. As with the previous API request, ignore all other parameters in the JSON 
+request body.
+
+![POST /predictions](/img/postman/postman4.png)
+
+Congratulations, you have now successfully parsed your first invoice using Cradl. The JSON response body should have a 
+list of predictions on your uploaded document and the payload should look similar to the following.
+
+```json
+{
+  "predictionId": "las:prediction:...",
+  "documentId": "las:document:...",
+  "modelId": "las:organization:cradl/las:model:invoice",
+  "predictions": [
+    {
+      "label": "vat_amount",
+      "page": 1,
+      "value": "75.72",
+      "confidence": 0.9975606850585552
+    },
+    {
+      "label": "total_amount",
+      "page": 0,
+      "value": "369.00",
+      "confidence": 0.9931743085807881
+    }
+  ]
+}
+```
