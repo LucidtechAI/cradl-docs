@@ -1,11 +1,67 @@
 ---
-sidebar_position: 4
+sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Parse Invoice using Postman
+# Parsing invoices and receipts
+
+This is a short demonstration of how you can parse an invoice or receipt in Cradl. 
+
+## Sign up to Cradl
+
+Before you start you need to [sign up](https://app.cradl.ai/login?redirect=signup&utm_campaign=docs) for a free 
+account.
+
+## Parse invoice or receipt
+
+Choose which method you wish to use for parsing below.
+
+<Tabs groupId="programming-language">
+<TabItem value="WebApp" label="WebApp" default>
+
+Go to one of our pre-trained models in the model overview and select the one you wish to use for document parsing. You
+can upload your own document or choose from between one of our sample documents for testing.
+
+- For invoice parsing click [here](https://app.cradl.ai/models/las:model:invoice/overview)
+- For receipt parsing click [here](https://app.cradl.ai/models/las:model:receipt/overview)
+
+</TabItem>
+
+<TabItem value="cli" label="CLI">
+
+<h3> Create API credentials and install CLI </h3>
+
+Make sure you have Cradl API credentials and Python version 3.6 or newer installed on your computer. To get API 
+credentials, go to [app clients](https://app.cradl.ai/appclients) and create an app client. Download the file 
+containing client ID, client secret and api endpoints. The file should be named `credentials.cfg`. Then follow the 
+instructions [here](../overview/authentication#credentialscfg) to put `credentials.cfg` in the correct folder on your 
+computer and follow the instructions [here](../overview/installation) to install the CLI.
+
+<h3> Use CLI to parse documents </h3>
+
+In order to parse an invoice in Cradl we need to make two API calls, one that uploads a 
+[document](../concepts/documents) and another that parses it and creates [predictions](../concepts/predictions). The 
+second API call requires you to provide a `modelId`. If you are using one of our pre-trained models they are 
+`las:organization:cradl/las:model:invoice` and `las:organization:cradl/las:model:receipt` for the invoice and receipt 
+models respectively. You can use these as a quick test, but we recommend training your own customized model for 
+production usage. Read more about how to train a high accuracy model 
+[here](../get-started/how-to-train-a-high-accuracy-model-on-large-datasets)
+
+```bash
+las documents create <your invoice.pdf>
+las predictions create <documentId> las:organization:cradl/las:model:invoice
+```
+
+:::info
+See the [confidence section](../concepts/predictions.mdx#confidence) to read more about confidence levels and how you can use them to feel confident in your model's predictions.
+:::
+
+</TabItem>
+<TabItem value="postman" label="Postman">
+
+<h3> Parsing invoices with Postman </h3>
 
 This is a short demonstration of how you can parse an invoice in Cradl using our 
 [Postman Collection](https://www.postman.com/cradlai).
@@ -90,3 +146,9 @@ list of predictions on your uploaded document and the payload should look simila
   ]
 }
 ```
+
+</TabItem>
+
+</Tabs>
+
+<br/>
