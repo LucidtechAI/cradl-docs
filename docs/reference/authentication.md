@@ -22,7 +22,7 @@ The endpoint for authentication is [https://auth.lucidtech.ai](https://auth.luci
 
 Our CLI and SDKs will handle access tokens for us. The only thing we need to do is to put the credentials in a file as specified below, and our SDKs will use them automatically. Alternatively, you may use environment variables.
 
-### credentials.cfg
+### The credentials file
 
 The credentials file should be placed in the following location, depending on the OS:
 
@@ -33,12 +33,6 @@ The credentials file should be placed in the following location, depending on th
 
 The credentials.cfg file should look like the following:
 
-
-:::info
-
-Only the api endpoint should have protocol (https) defined.
-
-:::
 ```ini title=credentials.cfg
 [default]
 client_id = <your client id here>
@@ -46,6 +40,10 @@ client_secret = <your client secret here>
 auth_endpoint = auth.lucidtech.ai
 api_endpoint = https://api.lucidtech.ai/v1
 ```
+
+:::info
+Only the api endpoint should have protocol (https) defined.
+:::
 
 ### Environment variables
 

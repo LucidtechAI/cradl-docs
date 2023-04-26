@@ -32,7 +32,8 @@ scoop install python
 To begin you'll need to [sign up](https://app.cradl.ai/login?redirect=signup&utm_campaign=docs). Then go to 
 [app clients](https://app.cradl.ai/appclients) and create an app client. Download the file containing client ID, client
 secret and api endpoints. The file should be named `credentials.cfg`. Then follow the instructions 
-[here](../reference/authentication#credentialscfg) to put `credentials.cfg` in the correct folder on your computer.
+[here](../reference/authentication#the-credentials-file) to put `credentials.cfg` in the correct folder on your 
+computer.
 
 ## Install CLI
 
