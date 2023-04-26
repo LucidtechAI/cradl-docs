@@ -39,7 +39,7 @@ The credentials.cfg file should look like the following:
 Only the api endpoint should have protocol (https) defined.
 
 :::
-```ini
+```ini title=credentials.cfg
 [default]
 client_id = <your client id here>
 client_secret = <your client secret here>
