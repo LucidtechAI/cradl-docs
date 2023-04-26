@@ -1,8 +1,9 @@
 ---
-sidebar_position: 3
+sidebar_position: 1
+title: Setting up a workflow
 ---
 
-# (Optional) Setup human-in-the-loop flow
+# Setting up a workflow
 
 import { useHistory } from '@docusaurus/router';
 import Tabs from '@theme/Tabs';
@@ -26,14 +27,14 @@ When predictions are missing or have low confidence, a _human in the loop_ may b
     <HeaderText icon="/img/steps/02.svg" title="Starting a workflow execution" text="Then we will show how the workflow can be executed using Cradl's CLI and SDKs." />
     <HeaderText icon="/img/steps/03.svg" title="Exporting documents" text="... and finally how documents can be exported by configuring a webhook." />
   </Box>
-  <img src="/img/model_overview.png" alt="Cradl Web App" width="500px" />
+  <img src="/img/human-in-the-loop/workflows-preview.png" alt="Cradl Web App" width="500px" />
 </BoxContainer>
 
 ## Prerequisites
 In order to follow this guide, make sure that you have:
 
-1. [Installed the command-line interface (CLI)](/overview/installation)
-2. [Created and downloaded API credentials](/overview/authentication)
+1. [Installed the command-line interface (CLI)](/reference/cli)
+2. [Created and downloaded API credentials](/reference/authentication)
 3. [Created a model](https://app.cradl.ai/models/new)
 
 <br />
@@ -208,17 +209,19 @@ Coming soon.
     <p>
     Browse our CLI and REST API reference.
     </p>
-    <BoxAction text="Get started with the CLI" href="/reference/cli" />
-    <BoxAction text="Get started with the REST API" href="/reference/restapi" />
+    <BoxAction text="How to authenticate with APIs" href="../reference/authentication" />
+    <BoxAction text="Get started with the CLI" href="../reference/cli" />
+    <BoxAction text="Get started with the REST API" href="../reference/restapi" />
+    <BoxAction text="Get started with Postman" href="https://www.postman.com/cradlai" />
   </Box>
 
   <Box title="Client libraries" width="450px">
     <p>
     Check out one of our SDKs.
     </p>
-    <BoxAction text="Get started with the Python SDK" href="/reference/python" />
-    <BoxAction text="Get started with the JavaScript SDK" href="/reference/sdks/js" />
-    <BoxAction text="Get started with the .NET SDK" href="/reference/sdks/dotnet" />
-    <BoxAction text="Get started with the Java SDK" href="/reference/sdks/java" />
+    <BoxAction text="Get started with the Python SDK" href="../reference/python" />
+    <BoxAction text="Get started with the JavaScript SDK" href="../reference/sdks/js" />
+    <BoxAction text="Get started with the .NET SDK" href="../reference/sdks/dotnet" />
+    <BoxAction text="Get started with the Java SDK" href="../reference/sdks/java" />
   </Box>
 </BoxContainer>

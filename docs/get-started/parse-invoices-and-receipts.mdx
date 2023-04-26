@@ -1,25 +1,18 @@
 ---
 sidebar_position: 1
+title: Parse invoices and receipts
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Parsing invoices and receipts
+# Parse invoices and receipts
 
-This is a short demonstration of how you can parse an invoice or receipt in Cradl. 
-
-## Sign up to Cradl
-
-Before you start you need to [sign up](https://app.cradl.ai/login?redirect=signup&utm_campaign=docs) for a free 
-account.
-
-## Parse invoice or receipt
-
-Choose which method you wish to use for parsing below.
+This is a short demonstration of how you can parse an invoice or receipt in Cradl. Please choose which method you would
+like to use for document parsing.
 
 <Tabs groupId="programming-language">
-<TabItem value="WebApp" label="WebApp" default>
+<TabItem value="WebApp" label="Using the WebApp" default>
 
 Go to one of our pre-trained models in the model overview and select the one you wish to use for document parsing. You
 can upload your own document or choose from between one of our sample documents for testing.
@@ -29,17 +22,11 @@ can upload your own document or choose from between one of our sample documents 
 
 </TabItem>
 
-<TabItem value="cli" label="CLI">
+<TabItem value="cli" label="Using the CLI">
 
-<h3> Create API credentials and install CLI </h3>
-
-Make sure you have Cradl API credentials and Python version 3.6 or newer installed on your computer. To get API 
-credentials, go to [app clients](https://app.cradl.ai/appclients) and create an app client. Download the file 
-containing client ID, client secret and api endpoints. The file should be named `credentials.cfg`. Then follow the 
-instructions [here](../overview/authentication#credentialscfg) to put `credentials.cfg` in the correct folder on your 
-computer and follow the instructions [here](../overview/installation) to install the CLI.
-
-<h3> Use CLI to parse documents </h3>
+:::info
+You need to have the CLI installed. Follow the instructions [here](../reference/cli) to install the CLI.
+:::
 
 In order to parse an invoice in Cradl we need to make two API calls, one that uploads a 
 [document](../concepts/documents) and another that parses it and creates [predictions](../concepts/predictions). The 
@@ -47,32 +34,52 @@ second API call requires you to provide a `modelId`. If you are using one of our
 `las:organization:cradl/las:model:invoice` and `las:organization:cradl/las:model:receipt` for the invoice and receipt 
 models respectively. You can use these as a quick test, but we recommend training your own customized model for 
 production usage. Read more about how to train a high accuracy model 
-[here](../get-started/how-to-train-a-high-accuracy-model-on-large-datasets)
+[here](../get-started/train-high-accuracy-models-on-large-datasets)
 
 ```bash
 las documents create <your invoice.pdf>
 las predictions create <documentId> las:organization:cradl/las:model:invoice
 ```
 
-:::info
-See the [confidence section](../concepts/predictions.mdx#confidence) to read more about confidence levels and how you can use them to feel confident in your model's predictions.
-:::
+Congratulations, you have now successfully parsed your first invoice using Cradl. The JSON response body should have a 
+list of predictions on your uploaded document and the payload should look similar to the following.
+
+```json
+{
+  "predictionId": "las:prediction:...",
+  "documentId": "las:document:...",
+  "modelId": "las:organization:cradl/las:model:invoice",
+  "predictions": [
+    {
+      "label": "vat_amount",
+      "page": 1,
+      "value": "75.72",
+      "confidence": 0.9975606850585552
+    },
+    {
+      "label": "total_amount",
+      "page": 0,
+      "value": "369.00",
+      "confidence": 0.9931743085807881
+    }
+  ]
+}
+```
 
 </TabItem>
-<TabItem value="postman" label="Postman">
+<TabItem value="postman" label="Using Postman">
 
-<h3> Parsing invoices with Postman </h3>
+:::tip
+Check out our Postman Collection [here](https://www.postman.com/cradlai).
+:::
 
-This is a short demonstration of how you can parse an invoice in Cradl using our 
-[Postman Collection](https://www.postman.com/cradlai).
+<h3> Log in to Cradl and create API credentials </h3>
 
-## Sign up to Cradl and create API credentials
-
-To begin you'll need to [sign up](https://app.cradl.ai/login?redirect=signup&utm_campaign=docs) and create an 
+To begin you'll need to [log in to Cradl](https://app.cradl.ai/login?redirect=login&utm_campaign=docs) and create an 
 [app client](https://app.cradl.ai/appclients) and download the file containing client ID and client secret. These
 values are needed for authorization when using the API.
 
-## Configure authorization in Postman
+<h3> Configure authorization in Postman </h3>
 
 Go to our [postman page](https://www.postman.com/cradlai) and locate our API listed under the "APIs" tab. There should 
 only be one API there named "Cradl". Fork the Collection and navigate to the Authorization settings of the collection
@@ -87,7 +94,7 @@ the dialog that appears.
 
 ![Client ID and secret](/img/postman/postman2.png)
 
-## Upload and parse an image or PDF invoice
+<h3> Upload and parse an image or PDF invoice </h3>
 
 In order to parse an invoice in Cradl we need to make two API calls, one that uploads a 
 [document](../concepts/documents) and another that parses it and creates [predictions](../concepts/predictions).
@@ -98,7 +105,7 @@ encoded string together with its content mime type. Cradl supports `image/jpeg`,
 show how you can achieve this using the `base64` program on linux.
 
 ```bash
-$ base64 <invoice filename> -w 0
+base64 <invoice filename> -w 0
 ```
 
 Copy the output and paste it in the JSON body as the value of the key "content" and put the corresponding mime type as 

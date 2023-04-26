@@ -34,26 +34,28 @@ learning. Here you'll find an overview of core concepts, guides and reference do
 </BoxContainer>
 
 ## Getting started
-Ready to get started with Cradl? [Sign up](https://app.cradl.ai/login?redirect=signup) for a free account and start building.
+Ready to get started with Cradl? [Sign up](https://app.cradl.ai/login?redirect=signup&utm_campaign=docs) for a free 
+account and start building.
 
 <br/>
 
 <BoxContainer>
-  <Box title="Build your first document parser" width="450px">
+  <Box title="Quickstart" width="450px">
     <p>
-    Follow step-by-step instructions to create your first model with Cradl.
+        Get up and running quickly by using pre-trained models. You can later clone and customize them to fit your 
+        needs.
     </p>
-    <BoxAction text="Get started with the CLI" href="/get-started/create-a-model" />
-    <BoxAction text="Get started with the Python SDK" href="/get-started/create-a-model" />
-    <BoxAction text="Get started with the Web app" href="/quickstart/invoice_model" />
-  </Box>
-
-  <Box title="Start with a community model" width="450px">
-    <p>
-    Get up and running quickly by fine-tuning a pre-trained model on your documents.
-    </p>
+    <BoxAction text="Parse invoices and receipts" href="../get-started/parse-invoices-and-receipts" />
     <BoxAction text="Go to pre-trained models" href="https://app.cradl.ai/models" />
   </Box>
+
+  <Box title="Build high accuracy parsers" width="450px">
+    <p>
+        Follow step-by-step instructions to create your first high accuracy document parser with Cradl.
+    </p>
+    <BoxAction text="Train a high accuracy model on large datasets" href="../get-started/train-high-accuracy-models-on-large-datasets" />
+  </Box>
+
 </BoxContainer>
 
 <br />
@@ -72,13 +74,13 @@ either through our CLI, SDK or by using the REST API directly in your favorite p
       },
       {
         'text': JSON.stringify({
-          documentId: 'las:document:0123456789abcdef',
+          documentId: 'las:document:123',
           contentType: 'application/pdf'
         }, null, 2),
         'cmd': false
       },
       {
-        'text': 'las predictions create las:document:123 las:model:123',
+        'text': 'las predictions create las:document:123 las:organization:cradl/las:model:invoice',
         'cmd': true
       },
       {
@@ -175,8 +177,9 @@ Get a better understanding of the inner workings by reading about our key concep
     <p>
     Browse our CLI and REST API reference.
     </p>
-    <BoxAction text="Get started with the CLI" href="/reference/cli" />
-    <BoxAction text="Get started with the REST API" href="/reference/restapi" />
+    <BoxAction text="How to authenticate with APIs" href="../reference/authentication" />
+    <BoxAction text="Get started with the CLI" href="../reference/cli" />
+    <BoxAction text="Get started with the REST API" href="../reference/restapi" />
     <BoxAction text="Get started with Postman" href="https://www.postman.com/cradlai" />
   </Box>
 
@@ -184,9 +187,9 @@ Get a better understanding of the inner workings by reading about our key concep
     <p>
     Check out one of our SDKs.
     </p>
-    <BoxAction text="Get started with the Python SDK" href="/reference/python" />
-    <BoxAction text="Get started with the JavaScript SDK" href="/reference/sdks/js" />
-    <BoxAction text="Get started with the .NET SDK" href="/reference/sdks/dotnet" />
-    <BoxAction text="Get started with the Java SDK" href="/reference/sdks/java" />
+    <BoxAction text="Get started with the Python SDK" href="../reference/python" />
+    <BoxAction text="Get started with the JavaScript SDK" href="../reference/sdks/js" />
+    <BoxAction text="Get started with the .NET SDK" href="../reference/sdks/dotnet" />
+    <BoxAction text="Get started with the Java SDK" href="../reference/sdks/java" />
   </Box>
 </BoxContainer>

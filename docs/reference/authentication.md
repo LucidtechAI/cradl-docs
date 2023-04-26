@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 1
 ---
 
 # Authentication
@@ -26,10 +26,10 @@ Our CLI and SDKs will handle access tokens for us. The only thing we need to do 
 
 The credentials file should be placed in the following location, depending on the OS:
 
-| OS | Location |
-| :--- | :--- |
-| Linux/Mac | ~/.lucidtech/credentials.cfg or $HOME/.lucidtech/credentials.cfg |
-| Windows | %USERPROFILE%\\.lucidtech\credentials.cfg _or_ %HOME%\\.lucidtech\credentials.cfg |
+| OS          | Location |
+|:------------| :--- |
+| Linux/macOS | ~/.lucidtech/credentials.cfg or $HOME/.lucidtech/credentials.cfg |
+| Windows     | %USERPROFILE%\\.lucidtech\credentials.cfg _or_ %HOME%\\.lucidtech\credentials.cfg |
 
 The credentials.cfg file should look like the following:
 
