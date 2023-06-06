@@ -77,7 +77,8 @@ const config = {
       footer: {
         logo: {
           alt: 'Cradl AI logo',
-          src: 'img/logo-dark_mode.png',
+          src: 'img/cradl-docs-black.svg',
+          srcDark: 'img/cradl-docs-white.svg',
           href: '/',
         },
         links: [
