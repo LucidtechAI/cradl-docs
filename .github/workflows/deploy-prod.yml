@@ -38,5 +38,5 @@ jobs:
           AWS_DEFAULT_REGION: eu-west-1
         run: |
           pip install awscli
-          aws s3 sync build ${S3_BUCKET}
+          aws s3 sync --delete --cache-control max-age=3600 build ${S3_BUCKET}
           aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION} --paths '/*'
