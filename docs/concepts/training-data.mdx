@@ -195,11 +195,11 @@ is accurate and able to generalize to new documents.
 
 Humans have a life of experience and context to help us conceptualize and speed up our learning process when faced with 
 new tasks. We can therefore learn from fewer examples than the most powerful machine learning algorithms today. In 
-Cradl, we have set a minimum of 100 documents to allow training. In fact, to achieve good results we recommend that 
-each label have 100 associated ground truths.
+Cradl, we have set a minimum of 15 documents to allow training. In fact, to achieve good results we recommend that 
+each label have 15 associated ground truths.
 
 :::info Example
-Your datasets contain a total of 100 invoices, of which 8 contain a value for a field called `company_name` in the 
+Your datasets contain a total of 15 invoices, of which 2 contain a value for a field called `company_name` in the 
 ground truth.
 
 While the number of documents in total is good, we would not be able to guarantee good results for predictions on the 
@@ -215,7 +215,7 @@ statistic of the [Data bundle](training-data.mdx#data-report).
 
 :::info Example
 Building on the above example, suppose you have extracted an additional 100 invoices from your archive, all of which 
-contain a`company_name`field, so you now have a total of 108 invoices with`company_name`values. This is a good number 
+contain a`company_name`field, so you now have a total of 102 invoices with`company_name`values. This is a good number 
 of `company_name` examples, but if all the additional 100 invoices were issued by just one company, over 90% of your 
 examples would be from a single company. It is then easy for your model to predict only that company's name - after 
 all, this strategy is successful 90% of the time, which is hard to beat.
