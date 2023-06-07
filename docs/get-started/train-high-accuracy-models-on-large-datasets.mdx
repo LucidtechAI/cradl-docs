@@ -49,14 +49,14 @@ Having good training data is important in order to get high accuracy. Read more 
 
 Before uploading documents and annotations you need to initiate a training job wizard for your model 
 in Cradl. In the upload data step of the training job wizard you can choose between uploading your files directly in 
-the WebApp or using the CLI. We recommend using the WebApp as a way of testing out the training process, and using the 
+the Web UI or using the CLI. We recommend using the Web UI as a way of testing out the training process, and using the 
 CLI when you are ready to train on thousands of documents.
 
 <br/>
 
 <Tabs>
 
-<TabItem value="WebApp" label="Using the WebApp" default>
+<TabItem value="Web UI" label="Using the Web UI" default>
 
 Drag all the files into the drop-zone as shown in below illustration.
 
@@ -70,7 +70,7 @@ Drag all the files into the drop-zone as shown in below illustration.
 You need to have the CLI installed. Follow the instructions [here](../reference/cli) to install the CLI.
 :::
 
-Copy the `datasetId` from the WebApp as shown in the below illustration.
+Copy the `datasetId` from the Web UI as shown in the below illustration.
 
 ![Copy datasetId](/img/get-started/copy-dataset-id.png)
 
@@ -90,8 +90,8 @@ $ las datasets create-documents <your datasetId> <your folder with documents and
 
 <br/>
 
-You should now see the documents you uploaded in the previous step appearing in the WebApp. To proceed, follow the 
-instructions in the WebApp and you will be taken to a view where you are able to edit or create new annotations for 
+You should now see the documents you uploaded in the previous step appearing in the Web UI. To proceed, follow the 
+instructions in the Web UI and you will be taken to a view where you are able to edit or create new annotations for 
 your documents. If you have already successfully uploaded annotations in the previous step and don't want to add more, 
 then you probably don't need to do anything here. Proceed to the last step where you will get a statistical overview 
 of your submitted data. If you are satisfied with the statistical overview, click on the "Start training" button. Your 
@@ -101,3 +101,4 @@ your training before starting just to make sure everything is configured properl
 ## Further reading
 
 Read more about historical data [here](https://www.cradl.ai/guides/how-to-leverage-historical-data?utm_campaign=docs)
+Read more about the importance of data quality [here](../concepts/training-data#data-quality)

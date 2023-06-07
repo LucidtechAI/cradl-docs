@@ -15,6 +15,11 @@ title: REST API
 
 ## Changelog
 
+### 2023-06-07
+
+- Added new possible `status` `running-final-evaluation` for `/models/:id/trainings` which takes place after `running`
+and before `succeeded`
+
 ### 2023-03-23
 
 - Added `preprocessConfig` and `postprocessConfig` to `/predictions`
