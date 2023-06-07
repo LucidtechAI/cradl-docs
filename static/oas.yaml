@@ -2196,6 +2196,7 @@ components:
           nullable: true
           type: string
         paymentMethodId:
+          nullable: true
           pattern: ^las:payment-method:[a-f0-9]{32}$
           type: string
         planId:
@@ -3880,6 +3881,7 @@ components:
           - waiting-for-approval
           - pending
           - running
+          - running-final-evaluation
           - succeeded
           - failed
           - cancelled
@@ -3938,6 +3940,7 @@ components:
             - waiting-for-approval
             - pending
             - running
+            - running-final-evaluation
             - succeeded
             - failed
             - cancelled
@@ -3997,6 +4000,7 @@ components:
                 - waiting-for-approval
                 - pending
                 - running
+                - running-final-evaluation
                 - succeeded
                 - failed
                 - cancelled
@@ -4872,7 +4876,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-03-23T15:40:40Z'
+  version: '2023-05-30T15:00:42Z'
 openapi: 3.0.1
 paths:
   /appClients:

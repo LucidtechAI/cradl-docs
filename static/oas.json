@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2023-03-23T15:40:40Z"
+    "version": "2023-05-30T15:00:42Z"
   },
   "servers": [
     {
@@ -16131,6 +16131,7 @@
               "waiting-for-approval",
               "pending",
               "running",
+              "running-final-evaluation",
               "succeeded",
               "failed",
               "cancelled"
@@ -19594,6 +19595,7 @@
                     "waiting-for-approval",
                     "pending",
                     "running",
+                    "running-final-evaluation",
                     "succeeded",
                     "failed",
                     "cancelled"
@@ -19611,6 +19613,7 @@
                 "waiting-for-approval",
                 "pending",
                 "running",
+                "running-final-evaluation",
                 "succeeded",
                 "failed",
                 "cancelled"
@@ -21347,7 +21350,8 @@
         "properties": {
           "paymentMethodId": {
             "pattern": "^las:payment-method:[a-f0-9]{32}$",
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "name": {
             "maxLength": 4096,
