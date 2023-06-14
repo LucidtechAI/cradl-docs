@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2023-05-30T15:00:42Z"
+    "version": "2023-06-13T15:15:46Z"
   },
   "servers": [
     {
@@ -15115,17 +15115,29 @@
             "type": "object"
           },
           "preprocessConfig": {
-            "required": [
-              "autoRotate",
-              "imageQuality",
-              "maxPages"
-            ],
+            "minProperties": 1,
             "type": "object",
             "properties": {
+              "pages": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
               "maxPages": {
                 "maximum": 3,
                 "minimum": 1,
                 "type": "integer"
+              },
+              "rotation": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  90,
+                  180,
+                  270
+                ]
               },
               "autoRotate": {
                 "type": "boolean"
@@ -16792,17 +16804,29 @@
         "type": "object",
         "properties": {
           "preprocessConfig": {
-            "required": [
-              "autoRotate",
-              "imageQuality",
-              "maxPages"
-            ],
+            "minProperties": 1,
             "type": "object",
             "properties": {
+              "pages": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
               "maxPages": {
                 "maximum": 3,
                 "minimum": 1,
                 "type": "integer"
+              },
+              "rotation": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  90,
+                  180,
+                  270
+                ]
               },
               "autoRotate": {
                 "type": "boolean"
@@ -17449,17 +17473,29 @@
               "type": "object",
               "properties": {
                 "preprocessConfig": {
-                  "required": [
-                    "autoRotate",
-                    "imageQuality",
-                    "maxPages"
-                  ],
+                  "minProperties": 1,
                   "type": "object",
                   "properties": {
+                    "pages": {
+                      "maxItems": 3,
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
                     "maxPages": {
                       "maximum": 3,
                       "minimum": 1,
                       "type": "integer"
+                    },
+                    "rotation": {
+                      "type": "integer",
+                      "enum": [
+                        0,
+                        90,
+                        180,
+                        270
+                      ]
                     },
                     "autoRotate": {
                       "type": "boolean"
@@ -18159,17 +18195,29 @@
                   "type": "string"
                 },
                 "preprocessConfig": {
-                  "required": [
-                    "autoRotate",
-                    "imageQuality",
-                    "maxPages"
-                  ],
+                  "minProperties": 1,
                   "type": "object",
                   "properties": {
+                    "pages": {
+                      "maxItems": 3,
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
                     "maxPages": {
                       "maximum": 3,
                       "minimum": 1,
                       "type": "integer"
+                    },
+                    "rotation": {
+                      "type": "integer",
+                      "enum": [
+                        0,
+                        90,
+                        180,
+                        270
+                      ]
                     },
                     "autoRotate": {
                       "type": "boolean"
@@ -19024,6 +19072,44 @@
         ],
         "type": "object",
         "properties": {
+          "preprocessConfig": {
+            "minProperties": 1,
+            "type": "object",
+            "properties": {
+              "pages": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "maxPages": {
+                "maximum": 3,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "rotation": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  90,
+                  180,
+                  270
+                ]
+              },
+              "autoRotate": {
+                "type": "boolean"
+              },
+              "imageQuality": {
+                "type": "string",
+                "enum": [
+                  "LOW",
+                  "HIGH"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
           "trainingId": {
             "pattern": "^las:model-training:[a-f0-9]{32}$",
             "type": "string"
@@ -19676,17 +19762,29 @@
             "type": "object"
           },
           "preprocessConfig": {
-            "required": [
-              "autoRotate",
-              "imageQuality",
-              "maxPages"
-            ],
+            "minProperties": 1,
             "type": "object",
             "properties": {
+              "pages": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
               "maxPages": {
                 "maximum": 3,
                 "minimum": 1,
                 "type": "integer"
+              },
+              "rotation": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  90,
+                  180,
+                  270
+                ]
               },
               "autoRotate": {
                 "type": "boolean"
@@ -21168,17 +21266,29 @@
             "type": "string"
           },
           "preprocessConfig": {
-            "required": [
-              "autoRotate",
-              "imageQuality",
-              "maxPages"
-            ],
+            "minProperties": 1,
             "type": "object",
             "properties": {
+              "pages": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
               "maxPages": {
                 "maximum": 3,
                 "minimum": 1,
                 "type": "integer"
+              },
+              "rotation": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  90,
+                  180,
+                  270
+                ]
               },
               "autoRotate": {
                 "type": "boolean"

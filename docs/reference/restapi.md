@@ -15,6 +15,15 @@ title: REST API
 
 ## Changelog
 
+### 2023-06-14
+
+- Added optional `preprocessConfig` to `POST /predictions`. `autoRotate`, `imageQuality`, `maxPages` and `rotation` 
+should now be specified as part of `preprocessConfig` instead and will be deprecated June 14th 2024.
+- Added optional `pages` to `preprocessConfig` to specify which specific pages to process when invoking 
+`POST /predictions`. `pages` is 0-indexed and supports negative indices for reverse indexing such that index `0`
+translates to the first page of the document and `-1` to the last page of the document.
+- All individual parameters in `preprocessConfig` are now optional and may be specified as needed.
+
 ### 2023-06-07
 
 - Added new possible `status` `running-final-evaluation` for `/models/:id/trainings` which takes place after `running`
