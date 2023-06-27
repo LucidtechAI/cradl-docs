@@ -168,6 +168,7 @@ components:
           pattern: ^las:asset:[a-f0-9]{32}$
           type: string
         content:
+          maxLength: 6250000
           minLength: 1
           type: string
         contentMD5:
@@ -220,6 +221,7 @@ components:
                 pattern: ^las:asset:[a-f0-9]{32}$
                 type: string
               content:
+                maxLength: 6250000
                 minLength: 1
                 type: string
               contentMD5:
@@ -770,7 +772,9 @@ components:
           pattern: ^las:consent:[a-f0-9]{32}$
           type: string
         content:
+          maxLength: 6250000
           minLength: 1
+          nullable: true
           type: string
         contentMD5:
           maxLength: 4096
@@ -782,6 +786,7 @@ components:
           - image/jpeg
           - image/png
           - image/tiff
+          nullable: true
           type: string
         createdBy:
           maxLength: 4096
@@ -800,6 +805,10 @@ components:
           type: string
         documentId:
           pattern: ^las:document:[a-f0-9]{32}$
+          type: string
+        fileUrl:
+          nullable: true
+          pattern: ^http://localhost.*|^https://.*
           type: string
         groundTruth:
           items:
@@ -846,8 +855,6 @@ components:
           pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
           type: string
       required:
-      - contentMD5
-      - contentType
       - createdBy
       - createdTime
       - description
@@ -880,7 +887,9 @@ components:
                 pattern: ^las:consent:[a-f0-9]{32}$
                 type: string
               content:
+                maxLength: 6250000
                 minLength: 1
+                nullable: true
                 type: string
               contentMD5:
                 maxLength: 4096
@@ -892,6 +901,7 @@ components:
                 - image/jpeg
                 - image/png
                 - image/tiff
+                nullable: true
                 type: string
               createdBy:
                 maxLength: 4096
@@ -910,6 +920,10 @@ components:
                 type: string
               documentId:
                 pattern: ^las:document:[a-f0-9]{32}$
+                type: string
+              fileUrl:
+                nullable: true
+                pattern: ^http://localhost.*|^https://.*
                 type: string
               groundTruth:
                 items:
@@ -956,8 +970,6 @@ components:
                 pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
                 type: string
             required:
-            - contentMD5
-            - contentType
             - createdBy
             - createdTime
             - description
@@ -2869,9 +2881,6 @@ components:
         retentionInDays:
           minimum: 1
           type: integer
-      required:
-      - content
-      - contentType
       title: POST /documents
       type: object
     PostHeartbeats:
@@ -4958,7 +4967,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-06-13T15:15:46Z'
+  version: '2023-06-27T07:39:49Z'
 openapi: 3.0.1
 paths:
   /appClients:
