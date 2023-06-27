@@ -15,6 +15,16 @@ title: REST API
 
 ## Changelog
 
+### 2023-06-27
+
+- Added fileserver endpoint that can be utilized to upload larger files than 4.5MB and get thumbnails and resized
+images of documents. The fileserver URL is contained in the response body of `/documents` and accepts `GET` and `PUT`
+operations.
+- Added `fileUrl` to `/documents`. Use this URL to access the file using your Authorization token.
+- `content` and `contentType` is now optional in `POST /documents`. Instead of providing `content` and `contentType`, 
+you may upload the document to `fileUrl` directly without base64 encoding. The maximum document size you can upload to
+the fileserver is 64MB.
+
 ### 2023-06-14
 
 - Added optional `preprocessConfig` to `POST /predictions`. `autoRotate`, `imageQuality`, `maxPages` and `rotation` 

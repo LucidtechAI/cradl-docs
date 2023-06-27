@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2023-06-13T15:15:46Z"
+    "version": "2023-06-27T07:39:49Z"
   },
   "servers": [
     {
@@ -15610,8 +15610,6 @@
       "Document": {
         "title": "document",
         "required": [
-          "contentMD5",
-          "contentType",
           "createdBy",
           "createdTime",
           "description",
@@ -15653,8 +15651,10 @@
             "nullable": true
           },
           "content": {
+            "maxLength": 6250000,
             "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "groundTruth": {
             "type": "array",
@@ -15724,6 +15724,11 @@
             "pattern": "^las:document:[a-f0-9]{32}$",
             "type": "string"
           },
+          "fileUrl": {
+            "pattern": "^http://localhost.*|^https://.*",
+            "type": "string",
+            "nullable": true
+          },
           "contentType": {
             "type": "string",
             "enum": [
@@ -15731,7 +15736,8 @@
               "image/jpeg",
               "image/png",
               "image/tiff"
-            ]
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -16361,6 +16367,7 @@
             "nullable": true
           },
           "content": {
+            "maxLength": 6250000,
             "minLength": 1,
             "type": "string"
           }
@@ -17286,8 +17293,6 @@
             "type": "array",
             "items": {
               "required": [
-                "contentMD5",
-                "contentType",
                 "createdBy",
                 "createdTime",
                 "description",
@@ -17329,8 +17334,10 @@
                   "nullable": true
                 },
                 "content": {
+                  "maxLength": 6250000,
                   "minLength": 1,
-                  "type": "string"
+                  "type": "string",
+                  "nullable": true
                 },
                 "groundTruth": {
                   "type": "array",
@@ -17400,6 +17407,11 @@
                   "pattern": "^las:document:[a-f0-9]{32}$",
                   "type": "string"
                 },
+                "fileUrl": {
+                  "pattern": "^http://localhost.*|^https://.*",
+                  "type": "string",
+                  "nullable": true
+                },
                 "contentType": {
                   "type": "string",
                   "enum": [
@@ -17407,7 +17419,8 @@
                     "image/jpeg",
                     "image/png",
                     "image/tiff"
-                  ]
+                  ],
+                  "nullable": true
                 }
               },
               "additionalProperties": false
@@ -19419,6 +19432,7 @@
                   "nullable": true
                 },
                 "content": {
+                  "maxLength": 6250000,
                   "minLength": 1,
                   "type": "string"
                 }
@@ -20498,10 +20512,6 @@
       },
       "PostDocuments": {
         "title": "POST /documents",
-        "required": [
-          "content",
-          "contentType"
-        ],
         "type": "object",
         "properties": {
           "groundTruth": {
