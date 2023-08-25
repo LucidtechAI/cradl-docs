@@ -50,6 +50,12 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        roleIds:
+          items:
+            pattern: ^las:role:[0-9A-Za-z-_]+$
+            type: string
+          nullable: true
+          type: array
         updatedBy:
           maxLength: 4096
           nullable: true
@@ -128,6 +134,12 @@ components:
                 maxLength: 4096
                 nullable: true
                 type: string
+              roleIds:
+                items:
+                  pattern: ^las:role:[0-9A-Za-z-_]+$
+                  type: string
+                nullable: true
+                type: array
               updatedBy:
                 maxLength: 4096
                 nullable: true
@@ -1959,6 +1971,11 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        roleIds:
+          items:
+            pattern: ^las:role:[0-9A-Za-z-_]+$
+            type: string
+          type: array
       title: PATCH /appClients/{appClientId}
       type: object
     PatchAssetId:
@@ -2435,6 +2452,11 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        roleIds:
+          items:
+            pattern: ^las:role:[0-9A-Za-z-_]+$
+            type: string
+          type: array
       title: PATCH /users/{userId}
       type: object
     PatchWorkflowExecutionId:
@@ -2761,6 +2783,11 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        roleIds:
+          items:
+            pattern: ^las:role:[0-9A-Za-z-_]+$
+            type: string
+          type: array
       title: POST /appClients
       type: object
     PostAssets:
@@ -3313,6 +3340,11 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        roleIds:
+          items:
+            pattern: ^las:role:[0-9A-Za-z-_]+$
+            type: string
+          type: array
       required:
       - email
       title: POST /users
@@ -3825,6 +3857,137 @@ components:
       required:
       - profileId
       title: profile
+      type: object
+    Role:
+      additionalProperties: false
+      properties:
+        createdBy:
+          maxLength: 4096
+          nullable: true
+          type: string
+        createdTime:
+          nullable: true
+          pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
+          type: string
+        description:
+          maxLength: 4096
+          nullable: true
+          type: string
+        name:
+          maxLength: 4096
+          nullable: true
+          type: string
+        permissions:
+          items:
+            additionalProperties: false
+            properties:
+              action:
+                enum:
+                - read
+                - write
+                - '*'
+                type: string
+              effect:
+                enum:
+                - allow
+                - deny
+                type: string
+              resourceId:
+                minLength: 1
+                type: string
+            required:
+            - action
+            - effect
+            - resourceId
+            type: object
+          type: array
+        roleId:
+          pattern: ^las:role:[0-9A-Za-z-_]+$
+          type: string
+        updatedBy:
+          maxLength: 4096
+          nullable: true
+          type: string
+        updatedTime:
+          nullable: true
+          pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
+          type: string
+      required:
+      - permissions
+      - roleId
+      title: dataset
+      type: object
+    Roles:
+      additionalProperties: false
+      properties:
+        nextToken:
+          maxLength: 4096
+          nullable: true
+          type: string
+        roles:
+          items:
+            additionalProperties: false
+            properties:
+              createdBy:
+                maxLength: 4096
+                nullable: true
+                type: string
+              createdTime:
+                nullable: true
+                pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
+                type: string
+              description:
+                maxLength: 4096
+                nullable: true
+                type: string
+              name:
+                maxLength: 4096
+                nullable: true
+                type: string
+              permissions:
+                items:
+                  additionalProperties: false
+                  properties:
+                    action:
+                      enum:
+                      - read
+                      - write
+                      - '*'
+                      type: string
+                    effect:
+                      enum:
+                      - allow
+                      - deny
+                      type: string
+                    resourceId:
+                      minLength: 1
+                      type: string
+                  required:
+                  - action
+                  - effect
+                  - resourceId
+                  type: object
+                type: array
+              roleId:
+                pattern: ^las:role:[0-9A-Za-z-_]+$
+                type: string
+              updatedBy:
+                maxLength: 4096
+                nullable: true
+                type: string
+              updatedTime:
+                nullable: true
+                pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
+                type: string
+            required:
+            - permissions
+            - roleId
+            type: object
+          type: array
+      required:
+      - nextToken
+      - roles
+      title: datasets
       type: object
     Secret:
       additionalProperties: false
@@ -4455,6 +4618,12 @@ components:
           nullable: true
           pattern: ^las:profile:[a-f0-9]{32}$
           type: string
+        roleIds:
+          items:
+            pattern: ^las:role:[0-9A-Za-z-_]+$
+            type: string
+          nullable: true
+          type: array
         updatedBy:
           maxLength: 4096
           nullable: true
@@ -4512,6 +4681,12 @@ components:
                 nullable: true
                 pattern: ^las:profile:[a-f0-9]{32}$
                 type: string
+              roleIds:
+                items:
+                  pattern: ^las:role:[0-9A-Za-z-_]+$
+                  type: string
+                nullable: true
+                type: array
               updatedBy:
                 maxLength: 4096
                 nullable: true
@@ -4948,6 +5123,7 @@ components:
             api.lucidtech.ai/predictions:write: Write permissions
             api.lucidtech.ai/profiles:read: Read permissions
             api.lucidtech.ai/profiles:write: Write permissions
+            api.lucidtech.ai/roles:read: Read permissions
             api.lucidtech.ai/secrets:read: Read permissions
             api.lucidtech.ai/secrets:write: Write permissions
             api.lucidtech.ai/trainings:read: Read permissions
@@ -4967,7 +5143,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-06-27T07:39:49Z'
+  version: '2023-08-23T19:58:42Z'
 openapi: 3.0.1
 paths:
   /appClients:
@@ -10567,6 +10743,241 @@ paths:
       security:
       - OAuth2:
         - api.lucidtech.ai/assets:write
+  /roles:
+    get:
+      parameters:
+      - in: query
+        name: nextToken
+        schema:
+          type: string
+      - in: query
+        name: maxResults
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roles'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 403 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '415':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 415 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+      security: []
+    options:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Empty'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+  /roles/{roleId}:
+    get:
+      parameters:
+      - in: path
+        name: roleId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 403 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '415':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 415 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+      security:
+      - OAuth2:
+        - api.lucidtech.ai/models:read
+    options:
+      parameters:
+      - in: path
+        name: roleId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Empty'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
   /secrets:
     get:
       parameters:
