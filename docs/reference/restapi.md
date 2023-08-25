@@ -15,6 +15,16 @@ title: REST API
 
 ## Changelog
 
+
+### 2023-08-25
+
+- Added new endpoint `/roles`. Roles can be attached to `/users` and `/appClients` to limit which API resources they 
+can access.
+- Added `GET /roles`
+- Added `GET /roles/:id`
+- Added `roleIds` to `/users`
+- Added `roleIds` to `/appClients`
+
 ### 2023-06-27
 
 - Added fileserver endpoint that can be utilized to upload larger files than 4.5MB and get thumbnails and resized
