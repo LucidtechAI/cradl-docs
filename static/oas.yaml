@@ -2442,16 +2442,8 @@ components:
       additionalProperties: false
       minProperties: 1
       properties:
-        avatar:
-          maxLength: 131072
-          nullable: true
-          type: string
         metadata:
           type: object
-        name:
-          maxLength: 4096
-          nullable: true
-          type: string
         roleIds:
           items:
             pattern: ^las:role:[0-9A-Za-z-_]+$
@@ -2508,6 +2500,8 @@ components:
               type: string
             manualRetry:
               type: boolean
+          type: object
+        metadata:
           type: object
         name:
           maxLength: 4096
@@ -3327,19 +3321,11 @@ components:
         appClientId:
           pattern: ^las:app-client:[a-z0-9-_]+$
           type: string
-        avatar:
-          maxLength: 131072
-          nullable: true
-          type: string
         email:
           pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
           type: string
         metadata:
           type: object
-        name:
-          maxLength: 4096
-          nullable: true
-          type: string
         roleIds:
           items:
             pattern: ^las:role:[0-9A-Za-z-_]+$
@@ -3393,6 +3379,8 @@ components:
               type: string
             manualRetry:
               type: boolean
+          type: object
+        metadata:
           type: object
         name:
           maxLength: 4096
@@ -4592,10 +4580,6 @@ components:
     User:
       additionalProperties: false
       properties:
-        avatar:
-          maxLength: 131072
-          nullable: true
-          type: string
         createdBy:
           maxLength: 4096
           nullable: true
@@ -4604,16 +4588,9 @@ components:
           nullable: true
           pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
           type: string
-        email:
-          pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
-          type: string
         metadata:
           nullable: true
           type: object
-        name:
-          maxLength: 4096
-          nullable: true
-          type: string
         profileId:
           nullable: true
           pattern: ^las:profile:[a-f0-9]{32}$
@@ -4624,6 +4601,12 @@ components:
             type: string
           nullable: true
           type: array
+        status:
+          enum:
+          - inactive
+          - active
+          - invite_pending
+          type: string
         updatedBy:
           maxLength: 4096
           nullable: true
@@ -4638,7 +4621,6 @@ components:
       required:
       - createdBy
       - createdTime
-      - email
       - updatedBy
       - updatedTime
       - userId
@@ -4655,10 +4637,6 @@ components:
           items:
             additionalProperties: false
             properties:
-              avatar:
-                maxLength: 131072
-                nullable: true
-                type: string
               createdBy:
                 maxLength: 4096
                 nullable: true
@@ -4667,16 +4645,9 @@ components:
                 nullable: true
                 pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
                 type: string
-              email:
-                pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
-                type: string
               metadata:
                 nullable: true
                 type: object
-              name:
-                maxLength: 4096
-                nullable: true
-                type: string
               profileId:
                 nullable: true
                 pattern: ^las:profile:[a-f0-9]{32}$
@@ -4687,6 +4658,12 @@ components:
                   type: string
                 nullable: true
                 type: array
+              status:
+                enum:
+                - inactive
+                - active
+                - invite_pending
+                type: string
               updatedBy:
                 maxLength: 4096
                 nullable: true
@@ -4701,7 +4678,6 @@ components:
             required:
             - createdBy
             - createdTime
-            - email
             - updatedBy
             - updatedTime
             - userId
@@ -4757,6 +4733,9 @@ components:
               type: string
             manualRetry:
               type: boolean
+          type: object
+        metadata:
+          nullable: true
           type: object
         name:
           maxLength: 4096
@@ -5012,6 +4991,9 @@ components:
                   manualRetry:
                     type: boolean
                 type: object
+              metadata:
+                nullable: true
+                type: object
               name:
                 maxLength: 4096
                 nullable: true
@@ -5143,7 +5125,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-08-23T19:58:42Z'
+  version: '2023-09-04T09:55:24Z'
 openapi: 3.0.1
 paths:
   /appClients:
