@@ -15,6 +15,10 @@ title: REST API
 
 ## Changelog
 
+### 2023-09-07
+
+- Added optional `metadata` to `/workflows`
+- Removed deprecated `avatar`, `name` and `email` from `/users`
 
 ### 2023-08-25
 
