@@ -12,9 +12,15 @@ def required_labels(field_config):
     return set([label for label in field_config if field_config[label].get('required', True)])
 
 
+def is_line(field_config, p):
+    return field_config[p['label']]['type'] == 'lines'
+
+
 def filter_optional_fields(predictions, field_config):
     def predicate(p):
         conf_threshold = field_config[p['label']]['confidenceLevels']['low']
+        if is_line(field_config, p):
+            return True
         return p['label'] in required_labels(field_config) or conf_threshold < p['confidence']
     
     return list(filter(predicate, predictions))
@@ -22,12 +28,23 @@ def filter_optional_fields(predictions, field_config):
 
 def filter_by_top1(predictions):
     labels = set(map(lambda p: p['label'], predictions))
-    
+
     def top1(label):
         preds = filter(lambda f: f['label'] == label, predictions)
+
         return max(preds, key=lambda p: p['confidence'])
 
     return [top1(label) for label in labels]
+
+
+def merge_predictions_and_gt(predictions, old_ground_truth):
+    for prediction in predictions:
+        for gt in old_ground_truth:
+            if gt['label'] == prediction['label']:
+                prediction['value'] = gt['value']
+                prediction['confidence'] = 1.0
+
+    return predictions
 
 
 @las.transition_handler
@@ -49,6 +66,8 @@ def make_predictions(las_client, event):
         predictions = las_client.create_prediction(document_id, model_id).get('predictions')
         logging.info(f'Created predicitons {predictions}')
 
+        old_ground_truth = las_client.get_document(document_id).get('groundTruth')
+
         if predictions:
             field_config = form_config['config']['fields']
 
@@ -58,8 +77,9 @@ def make_predictions(las_client, event):
                 is_optional = not field_config[label].get('required', True)
 
                 return (threshold['automated'] <= confidence) or (is_optional and confidence < threshold['low'])
-            
-            all_above_or_optional = all(map(above_threshold_or_optional, filter_by_top1(predictions)))
+
+            lines = any([is_line(field_config, p) for p in predictions])
+            all_above_or_optional = not lines and all(map(above_threshold_or_optional, filter_by_top1(predictions)))
             has_all_required_labels = required_labels(field_config) <= set(map(lambda p: p['label'], predictions))
             skip_validation = has_all_required_labels and all_above_or_optional
             
@@ -68,7 +88,20 @@ def make_predictions(las_client, event):
             
             # Filter out optional fields where confidence < low
             predictions = filter_optional_fields(predictions, field_config)
+
+            if old_ground_truth:
+                predictions = merge_predictions_and_gt(predictions, old_ground_truth)
+
             output = {'predictions': predictions}
+        elif old_ground_truth:
+            # Currently do not add old line-gt if there are no predictions
+            predictions = [{
+                'label': gt['label'],
+                'value': gt['value'],
+                'confidence': 1.0
+            } for gt in old_ground_truth if not isinstance(gt, list)]
+            output = {'predictions': predictions}
+
     except las.client.BadRequest as e:
         logging.exception(e)
     
