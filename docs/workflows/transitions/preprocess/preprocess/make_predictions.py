@@ -66,7 +66,7 @@ def make_predictions(las_client, event):
         predictions = las_client.create_prediction(document_id, model_id).get('predictions')
         logging.info(f'Created predicitons {predictions}')
 
-        old_ground_truth = las_client.get_document(document_id).get('groundTruth')
+        old_ground_truth = las_client.get_document(document_id=document_id).get('groundTruth')
 
         if predictions:
             field_config = form_config['config']['fields']
