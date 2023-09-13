@@ -38,11 +38,13 @@ def filter_by_top1(predictions):
 
 
 def merge_predictions_and_gt(predictions, old_ground_truth):
+    old_ground_truth = {gt['label']: gt['value'] for gt in old_ground_truth}
+
+    # override value if label is the same, add if it is not predicted
     for prediction in predictions:
-        for gt in old_ground_truth:
-            if gt['label'] == prediction['label']:
-                prediction['value'] = gt['value']
-                prediction['confidence'] = 1.0
+        prediction['value'] = old_ground_truth.pop(prediction['label'], prediction['value'])
+
+    predictions += [{'label': k, 'value': v} for k, v in old_ground_truth.items()]
 
     return predictions
 
@@ -89,18 +91,13 @@ def make_predictions(las_client, event):
             # Filter out optional fields where confidence < low
             predictions = filter_optional_fields(predictions, field_config)
 
-            if old_ground_truth:
+            if old_ground_truth and not skip_validation:
                 predictions = merge_predictions_and_gt(predictions, old_ground_truth)
 
             output = {'predictions': predictions}
         elif old_ground_truth:
-            # Currently do not add old line-gt if there are no predictions
-            predictions = [{
-                'label': gt['label'],
-                'value': gt['value'],
-                'confidence': 1.0
-            } for gt in old_ground_truth if not isinstance(gt, list)]
-            output = {'predictions': predictions}
+            # These will not have any confidence levels
+            output = {'predictions': old_ground_truth}
 
     except las.client.BadRequest as e:
         logging.exception(e)
