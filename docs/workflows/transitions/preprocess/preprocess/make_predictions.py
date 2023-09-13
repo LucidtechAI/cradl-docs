@@ -37,16 +37,34 @@ def filter_by_top1(predictions):
     return [top1(label) for label in labels]
 
 
-def merge_predictions_and_gt(predictions, old_ground_truth):
+def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
     old_ground_truth = {gt['label']: gt['value'] for gt in old_ground_truth}
+    updated_predictions = []
 
     # override value if label is the same, add if it is not predicted
     for prediction in predictions:
-        prediction['value'] = old_ground_truth.pop(prediction['label'], prediction['value'])
+        label = prediction['label']
+        if label in old_ground_truth:
+            value = old_ground_truth.pop(label, prediction['value'])
+            confidence = 1.0
+            if is_line(field_config, prediction):
+                for line in value:
+                    for line_pred in line:
+                        line_pred['confidence'] = 1.0
+        else:
+            value = prediction['value']
+            confidence = prediction['confidence']
+        updated_prediction = {
+            'label': label,
+            'value': value,
+            'confidence': confidence
+        }
+        updated_predictions.append(updated_prediction)
 
-    predictions += [{'label': k, 'value': v} for k, v in old_ground_truth.items()]
+    # TODO: line items values from old_ground_truth will not get a confidence value at this time, can fix later
+    updated_predictions += [{'label': k, 'value': v, 'confidence': 1.0} for k, v in old_ground_truth.items()]
 
-    return predictions
+    return updated_predictions
 
 
 @las.transition_handler
@@ -84,15 +102,16 @@ def make_predictions(las_client, event):
             all_above_or_optional = not lines and all(map(above_threshold_or_optional, filter_by_top1(predictions)))
             has_all_required_labels = required_labels(field_config) <= set(map(lambda p: p['label'], predictions))
             skip_validation = has_all_required_labels and all_above_or_optional
-            
+
             logging.info(f'All predictions above threshold (or optional): {all_above_or_optional}')
             logging.info(f'All required labels exist: {has_all_required_labels}')
             
             # Filter out optional fields where confidence < low
             predictions = filter_optional_fields(predictions, field_config)
 
-            if old_ground_truth and not skip_validation:
-                predictions = merge_predictions_and_gt(predictions, old_ground_truth)
+            if old_ground_truth:
+                predictions = merge_predictions_and_gt(predictions, old_ground_truth, field_config)
+                logging.info(f'updated predictions: {predictions}')
 
             output = {'predictions': predictions}
         elif old_ground_truth:
