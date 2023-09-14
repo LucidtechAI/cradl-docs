@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2023-09-04T09:55:24Z"
+    "version": "2023-09-14T09:39:09Z"
   },
   "servers": [
     {
@@ -8917,6 +8917,13 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "in": "query",
+            "name": "modelId",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -15617,109 +15624,127 @@
           },
           "fieldConfig": {
             "type": "object",
-            "additionalProperties": {
-              "oneOf": [
-                {
-                  "required": [
-                    "type"
-                  ],
-                  "type": "object",
-                  "properties": {
-                    "description": {
-                      "maxLength": 4096,
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "amount",
-                        "date",
-                        "digits",
-                        "enum",
-                        "numeric",
-                        "string"
-                      ]
-                    },
-                    "maxLength": {
-                      "maximum": 512,
-                      "minimum": 1,
-                      "type": "integer"
-                    },
-                    "enum": {
-                      "maxItems": 500,
-                      "minItems": 1,
-                      "uniqueItems": true,
-                      "type": "array",
-                      "items": {
-                        "maxLength": 512,
-                        "minLength": 1,
-                        "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
-                        "type": "string"
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[0-9A-Za-z-_]{1,36}$": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "amount",
+                          "date",
+                          "digits",
+                          "enum",
+                          "numeric",
+                          "string"
+                        ]
+                      },
+                      "maxLength": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 512
+                      },
+                      "enum": {
+                        "maxItems": 500,
+                        "minItems": 1,
+                        "type": "array",
+                        "uniqueItems": true,
+                        "items": {
+                          "maxLength": 512,
+                          "minLength": 1,
+                          "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
+                          "type": "string"
+                        }
+                      },
+                      "description": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 4096
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
                       }
-                    }
-                  }
-                },
-                {
-                  "required": [
-                    "fields",
-                    "type"
-                  ],
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "lines"
-                      ]
                     },
-                    "fields": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "required": [
-                          "type"
-                        ],
+                    "required": [
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "lines"
+                        ]
+                      },
+                      "fields": {
                         "type": "object",
-                        "properties": {
-                          "description": {
-                            "maxLength": 4096,
-                            "type": "string",
-                            "nullable": true
-                          },
-                          "type": {
-                            "type": "string",
-                            "enum": [
-                              "amount",
-                              "date",
-                              "digits",
-                              "enum",
-                              "numeric",
-                              "string"
+                        "additionalProperties": false,
+                        "patternProperties": {
+                          "^[0-9A-Za-z-_]{1,36}$": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "amount",
+                                  "date",
+                                  "digits",
+                                  "enum",
+                                  "numeric",
+                                  "string"
+                                ]
+                              },
+                              "maxLength": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 512
+                              },
+                              "enum": {
+                                "maxItems": 500,
+                                "minItems": 1,
+                                "type": "array",
+                                "uniqueItems": true,
+                                "items": {
+                                  "maxLength": 512,
+                                  "minLength": 1,
+                                  "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
+                                  "type": "string"
+                                }
+                              },
+                              "description": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "maxLength": 4096
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "type"
                             ]
-                          },
-                          "maxLength": {
-                            "maximum": 512,
-                            "minimum": 1,
-                            "type": "integer"
-                          },
-                          "enum": {
-                            "maxItems": 500,
-                            "minItems": 1,
-                            "uniqueItems": true,
-                            "type": "array",
-                            "items": {
-                              "maxLength": 512,
-                              "minLength": 1,
-                              "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
-                              "type": "string"
-                            }
                           }
                         }
                       }
-                    }
+                    },
+                    "required": [
+                      "fields",
+                      "type"
+                    ]
                   }
-                }
-              ]
+                ]
+              }
             }
           }
         },
@@ -15966,7 +15991,7 @@
                 "roleIds": {
                   "type": "array",
                   "items": {
-                    "pattern": "^las:role:[0-9A-Za-z-_]+$",
+                    "pattern": "^las:role:[0-9A-Za-z-_]{1,32}$",
                     "type": "string"
                   },
                   "nullable": true
@@ -16224,7 +16249,7 @@
           "roleIds": {
             "type": "array",
             "items": {
-              "pattern": "^las:role:[0-9A-Za-z-_]+$",
+              "pattern": "^las:role:[0-9A-Za-z-_]{1,32}$",
               "type": "string"
             }
           },
@@ -17608,7 +17633,7 @@
                   "nullable": true
                 },
                 "roleId": {
-                  "pattern": "^las:role:[0-9A-Za-z-_]+$",
+                  "pattern": "^las:role:[0-9A-Za-z-_]{1,32}$",
                   "type": "string"
                 },
                 "permissions": {
@@ -17637,6 +17662,7 @@
                         "enum": [
                           "read",
                           "write",
+                          "delegate",
                           "*"
                         ]
                       }
@@ -17695,7 +17721,7 @@
           "roleIds": {
             "type": "array",
             "items": {
-              "pattern": "^las:role:[0-9A-Za-z-_]+$",
+              "pattern": "^las:role:[0-9A-Za-z-_]{1,32}$",
               "type": "string"
             }
           },
@@ -17765,7 +17791,7 @@
             "nullable": true
           },
           "roleId": {
-            "pattern": "^las:role:[0-9A-Za-z-_]+$",
+            "pattern": "^las:role:[0-9A-Za-z-_]{1,32}$",
             "type": "string"
           },
           "permissions": {
@@ -17794,6 +17820,7 @@
                   "enum": [
                     "read",
                     "write",
+                    "delegate",
                     "*"
                   ]
                 }
@@ -18061,6 +18088,10 @@
         ],
         "type": "object",
         "properties": {
+          "modelId": {
+            "pattern": "^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$",
+            "type": "string"
+          },
           "nextToken": {
             "maxLength": 4096,
             "type": "string",
@@ -18409,7 +18440,7 @@
           "roleIds": {
             "type": "array",
             "items": {
-              "pattern": "^las:role:[0-9A-Za-z-_]+$",
+              "pattern": "^las:role:[0-9A-Za-z-_]{1,32}$",
               "type": "string"
             },
             "nullable": true
@@ -18704,109 +18735,127 @@
                 },
                 "fieldConfig": {
                   "type": "object",
-                  "additionalProperties": {
-                    "oneOf": [
-                      {
-                        "required": [
-                          "type"
-                        ],
-                        "type": "object",
-                        "properties": {
-                          "description": {
-                            "maxLength": 4096,
-                            "type": "string",
-                            "nullable": true
-                          },
-                          "type": {
-                            "type": "string",
-                            "enum": [
-                              "amount",
-                              "date",
-                              "digits",
-                              "enum",
-                              "numeric",
-                              "string"
-                            ]
-                          },
-                          "maxLength": {
-                            "maximum": 512,
-                            "minimum": 1,
-                            "type": "integer"
-                          },
-                          "enum": {
-                            "maxItems": 500,
-                            "minItems": 1,
-                            "uniqueItems": true,
-                            "type": "array",
-                            "items": {
-                              "maxLength": 512,
-                              "minLength": 1,
-                              "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
-                              "type": "string"
+                  "additionalProperties": false,
+                  "patternProperties": {
+                    "^[0-9A-Za-z-_]{1,36}$": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "enum": [
+                                "amount",
+                                "date",
+                                "digits",
+                                "enum",
+                                "numeric",
+                                "string"
+                              ]
+                            },
+                            "maxLength": {
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 512
+                            },
+                            "enum": {
+                              "maxItems": 500,
+                              "minItems": 1,
+                              "type": "array",
+                              "uniqueItems": true,
+                              "items": {
+                                "maxLength": 512,
+                                "minLength": 1,
+                                "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
+                                "type": "string"
+                              }
+                            },
+                            "description": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "maxLength": 4096
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
                             }
-                          }
-                        }
-                      },
-                      {
-                        "required": [
-                          "fields",
-                          "type"
-                        ],
-                        "type": "object",
-                        "properties": {
-                          "type": {
-                            "type": "string",
-                            "enum": [
-                              "lines"
-                            ]
                           },
-                          "fields": {
-                            "type": "object",
-                            "additionalProperties": {
-                              "required": [
-                                "type"
-                              ],
+                          "required": [
+                            "type"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "enum": [
+                                "lines"
+                              ]
+                            },
+                            "fields": {
                               "type": "object",
-                              "properties": {
-                                "description": {
-                                  "maxLength": 4096,
-                                  "type": "string",
-                                  "nullable": true
-                                },
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "amount",
-                                    "date",
-                                    "digits",
-                                    "enum",
-                                    "numeric",
-                                    "string"
+                              "additionalProperties": false,
+                              "patternProperties": {
+                                "^[0-9A-Za-z-_]{1,36}$": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "amount",
+                                        "date",
+                                        "digits",
+                                        "enum",
+                                        "numeric",
+                                        "string"
+                                      ]
+                                    },
+                                    "maxLength": {
+                                      "type": "integer",
+                                      "minimum": 1,
+                                      "maximum": 512
+                                    },
+                                    "enum": {
+                                      "maxItems": 500,
+                                      "minItems": 1,
+                                      "type": "array",
+                                      "uniqueItems": true,
+                                      "items": {
+                                        "maxLength": 512,
+                                        "minLength": 1,
+                                        "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
+                                        "type": "string"
+                                      }
+                                    },
+                                    "description": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string",
+                                          "maxLength": 4096
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "type"
                                   ]
-                                },
-                                "maxLength": {
-                                  "maximum": 512,
-                                  "minimum": 1,
-                                  "type": "integer"
-                                },
-                                "enum": {
-                                  "maxItems": 500,
-                                  "minItems": 1,
-                                  "uniqueItems": true,
-                                  "type": "array",
-                                  "items": {
-                                    "maxLength": 512,
-                                    "minLength": 1,
-                                    "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
-                                    "type": "string"
-                                  }
                                 }
                               }
                             }
-                          }
+                          },
+                          "required": [
+                            "fields",
+                            "type"
+                          ]
                         }
-                      }
-                    ]
+                      ]
+                    }
                   },
                   "nullable": true
                 },
@@ -19528,7 +19577,7 @@
           "roleIds": {
             "type": "array",
             "items": {
-              "pattern": "^las:role:[0-9A-Za-z-_]+$",
+              "pattern": "^las:role:[0-9A-Za-z-_]{1,32}$",
               "type": "string"
             },
             "nullable": true
@@ -20142,7 +20191,7 @@
                 "roleIds": {
                   "type": "array",
                   "items": {
-                    "pattern": "^las:role:[0-9A-Za-z-_]+$",
+                    "pattern": "^las:role:[0-9A-Za-z-_]{1,32}$",
                     "type": "string"
                   },
                   "nullable": true
@@ -20497,109 +20546,127 @@
           },
           "fieldConfig": {
             "type": "object",
-            "additionalProperties": {
-              "oneOf": [
-                {
-                  "required": [
-                    "type"
-                  ],
-                  "type": "object",
-                  "properties": {
-                    "description": {
-                      "maxLength": 4096,
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "amount",
-                        "date",
-                        "digits",
-                        "enum",
-                        "numeric",
-                        "string"
-                      ]
-                    },
-                    "maxLength": {
-                      "maximum": 512,
-                      "minimum": 1,
-                      "type": "integer"
-                    },
-                    "enum": {
-                      "maxItems": 500,
-                      "minItems": 1,
-                      "uniqueItems": true,
-                      "type": "array",
-                      "items": {
-                        "maxLength": 512,
-                        "minLength": 1,
-                        "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
-                        "type": "string"
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[0-9A-Za-z-_]{1,36}$": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "amount",
+                          "date",
+                          "digits",
+                          "enum",
+                          "numeric",
+                          "string"
+                        ]
+                      },
+                      "maxLength": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 512
+                      },
+                      "enum": {
+                        "maxItems": 500,
+                        "minItems": 1,
+                        "type": "array",
+                        "uniqueItems": true,
+                        "items": {
+                          "maxLength": 512,
+                          "minLength": 1,
+                          "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
+                          "type": "string"
+                        }
+                      },
+                      "description": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 4096
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
                       }
-                    }
-                  }
-                },
-                {
-                  "required": [
-                    "fields",
-                    "type"
-                  ],
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "lines"
-                      ]
                     },
-                    "fields": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "required": [
-                          "type"
-                        ],
+                    "required": [
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "lines"
+                        ]
+                      },
+                      "fields": {
                         "type": "object",
-                        "properties": {
-                          "description": {
-                            "maxLength": 4096,
-                            "type": "string",
-                            "nullable": true
-                          },
-                          "type": {
-                            "type": "string",
-                            "enum": [
-                              "amount",
-                              "date",
-                              "digits",
-                              "enum",
-                              "numeric",
-                              "string"
+                        "additionalProperties": false,
+                        "patternProperties": {
+                          "^[0-9A-Za-z-_]{1,36}$": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "amount",
+                                  "date",
+                                  "digits",
+                                  "enum",
+                                  "numeric",
+                                  "string"
+                                ]
+                              },
+                              "maxLength": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 512
+                              },
+                              "enum": {
+                                "maxItems": 500,
+                                "minItems": 1,
+                                "type": "array",
+                                "uniqueItems": true,
+                                "items": {
+                                  "maxLength": 512,
+                                  "minLength": 1,
+                                  "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
+                                  "type": "string"
+                                }
+                              },
+                              "description": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "maxLength": 4096
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "type"
                             ]
-                          },
-                          "maxLength": {
-                            "maximum": 512,
-                            "minimum": 1,
-                            "type": "integer"
-                          },
-                          "enum": {
-                            "maxItems": 500,
-                            "minItems": 1,
-                            "uniqueItems": true,
-                            "type": "array",
-                            "items": {
-                              "maxLength": 512,
-                              "minLength": 1,
-                              "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
-                              "type": "string"
-                            }
                           }
                         }
                       }
-                    }
+                    },
+                    "required": [
+                      "fields",
+                      "type"
+                    ]
                   }
-                }
-              ]
+                ]
+              }
             }
           }
         },
@@ -21111,7 +21178,7 @@
           "roleIds": {
             "type": "array",
             "items": {
-              "pattern": "^las:role:[0-9A-Za-z-_]+$",
+              "pattern": "^las:role:[0-9A-Za-z-_]{1,32}$",
               "type": "string"
             }
           },
@@ -21289,7 +21356,7 @@
           "roleIds": {
             "type": "array",
             "items": {
-              "pattern": "^las:role:[0-9A-Za-z-_]+$",
+              "pattern": "^las:role:[0-9A-Za-z-_]{1,32}$",
               "type": "string"
             }
           }
@@ -21778,109 +21845,127 @@
           },
           "fieldConfig": {
             "type": "object",
-            "additionalProperties": {
-              "oneOf": [
-                {
-                  "required": [
-                    "type"
-                  ],
-                  "type": "object",
-                  "properties": {
-                    "description": {
-                      "maxLength": 4096,
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "amount",
-                        "date",
-                        "digits",
-                        "enum",
-                        "numeric",
-                        "string"
-                      ]
-                    },
-                    "maxLength": {
-                      "maximum": 512,
-                      "minimum": 1,
-                      "type": "integer"
-                    },
-                    "enum": {
-                      "maxItems": 500,
-                      "minItems": 1,
-                      "uniqueItems": true,
-                      "type": "array",
-                      "items": {
-                        "maxLength": 512,
-                        "minLength": 1,
-                        "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
-                        "type": "string"
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[0-9A-Za-z-_]{1,36}$": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "amount",
+                          "date",
+                          "digits",
+                          "enum",
+                          "numeric",
+                          "string"
+                        ]
+                      },
+                      "maxLength": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 512
+                      },
+                      "enum": {
+                        "maxItems": 500,
+                        "minItems": 1,
+                        "type": "array",
+                        "uniqueItems": true,
+                        "items": {
+                          "maxLength": 512,
+                          "minLength": 1,
+                          "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
+                          "type": "string"
+                        }
+                      },
+                      "description": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 4096
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
                       }
-                    }
-                  }
-                },
-                {
-                  "required": [
-                    "fields",
-                    "type"
-                  ],
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "lines"
-                      ]
                     },
-                    "fields": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "required": [
-                          "type"
-                        ],
+                    "required": [
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "lines"
+                        ]
+                      },
+                      "fields": {
                         "type": "object",
-                        "properties": {
-                          "description": {
-                            "maxLength": 4096,
-                            "type": "string",
-                            "nullable": true
-                          },
-                          "type": {
-                            "type": "string",
-                            "enum": [
-                              "amount",
-                              "date",
-                              "digits",
-                              "enum",
-                              "numeric",
-                              "string"
+                        "additionalProperties": false,
+                        "patternProperties": {
+                          "^[0-9A-Za-z-_]{1,36}$": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "amount",
+                                  "date",
+                                  "digits",
+                                  "enum",
+                                  "numeric",
+                                  "string"
+                                ]
+                              },
+                              "maxLength": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 512
+                              },
+                              "enum": {
+                                "maxItems": 500,
+                                "minItems": 1,
+                                "type": "array",
+                                "uniqueItems": true,
+                                "items": {
+                                  "maxLength": 512,
+                                  "minLength": 1,
+                                  "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
+                                  "type": "string"
+                                }
+                              },
+                              "description": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "maxLength": 4096
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "type"
                             ]
-                          },
-                          "maxLength": {
-                            "maximum": 512,
-                            "minimum": 1,
-                            "type": "integer"
-                          },
-                          "enum": {
-                            "maxItems": 500,
-                            "minItems": 1,
-                            "uniqueItems": true,
-                            "type": "array",
-                            "items": {
-                              "maxLength": 512,
-                              "minLength": 1,
-                              "pattern": "^[0-9A-Za-z\u00c6\u00d8\u00c5\u00e6\u00f8\u00e5!\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$",
-                              "type": "string"
-                            }
                           }
                         }
                       }
-                    }
+                    },
+                    "required": [
+                      "fields",
+                      "type"
+                    ]
                   }
-                }
-              ]
+                ]
+              }
             },
             "nullable": true
           },

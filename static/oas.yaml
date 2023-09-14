@@ -52,7 +52,7 @@ components:
           type: string
         roleIds:
           items:
-            pattern: ^las:role:[0-9A-Za-z-_]+$
+            pattern: ^las:role:[0-9A-Za-z-_]{1,32}$
             type: string
           nullable: true
           type: array
@@ -136,7 +136,7 @@ components:
                 type: string
               roleIds:
                 items:
-                  pattern: ^las:role:[0-9A-Za-z-_]+$
+                  pattern: ^las:role:[0-9A-Za-z-_]{1,32}$
                   type: string
                 nullable: true
                 type: array
@@ -1153,85 +1153,91 @@ components:
           nullable: true
           type: string
         fieldConfig:
-          additionalProperties:
-            oneOf:
-            - properties:
-                description:
-                  maxLength: 4096
-                  nullable: true
-                  type: string
-                enum:
-                  items:
-                    maxLength: 512
-                    minLength: 1
-                    pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\-./:;<=>?@\\\
-                      [\\]\\^_`{|}~ ]+$"
-                    type: string
-                  maxItems: 500
-                  minItems: 1
-                  type: array
-                  uniqueItems: true
-                maxLength:
-                  maximum: 512
-                  minimum: 1
-                  type: integer
-                type:
-                  enum:
-                  - amount
-                  - date
-                  - digits
-                  - enum
-                  - numeric
-                  - string
-                  type: string
-              required:
-              - type
-              type: object
-            - properties:
-                fields:
-                  additionalProperties:
-                    properties:
-                      description:
-                        maxLength: 4096
-                        nullable: true
-                        type: string
-                      enum:
-                        items:
-                          maxLength: 512
-                          minLength: 1
-                          pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\\
-                            -./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
-                          type: string
-                        maxItems: 500
-                        minItems: 1
-                        type: array
-                        uniqueItems: true
-                      maxLength:
-                        maximum: 512
-                        minimum: 1
-                        type: integer
-                      type:
-                        enum:
-                        - amount
-                        - date
-                        - digits
-                        - enum
-                        - numeric
-                        - string
-                        type: string
-                    required:
-                    - type
-                    type: object
-                  type: object
-                type:
-                  enum:
-                  - lines
-                  type: string
-              required:
-              - fields
-              - type
-              type: object
+          additionalProperties: false
           nullable: true
+          patternProperties:
+            ^[0-9A-Za-z-_]{1,36}$:
+              oneOf:
+              - properties:
+                  description:
+                    anyOf:
+                    - maxLength: 4096
+                      type: string
+                    - type: 'null'
+                  enum:
+                    items:
+                      maxLength: 512
+                      minLength: 1
+                      pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\\
+                        -./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
+                      type: string
+                    maxItems: 500
+                    minItems: 1
+                    type: array
+                    uniqueItems: true
+                  maxLength:
+                    maximum: 512
+                    minimum: 1
+                    type: integer
+                  type:
+                    enum:
+                    - amount
+                    - date
+                    - digits
+                    - enum
+                    - numeric
+                    - string
+                    type: string
+                required:
+                - type
+                type: object
+              - properties:
+                  fields:
+                    additionalProperties: false
+                    patternProperties:
+                      ^[0-9A-Za-z-_]{1,36}$:
+                        properties:
+                          description:
+                            anyOf:
+                            - maxLength: 4096
+                              type: string
+                            - type: 'null'
+                          enum:
+                            items:
+                              maxLength: 512
+                              minLength: 1
+                              pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\\
+                                -./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
+                              type: string
+                            maxItems: 500
+                            minItems: 1
+                            type: array
+                            uniqueItems: true
+                          maxLength:
+                            maximum: 512
+                            minimum: 1
+                            type: integer
+                          type:
+                            enum:
+                            - amount
+                            - date
+                            - digits
+                            - enum
+                            - numeric
+                            - string
+                            type: string
+                        required:
+                        - type
+                        type: object
+                    type: object
+                  type:
+                    enum:
+                    - lines
+                    type: string
+                required:
+                - fields
+                - type
+                type: object
           type: object
         metadata:
           nullable: true
@@ -1367,85 +1373,91 @@ components:
                 nullable: true
                 type: string
               fieldConfig:
-                additionalProperties:
-                  oneOf:
-                  - properties:
-                      description:
-                        maxLength: 4096
-                        nullable: true
-                        type: string
-                      enum:
-                        items:
-                          maxLength: 512
-                          minLength: 1
-                          pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\\
-                            -./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
-                          type: string
-                        maxItems: 500
-                        minItems: 1
-                        type: array
-                        uniqueItems: true
-                      maxLength:
-                        maximum: 512
-                        minimum: 1
-                        type: integer
-                      type:
-                        enum:
-                        - amount
-                        - date
-                        - digits
-                        - enum
-                        - numeric
-                        - string
-                        type: string
-                    required:
-                    - type
-                    type: object
-                  - properties:
-                      fields:
-                        additionalProperties:
-                          properties:
-                            description:
-                              maxLength: 4096
-                              nullable: true
-                              type: string
-                            enum:
-                              items:
-                                maxLength: 512
-                                minLength: 1
-                                pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\\
-                                  -./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
-                                type: string
-                              maxItems: 500
-                              minItems: 1
-                              type: array
-                              uniqueItems: true
-                            maxLength:
-                              maximum: 512
-                              minimum: 1
-                              type: integer
-                            type:
-                              enum:
-                              - amount
-                              - date
-                              - digits
-                              - enum
-                              - numeric
-                              - string
-                              type: string
-                          required:
-                          - type
-                          type: object
-                        type: object
-                      type:
-                        enum:
-                        - lines
-                        type: string
-                    required:
-                    - fields
-                    - type
-                    type: object
+                additionalProperties: false
                 nullable: true
+                patternProperties:
+                  ^[0-9A-Za-z-_]{1,36}$:
+                    oneOf:
+                    - properties:
+                        description:
+                          anyOf:
+                          - maxLength: 4096
+                            type: string
+                          - type: 'null'
+                        enum:
+                          items:
+                            maxLength: 512
+                            minLength: 1
+                            pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\\
+                              -./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
+                            type: string
+                          maxItems: 500
+                          minItems: 1
+                          type: array
+                          uniqueItems: true
+                        maxLength:
+                          maximum: 512
+                          minimum: 1
+                          type: integer
+                        type:
+                          enum:
+                          - amount
+                          - date
+                          - digits
+                          - enum
+                          - numeric
+                          - string
+                          type: string
+                      required:
+                      - type
+                      type: object
+                    - properties:
+                        fields:
+                          additionalProperties: false
+                          patternProperties:
+                            ^[0-9A-Za-z-_]{1,36}$:
+                              properties:
+                                description:
+                                  anyOf:
+                                  - maxLength: 4096
+                                    type: string
+                                  - type: 'null'
+                                enum:
+                                  items:
+                                    maxLength: 512
+                                    minLength: 1
+                                    pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5\
+                                      !\"#$%&()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
+                                    type: string
+                                  maxItems: 500
+                                  minItems: 1
+                                  type: array
+                                  uniqueItems: true
+                                maxLength:
+                                  maximum: 512
+                                  minimum: 1
+                                  type: integer
+                                type:
+                                  enum:
+                                  - amount
+                                  - date
+                                  - digits
+                                  - enum
+                                  - numeric
+                                  - string
+                                  type: string
+                              required:
+                              - type
+                              type: object
+                          type: object
+                        type:
+                          enum:
+                          - lines
+                          type: string
+                      required:
+                      - fields
+                      - type
+                      type: object
                 type: object
               metadata:
                 nullable: true
@@ -1973,7 +1985,7 @@ components:
           type: string
         roleIds:
           items:
-            pattern: ^las:role:[0-9A-Za-z-_]+$
+            pattern: ^las:role:[0-9A-Za-z-_]{1,32}$
             type: string
           type: array
       title: PATCH /appClients/{appClientId}
@@ -2088,84 +2100,90 @@ components:
           nullable: true
           type: string
         fieldConfig:
-          additionalProperties:
-            oneOf:
-            - properties:
-                description:
-                  maxLength: 4096
-                  nullable: true
-                  type: string
-                enum:
-                  items:
-                    maxLength: 512
-                    minLength: 1
-                    pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\-./:;<=>?@\\\
-                      [\\]\\^_`{|}~ ]+$"
+          additionalProperties: false
+          patternProperties:
+            ^[0-9A-Za-z-_]{1,36}$:
+              oneOf:
+              - properties:
+                  description:
+                    anyOf:
+                    - maxLength: 4096
+                      type: string
+                    - type: 'null'
+                  enum:
+                    items:
+                      maxLength: 512
+                      minLength: 1
+                      pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\\
+                        -./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
+                      type: string
+                    maxItems: 500
+                    minItems: 1
+                    type: array
+                    uniqueItems: true
+                  maxLength:
+                    maximum: 512
+                    minimum: 1
+                    type: integer
+                  type:
+                    enum:
+                    - amount
+                    - date
+                    - digits
+                    - enum
+                    - numeric
+                    - string
                     type: string
-                  maxItems: 500
-                  minItems: 1
-                  type: array
-                  uniqueItems: true
-                maxLength:
-                  maximum: 512
-                  minimum: 1
-                  type: integer
-                type:
-                  enum:
-                  - amount
-                  - date
-                  - digits
-                  - enum
-                  - numeric
-                  - string
-                  type: string
-              required:
-              - type
-              type: object
-            - properties:
-                fields:
-                  additionalProperties:
-                    properties:
-                      description:
-                        maxLength: 4096
-                        nullable: true
-                        type: string
-                      enum:
-                        items:
-                          maxLength: 512
-                          minLength: 1
-                          pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\\
-                            -./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
-                          type: string
-                        maxItems: 500
-                        minItems: 1
-                        type: array
-                        uniqueItems: true
-                      maxLength:
-                        maximum: 512
-                        minimum: 1
-                        type: integer
-                      type:
-                        enum:
-                        - amount
-                        - date
-                        - digits
-                        - enum
-                        - numeric
-                        - string
-                        type: string
-                    required:
-                    - type
+                required:
+                - type
+                type: object
+              - properties:
+                  fields:
+                    additionalProperties: false
+                    patternProperties:
+                      ^[0-9A-Za-z-_]{1,36}$:
+                        properties:
+                          description:
+                            anyOf:
+                            - maxLength: 4096
+                              type: string
+                            - type: 'null'
+                          enum:
+                            items:
+                              maxLength: 512
+                              minLength: 1
+                              pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\\
+                                -./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
+                              type: string
+                            maxItems: 500
+                            minItems: 1
+                            type: array
+                            uniqueItems: true
+                          maxLength:
+                            maximum: 512
+                            minimum: 1
+                            type: integer
+                          type:
+                            enum:
+                            - amount
+                            - date
+                            - digits
+                            - enum
+                            - numeric
+                            - string
+                            type: string
+                        required:
+                        - type
+                        type: object
                     type: object
-                  type: object
-                type:
-                  enum:
-                  - lines
-                  type: string
-              required:
-              - fields
-              - type
-              type: object
+                  type:
+                    enum:
+                    - lines
+                    type: string
+                required:
+                - fields
+                - type
+                type: object
           type: object
         metadata:
           type: object
@@ -2446,7 +2464,7 @@ components:
           type: object
         roleIds:
           items:
-            pattern: ^las:role:[0-9A-Za-z-_]+$
+            pattern: ^las:role:[0-9A-Za-z-_]{1,32}$
             type: string
           type: array
       title: PATCH /users/{userId}
@@ -2779,7 +2797,7 @@ components:
           type: string
         roleIds:
           items:
-            pattern: ^las:role:[0-9A-Za-z-_]+$
+            pattern: ^las:role:[0-9A-Za-z-_]{1,32}$
             type: string
           type: array
       title: POST /appClients
@@ -2915,84 +2933,90 @@ components:
           nullable: true
           type: string
         fieldConfig:
-          additionalProperties:
-            oneOf:
-            - properties:
-                description:
-                  maxLength: 4096
-                  nullable: true
-                  type: string
-                enum:
-                  items:
-                    maxLength: 512
-                    minLength: 1
-                    pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\-./:;<=>?@\\\
-                      [\\]\\^_`{|}~ ]+$"
+          additionalProperties: false
+          patternProperties:
+            ^[0-9A-Za-z-_]{1,36}$:
+              oneOf:
+              - properties:
+                  description:
+                    anyOf:
+                    - maxLength: 4096
+                      type: string
+                    - type: 'null'
+                  enum:
+                    items:
+                      maxLength: 512
+                      minLength: 1
+                      pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\\
+                        -./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
+                      type: string
+                    maxItems: 500
+                    minItems: 1
+                    type: array
+                    uniqueItems: true
+                  maxLength:
+                    maximum: 512
+                    minimum: 1
+                    type: integer
+                  type:
+                    enum:
+                    - amount
+                    - date
+                    - digits
+                    - enum
+                    - numeric
+                    - string
                     type: string
-                  maxItems: 500
-                  minItems: 1
-                  type: array
-                  uniqueItems: true
-                maxLength:
-                  maximum: 512
-                  minimum: 1
-                  type: integer
-                type:
-                  enum:
-                  - amount
-                  - date
-                  - digits
-                  - enum
-                  - numeric
-                  - string
-                  type: string
-              required:
-              - type
-              type: object
-            - properties:
-                fields:
-                  additionalProperties:
-                    properties:
-                      description:
-                        maxLength: 4096
-                        nullable: true
-                        type: string
-                      enum:
-                        items:
-                          maxLength: 512
-                          minLength: 1
-                          pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\\
-                            -./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
-                          type: string
-                        maxItems: 500
-                        minItems: 1
-                        type: array
-                        uniqueItems: true
-                      maxLength:
-                        maximum: 512
-                        minimum: 1
-                        type: integer
-                      type:
-                        enum:
-                        - amount
-                        - date
-                        - digits
-                        - enum
-                        - numeric
-                        - string
-                        type: string
-                    required:
-                    - type
+                required:
+                - type
+                type: object
+              - properties:
+                  fields:
+                    additionalProperties: false
+                    patternProperties:
+                      ^[0-9A-Za-z-_]{1,36}$:
+                        properties:
+                          description:
+                            anyOf:
+                            - maxLength: 4096
+                              type: string
+                            - type: 'null'
+                          enum:
+                            items:
+                              maxLength: 512
+                              minLength: 1
+                              pattern: "^[0-9A-Za-z\xC6\xD8\xC5\xE6\xF8\xE5!\"#$%&()*+,\\\
+                                -./:;<=>?@\\[\\]\\^_`{|}~ ]+$"
+                              type: string
+                            maxItems: 500
+                            minItems: 1
+                            type: array
+                            uniqueItems: true
+                          maxLength:
+                            maximum: 512
+                            minimum: 1
+                            type: integer
+                          type:
+                            enum:
+                            - amount
+                            - date
+                            - digits
+                            - enum
+                            - numeric
+                            - string
+                            type: string
+                        required:
+                        - type
+                        type: object
                     type: object
-                  type: object
-                type:
-                  enum:
-                  - lines
-                  type: string
-              required:
-              - fields
-              - type
-              type: object
+                  type:
+                    enum:
+                    - lines
+                    type: string
+                required:
+                - fields
+                - type
+                type: object
           type: object
         metadata:
           type: object
@@ -3328,7 +3352,7 @@ components:
           type: object
         roleIds:
           items:
-            pattern: ^las:role:[0-9A-Za-z-_]+$
+            pattern: ^las:role:[0-9A-Za-z-_]{1,32}$
             type: string
           type: array
       required:
@@ -3593,6 +3617,9 @@ components:
     Predictions:
       additionalProperties: false
       properties:
+        modelId:
+          pattern: ^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$
+          type: string
         nextToken:
           maxLength: 4096
           nullable: true
@@ -3873,6 +3900,7 @@ components:
                 enum:
                 - read
                 - write
+                - delegate
                 - '*'
                 type: string
               effect:
@@ -3890,7 +3918,7 @@ components:
             type: object
           type: array
         roleId:
-          pattern: ^las:role:[0-9A-Za-z-_]+$
+          pattern: ^las:role:[0-9A-Za-z-_]{1,32}$
           type: string
         updatedBy:
           maxLength: 4096
@@ -3940,6 +3968,7 @@ components:
                       enum:
                       - read
                       - write
+                      - delegate
                       - '*'
                       type: string
                     effect:
@@ -3957,7 +3986,7 @@ components:
                   type: object
                 type: array
               roleId:
-                pattern: ^las:role:[0-9A-Za-z-_]+$
+                pattern: ^las:role:[0-9A-Za-z-_]{1,32}$
                 type: string
               updatedBy:
                 maxLength: 4096
@@ -4597,7 +4626,7 @@ components:
           type: string
         roleIds:
           items:
-            pattern: ^las:role:[0-9A-Za-z-_]+$
+            pattern: ^las:role:[0-9A-Za-z-_]{1,32}$
             type: string
           nullable: true
           type: array
@@ -4654,7 +4683,7 @@ components:
                 type: string
               roleIds:
                 items:
-                  pattern: ^las:role:[0-9A-Za-z-_]+$
+                  pattern: ^las:role:[0-9A-Za-z-_]{1,32}$
                   type: string
                 nullable: true
                 type: array
@@ -5125,7 +5154,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-09-04T09:55:24Z'
+  version: '2023-09-14T09:39:09Z'
 openapi: 3.0.1
 paths:
   /appClients:
@@ -10313,6 +10342,10 @@ paths:
           type: string
       - in: query
         name: order
+        schema:
+          type: string
+      - in: query
+        name: modelId
         schema:
           type: string
       responses:
