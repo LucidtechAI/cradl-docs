@@ -15,6 +15,13 @@ title: REST API
 
 ## Changelog
 
+### 2023-09-14
+
+- Added optional query parameter `modelId` to `GET /predictions`
+- Added new permission action `delegate` in `/roles` that specifies which roles can be delegated to other resources 
+such as `/users` and `/appClients`. Trying to assign roles to `/users` and `/appClients` without the `delegate` 
+permission action will result in a `403 Forbidden`
+
 ### 2023-09-07
 
 - Added optional `metadata` to `/workflows`
