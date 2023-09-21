@@ -213,8 +213,6 @@ def test_update_ground_truth_values(
 
     output = update_excs.call_args.kwargs['output']
 
-    print(output)
-
     assert output['needsValidation']
     for prediction in output['predictions']:
         for gt in ground_truth:
