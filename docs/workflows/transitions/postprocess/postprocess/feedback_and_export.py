@@ -8,14 +8,22 @@ import requests
 
 def post_feedback(las_client: las.Client, document_id: str, dataset_id: str, verified: dict):
     logging.info(f'Posting feedback to dataset {dataset_id}: {verified}...')
-    
-    
+
     try:
         document = las_client.get_document(document_id=document_id)
         old_ground_truth = {g['label']: g['value'] for g in document.get('groundTruth', [])}
+
         new_ground_truth = {**old_ground_truth, **verified}
 
-        ground_truth = [{'label': k, 'value': v} for k, v in new_ground_truth.items()]
+        ground_truth = []
+        for label, value in new_ground_truth.items():
+            if isinstance(value, list):
+                if not isinstance(value[0], list):
+                    value = [[{'label': k, 'value': v} for k, v in line_pred.items()] for line_pred in value]
+            ground_truth.append({
+                'label': label,
+                'value': value,
+            })
 
         response = las_client.update_document(
             document_id=document_id,
