@@ -213,8 +213,15 @@ def test_update_ground_truth_values(
 
     output = update_excs.call_args.kwargs['output']
 
+    print(output)
+
     assert output['needsValidation']
     for prediction in output['predictions']:
         for gt in ground_truth:
-            if prediction['label'] in gt['label']:
+            if prediction['label'] == gt['label']:
                 assert prediction['value'] == gt['value']
+                if isinstance(prediction['value'], list):
+                    for line in prediction['value']:
+                        assert [line_pred['confidence'] == 1.0 for line_pred in line]
+                else:
+                    assert prediction['confidence'] == 1.0

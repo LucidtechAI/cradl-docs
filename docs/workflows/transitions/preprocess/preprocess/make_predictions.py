@@ -37,6 +37,21 @@ def filter_by_top1(predictions):
     return [top1(label) for label in labels]
 
 
+def add_confidence_to_ground_truth(ground_truth):
+    updated_ground_truth = []
+    for key, value in ground_truth.items():
+        gt = {'label': key, 'value': value}
+        if isinstance(value, list):
+            for line in gt['value']:
+                for line_pred in line:
+                    line_pred['confidence'] = 1.0
+        else:
+            gt['confidence'] = 1.0
+        updated_ground_truth.append(gt)
+
+    return updated_ground_truth
+
+
 def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
     old_ground_truth = {gt['label']: gt['value'] for gt in old_ground_truth}
     updated_predictions = []
@@ -46,23 +61,25 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
         label = prediction['label']
         if label in old_ground_truth:
             value = old_ground_truth.pop(label, prediction['value'])
-            confidence = 1.0
+            confidence = None
             if is_line(field_config, prediction):
                 for line in value:
                     for line_pred in line:
                         line_pred['confidence'] = 1.0
+            else:
+                confidence = 1.0
         else:
             value = prediction['value']
             confidence = prediction['confidence']
         updated_prediction = {
             'label': label,
             'value': value,
-            'confidence': confidence
         }
+        if confidence:
+            updated_prediction['confidence'] = confidence
         updated_predictions.append(updated_prediction)
 
-    # TODO: line items values from old_ground_truth will not get a confidence value at this time, can fix later
-    updated_predictions += [{'label': k, 'value': v, 'confidence': 1.0} for k, v in old_ground_truth.items()]
+    updated_predictions += add_confidence_to_ground_truth(old_ground_truth)
 
     return updated_predictions
 
@@ -115,8 +132,8 @@ def make_predictions(las_client, event):
 
             output = {'predictions': predictions}
         elif old_ground_truth:
-            # These will not have any confidence levels
-            output = {'predictions': old_ground_truth}
+            old_ground_truth = {gt['label']: gt['value'] for gt in old_ground_truth}
+            output = {'predictions': add_confidence_to_ground_truth(old_ground_truth)}
 
     except las.client.BadRequest as e:
         logging.exception(e)
