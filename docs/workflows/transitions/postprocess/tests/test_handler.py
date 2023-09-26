@@ -261,3 +261,40 @@ def test_update_ground_truth_with_same_lines(get_document, update_document, upda
     )
 
 
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.update_document')
+@patch('las.Client.get_document')
+def test_update_ground_truth_with_empty_lines(get_document, update_document, update_transition_excs, get_transition_excs, env):
+    get_transition_excs.return_value = {
+        'input': {
+            'documentId': 'las:document:xyz',
+            'verified': {
+                'foo': 'bar',
+                'line_items': [],
+                'purchase_date': '2023-09-21',
+            }
+        }
+    }
+
+    get_document.return_value = {'groundTruth': [
+        {'label': 'baz', 'value': 'foobar'},
+    ]}
+
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module(postprocess.__name__)
+
+    update_document.assert_called_with(
+        document_id='las:document:xyz',
+        ground_truth=[{
+            'label': 'baz',
+            'value': 'foobar'
+        }, {
+            'label': 'foo',
+            'value': 'bar'
+        }, {
+            'label': 'purchase_date',
+            'value': '2023-09-21'
+        }],
+        dataset_id=None
+    )
