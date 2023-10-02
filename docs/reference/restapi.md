@@ -15,7 +15,7 @@ title: REST API
 
 ## Changelog
 
-### 2023-09-29
+### 2023-10-02
 
 - Added new endpoint `/datasets/:id/transformations`. Transformations are operations performed on all documents in a
 dataset. Currently, the only supported transformation is `remove-duplicates`.
