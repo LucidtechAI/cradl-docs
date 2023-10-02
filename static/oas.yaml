@@ -831,6 +831,11 @@ components:
                 minLength: 1
                 pattern: ^[0-9A-Za-z-_]+$
                 type: string
+              pages:
+                items:
+                  type: integer
+                maxItems: 10
+                type: array
               value:
                 anyOf:
                 - maxLength: 512
@@ -946,6 +951,11 @@ components:
                       minLength: 1
                       pattern: ^[0-9A-Za-z-_]+$
                       type: string
+                    pages:
+                      items:
+                        type: integer
+                      maxItems: 10
+                      type: array
                     value:
                       anyOf:
                       - maxLength: 512
@@ -1639,6 +1649,12 @@ components:
         monthlyNumberOfTrainingsCreated:
           minimum: 0
           type: integer
+        monthlyNumberOfTransformationsAllowed:
+          minimum: 0
+          type: integer
+        monthlyNumberOfTransformationsCreated:
+          minimum: 0
+          type: integer
         monthlyNumberOfTransitionExecutionsAllowed:
           minimum: 0
           type: integer
@@ -1739,6 +1755,8 @@ components:
       - monthlyNumberOfPredictionsCreated
       - monthlyNumberOfTrainingsAllowed
       - monthlyNumberOfTrainingsCreated
+      - monthlyNumberOfTransformationsAllowed
+      - monthlyNumberOfTransformationsCreated
       - monthlyNumberOfTransitionExecutionsAllowed
       - monthlyNumberOfTransitionExecutionsCreated
       - monthlyNumberOfWorkflowExecutionsAllowed
@@ -1829,6 +1847,12 @@ components:
                 minimum: 0
                 type: integer
               monthlyNumberOfTrainingsCreated:
+                minimum: 0
+                type: integer
+              monthlyNumberOfTransformationsAllowed:
+                minimum: 0
+                type: integer
+              monthlyNumberOfTransformationsCreated:
                 minimum: 0
                 type: integer
               monthlyNumberOfTransitionExecutionsAllowed:
@@ -1931,6 +1955,8 @@ components:
             - monthlyNumberOfPredictionsCreated
             - monthlyNumberOfTrainingsAllowed
             - monthlyNumberOfTrainingsCreated
+            - monthlyNumberOfTransformationsAllowed
+            - monthlyNumberOfTransformationsCreated
             - monthlyNumberOfTransitionExecutionsAllowed
             - monthlyNumberOfTransitionExecutionsCreated
             - monthlyNumberOfWorkflowExecutionsAllowed
@@ -2062,6 +2088,11 @@ components:
                 minLength: 1
                 pattern: ^[0-9A-Za-z-_]+$
                 type: string
+              pages:
+                items:
+                  type: integer
+                maxItems: 10
+                type: array
               value:
                 anyOf:
                 - maxLength: 512
@@ -2894,6 +2925,11 @@ components:
                 minLength: 1
                 pattern: ^[0-9A-Za-z-_]+$
                 type: string
+              pages:
+                items:
+                  type: integer
+                maxItems: 10
+                type: array
               value:
                 anyOf:
                 - maxLength: 512
@@ -3260,6 +3296,25 @@ components:
           - trainingId
           type: object
       title: POST /models/{modelId}/trainings
+      type: object
+    PostTransformations:
+      additionalProperties: false
+      properties:
+        operations:
+          items:
+            additionalProperties: false
+            properties:
+              options:
+                type: object
+              type:
+                enum:
+                - remove-duplicates
+                type: string
+            required:
+            - type
+            type: object
+          type: array
+      title: POST /datasets/{datasetId}/transformations
       type: object
     PostTransitionExecution:
       title: POST /transitions/{transitionId}/executions
@@ -4322,6 +4377,135 @@ components:
       - trainings
       title: trainings
       type: object
+    Transformation:
+      additionalProperties: false
+      properties:
+        createdBy:
+          maxLength: 4096
+          nullable: true
+          type: string
+        createdTime:
+          nullable: true
+          pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
+          type: string
+        datasetId:
+          pattern: ^las:dataset:[a-f0-9]{32}$
+          type: string
+        operations:
+          items:
+            additionalProperties: false
+            properties:
+              options:
+                type: object
+              type:
+                enum:
+                - remove-duplicates
+                type: string
+            required:
+            - type
+            type: object
+          type: array
+        status:
+          enum:
+          - running
+          - succeeded
+          - failed
+          type: string
+        transformationId:
+          pattern: ^las:dataset-transformation:[a-f0-9]{32}$
+          type: string
+        updatedBy:
+          maxLength: 4096
+          nullable: true
+          type: string
+        updatedTime:
+          nullable: true
+          pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
+          type: string
+      required:
+      - createdBy
+      - createdTime
+      - datasetId
+      - operations
+      - status
+      - transformationId
+      title: transformation
+      type: object
+    Transformations:
+      additionalProperties: false
+      properties:
+        nextToken:
+          maxLength: 4096
+          nullable: true
+          type: string
+        status:
+          items:
+            enum:
+            - running
+            - succeeded
+            - failed
+            type: string
+          type: array
+        transformations:
+          items:
+            additionalProperties: false
+            properties:
+              createdBy:
+                maxLength: 4096
+                nullable: true
+                type: string
+              createdTime:
+                nullable: true
+                pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
+                type: string
+              datasetId:
+                pattern: ^las:dataset:[a-f0-9]{32}$
+                type: string
+              operations:
+                items:
+                  additionalProperties: false
+                  properties:
+                    options:
+                      type: object
+                    type:
+                      enum:
+                      - remove-duplicates
+                      type: string
+                  required:
+                  - type
+                  type: object
+                type: array
+              status:
+                enum:
+                - running
+                - succeeded
+                - failed
+                type: string
+              transformationId:
+                pattern: ^las:dataset-transformation:[a-f0-9]{32}$
+                type: string
+              updatedBy:
+                maxLength: 4096
+                nullable: true
+                type: string
+              updatedTime:
+                nullable: true
+                pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
+                type: string
+            required:
+            - createdBy
+            - createdTime
+            - datasetId
+            - operations
+            - status
+            - transformationId
+            type: object
+          type: array
+      required:
+      - nextToken
+      - transformations
+      title: transformations
+      type: object
     Transition:
       additionalProperties: false
       properties:
@@ -5068,6 +5252,11 @@ components:
               minLength: 1
               pattern: ^[0-9A-Za-z-_]+$
               type: string
+            pages:
+              items:
+                type: integer
+              maxItems: 10
+              type: array
             value:
               anyOf:
               - maxLength: 512
@@ -5091,6 +5280,11 @@ components:
                 minLength: 1
                 pattern: ^[0-9A-Za-z-_]+$
                 type: string
+              pages:
+                items:
+                  type: integer
+                maxItems: 10
+                type: array
               value:
                 anyOf:
                 - maxLength: 512
@@ -5139,6 +5333,8 @@ components:
             api.lucidtech.ai/secrets:write: Write permissions
             api.lucidtech.ai/trainings:read: Read permissions
             api.lucidtech.ai/trainings:write: Write permissions
+            api.lucidtech.ai/transformations:read: Read permissions
+            api.lucidtech.ai/transformations:write: Write permissions
             api.lucidtech.ai/transitions.executions.heartbeats:write: Write permissions
             api.lucidtech.ai/transitions.executions:read: Read permissions
             api.lucidtech.ai/transitions.executions:write: Write permissions
@@ -5154,7 +5350,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-09-14T09:39:09Z'
+  version: '2023-10-02T08:52:43Z'
 openapi: 3.0.1
 paths:
   /appClients:
@@ -6629,6 +6825,376 @@ paths:
       security:
       - OAuth2:
         - api.lucidtech.ai/datasets:write
+  /datasets/{datasetId}/transformations:
+    get:
+      parameters:
+      - in: query
+        name: status
+        schema:
+          type: string
+      - in: query
+        name: nextToken
+        schema:
+          type: string
+      - in: query
+        name: maxResults
+        schema:
+          type: string
+      - in: path
+        name: datasetId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transformations'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 403 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '415':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 415 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+      security:
+      - OAuth2:
+        - api.lucidtech.ai/organizations:read
+    options:
+      parameters:
+      - in: path
+        name: datasetId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Empty'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+    post:
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: datasetId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostTransformations'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transformation'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 403 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '415':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 415 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+      security:
+      - OAuth2:
+        - api.lucidtech.ai/organizations:write
+  /datasets/{datasetId}/transformations/{dataBundleId}:
+    delete:
+      parameters:
+      - in: path
+        name: datasetId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: transformationId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: dataBundleId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transformation'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 403 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '415':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 415 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+      security: []
+    options:
+      parameters:
+      - in: path
+        name: datasetId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: transformationId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: dataBundleId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Empty'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
   /deploymentEnvironments:
     get:
       parameters:
