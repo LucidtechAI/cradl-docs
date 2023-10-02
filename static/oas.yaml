@@ -831,6 +831,11 @@ components:
                 minLength: 1
                 pattern: ^[0-9A-Za-z-_]+$
                 type: string
+              pages:
+                items:
+                  type: integer
+                maxItems: 10
+                type: array
               value:
                 anyOf:
                 - maxLength: 512
@@ -946,6 +951,11 @@ components:
                       minLength: 1
                       pattern: ^[0-9A-Za-z-_]+$
                       type: string
+                    pages:
+                      items:
+                        type: integer
+                      maxItems: 10
+                      type: array
                     value:
                       anyOf:
                       - maxLength: 512
@@ -2078,6 +2088,11 @@ components:
                 minLength: 1
                 pattern: ^[0-9A-Za-z-_]+$
                 type: string
+              pages:
+                items:
+                  type: integer
+                maxItems: 10
+                type: array
               value:
                 anyOf:
                 - maxLength: 512
@@ -2910,6 +2925,11 @@ components:
                 minLength: 1
                 pattern: ^[0-9A-Za-z-_]+$
                 type: string
+              pages:
+                items:
+                  type: integer
+                maxItems: 10
+                type: array
               value:
                 anyOf:
                 - maxLength: 512
@@ -5330,7 +5350,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-09-22T09:07:52Z'
+  version: '2023-10-02T08:52:43Z'
 openapi: 3.0.1
 paths:
   /appClients:

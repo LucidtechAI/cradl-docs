@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2023-09-22T09:07:52Z"
+    "version": "2023-10-02T08:52:43Z"
   },
   "servers": [
     {
@@ -16795,6 +16795,13 @@
               ],
               "type": "object",
               "properties": {
+                "pages": {
+                  "maxItems": 10,
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
                 "label": {
                   "maxLength": 36,
                   "minLength": 1,
@@ -16886,6 +16893,13 @@
               ],
               "type": "object",
               "properties": {
+                "pages": {
+                  "maxItems": 10,
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
                 "label": {
                   "maxLength": 36,
                   "minLength": 1,
@@ -18704,6 +18718,13 @@
                     ],
                     "type": "object",
                     "properties": {
+                      "pages": {
+                        "maxItems": 10,
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        }
+                      },
                       "label": {
                         "maxLength": 36,
                         "minLength": 1,
@@ -22047,6 +22068,13 @@
               ],
               "type": "object",
               "properties": {
+                "pages": {
+                  "maxItems": 10,
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
                 "label": {
                   "maxLength": 36,
                   "minLength": 1,
