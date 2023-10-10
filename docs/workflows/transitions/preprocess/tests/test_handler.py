@@ -223,3 +223,40 @@ def test_update_ground_truth_values(
                         assert [line_pred['confidence'] == 1.0 for line_pred in line]
                 else:
                     assert prediction['confidence'] == 1.0
+
+
+@pytest.mark.parametrize('predictions', [[
+    {'label': 'due_date', 'value': '1991-08-02', 'confidence': 0.99},
+    {'label': 'total_amount', 'value': '0.00', 'confidence': 0.99},
+    {'label': 'line_items', 'value': [[{'label': 'total_price', 'value': '10.00', 'confidence': 0.8}]]},
+]])
+@patch('las.Client.create_prediction')
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.get_asset')
+@patch('las.Client.get_document')
+def test_update_ground_truth_values_no_lines(
+    get_document, get_asset, update_excs, get_excs, create_pred,
+    form_config_with_lines, predictions, env
+):
+    ground_truth = [
+        {'label': 'total_amount', 'value': '100.00'},
+    ]
+    get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_document.return_value = {'groundTruth': ground_truth}
+    get_asset.return_value = {'content': form_config_with_lines}
+    create_pred.return_value = {'predictions': predictions}
+
+    with patch.dict('preprocess.make_predictions.os.environ', env):
+        preprocess.make_predictions.make_predictions()
+
+    output = update_excs.call_args.kwargs['output']
+
+    gt_labels = [gt['label'] for gt in ground_truth]
+    assert output['needsValidation']
+    for count, prediction in enumerate(output['predictions']):
+        if prediction['label'] in gt_labels:
+            assert prediction['confidence'] == 1.0
+        else:
+            assert prediction == predictions[count]
+

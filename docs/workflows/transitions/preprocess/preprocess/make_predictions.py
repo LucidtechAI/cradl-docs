@@ -70,7 +70,7 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
                 confidence = 1.0
         else:
             value = prediction['value']
-            confidence = prediction['confidence']
+            confidence = prediction['confidence'] if not is_line(field_config, prediction) else None
         updated_prediction = {
             'label': label,
             'value': value,
