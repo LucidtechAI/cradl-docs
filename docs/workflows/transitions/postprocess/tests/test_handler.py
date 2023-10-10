@@ -273,6 +273,7 @@ def test_update_ground_truth_with_empty_lines(get_document, update_document, upd
                 'foo': 'bar',
                 'line_items': [],
                 'purchase_date': '2023-09-21',
+                'string_value': '',
             }
         }
     }
@@ -288,13 +289,16 @@ def test_update_ground_truth_with_empty_lines(get_document, update_document, upd
         document_id='las:document:xyz',
         ground_truth=[{
             'label': 'baz',
-            'value': 'foobar'
+            'value': 'foobar',
         }, {
             'label': 'foo',
-            'value': 'bar'
+            'value': 'bar',
         }, {
             'label': 'purchase_date',
-            'value': '2023-09-21'
+            'value': '2023-09-21',
+        }, {
+            'label': 'string_value',
+            'value': '',
         }],
         dataset_id=None
     )
