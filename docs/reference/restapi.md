@@ -15,6 +15,16 @@ title: REST API
 
 ## Changelog
 
+### 2023-10-02
+
+- Added new endpoint `/datasets/:id/transformations`. Transformations are operations performed on all documents in a
+dataset. Currently, the only supported transformation is `remove-duplicates`.
+- Added `GET /datasets/:id/transformations`
+- Added `POST /datasets/:id/transformations`
+- Added `DELETE /datasets/:id/transformations/:id`
+- Added optional `pages` to `groundTruth` for `/documents`. Specifying `pages` gives you better results when training
+models.
+
 ### 2023-09-14
 
 - Added optional query parameter `modelId` to `GET /predictions`
