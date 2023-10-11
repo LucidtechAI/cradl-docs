@@ -18,6 +18,8 @@ def post_feedback(las_client: las.Client, document_id: str, dataset_id: str, ver
         ground_truth = []
         for label, value in new_ground_truth.items():
             if isinstance(value, list):
+                if not value:
+                    continue  # Do not write completely empty lines to GT
                 if not isinstance(value[0], list):
                     value = [[{'label': k, 'value': v} for k, v in line_pred.items()] for line_pred in value]
             ground_truth.append({
