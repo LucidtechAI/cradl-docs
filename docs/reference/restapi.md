@@ -15,6 +15,11 @@ title: REST API
 
 ## Changelog
 
+### 2023-10-25
+
+- Added `GET /models/:id/dataBundles/:id`
+- Added `GET /models/:id/trainings/:id`
+
 ### 2023-10-02
 
 - Added new endpoint `/datasets/:id/transformations`. Transformations are operations performed on all documents in a
