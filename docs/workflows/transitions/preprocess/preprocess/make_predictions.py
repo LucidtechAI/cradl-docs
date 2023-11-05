@@ -4,84 +4,25 @@ import las
 import json
 import base64
 
+from .utils import *
+
 
 logging.getLogger().setLevel(logging.INFO)
 
 
-def required_labels(field_config):
-    return set([label for label in field_config if field_config[label].get('required', True)])
+def format_verified_output(top1_preds):
+    result = {}
+    for pred in top1_preds:
+        if isinstance(pred['value'], list):
+            fmt_lines = []
+            for line in pred['value']:
+                fmt_lines += [{p['label']: p['value'] for p in line}]
 
-
-def is_line(field_config, p):
-    return field_config[p['label']]['type'] == 'lines'
-
-
-def filter_optional_fields(predictions, field_config):
-    def predicate(p):
-        conf_threshold = field_config[p['label']]['confidenceLevels']['low']
-        if is_line(field_config, p):
-            return True
-        return p['label'] in required_labels(field_config) or conf_threshold < p['confidence']
+            result[pred['label']] = fmt_lines
+        else:
+            result[pred['label']] = pred['value']
     
-    return list(filter(predicate, predictions))
-
-
-def filter_by_top1(predictions):
-    labels = set(map(lambda p: p['label'], predictions))
-
-    def top1(label):
-        preds = filter(lambda f: f['label'] == label, predictions)
-
-        return max(preds, key=lambda p: p['confidence'])
-
-    return [top1(label) for label in labels]
-
-
-def add_confidence_to_ground_truth(ground_truth):
-    updated_ground_truth = []
-    for key, value in ground_truth.items():
-        gt = {'label': key, 'value': value}
-        if isinstance(value, list):
-            for line in gt['value']:
-                for line_pred in line:
-                    line_pred['confidence'] = 1.0
-        else:
-            gt['confidence'] = 1.0
-        updated_ground_truth.append(gt)
-
-    return updated_ground_truth
-
-
-def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
-    old_ground_truth = {gt['label']: gt['value'] for gt in old_ground_truth}
-    updated_predictions = []
-
-    # override value if label is the same, add if it is not predicted
-    for prediction in predictions:
-        label = prediction['label']
-        if label in old_ground_truth:
-            value = old_ground_truth.pop(label, prediction['value'])
-            confidence = None
-            if is_line(field_config, prediction):
-                for line in value:
-                    for line_pred in line:
-                        line_pred['confidence'] = 1.0
-            else:
-                confidence = 1.0
-        else:
-            value = prediction['value']
-            confidence = prediction['confidence'] if not is_line(field_config, prediction) else None
-        updated_prediction = {
-            'label': label,
-            'value': value,
-        }
-        if confidence:
-            updated_prediction['confidence'] = confidence
-        updated_predictions.append(updated_prediction)
-
-    updated_predictions += add_confidence_to_ground_truth(old_ground_truth)
-
-    return updated_predictions
+    return result
 
 
 @las.transition_handler
@@ -97,7 +38,7 @@ def make_predictions(las_client, event):
     form_config = json.loads(base64.b64decode(form_config_asset['content']))
     
     output = {}
-    skip_validation = False
+    needs_validation = True
 
     try:
         predictions = las_client.create_prediction(document_id, model_id).get('predictions')
@@ -107,20 +48,27 @@ def make_predictions(las_client, event):
 
         if predictions:
             field_config = form_config['config']['fields']
+            top1_preds = filter_by_top1(predictions)
 
-            def above_threshold_or_optional(prediction):
-                label, confidence = prediction['label'], prediction['confidence']
-                threshold = field_config[label]['confidenceLevels']
-                is_optional = not field_config[label].get('required', True)
+            all_above_threshold_or_optional = True
+            for prediction in top1_preds:
+                if is_line(field_config, prediction):
+                    label = prediction['label']
+                    line_field_config = field_config[label]['fields']
 
-                return (threshold['automated'] <= confidence) or (is_optional and confidence < threshold['low'])
+                    for line in prediction['value']:
+                        # Check that each prediction on each line is above threshold or optional
+                        for line_pred in line:
+                            if not above_threshold_or_optional(line_pred, line_field_config):
+                                all_above_threshold_or_optional = False
 
-            lines = any([is_line(field_config, p) for p in predictions])
-            all_above_or_optional = not lines and all(map(above_threshold_or_optional, filter_by_top1(predictions)))
+                elif not above_threshold_or_optional(prediction, field_config):
+                    all_above_threshold_or_optional = False
+
             has_all_required_labels = required_labels(field_config) <= set(map(lambda p: p['label'], predictions))
-            skip_validation = has_all_required_labels and all_above_or_optional
+            needs_validation = not has_all_required_labels or not all_above_threshold_or_optional
 
-            logging.info(f'All predictions above threshold (or optional): {all_above_or_optional}')
+            logging.info(f'All predictions above threshold (or optional): {all_above_threshold_or_optional}')
             logging.info(f'All required labels exist: {has_all_required_labels}')
             
             # Filter out optional fields where confidence < low
@@ -131,6 +79,9 @@ def make_predictions(las_client, event):
                 logging.info(f'updated predictions: {predictions}')
 
             output = {'predictions': predictions}
+            if not needs_validation:
+                output['verified'] = format_verified_output(filter_optional_fields(top1_preds, field_config))
+
         elif old_ground_truth:
             old_ground_truth = {gt['label']: gt['value'] for gt in old_ground_truth}
             output = {'predictions': add_confidence_to_ground_truth(old_ground_truth)}
@@ -138,11 +89,8 @@ def make_predictions(las_client, event):
     except las.client.BadRequest as e:
         logging.exception(e)
     
-    if skip_validation:
-        output['verified'] = {p['label']: p['value'] for p in predictions} 
-
     return {
         'documentId': document_id,
-        'needsValidation': not skip_validation,
+        'needsValidation': needs_validation,
         **output
     }
