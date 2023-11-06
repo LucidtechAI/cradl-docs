@@ -263,6 +263,30 @@ def test_update_ground_truth_values_no_lines(
             assert prediction == predictions[count]
 
 
+@patch('las.Client.create_prediction')
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.get_asset')
+@patch('las.Client.get_document')
+def test_inactive_model(
+    get_document, get_asset, update_excs, get_excs, create_pred, form_config, env
+):
+    get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_document.return_value = MagicMock()
+    get_asset.return_value = {'content': form_config}
+    
+    def side_effect(*args, **kwargs):
+        raise las.client.BadRequest('Some bad request')
+
+    create_pred.side_effect = side_effect
+
+    with patch.dict('preprocess.make_predictions.os.environ', env):
+        preprocess.make_predictions.make_predictions()
+        
+    output = update_excs.call_args.kwargs['output']
+    assert output['needsValidation'] == True
+
+
 @pytest.fixture
 def predictions_to_collapse():
     yield [
@@ -282,3 +306,4 @@ def predictions_to_collapse():
 
 def test_top1_filter(predictions_to_collapse):
     print(json.dumps(filter_by_top1(predictions_to_collapse), indent=2))
+    

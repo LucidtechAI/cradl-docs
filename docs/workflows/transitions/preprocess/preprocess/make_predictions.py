@@ -43,7 +43,12 @@ def make_predictions(las_client, event):
     try:
         predictions = las_client.create_prediction(document_id, model_id).get('predictions')
         logging.info(f'Created predicitons {predictions}')
+    except Exception as e:
+        logging.exception(e)
+        predictions = []
+        output = {'predictions': predictions}
 
+    try:
         old_ground_truth = las_client.get_document(document_id=document_id).get('groundTruth')
 
         if predictions:
