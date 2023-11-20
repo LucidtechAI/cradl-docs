@@ -2541,6 +2541,27 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        emailConfig:
+          additionalProperties: false
+          nullable: true
+          properties:
+            additionalWorkflowInput:
+              nullable: true
+              type: object
+            allowedOrigins:
+              items:
+                type: string
+              nullable: true
+              type: array
+            email:
+              pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
+              type: string
+            secretId:
+              pattern: ^las:secret:[a-f0-9]{32}$
+              type: string
+          required:
+          - secretId
+          type: object
         errorConfig:
           additionalProperties: false
           properties:
@@ -3450,6 +3471,26 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        emailConfig:
+          additionalProperties: false
+          properties:
+            additionalWorkflowInput:
+              nullable: true
+              type: object
+            allowedOrigins:
+              items:
+                type: string
+              nullable: true
+              type: array
+            email:
+              pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
+              type: string
+            secretId:
+              pattern: ^las:secret:[a-f0-9]{32}$
+              type: string
+          required:
+          - secretId
+          type: object
         errorConfig:
           additionalProperties: false
           properties:
@@ -4937,6 +4978,27 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        emailConfig:
+          additionalProperties: false
+          nullable: true
+          properties:
+            additionalWorkflowInput:
+              nullable: true
+              type: object
+            allowedOrigins:
+              items:
+                type: string
+              nullable: true
+              type: array
+            email:
+              pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
+              type: string
+            secretId:
+              pattern: ^las:secret:[a-f0-9]{32}$
+              type: string
+          required:
+          - secretId
+          type: object
         errorConfig:
           additionalProperties: false
           nullable: true
@@ -5194,6 +5256,27 @@ components:
                 maxLength: 4096
                 nullable: true
                 type: string
+              emailConfig:
+                additionalProperties: false
+                nullable: true
+                properties:
+                  additionalWorkflowInput:
+                    nullable: true
+                    type: object
+                  allowedOrigins:
+                    items:
+                      type: string
+                    nullable: true
+                    type: array
+                  email:
+                    pattern: ^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\.)+[A-Za-z]{2,}$
+                    type: string
+                  secretId:
+                    pattern: ^las:secret:[a-f0-9]{32}$
+                    type: string
+                required:
+                - secretId
+                type: object
               errorConfig:
                 additionalProperties: false
                 nullable: true
@@ -5350,7 +5433,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-10-25T09:47:49Z'
+  version: '2023-11-17T12:02:02Z'
 openapi: 3.0.1
 paths:
   /appClients:

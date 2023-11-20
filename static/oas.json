@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2023-10-25T09:47:49Z"
+    "version": "2023-11-17T12:02:02Z"
   },
   "servers": [
     {
@@ -18149,6 +18149,35 @@
               ],
               "type": "object",
               "properties": {
+                "emailConfig": {
+                  "required": [
+                    "secretId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "allowedOrigins": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "nullable": true
+                    },
+                    "additionalWorkflowInput": {
+                      "type": "object",
+                      "nullable": true
+                    },
+                    "secretId": {
+                      "pattern": "^las:secret:[a-f0-9]{32}$",
+                      "type": "string"
+                    },
+                    "email": {
+                      "pattern": "^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\\.)+[A-Za-z]{2,}$",
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "nullable": true
+                },
                 "updatedTime": {
                   "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
                   "type": "string",
@@ -18563,6 +18592,35 @@
         ],
         "type": "object",
         "properties": {
+          "emailConfig": {
+            "required": [
+              "secretId"
+            ],
+            "type": "object",
+            "properties": {
+              "allowedOrigins": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              "additionalWorkflowInput": {
+                "type": "object",
+                "nullable": true
+              },
+              "secretId": {
+                "pattern": "^las:secret:[a-f0-9]{32}$",
+                "type": "string"
+              },
+              "email": {
+                "pattern": "^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\\.)+[A-Za-z]{2,}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "nullable": true
+          },
           "updatedTime": {
             "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
             "type": "string",
@@ -21972,6 +22030,35 @@
         "minProperties": 1,
         "type": "object",
         "properties": {
+          "emailConfig": {
+            "required": [
+              "secretId"
+            ],
+            "type": "object",
+            "properties": {
+              "allowedOrigins": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              "additionalWorkflowInput": {
+                "type": "object",
+                "nullable": true
+              },
+              "secretId": {
+                "pattern": "^las:secret:[a-f0-9]{32}$",
+                "type": "string"
+              },
+              "email": {
+                "pattern": "^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\\.)+[A-Za-z]{2,}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "nullable": true
+          },
           "metadata": {
             "type": "object"
           },
@@ -23386,6 +23473,34 @@
         ],
         "type": "object",
         "properties": {
+          "emailConfig": {
+            "required": [
+              "secretId"
+            ],
+            "type": "object",
+            "properties": {
+              "allowedOrigins": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              "additionalWorkflowInput": {
+                "type": "object",
+                "nullable": true
+              },
+              "secretId": {
+                "pattern": "^las:secret:[a-f0-9]{32}$",
+                "type": "string"
+              },
+              "email": {
+                "pattern": "^[A-Za-z0-9][-+._A-Za-z0-9]*@([-_.A-Za-z0-9]+\\.)+[A-Za-z]{2,}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
           "metadata": {
             "type": "object"
           },
