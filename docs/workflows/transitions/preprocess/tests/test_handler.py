@@ -289,7 +289,7 @@ def test_inactive_model(
 
 @pytest.fixture
 def predictions_to_collapse():
-    yield [
+    return [
         {'label': 'total_amount', 'value': '500', 'confidence': 0.99},
         {'label': 'total_amount', 'value': '300', 'confidence': 0.90},
         {'label': 'orderlines', 'value': [
@@ -304,6 +304,24 @@ def predictions_to_collapse():
     ]
 
 
-def test_top1_filter(predictions_to_collapse):
-    print(json.dumps(filter_by_top1(predictions_to_collapse), indent=2))
+@pytest.fixture
+def expected_collapsed_predictions():
+    return [
+        {'label': 'total_amount', 'value': '500', 'confidence': 0.99},
+        {'label': 'orderlines', 'value': [
+            [
+                {'label': 'subtotal', 'value': '100', 'confidence': 0.98},
+            ],
+            [
+                {'label': 'subtotal', 'value': '300', 'confidence': 0.95}
+            ]
+        ]},
+    ]
+
+
+def test_top1_filter(predictions_to_collapse, expected_collapsed_predictions):
+    filtered_predictions = filter_by_top1(predictions_to_collapse)
+    filtered_predictions = sorted(filtered_predictions, key=lambda item: item['label'])
+    expected_filtered_predictions = sorted(expected_collapsed_predictions, key=lambda item: item['label'])
+    assert filtered_predictions == expected_filtered_predictions
     
