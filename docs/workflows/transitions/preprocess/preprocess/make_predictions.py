@@ -10,21 +10,6 @@ from .utils import *
 logging.getLogger().setLevel(logging.INFO)
 
 
-def format_verified_output(top1_preds):
-    result = {}
-    for pred in top1_preds:
-        if isinstance(pred['value'], list):
-            fmt_lines = []
-            for line in pred['value']:
-                fmt_lines += [{p['label']: p['value'] for p in line}]
-
-            result[pred['label']] = fmt_lines
-        else:
-            result[pred['label']] = pred['value']
-    
-    return result
-
-
 @las.transition_handler
 def make_predictions(las_client, event):
     document_id = event['documentId']
