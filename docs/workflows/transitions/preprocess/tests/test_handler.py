@@ -38,6 +38,10 @@ def form_config():
                     'confidenceLevels': {'automated': 0.98, 'high': 0.97, 'medium': 0.9, 'low': 0.5},
                     'required': False
                 },
+                'currency': {
+                    'type': 'enum',
+                    'confidenceLevels': {'automated': 0.98, 'high': 0.97, 'medium': 0.9, 'low': 0.5},
+                },
                 'line_items': {
                     'type': 'lines',
                     'fields': {
@@ -102,6 +106,7 @@ def test_low_confidence_predictions(
     {'label': 'total_amount', 'value': '123.00', 'confidence': 0.99},
     {'label': 'due_date', 'value': '2022-05-17', 'confidence': 0.99},
     {'label': 'invoice_id', 'value': '0665', 'confidence': 0.99},
+    {'label': 'currency', 'value': 'NOK', 'confidence': 0.99},
     {'label': 'line_items', 'type': 'lines', 'value': [
         [{'label': 'subtotal', 'value': '50.00', 'confidence': 0.99}]
     ]},
@@ -111,6 +116,8 @@ def test_low_confidence_predictions(
     {'label': 'total_amount', 'value': '123.00', 'confidence': 0.1},
     {'label': 'due_date', 'value': '2022-05-17', 'confidence': 0.99},
     {'label': 'invoice_id', 'value': '0665', 'confidence': 0.99},
+    {'label': 'currency', 'value': 'NOK', 'confidence': 0.99},
+    {'label': 'currency', 'value': 'SEK', 'confidence': 0.2},
     {'label': 'line_items', 'type': 'lines', 'value': [
         [{'label': 'subtotal', 'value': '50.00', 'confidence': 0.99}]
     ]},
@@ -119,6 +126,7 @@ def test_low_confidence_predictions(
     {'label': 'total_amount', 'value': '0.00', 'confidence': 0.99},
     {'label': 'due_date', 'value': '1991-08-02', 'confidence': 0.99},
     {'label': 'invoice_id', 'value': '1337', 'confidence': 0.05},
+    {'label': 'currency', 'value': 'NOK', 'confidence': 0.99},
     {'label': 'line_items', 'type': 'lines', 'value': [
         [{'label': 'subtotal', 'value': '50.00', 'confidence': 0.99}]
     ]},
@@ -126,6 +134,7 @@ def test_low_confidence_predictions(
     # All required above threshold
     {'label': 'total_amount', 'value': '0.00', 'confidence': 0.99},
     {'label': 'due_date', 'value': '1991-07-25', 'confidence': 0.99},
+    {'label': 'currency', 'value': 'NOK', 'confidence': 0.99},
     {'label': 'line_items', 'type': 'lines', 'value': [
         [{'label': 'subtotal', 'value': '50.00', 'confidence': 0.99}]
     ]},
@@ -149,7 +158,7 @@ def test_high_confidence_predictions(
         
     output = update_excs.call_args.kwargs['output']
 
-    assert output['needsValidation'] == False
+    assert not output['needsValidation']
     assert output['verified']
     
 
@@ -158,6 +167,7 @@ def test_high_confidence_predictions(
     {'label': 'total_amount', 'value': '0.00', 'confidence': 0.99},
     {'label': 'due_date', 'value': '1991-08-02', 'confidence': 0.99},
     {'label': 'invoice_id', 'value': '1337', 'confidence': 0.05},
+    {'label': 'currency', 'value': 'NOK', 'confidence': 0.99},
     {'label': 'line_items', 'value': [[{'label': 'subtotal', 'value': '10.00', 'confidence': 0.98}]]},
 ]])
 @patch('las.Client.create_prediction')
@@ -179,6 +189,36 @@ def test_low_confidence_and_optional_fields_are_omitted(
 
     output = update_excs.call_args.kwargs['output']
     assert 'invoice_id' not in output['verified']
+
+
+@pytest.mark.parametrize('predictions', [[
+    # All required above threshold, optional below lower threshold
+    {'label': 'total_amount', 'value': '0.00', 'confidence': 0.99},
+    {'label': 'due_date', 'value': '1991-08-02', 'confidence': 0.99},
+    {'label': 'invoice_id', 'value': '1337', 'confidence': 0.05},
+    {'label': 'currency', 'value': None, 'confidence': 0.99},
+    {'label': 'currency', 'value': 'EUR', 'confidence': 0.5},
+    {'label': 'line_items', 'value': [[{'label': 'subtotal', 'value': '10.00', 'confidence': 0.98}]]},
+]])
+@patch('las.Client.create_prediction')
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.get_asset')
+@patch('las.Client.get_document')
+def test_enum_null_values_sent_to_need_validation(
+    get_document, get_asset, update_excs, get_excs, create_pred,
+    form_config, predictions, env
+):
+    get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_document.return_value = MagicMock()
+    get_asset.return_value = {'content': form_config}
+    create_pred.return_value = {'predictions': predictions}
+
+    with patch.dict('preprocess.make_predictions.os.environ', env):
+        preprocess.make_predictions.make_predictions()
+
+    output = update_excs.call_args.kwargs['output']
+    assert output['needsValidation']
 
 
 @pytest.mark.parametrize('predictions', [[

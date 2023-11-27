@@ -6,6 +6,10 @@ def is_line(field_config, p):
     return field_config[p['label']]['type'] == 'lines'
 
 
+def is_enum(field_config, p):
+    return field_config[p['label']]['type'] == 'enum'
+
+
 def filter_optional_fields(predictions, field_config):
     def predicate(p):
         if is_line(field_config, p):
