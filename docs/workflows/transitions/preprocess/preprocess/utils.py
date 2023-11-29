@@ -64,7 +64,7 @@ def format_verified_output(top1_preds):
 
     return result
 
- 
+
 def add_confidence_to_ground_truth(ground_truth):
     updated_ground_truth = []
     for key, value in ground_truth.items():

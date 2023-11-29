@@ -15,6 +15,14 @@ title: REST API
 
 ## Changelog
 
+### 2023-11-17
+
+- It is now possible to set up an email address which can be used to execute workflows. JPEG, PNG, TIFF and PDF 
+attachments in the email will each start en execution of the specific workflow. The configuration requires a `secretId`
+which should contain API credentials to invoke `POST /workflows/:id/executions`
+- Added optional `emailConfig` to `POST /workflows`
+- Added optional `emailConfig` to `PATCH /workflows/:id`
+
 ### 2023-10-25
 
 - Added `GET /models/:id/dataBundles/:id`

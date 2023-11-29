@@ -364,4 +364,3 @@ def test_top1_filter(predictions_to_collapse, expected_collapsed_predictions):
     filtered_predictions = sorted(filtered_predictions, key=lambda item: item['label'])
     expected_filtered_predictions = sorted(expected_collapsed_predictions, key=lambda item: item['label'])
     assert filtered_predictions == expected_filtered_predictions
-    
