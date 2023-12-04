@@ -51,7 +51,7 @@ def make_predictions(las_client, event):
                         for line_pred in line:
                             if not above_threshold_or_optional(line_pred, line_field_config):
                                 all_above_threshold_or_optional = False
-                elif is_enum and prediction['value'] is None:
+                elif is_enum(field_config, prediction) and prediction['value'] is None:
                     all_above_threshold_or_optional = False
                     prediction['confidence'] = 0.0
                 elif not above_threshold_or_optional(prediction, field_config):
