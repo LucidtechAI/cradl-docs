@@ -10,21 +10,6 @@ from .utils import *
 logging.getLogger().setLevel(logging.INFO)
 
 
-def format_verified_output(top1_preds):
-    result = {}
-    for pred in top1_preds:
-        if isinstance(pred['value'], list):
-            fmt_lines = []
-            for line in pred['value']:
-                fmt_lines += [{p['label']: p['value'] for p in line}]
-
-            result[pred['label']] = fmt_lines
-        else:
-            result[pred['label']] = pred['value']
-    
-    return result
-
-
 @las.transition_handler
 def make_predictions(las_client, event):
     document_id = event['documentId']
@@ -66,7 +51,9 @@ def make_predictions(las_client, event):
                         for line_pred in line:
                             if not above_threshold_or_optional(line_pred, line_field_config):
                                 all_above_threshold_or_optional = False
-
+                elif is_enum(field_config, prediction) and prediction['value'] is None:
+                    all_above_threshold_or_optional = False
+                    prediction['confidence'] = 0.0
                 elif not above_threshold_or_optional(prediction, field_config):
                     all_above_threshold_or_optional = False
 

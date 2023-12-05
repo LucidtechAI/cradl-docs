@@ -6,6 +6,10 @@ def is_line(field_config, p):
     return field_config[p['label']]['type'] == 'lines'
 
 
+def is_enum(field_config, p):
+    return field_config[p['label']]['type'] == 'enum'
+
+
 def filter_optional_fields(predictions, field_config):
     def predicate(p):
         if is_line(field_config, p):
@@ -45,7 +49,22 @@ def above_threshold_or_optional(prediction, field_config):
 
     return (threshold['automated'] <= confidence) or (is_optional and confidence < threshold['low'])
 
- 
+
+def format_verified_output(top1_preds):
+    result = {}
+    for pred in top1_preds:
+        if isinstance(pred['value'], list):
+            fmt_lines = []
+            for line in pred['value']:
+                fmt_lines += [{p['label']: p['value'] for p in line}]
+
+            result[pred['label']] = fmt_lines
+        else:
+            result[pred['label']] = pred['value']
+
+    return result
+
+
 def add_confidence_to_ground_truth(ground_truth):
     updated_ground_truth = []
     for key, value in ground_truth.items():
