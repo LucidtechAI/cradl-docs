@@ -1272,6 +1272,11 @@ components:
           oneOf:
           - additionalProperties: false
             properties:
+              outputFormat:
+                enum:
+                - v1
+                - v2
+                type: string
               strategy:
                 enum:
                 - BEST_FIRST
@@ -1281,6 +1286,11 @@ components:
             type: object
           - additionalProperties: false
             properties:
+              outputFormat:
+                enum:
+                - v1
+                - v2
+                type: string
               parameters:
                 properties:
                   collapse:
@@ -1492,6 +1502,11 @@ components:
                 oneOf:
                 - additionalProperties: false
                   properties:
+                    outputFormat:
+                      enum:
+                      - v1
+                      - v2
+                      type: string
                     strategy:
                       enum:
                       - BEST_FIRST
@@ -1501,6 +1516,11 @@ components:
                   type: object
                 - additionalProperties: false
                   properties:
+                    outputFormat:
+                      enum:
+                      - v1
+                      - v2
+                      type: string
                     parameters:
                       properties:
                         collapse:
@@ -2226,6 +2246,11 @@ components:
           oneOf:
           - additionalProperties: false
             properties:
+              outputFormat:
+                enum:
+                - v1
+                - v2
+                type: string
               strategy:
                 enum:
                 - BEST_FIRST
@@ -2235,6 +2260,11 @@ components:
             type: object
           - additionalProperties: false
             properties:
+              outputFormat:
+                enum:
+                - v1
+                - v2
+                type: string
               parameters:
                 properties:
                   collapse:
@@ -2509,8 +2539,11 @@ components:
             type: string
           - pattern: ^las:transition:commons-[0-9A-Za-z-]+$
             type: string
-      required:
-      - nextTransitionId
+        status:
+          enum:
+          - succeeded
+          - completed
+          type: string
       title: PATCH workflows/{workflowId}/executions/{executionId}
       type: object
     PatchWorkflowId:
@@ -2717,6 +2750,9 @@ components:
         fieldPredictions:
           nullable: true
           type: object
+        flows:
+          nullable: true
+          type: object
         gpuHours:
           nullable: true
           type: object
@@ -2740,6 +2776,9 @@ components:
         planId:
           pattern: ^las:plan:[a-z0-9-_]+(|:@[a-z0-9-_]+|:[0-9]+)$
           type: string
+        users:
+          nullable: true
+          type: object
       required:
       - available
       - currency
@@ -2778,6 +2817,9 @@ components:
               fieldPredictions:
                 nullable: true
                 type: object
+              flows:
+                nullable: true
+                type: object
               gpuHours:
                 nullable: true
                 type: object
@@ -2801,6 +2843,9 @@ components:
               planId:
                 pattern: ^las:plan:[a-z0-9-_]+(|:@[a-z0-9-_]+|:[0-9]+)$
                 type: string
+              users:
+                nullable: true
+                type: object
             required:
             - available
             - currency
@@ -3085,6 +3130,11 @@ components:
           oneOf:
           - additionalProperties: false
             properties:
+              outputFormat:
+                enum:
+                - v1
+                - v2
+                type: string
               strategy:
                 enum:
                 - BEST_FIRST
@@ -3094,6 +3144,11 @@ components:
             type: object
           - additionalProperties: false
             properties:
+              outputFormat:
+                enum:
+                - v1
+                - v2
+                type: string
               parameters:
                 properties:
                   collapse:
@@ -3191,6 +3246,11 @@ components:
           oneOf:
           - additionalProperties: false
             properties:
+              outputFormat:
+                enum:
+                - v1
+                - v2
+                type: string
               strategy:
                 enum:
                 - BEST_FIRST
@@ -3200,6 +3260,11 @@ components:
             type: object
           - additionalProperties: false
             properties:
+              outputFormat:
+                enum:
+                - v1
+                - v2
+                type: string
               parameters:
                 properties:
                   collapse:
@@ -3551,6 +3616,11 @@ components:
           oneOf:
           - additionalProperties: false
             properties:
+              outputFormat:
+                enum:
+                - v1
+                - v2
+                type: string
               strategy:
                 enum:
                 - BEST_FIRST
@@ -3560,6 +3630,11 @@ components:
             type: object
           - additionalProperties: false
             properties:
+              outputFormat:
+                enum:
+                - v1
+                - v2
+                type: string
               parameters:
                 properties:
                   collapse:
@@ -3583,92 +3658,95 @@ components:
           pattern: ^las:prediction:[a-f0-9]{32}$
           type: string
         predictions:
-          items:
-            anyOf:
-            - additionalProperties: false
-              properties:
-                confidence:
-                  maximum: 1
-                  minimum: 0
-                  type: number
-                label:
-                  maxLength: 36
-                  minLength: 1
-                  pattern: ^[0-9A-Za-z-_]+$
-                  type: string
-                location:
-                  items:
+          anyOf:
+          - items:
+              anyOf:
+              - additionalProperties: false
+                properties:
+                  confidence:
                     maximum: 1
                     minimum: 0
                     type: number
-                  maxItems: 4
-                  minItems: 4
-                  type: array
-                page:
-                  minimum: 0
-                  type: integer
-                value:
-                  maxLength: 512
-                  minLength: 1
-                  nullable: true
-                  type: string
-              required:
-              - confidence
-              - label
-              - value
-              type: object
-            - additionalProperties: false
-              properties:
-                label:
-                  maxLength: 36
-                  minLength: 1
-                  pattern: ^[0-9A-Za-z-_]+$
-                  type: string
-                page:
-                  minimum: 0
-                  type: integer
-                value:
-                  items:
+                  label:
+                    maxLength: 36
+                    minLength: 1
+                    pattern: ^[0-9A-Za-z-_]+$
+                    type: string
+                  location:
                     items:
-                      additionalProperties: false
-                      properties:
-                        confidence:
-                          maximum: 1
-                          minimum: 0
-                          type: number
-                        label:
-                          maxLength: 36
-                          minLength: 1
-                          pattern: ^[0-9A-Za-z-_]+$
-                          type: string
-                        location:
-                          items:
+                      maximum: 1
+                      minimum: 0
+                      type: number
+                    maxItems: 4
+                    minItems: 4
+                    type: array
+                  page:
+                    minimum: 0
+                    type: integer
+                  value:
+                    maxLength: 512
+                    minLength: 1
+                    nullable: true
+                    type: string
+                required:
+                - confidence
+                - label
+                - value
+                type: object
+              - additionalProperties: false
+                properties:
+                  label:
+                    maxLength: 36
+                    minLength: 1
+                    pattern: ^[0-9A-Za-z-_]+$
+                    type: string
+                  page:
+                    minimum: 0
+                    type: integer
+                  value:
+                    items:
+                      items:
+                        additionalProperties: false
+                        properties:
+                          confidence:
                             maximum: 1
                             minimum: 0
                             type: number
-                          maxItems: 4
-                          minItems: 4
-                          type: array
-                        page:
-                          minimum: 0
-                          type: integer
-                        value:
-                          maxLength: 512
-                          minLength: 1
-                          nullable: true
-                          type: string
-                      required:
-                      - confidence
-                      - label
-                      - value
-                      type: object
+                          label:
+                            maxLength: 36
+                            minLength: 1
+                            pattern: ^[0-9A-Za-z-_]+$
+                            type: string
+                          location:
+                            items:
+                              maximum: 1
+                              minimum: 0
+                              type: number
+                            maxItems: 4
+                            minItems: 4
+                            type: array
+                          page:
+                            minimum: 0
+                            type: integer
+                          value:
+                            maxLength: 512
+                            minLength: 1
+                            nullable: true
+                            type: string
+                        required:
+                        - confidence
+                        - label
+                        - value
+                        type: object
+                      type: array
                     type: array
-                  type: array
-              required:
-              - label
-              - value
-              type: object
-          type: array
+                required:
+                - label
+                - value
+                type: object
+            type: array
+          - additionalProperties: false
+            type: object
         preprocessConfig:
           additionalProperties: false
           minProperties: 1
@@ -3751,6 +3829,11 @@ components:
                 oneOf:
                 - additionalProperties: false
                   properties:
+                    outputFormat:
+                      enum:
+                      - v1
+                      - v2
+                      type: string
                     strategy:
                       enum:
                       - BEST_FIRST
@@ -3760,6 +3843,11 @@ components:
                   type: object
                 - additionalProperties: false
                   properties:
+                    outputFormat:
+                      enum:
+                      - v1
+                      - v2
+                      type: string
                     parameters:
                       properties:
                         collapse:
@@ -3783,92 +3871,95 @@ components:
                 pattern: ^las:prediction:[a-f0-9]{32}$
                 type: string
               predictions:
-                items:
-                  anyOf:
-                  - additionalProperties: false
-                    properties:
-                      confidence:
-                        maximum: 1
-                        minimum: 0
-                        type: number
-                      label:
-                        maxLength: 36
-                        minLength: 1
-                        pattern: ^[0-9A-Za-z-_]+$
-                        type: string
-                      location:
-                        items:
+                anyOf:
+                - items:
+                    anyOf:
+                    - additionalProperties: false
+                      properties:
+                        confidence:
                           maximum: 1
                           minimum: 0
                           type: number
-                        maxItems: 4
-                        minItems: 4
-                        type: array
-                      page:
-                        minimum: 0
-                        type: integer
-                      value:
-                        maxLength: 512
-                        minLength: 1
-                        nullable: true
-                        type: string
-                    required:
-                    - confidence
-                    - label
-                    - value
-                    type: object
-                  - additionalProperties: false
-                    properties:
-                      label:
-                        maxLength: 36
-                        minLength: 1
-                        pattern: ^[0-9A-Za-z-_]+$
-                        type: string
-                      page:
-                        minimum: 0
-                        type: integer
-                      value:
-                        items:
+                        label:
+                          maxLength: 36
+                          minLength: 1
+                          pattern: ^[0-9A-Za-z-_]+$
+                          type: string
+                        location:
                           items:
-                            additionalProperties: false
-                            properties:
-                              confidence:
-                                maximum: 1
-                                minimum: 0
-                                type: number
-                              label:
-                                maxLength: 36
-                                minLength: 1
-                                pattern: ^[0-9A-Za-z-_]+$
-                                type: string
-                              location:
-                                items:
+                            maximum: 1
+                            minimum: 0
+                            type: number
+                          maxItems: 4
+                          minItems: 4
+                          type: array
+                        page:
+                          minimum: 0
+                          type: integer
+                        value:
+                          maxLength: 512
+                          minLength: 1
+                          nullable: true
+                          type: string
+                      required:
+                      - confidence
+                      - label
+                      - value
+                      type: object
+                    - additionalProperties: false
+                      properties:
+                        label:
+                          maxLength: 36
+                          minLength: 1
+                          pattern: ^[0-9A-Za-z-_]+$
+                          type: string
+                        page:
+                          minimum: 0
+                          type: integer
+                        value:
+                          items:
+                            items:
+                              additionalProperties: false
+                              properties:
+                                confidence:
                                   maximum: 1
                                   minimum: 0
                                   type: number
-                                maxItems: 4
-                                minItems: 4
-                                type: array
-                              page:
-                                minimum: 0
-                                type: integer
-                              value:
-                                maxLength: 512
-                                minLength: 1
-                                nullable: true
-                                type: string
-                            required:
-                            - confidence
-                            - label
-                            - value
-                            type: object
+                                label:
+                                  maxLength: 36
+                                  minLength: 1
+                                  pattern: ^[0-9A-Za-z-_]+$
+                                  type: string
+                                location:
+                                  items:
+                                    maximum: 1
+                                    minimum: 0
+                                    type: number
+                                  maxItems: 4
+                                  minItems: 4
+                                  type: array
+                                page:
+                                  minimum: 0
+                                  type: integer
+                                value:
+                                  maxLength: 512
+                                  minLength: 1
+                                  nullable: true
+                                  type: string
+                              required:
+                              - confidence
+                              - label
+                              - value
+                              type: object
+                            type: array
                           type: array
-                        type: array
-                    required:
-                    - label
-                    - value
-                    type: object
-                type: array
+                      required:
+                      - label
+                      - value
+                      type: object
+                  type: array
+                - additionalProperties: false
+                  type: object
               preprocessConfig:
                 additionalProperties: false
                 minProperties: 1
@@ -5090,6 +5181,7 @@ components:
           - rejected
           - retry
           - error
+          - completed
           type: string
         transitionExecutions:
           nullable: true
@@ -5160,6 +5252,7 @@ components:
                 - rejected
                 - retry
                 - error
+                - completed
                 type: string
               transitionExecutions:
                 nullable: true
@@ -5201,6 +5294,7 @@ components:
             - rejected
             - retry
             - error
+            - completed
             type: string
           type: array
         workflowId:
@@ -5433,7 +5527,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-11-17T12:02:02Z'
+  version: '2023-12-01T13:15:44Z'
 openapi: 3.0.1
 paths:
   /appClients:
@@ -5735,7 +5829,98 @@ paths:
             Access-Control-Allow-Origin:
               schema:
                 type: string
-      security: []
+      security:
+      - OAuth2:
+        - api.lucidtech.ai/appclients:read
+    get:
+      parameters:
+      - in: path
+        name: appClientId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppClient'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 403 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '415':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 415 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+      security:
+      - OAuth2:
+        - api.lucidtech.ai/appclients:read
     options:
       parameters:
       - in: path

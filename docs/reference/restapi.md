@@ -15,6 +15,16 @@ title: REST API
 
 ## Changelog
 
+### 2023-12-05
+
+- Added optional `outputFormat` to `postprocessConfig` in `POST /models`, `PATCH /models/:id` and `POST /predictions`.
+Use this option to specify which structure the predictions will have. The allowed values for `outputFormat` is 
+currently`v1` and `v2`
+- Added optional `status` to `PATCH /workflows/:id/executions/:id`. Use this option to change status of execution from
+`succeeded` to `completed` or vice versa. 
+- Parameter `nextTransitionId` is now optional in `PATCH /workflows/:id/executions/:id`
+- Added `GET /appClients/:id`.
+
 ### 2023-11-17
 
 - It is now possible to set up an email address which can be used to execute workflows. JPEG, PNG, TIFF and PDF 
