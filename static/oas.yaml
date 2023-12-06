@@ -1338,6 +1338,9 @@ components:
               - 270
               type: integer
           type: object
+        statistics:
+          nullable: true
+          type: object
         status:
           enum:
           - active
@@ -1567,6 +1570,9 @@ components:
                     - 180
                     - 270
                     type: integer
+                type: object
+              statistics:
+                nullable: true
                 type: object
               status:
                 enum:
@@ -5527,7 +5533,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-12-01T13:15:44Z'
+  version: '2023-12-06T14:19:14Z'
 openapi: 3.0.1
 paths:
   /appClients:
@@ -8900,6 +8906,10 @@ paths:
         - api.lucidtech.ai/models:read
     get:
       parameters:
+      - in: query
+        name: statisticsLastNDays
+        schema:
+          type: string
       - in: path
         name: modelId
         required: true
