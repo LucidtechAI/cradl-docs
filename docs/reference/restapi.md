@@ -15,6 +15,13 @@ title: REST API
 
 ## Changelog
 
+### 2023-12-06
+
+- Added `statistics` to `/models/:id`. `statistics` contains aggregated automation percentages for the fields in the
+model's `fieldConfig` from the last number of days, defaulting to last 7 days.
+- Added optional `statisticsLastNDays` to `GET /models/:id`. Specify a number of days between 1 and 30 to get
+`statistics` from.
+
 ### 2023-12-05
 
 - Added optional `outputFormat` to `postprocessConfig` in `POST /models`, `PATCH /models/:id` and `POST /predictions`.
