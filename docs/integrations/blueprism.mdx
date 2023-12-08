@@ -12,33 +12,34 @@ import TabItem from '@theme/TabItem';
 <br/>
 
 This guide will show you how to extract data from your documents with Cradl AI in Blue Prism.
-
 By the end of this guide you should be able to:
+ - Train your own AI model customized to your own documents.
  - Set up a feedback loop so your AI model can train and get better for every document you process.
- - Train your own AI model on your own documents.
- - Process your documents in your BluePrism workflow using Cradl AI.
+ - Process your documents in your Blue Prism workflow using Cradl AI.
 
 All you need to get started is:
-- Blue Prism is installed on your computer
-- Account on Cradl AI (If you don't have one yet, you can sign up [here](https://app.cradl.ai/login?redirect=signup&utm_campaign=docs)
+- Blue Prism is installed on your computer.
+- Account on Cradl AI (If you don't have one yet, you can sign up [here](https://app.cradl.ai/login?redirect=signup&utm_campaign=docs).
+
+
+:::tip Scalable
+Cradl AI empowers you with the ability to create your own AI models. 15 examples are all you need to get started.
+:::
 
 <br/>
 
-# Overview
+## Overview
 
 <br/>
-
 The Cradl AI asset consists of these components:
-- Cradl AI (Visual Business Object)
-  - This is where all the actions for this guide can be found 
-- Cradl Demo Process (Process)
-  - A demo process that shows an example of how you can retrieve the parsed documents from your Flow in Cradl.
-- Cradl AI Web API (Web Api Service)
-  - The API calls themselves, for advanced cases that require customization it is possible to make adjustments here to get the most out of Cradl.
-- Cradl File Server (Web Api Service)
-  - In order to support all sorts of documents of different sizes Cradl AI comes with a file server that is used behind the scenes, it is not recommended to make any changes in this component.
-- Cradl Credentials (OAuth 2.0 - Client Credentials)
-  - Make sure to add your own app_client_id and app_client_secret in this object for everything to play along nicely.
+
+| Name          | Type | Description |
+|:------------| :------------- |:--- |
+| Cradl AI           | Visual Business Object (VBO) | This is where all the actions for this guide can be found. |
+| Cradl Demo Process | Process | A demo process that shows an example of how you can retrieve the parsed documents from your Flow in Cradl AI. |
+| Cradl AI Web API   | Web Api Service | The API itself, for advanced cases that require customization it is possible to make adjustments here to get the most out of Cradl AI. |
+| Cradl File Server  | Web Api Service | To support all sorts of documents of different sizes, Cradl AI comes with a file server that is used behind the scenes, it is not recommended to make any changes in this component. |
+| Cradl Credentials  | OAuth 2.0 - Client Credentials | Make sure to add your own Client ID and Client Secret in this object for everything to play along nicely. |
 
 <br/>
 
@@ -46,24 +47,29 @@ The Cradl AI asset consists of these components:
 
 <br/>
 
-There is very little setup required in Cradl before you are able to adding actions in your Blue Prism processes. All you have to do 
+There is very little setup required in Cradl before you are able to adding actions in your Blue Prism processes.
+All you have to do is:
 
-- Create a new flow for your documents [here](https://app.cradl.ai/flows)
+- Create a new flow for your documents [here](https://app.cradl.ai/flows).
 - Select an initial model just to get started, you are free to customize the model to extract the fields you want. 
-- Add your co-workers as human validators to get help with the initial validation process
+- Add your co-workers as human validators to get help with the initial validation process.
 
-Note: Cradl AI allows you to customize your own data, with very little data required to get started. It means that you have to do some validation to begin with before your model can fly on its own.
-
-You are now ready to jump into Blue Prism and start the integration. But on your way there, please remember to bring the parameters that are listed under Blue Prism in input or export dropdown. 
+You are now ready to jump into Blue Prism and start the integration.
+But on your way there, remember to bring the parameters that are listed under Blue Prism in input or export dropdown.
 They are essential to identify both you, your model and your flow. Here is a brief explanation of what they are and how they are used:
 
-- appClientId: The identity of your blue prism integration. Input this along with clientSecret when prompted with credentials.
-- appClientSecret: The secret key to authenticate your appClient. do not share this with anyone, but store it safely when prompted with credentials in BP.
-- flowId: The identity of the very flow you just created. It is used as an input to some of the actions in the VBO.
-- modelId: The identity of the model you are using in this flow. It is used as an input to some of the actions in the VBO. 
+| Parameter     | Type | Description |
+|:--------------| :------------- |:--- |
+| Client ID     | Credentials | The identity of your Blue Prism integration. Input this along with Client Secret when prompted with credentials. |
+| Client Secret | Credentials | The secret key to authenticate your client. do not share this with anyone, but store it safely when prompted with credentials during import. |
+| flowId        | Data Object | The identity of the very flow you just created. It is used as an input to some of the actions in the VBO. |
+| modelId       | Data Object | The identity of the model you are using in this flow. It is used as an input to some of the actions in the VBO. |
 
 
-Note: You can at any point change the model in your flow by selecting another modelId. 
+:::tip Adaptive
+You can at any point change the model in your flow by selecting another modelId.
+:::
+
 <br/>
 
 ## Step 2: Import Cradl AI in Blue Prism
@@ -72,7 +78,7 @@ Note: You can at any point change the model in your flow by selecting another mo
 
 - Download the [Cradl AI Blue Prism Release](https://github.com/lucidtechAI/cradl-integrations'),
 - Open Blue Prism and import the .bprelease file above
-- When prompted with credentials input the appClientId and appClientSecret from the input or export step in [flow](https://app.cradl.ai/flows).
+- When prompted with credentials input the Client ID and Client Secret from the input or export step in [flow](https://app.cradl.ai/flows).
 
 <br/>
 
@@ -80,12 +86,13 @@ Note: You can at any point change the model in your flow by selecting another mo
 
 <br/>
 
-- Just to test that everything works open the Cradl AI VBO and do a debug run of the action "Parse Document With Human In The Loop". Remember to set the flowId to the correct value.
-- If you head over to [Cradl](https://app.cradl.ai/flows), and press the button [Run In Validator](https://app.cradl.ai/supervise/workflows/) you should soon see your document appear in your flow.
+- To test that everything works open the Cradl AI VBO and do a debug run of the action *Parse Document With Human In The Loop*. Remember to set the flowId to the correct value.
+- If you head over to [Cradl](https://app.cradl.ai/flows), you can now go to the *Validator* by pressing the button [Run In Validator](https://app.cradl.ai/supervise/workflows/).
+ This is the Human-in-the-loop platform that comes with Cradl AI, and you should see your document appear in your flow any second.
 - Now remember that to get your own customized model you need to provide som ground truth data, so the AI knows what to look for. This is done by heading down to [Tasks](https://app.cradl.ai/supervise/tasks/).
 - Fill in the correct values and press the big green button. You have now completed one iteration of the feedback loop. 
 
-You are now 1 document closer to having your own customized model. The values you annotated are now used as ground truth when training the model.
+The values you annotated are used as ground truth when training the model, so you are one document closer to having your own customized model!
 
 :::tip
 We recommend to have at least 15 documents annotated this way before training a model.
@@ -93,12 +100,13 @@ We recommend to have at least 15 documents annotated this way before training a 
 
 
 So just to sum up, we have now done the following:
-- Sent in a document to Cradl 
+- Sent in a document for parsing to Cradl AI
 - Created a feedback loop and done one iteration of it. 
 
 Until now this seems like just another manual step in your workflow, where is the automation?  
-The automation starts after 15 documents have passed through the manual step, then you can train your model and adjust the confidence thresholds in your flow so correctly predicted values from the model just passes straight through. 
-Which brings us to the next section, how do we get the values back into BluePrism? 
+The automation starts after 15 documents have passed through the manual step, then you can train your model.
+Adjust the confidence thresholds in your flow so correctly predicted values from the model just passes straight through.
+This brings us to the next section, how do we get the predictions from the model back into Blue Prism?
 
 <br/>
 
@@ -111,14 +119,12 @@ Which brings us to the next section, how do we get the values back into BluePris
 ![Crad Demo Process](/img/integrations/blueprism/demoprocess.png)
 
 - Make sure to set the flowId to the correct value as found in Cradl. And do a debug run.
-- The data object called "runs" Should now have a value. If not make sure that you have processed a document in Cradl. We are only listing completed runs here, so all runs that are waiting in line to be manually parsed will not show up here. 
+- The data object called "runs" Should now have a value. If not make sure that you have processed a document in Cradl.
+We are only listing completed runs here, so all runs that are waiting in line to be manually parsed will not show up here.
 Open runs and get familiar with the output of each run. 
 - The demo process will only loop through all the runs and mark them as consumed so you don't risk sending them further down your pipeline several times. 
 
-The rest is up to you, inside the loop you can write the data from each run to your database, send it to another API, or just safely store it in a local file.
+The rest is up to you, inside the loop you can write the data from each run to your database, send it to another API, or just safely store it in a local file. Happy document parsing!
 
-
-
-  Info: When a document has either been manually, or automatically parsed in a flow it is marked as succeeded
 <br/>
 
