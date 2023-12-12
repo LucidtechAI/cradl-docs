@@ -25,6 +25,14 @@ You need to have a [Cradl AI](https://app.cradl.ai/) account and have created a 
 Go to the [API tab](https://app.cradl.ai/appclients) in Cradl to find or create API credentials. Read 
 more on how to use the credentials to make authenticated requests [here](../reference/authentication.md)
 
+:::caution
+
+Remember to add the Authorization header to all API requests demonstrated in this guide or the requests will fail. Read
+more about how to get and add the Authorization header 
+[here](../reference/authentication.md#getting-an-access-token-manually)
+
+:::
+
 <br/>
 
 ## Step 2: Run a flow with a document
@@ -44,14 +52,6 @@ document handle in the API.
 ```bash
 curl -X POST https://api.lucidtech.ai/v1/documents 
 ```
-
-:::caution
-
-Remember to add the Authorization header to all API requests demonstrated in this guide or the requests will fail. Read
-more about how to get and add the Authorization header 
-[here](../reference/authentication.md#getting-an-access-token-manually)
-
-:::
 
 In the response you'll find a `documentId` and a `fileUrl` which we'll need for the next steps.
 
