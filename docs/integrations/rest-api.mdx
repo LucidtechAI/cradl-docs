@@ -74,7 +74,7 @@ curl -X PUT https://files.api.cradl.ai/las:file:<uuid> --data-binary @my-documen
 ### Running the flow
 
 After successfully uploading a document to the API, we are ready to run the flow with the `workflowId` that you got 
-from the REST API integration card in the flow builder and the `documentId` acquired from the last step.
+from the REST API integration card in the flow builder and the `documentId` from the previous step.
 
 ```bash
 curl -X POST https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions --json '{"documentId": "las:document:<uuid>"}'
