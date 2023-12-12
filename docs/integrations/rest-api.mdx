@@ -72,8 +72,8 @@ curl -X PUT https://files.api.cradl.ai/las:file:<uuid> --data-binary @my-documen
 
 ### Running the flow
 
-After successfully uploading a document to the API, we are ready to run the flow with the `workflowId` that you got 
-from the REST API integration card in the flow builder and the `documentId` from the previous step.
+After successfully uploading a document to the API, you are now ready to run the flow with the `workflowId` that you 
+got from the REST API integration card in the flow builder and the `documentId` from the previous step.
 
 ```bash
 curl -X POST https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions --json '{"documentId": "las:document:<uuid>"}'
@@ -104,9 +104,10 @@ selecting the correct flow and completing the validation task.
 
 ## Step 4: Fetch the final result
 
-After successfully running the flow on a document we can now get the result from the API. When you made the API call to
-`POST https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions` in step 2 , the response contained an 
-`executionId`. We'll need the `executionId` in addition to the `workflowId` in order to get the output from the flow.
+After successfully running the flow on a document you can now get the result from the API. When you made the API call 
+to `POST https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions` in step 2 , the response contained an 
+`executionId`. You will need the `executionId` in addition to the `workflowId` in order to get the output from the 
+flow.
 
 The output of the flow run contains values for all the fields automatically predicted by Cradl's AI, with potential 
 corrections made by a validator. You can now be sure that the extracted data is correct and use it for further 
