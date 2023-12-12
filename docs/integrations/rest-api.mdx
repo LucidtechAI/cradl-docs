@@ -63,7 +63,7 @@ In the response you'll find a `documentId` and a `fileUrl` which we'll need for 
 }
 ```
 
-Upload the document from your computer to Cradl AI using the `fileUrl` acquired from the last step.
+Upload the document from your computer to Cradl AI using the `fileUrl` from the previous step.
 
 ```bash
 curl -X PUT https://files.api.cradl.ai/las:file:<uuid> --data-binary @my-document-file.pdf
