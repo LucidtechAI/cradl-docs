@@ -138,7 +138,7 @@ Marking the flow run as `completed` will make it easier for you to track which r
 your system and which ones have not.
 
 ```bash
-curl -X PATCH https://api.lucidtech.ai/v1/workflows/<your workflowId> --json '{"status": "completed"}'
+curl -X PATCH https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions/<your executionId> --json '{"status": "completed"}'
 ```
 
 :::
