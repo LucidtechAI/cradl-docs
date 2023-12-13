@@ -57,15 +57,15 @@ In the response you'll find a `documentId` and a `fileUrl` which we'll need for 
 
 ```json
 {
-  "documentId": "las:document:<uuid>",
-  "fileUrl": "https://files.api.cradl.ai/las:file:<uuid>"
+  "documentId": "<your documentId>",
+  "fileUrl": "https://files.api.cradl.ai/<your fileId>"
 }
 ```
 
 Upload the document from your computer to Cradl AI using the `fileUrl` from the previous step.
 
 ```bash
-curl -X PUT https://files.api.cradl.ai/las:file:<uuid> --data-binary @my-document-file.pdf
+curl -X PUT https://files.api.cradl.ai/<your fileId> --data-binary @my-document-file.pdf
 ```
 
 <br/>
@@ -76,7 +76,7 @@ After successfully uploading a document to the API, you are now ready to run the
 got from the REST API integration card in the flow builder and the `documentId` from the previous step.
 
 ```bash
-curl -X POST https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions --json '{"documentId": "las:document:<uuid>"}'
+curl -X POST https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions --json '{"documentId": "<your documentId>"}'
 ```
 
 :::info
@@ -86,7 +86,7 @@ POST request.
 
 ```json
 {
-  "documentId": "las:document<uuid>",
+  "documentId": "<your documentId>",
   "title": "My flow run title"
 }
 ```
@@ -121,9 +121,9 @@ The response JSON will have a key called `output` which contains the final (vali
 
 ```json
 {
-  "executionId": "your executionId",
+  "executionId": "<your executionId>",
   "output": {
-    "documentId": "las:document:<uuid>",
+    "documentId": "<your documentId>",
     "values": {
       "my_flow_field_1": "some_value_1",
       "my_flow_field_2": "some_value_2"
