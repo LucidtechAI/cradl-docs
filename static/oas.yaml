@@ -1663,10 +1663,19 @@ components:
         monthlyNumberOfModelDeploymentUnitsUsed:
           minimum: 0
           type: integer
+        monthlyNumberOfPagePredictionsAllowed:
+          minimum: 0
+          type: integer
+        monthlyNumberOfPagePredictionsUsed:
+          minimum: 0
+          type: integer
         monthlyNumberOfPredictionsAllowed:
           minimum: 0
           type: integer
         monthlyNumberOfPredictionsCreated:
+          minimum: 0
+          type: integer
+        monthlyNumberOfProductionWorkflowsUsed:
           minimum: 0
           type: integer
         monthlyNumberOfTrainingsAllowed:
@@ -1863,10 +1872,19 @@ components:
               monthlyNumberOfModelDeploymentUnitsUsed:
                 minimum: 0
                 type: integer
+              monthlyNumberOfPagePredictionsAllowed:
+                minimum: 0
+                type: integer
+              monthlyNumberOfPagePredictionsUsed:
+                minimum: 0
+                type: integer
               monthlyNumberOfPredictionsAllowed:
                 minimum: 0
                 type: integer
               monthlyNumberOfPredictionsCreated:
+                minimum: 0
+                type: integer
+              monthlyNumberOfProductionWorkflowsUsed:
                 minimum: 0
                 type: integer
               monthlyNumberOfTrainingsAllowed:
@@ -2616,6 +2634,11 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        status:
+          enum:
+          - development
+          - production
+          type: string
       title: PATCH /workflows/{workflowId}
       type: object
     PaymentMethod:
@@ -2779,9 +2802,15 @@ components:
           nullable: true
           pattern: ^las:organization:[a-z0-9-_]+$
           type: string
+        pagePredictions:
+          nullable: true
+          type: object
         planId:
           pattern: ^las:plan:[a-z0-9-_]+(|:@[a-z0-9-_]+|:[0-9]+)$
           type: string
+        productionWorkflows:
+          nullable: true
+          type: object
         users:
           nullable: true
           type: object
@@ -2846,9 +2875,15 @@ components:
                 nullable: true
                 pattern: ^las:organization:[a-z0-9-_]+$
                 type: string
+              pagePredictions:
+                nullable: true
+                type: object
               planId:
                 pattern: ^las:plan:[a-z0-9-_]+(|:@[a-z0-9-_]+|:[0-9]+)$
                 type: string
+              productionWorkflows:
+                nullable: true
+                type: object
               users:
                 nullable: true
                 type: object
@@ -5109,12 +5144,23 @@ components:
         metadata:
           nullable: true
           type: object
+        monthlyNumberOfWorkflowExecutionsAllowed:
+          minimum: 0
+          type: integer
+        monthlyNumberOfWorkflowExecutionsCreated:
+          minimum: 0
+          type: integer
         name:
           maxLength: 4096
           nullable: true
           type: string
         numberOfRunningExecutions:
           type: integer
+        status:
+          enum:
+          - development
+          - production
+          type: string
         updatedBy:
           maxLength: 4096
           nullable: true
@@ -5390,12 +5436,23 @@ components:
               metadata:
                 nullable: true
                 type: object
+              monthlyNumberOfWorkflowExecutionsAllowed:
+                minimum: 0
+                type: integer
+              monthlyNumberOfWorkflowExecutionsCreated:
+                minimum: 0
+                type: integer
               name:
                 maxLength: 4096
                 nullable: true
                 type: string
               numberOfRunningExecutions:
                 type: integer
+              status:
+                enum:
+                - development
+                - production
+                type: string
               updatedBy:
                 maxLength: 4096
                 nullable: true
@@ -5533,7 +5590,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2023-12-06T14:19:14Z'
+  version: '2023-12-13T16:52:41Z'
 openapi: 3.0.1
 paths:
   /appClients:

@@ -15,6 +15,17 @@ title: REST API
 
 ## Changelog
 
+### 2023-12-14
+
+- Added `status`, `monthlyNumberOfExecutionsCreated` and `monthlyNumberOfExecutionsAllowed` to `/workflows`. Workflows 
+can either have status `development` or `production`. A workflow with `status=development` will have a low limit on how 
+many executions can be started each month.
+- Added `monthlyNumberOfPagePredictionsUsed`, `monthlyNumberOfPagePredictionsAllowed` and 
+`monthlyNumberOfProductionWorkflowsUsed` to `/organizations`
+- Now counting number of pages processed each month to determine API limits for the `POST /predictions` endpoint. Users
+already subscribed to a paid plan that counts field predictions will still be billed per field prediction. They can
+choose to subscribe to the new plan which counts pages instead.
+
 ### 2023-12-06
 
 - Added `statistics` to `/models/:id`. `statistics` contains aggregated automation percentages for the fields in the
