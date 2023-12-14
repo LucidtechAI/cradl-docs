@@ -133,7 +133,7 @@ a regular key-value field.
 
 If the data you want to extract is a "regular" field, like `total_amount`, add a *Calculation* to your process.
 In Expression, put `[runs.output.values.<YOUR FIELD>]`, where `<YOUR FIELD>` is exchanged with the field you want to
-extract (like `total_amount`). Remember to also add a Data object to store the value in. Process a new document in Cradl
+extract (like `total_amount`). Remember to also add a *Data* object to store the value in. Process a new document in Cradl
 (Step 3), run the "Cradl Demo Process" again and see that something has been stored in your newly created Data object.
 
 ![Crad Demo Process - extract total_amount](/img/integrations/blueprism/extract_total_amount.png)
@@ -149,7 +149,7 @@ the line items field you want in a separate *Collection*.
 If your field is called `line_items`, the expression in the calculation should be `[runs.output.values.line_items]`.
 2. Add a loop that iterates through the newly created line items collection.
 3. Create another *Collection* for storing the specific line items field, and add the field to the *Fields* of the collection. If you
-for instance want to extract the field `line_items/description`, you should add `description` to Fields.
+for instance want to extract the field `line_items/description`, you could add `description` to Fields.
 
   ![Crad Demo Process - add description to collection](/img/integrations/blueprism/add_description_as_field.png)
 
