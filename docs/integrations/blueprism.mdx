@@ -125,7 +125,47 @@ We are only listing completed runs here, so all runs that are waiting in line to
 Open runs and get familiar with the output of each run. 
 - The demo process will loop through all the completed runs and mark them as *consumed*, so you don't risk sending them further down your pipeline several times. 
 
-The rest is up to you, inside the loop you can write the data from each run to your database, send it to another API, or just safely store it in a local file. Happy document parsing!
+The validated data from the processed documents are stored in `runs.output.values`, and can be extracted in the
+loop iterating runs. Exactly how to extract the data depends on whether or not the field is a line items field or
+a "regular" field.
+
+**Extract a "regular" field**
+
+If the data you want to extract is a "regular" field, like `total_amount`, add a *Calculation* to your process.
+In Expression, put `[runs.output.values.<YOUR FIELD>]`, where `<YOUR FIELD>` is exchanged with the field you want to
+extract (like `total_amount`). Remember to also add a Data object to store the value in. Process a new document in Cradl
+(Step 3), run the "Cradl Demo Process" again and see that something has been stored in your newly created Data object.
+
+![Crad Demo Process - extract total_amount](/img/integrations/blueprism/extract_total_amount.png)
+
+
+**Extract line items fields**
+
+If the data you want to extract is a line items field, the process is slightly more complicated.
+You will first need to store all line items fields in a *Collection*, then, loop through the collection, and store
+the line items field you want in a separate *Collection*.
+
+1. Inside the loop iterating runs, add a *Calculation* that stores all the line items field in a *Collection*.
+If your field is called `line_items`, the expression in the calculation should be `[runs.output.values.line_items]`.
+2. Add a loop that iterates through the newly created line items collection.
+3. Create another *Collection* for storing the specific line items field, and add the field to the *Fields* of the collection. If you
+for instance want to extract the field `line_items/description`, you should add `description` to Fields.
+
+  ![Crad Demo Process - add description to collection](/img/integrations/blueprism/add_description_as_field.png)
+
+4. Add an *Action* from the built-in Collection object that adds a new row to the collection created in 3.
+5. Add a *Calculation* that stores the line items field in the newly created row in the Field in the collection.
+
+  ![Crad Demo Process - store description in collection](/img/integrations/blueprism/store_description.png)
+
+6. You might also want to delete all rows in the collection before you start processing a new document, so you do not
+continue adding rows to the collection.
+
+All in all, extracting regular and line items fields will look something like
+
+![Crad Demo Process with data extraction](/img/integrations/blueprism/extract_data.png)
+
+The rest is up to you, you can write the data from each run to your database, send it to another API, or just safely store it in a local file. Happy document parsing!
 
 <br/>
 
