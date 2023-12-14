@@ -125,9 +125,9 @@ We are only listing completed runs here, so all runs that are waiting in line to
 Open runs and get familiar with the output of each run. 
 - The demo process will loop through all the completed runs and mark them as *consumed*, so you don't risk sending them further down your pipeline several times. 
 
-The validated data from the processed documents are stored in `runs.output.values`, and can be extracted in the
-loop iterating runs. Exactly how to extract the data depends on whether or not the field is a line items field or
-a "regular" field.
+The validated data from the processed documents are stored in `runs.output.values`, and can be extracted for each document in the loop. 
+Exactly how to extract the data depends on whether or not the field is a line items field or
+a regular key-value field.
 
 **Extract a "regular" field**
 
