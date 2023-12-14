@@ -130,9 +130,9 @@ The validated data from the processed documents are stored in `runs.output.value
 Exactly how to extract the data depends on whether or not the field is a line items field or
 a regular key-value field.
 
-**Extracting a regular key-value field**
+**Extracting a key-value field**
 
-If the data you want to extract is a regular key-value field, like `total_amount`, do the following:
+If the data you want to extract is a key-value field, like `total_amount`, do the following:
 1. Add a *Calculation* to your process.
 2. In Expression, put `[runs.output.values.<YOUR FIELD>]`, where `<YOUR FIELD>` is exchanged with the field you want to
 extract (like `total_amount`).
@@ -165,7 +165,7 @@ for instance want to extract the field `line_items/description`, you could add `
 6. You might also want to delete all rows in the collection before you start processing a new document, so you do not
 continue adding rows to the collection.
 
-All in all, extracting regular key-value fields and line items fields will look something like
+All in all, extracting key-value fields and line items fields will look something like this:
 
 ![Crad Demo Process with data extraction](/img/integrations/blueprism/extract_data.png)
 
