@@ -3,18 +3,18 @@ def required_labels(field_config):
 
 
 def is_line(field_config, p):
-    return field_config[p['label']]['type'] == 'lines'
+    return field_config.get(p['label'], {}).get('type') == 'lines'
 
 
 def is_enum(field_config, p):
-    return field_config[p['label']]['type'] == 'enum'
+    return field_config.get(p['label'], {}).get('type') == 'enum'
 
 
 def filter_optional_fields(predictions, field_config):
     def predicate(p):
         if is_line(field_config, p):
             return True
-        conf_threshold = field_config[p['label']]['confidenceLevels']['low']
+        conf_threshold = field_config.get(p['label'], {}).get('confidenceLevels', {}).get('low', 1.0)
         return p['label'] in required_labels(field_config) or conf_threshold < p['confidence']
     
     return list(filter(predicate, predictions))
@@ -44,6 +44,9 @@ def filter_by_top1(predictions):
 
 def above_threshold_or_optional(prediction, field_config):
     label, confidence = prediction['label'], prediction.get('confidence')
+    if label not in field_config:
+        return False
+
     threshold = field_config[label]['confidenceLevels']
     is_optional = not field_config[label].get('required', True)
 

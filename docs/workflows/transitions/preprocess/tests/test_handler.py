@@ -79,6 +79,12 @@ def test_run_module(get_document, get_asset, update_excs, get_excs, create_pred,
     # Missing required field, but all existing fields above threshold
     {'label': 'total_amount', 'value': '1', 'confidence': 0.99},
     {'label': 'invoice_id', 'value': '1', 'confidence': 0.99},
+], [
+     # One field below threshold
+    {'label': 'total_amount', 'value': '1', 'confidence': 0.99},
+    {'label': 'due_date', 'value': '1', 'confidence': 0.99},
+    {'label': 'invoice_id', 'value': '1', 'confidence': 0.99},
+    {'label': 'random', 'value': 'foobar', 'confidence': 0.99},
 ]])
 @patch('las.Client.create_prediction')
 @patch('las.Client.get_transition_execution')
@@ -122,7 +128,7 @@ def test_low_confidence_predictions(
         [{'label': 'subtotal', 'value': '50.00', 'confidence': 0.99}]
     ]},
 ], [
-    # All required above threshold, optional below lower threshold
+    # All required above threshold, optional below lower threshold + random field not present in field config
     {'label': 'total_amount', 'value': '0.00', 'confidence': 0.99},
     {'label': 'due_date', 'value': '1991-08-02', 'confidence': 0.99},
     {'label': 'invoice_id', 'value': '1337', 'confidence': 0.05},
