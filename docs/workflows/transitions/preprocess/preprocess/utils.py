@@ -14,7 +14,7 @@ def filter_optional_fields(predictions, field_config):
     def predicate(p):
         if is_line(field_config, p):
             return True
-        conf_threshold = field_config.get(p['label'], {}).get('confidenceLevels', {}).get('low', 1.0)
+        conf_threshold = field_config.get(p['label'], {}).get('confidenceLevels', {}).get('low', 0.3)
         return p['label'] in required_labels(field_config) or conf_threshold < p['confidence']
     
     return list(filter(predicate, predictions))
