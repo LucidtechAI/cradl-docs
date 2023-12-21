@@ -45,23 +45,23 @@ The Cradl AI integration for UiPath can be downloaded [here](https://www.nuget.o
 
 <br/>
 
-There is very little setup required in Cradl before you are ready to use the activities from in your UiPath workflows.
+There is very little setup required in Cradl before you are ready to use the activities in your UiPath workflows.
 All you have to do is:
 
 - Open the [Flow Builder](https://app.cradl.ai/flows) and press *create new*.
-- Select a pre-trained model to get started, you are also free to customize the model to extract the fields you want. 
+- Select a pre-trained model to get started. You are also free to customize the model to extract the fields you want. 
 - Add your co-workers as human validators to get help with the initial validation process.
 - Give your flow a suitable name and press *save*.
 
-You are now ready to jump into UiPath studio and start the integration.
+You are now ready to jump into UiPath Studio and start the integration.
 But on your way there, remember to bring the parameters listed under UiPath in the input and/or export dropdown.
-They are essential to identify both you, your model and your flow. Here is a brief explanation of what they are and how they are used:
+They are essential to identify you, your model and your flow. Here is a brief explanation of what they are and how they are used:
 
 | Parameter     | Type | Description |
 |:--------------| :------------- |:--- |
 | clientId     | Authentication | The identity of your UiPath integration. Store it as a variable in the Data Manager. |
 | clientSecret | Authentication | The secret key to authenticate your client. Do not share this with anyone, but store it safely as a variable in the Data Manager. |
-| flowId        | Input | The identity of the very flow you just created. Store it as a variable in the Data Manager. |
+| flowId        | Input | The identity of the flow you just created. Store it as a variable in the Data Manager. |
 
 
 :::tip Adaptive
@@ -80,12 +80,12 @@ You can at any point change the model in your flow by selecting another modelId.
 
 <br/>
 
-## Step 3: Send in a document to your flow in Cradl AI and complete a step of the feedback loop
+## Step 3: Send a document to your flow in Cradl AI and complete a step of the feedback loop
 
 <br/>
 
 - To test that everything works, open _Start Execution.xaml_ from the zipped folder and do a test run. Make sure that clientId, clientSecret, and flowId all have correct values.
-- If you head over to [Cradl](https://app.cradl.ai/flows), you can now go to the *Validator* by pressing the button [Run In Validator](https://app.cradl.ai/supervise/workflows/).
+- Head over to [Cradl](https://app.cradl.ai/flows). You can now go to the *Validator* by pressing the button [Run In Validator](https://app.cradl.ai/supervise/workflows/).
  This is the Human-in-the-loop platform that comes with Cradl AI, and you should see your document appear in your flow.
 - To get your own customized model you need to provide some ground truth data, so the AI knows what to look for. This is done by heading down to [Tasks](https://app.cradl.ai/supervise/tasks/).
 - Fill in the correct values and press the big green button. You have now completed one iteration of the feedback loop. 
@@ -103,7 +103,7 @@ So just to sum up, we have now done the following:
 
 Until now this seems like just another manual step in your workflow, where is the automation?  
 The automation starts after 15 documents have passed through the manual step, then you can train your model.
-When the training has completed, adjust the confidence thresholds in your flow so correctly predicted values from the model just passes straight through the validation.
+When the training has completed, adjust the confidence thresholds in your flow so correctly predicted values from the model pass straight through the validation.
 This brings us to the next section, how do we get the predictions from the model back into UiPath?
 
 <br/>
@@ -115,10 +115,10 @@ This brings us to the next section, how do we get the predictions from the model
 - Open the sequence defined in _Parse Document From Flow.xaml_. 
 - Make sure that clientId, clientSecret, and flowId all have correct values. Then do a test run.
 - A message box will pop up for each processed document showing the output from Cradl AI. If not, check that you have processed at least one document in Cradl. 
-We are only listing succeeded runs here, so all runs that are waiting in line to be manually parsed will not show up here.
+We are only listing succeeded runs here, so all runs that are waiting in line to be parsed manually will not show up here.
 - The demo process will loop through all the succeeded runs and mark them as *completed*, so you don't risk sending them further down your pipeline several times. 
 
-Printing this data in a message box as done in this example is just to illustrate how easy it is to retrieve the output from Cradl and pass it along to other stages in your workflow.
+In this example, we simply print the data in a message box. This is just to illustrate how easy it is to retrieve the output from Cradl and pass it along to other stages in your workflow.
 The rest is up to you, you can write the data from each run to your database, send it to another API, or just safely store it in a local file. Happy document parsing!
 
 <br/>
