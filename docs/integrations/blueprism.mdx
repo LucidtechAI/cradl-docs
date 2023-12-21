@@ -52,13 +52,13 @@ There is very little setup required in Cradl before you are ready to add actions
 All you have to do is:
 
 - Open the [Flow Builder](https://app.cradl.ai/flows) and press *create new*.
-- Select a pre-trained model to get started, you are also free to customize the model to extract the fields you want. 
+- Select a pre-trained model to get started. You are also free to customize the model to extract the fields you want. 
 - Add your co-workers as human validators to get help with the initial validation process.
 - Give your flow a suitable name and press *save*.
 
 You are now ready to jump into Blue Prism and start the integration.
 But on your way there, remember to bring the parameters listed under Blue Prism in the input and/or export dropdown.
-They are essential to identify both you, your model and your flow. Here is a brief explanation of what they are and how they are used:
+They are essential to identify you, your model and your flow. Here is a brief explanation of what they are and how they are used:
 
 | Parameter     | Type | Description |
 |:--------------| :------------- |:--- |
@@ -89,12 +89,12 @@ You can at any point change the model in your flow by selecting another modelId.
 <br/>
 
 - To test that everything works, open the Cradl AI VBO and do a debug run of the action *Parse Document With Human In The Loop*. Remember to set the flowId to the correct value.
-- If you head over to [Cradl](https://app.cradl.ai/flows), you can now go to the *Validator* by pressing the button [Run In Validator](https://app.cradl.ai/supervise/workflows/).
+- Head over to [Cradl](https://app.cradl.ai/flows). You can now go to the *Validator* by pressing the button [Run In Validator](https://app.cradl.ai/supervise/workflows/).
  This is the Human-in-the-loop platform that comes with Cradl AI, and you should see your document appear in your flow.
 - To get your own customized model you need to provide some ground truth data, so the AI knows what to look for. This is done by heading down to [Tasks](https://app.cradl.ai/supervise/tasks/).
 - Fill in the correct values and press the big green button. You have now completed one iteration of the feedback loop. 
 
-The values you annotated are used as ground truth when training the model, so you are one document closer to having your own customized model!
+The values that you annotated are used as ground truth when training the model, so you are one document closer to having your own customized model!
 
 :::tip
 You need to have at least 15 documents annotated this way before training a model.
@@ -107,7 +107,7 @@ So just to sum up, we have now done the following:
 
 Until now this seems like just another manual step in your workflow, where is the automation?  
 The automation starts after 15 documents have passed through the manual step, then you can train your model.
-When the training has completed, adjust the confidence thresholds in your flow so correctly predicted values from the model just passes straight through the validation.
+When the training has completed, adjust the confidence thresholds in your flow so correctly predicted values from the model pass straight through the validation.
 This brings us to the next section, how do we get the predictions from the model back into Blue Prism?
 
 <br/>
