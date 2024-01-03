@@ -69,6 +69,32 @@ def test_run_module(get_document, get_asset, update_excs, get_excs, create_pred,
     with patch.dict('preprocess.make_predictions.os.environ', env):
         runpy.run_module(preprocess.__name__)
         
+@pytest.mark.parametrize('predictions', [[
+    {'label': 'total_amount', 'value': '1', 'confidence': 0.99},
+    {'label': 'due_date', 'value': '1', 'confidence': 0.80},
+    {'label': 'invoice_id', 'value': '1', 'confidence': 0.98},
+]])
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.get_asset')
+@patch('las.Client.get_document')
+def test_override_predictions(
+    get_document, get_asset, update_excs, get_excs,
+    form_config, predictions, env
+):
+    get_excs.return_value = {'input': {
+        'documentId': 'las:document:xyz',
+        'predictions': predictions
+    }}
+    get_document.return_value = MagicMock()
+    get_asset.return_value = {'content': form_config}
+
+    with patch.dict('preprocess.make_predictions.os.environ', env):
+        preprocess.make_predictions.make_predictions()
+        
+    #output = update_excs.call_args.kwargs['output']
+    #assert output['needsValidation'] == True
+
 
 @pytest.mark.parametrize('prediction', [[
     # One field below threshold
