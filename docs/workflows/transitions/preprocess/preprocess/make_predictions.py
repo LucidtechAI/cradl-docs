@@ -81,6 +81,15 @@ def make_predictions(las_client, event):
 
     except las.client.BadRequest as e:
         logging.exception(e)
+
+    if email_context := event.get('email'):
+        subject = email_context.get('subject') or ''
+        origin = email_context.get('origin') or ''
+        header = f'{subject} (From: {origin})'
+        output.update({
+            'leadingTextHeader': {'value': header},
+            'leadingText': {'value': email_context.get('body') or ''},
+        })
     
     return {
         'documentId': document_id,
