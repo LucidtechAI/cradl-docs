@@ -28,7 +28,7 @@ def make_predictions(las_client, event):
     if not (predictions := event.get('predictions')):
         try:
             predictions = las_client.create_prediction(document_id, model_id).get('predictions')
-            logging.info(f'Created predicitons {predictions}')
+            logging.info(f'Created predictions {predictions}')
         except Exception as e:
             logging.exception(e)
             predictions = []
