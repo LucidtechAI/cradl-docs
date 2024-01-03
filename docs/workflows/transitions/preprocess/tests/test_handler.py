@@ -92,8 +92,8 @@ def test_override_predictions(
     with patch.dict('preprocess.make_predictions.os.environ', env):
         preprocess.make_predictions.make_predictions()
         
-    #output = update_excs.call_args.kwargs['output']
-    #assert output['needsValidation'] == True
+    output = update_excs.call_args.kwargs['output']
+    assert output['needsValidation'] == True
 
 
 @pytest.mark.parametrize('prediction', [[
