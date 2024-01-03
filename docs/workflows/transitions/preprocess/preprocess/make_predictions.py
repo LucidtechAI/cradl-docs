@@ -25,13 +25,14 @@ def make_predictions(las_client, event):
     output = {}
     needs_validation = True
 
-    try:
-        predictions = las_client.create_prediction(document_id, model_id).get('predictions')
-        logging.info(f'Created predicitons {predictions}')
-    except Exception as e:
-        logging.exception(e)
-        predictions = []
-        output = {'predictions': predictions}
+    if not (predictions := event.get('predictions')):
+        try:
+            predictions = las_client.create_prediction(document_id, model_id).get('predictions')
+            logging.info(f'Created predictions {predictions}')
+        except Exception as e:
+            logging.exception(e)
+            predictions = []
+            output = {'predictions': predictions}
 
     try:
         old_ground_truth = las_client.get_document(document_id=document_id).get('groundTruth')
@@ -68,7 +69,7 @@ def make_predictions(las_client, event):
 
             if old_ground_truth:
                 predictions = merge_predictions_and_gt(predictions, old_ground_truth, field_config)
-                logging.info(f'updated predictions: {predictions}')
+                logging.info(f'Updated predictions: {predictions}')
 
             output = {'predictions': predictions}
             if not needs_validation:
