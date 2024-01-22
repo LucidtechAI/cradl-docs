@@ -24,14 +24,24 @@ def make_predictions(las_client, event):
     
     output = {}
     needs_validation = True
+    predictions = []
 
-    try:
-        predictions = las_client.create_prediction(document_id, model_id).get('predictions')
-        logging.info(f'Created predicitons {predictions}')
-    except Exception as e:
-        logging.exception(e)
-        predictions = []
-        output = {'predictions': predictions}
+    start_page = 0
+    while start_page is not None and start_page < 100:
+        try:
+            current_prediction = las_client.create_prediction(
+                document_id,
+                model_id,
+                preprocess_config={'startPage': start_page, 'maxPages': 1, 'imageQuality': 'LOW'}
+            )
+            predictions.extend(current_prediction.get('predictions'))
+            start_page = current_prediction.get('nextPage', None)
+            logging.info(f'start_page {start_page}')
+        except Exception as e:
+            logging.exception(e)
+            break
+
+    logging.info(f'Created predictions {predictions}')
 
     try:
         old_ground_truth = las_client.get_document(document_id=document_id).get('groundTruth')
@@ -77,9 +87,13 @@ def make_predictions(las_client, event):
         elif old_ground_truth:
             old_ground_truth = {gt['label']: gt['value'] for gt in old_ground_truth}
             output = {'predictions': add_confidence_to_ground_truth(old_ground_truth)}
+        else:
+            output = {'predictions': predictions}
 
     except las.client.BadRequest as e:
         logging.exception(e)
+
+    logging.info(f'output: {output}')
     
     return {
         'documentId': document_id,

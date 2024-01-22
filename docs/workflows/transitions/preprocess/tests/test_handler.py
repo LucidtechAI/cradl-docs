@@ -65,10 +65,11 @@ def test_run_module(get_document, get_asset, update_excs, get_excs, create_pred,
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
+    create_pred.return_value = {'next_page': None}
 
     with patch.dict('preprocess.make_predictions.os.environ', env):
         runpy.run_module(preprocess.__name__)
-        
+
 
 @pytest.mark.parametrize('prediction', [[
     # One field below threshold
@@ -98,7 +99,7 @@ def test_low_confidence_predictions(
         preprocess.make_predictions.make_predictions()
         
     output = update_excs.call_args.kwargs['output']
-    assert output['needsValidation'] == True
+    assert output['needsValidation']
     
 
 @pytest.mark.parametrize('predictions', [[
@@ -278,8 +279,7 @@ def test_update_ground_truth_values(
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
 def test_update_ground_truth_values_no_lines(
-    get_document, get_asset, update_excs, get_excs, create_pred,
-    form_config, predictions, env
+    get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
 ):
     ground_truth = [
         {'label': 'total_amount', 'value': '100.00'},

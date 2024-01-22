@@ -83,11 +83,15 @@ def add_confidence_to_ground_truth(ground_truth):
 def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
     old_ground_truth = {gt['label']: gt['value'] for gt in old_ground_truth}
     updated_predictions = []
+    updated_labels = set()
 
     # override value if label is the same, add if it is not predicted
     for prediction in predictions:
         label = prediction['label']
+        if label in updated_labels:
+            continue
         if label in old_ground_truth:
+            updated_labels.add(label)
             value = old_ground_truth.pop(label, prediction['value'])
             confidence = None
             if is_line(field_config, prediction):
