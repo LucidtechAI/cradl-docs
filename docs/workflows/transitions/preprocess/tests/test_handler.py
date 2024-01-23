@@ -7,7 +7,7 @@ import runpy
 
 from unittest.mock import patch, MagicMock
 
-from preprocess.utils import filter_by_top1
+from preprocess.utils import filter_by_top1, merge_lines_from_different_pages
 
 
 @pytest.fixture
@@ -364,3 +364,116 @@ def test_top1_filter(predictions_to_collapse, expected_collapsed_predictions):
     filtered_predictions = sorted(filtered_predictions, key=lambda item: item['label'])
     expected_filtered_predictions = sorted(expected_collapsed_predictions, key=lambda item: item['label'])
     assert filtered_predictions == expected_filtered_predictions
+
+
+@pytest.fixture
+def line_predictions_to_merge():
+    return [
+        {'label': 'supplier_name', 'page': 0, 'value': 'One cool supplier', 'confidence': 0.90},
+        {'label': 'supplier_name', 'page': 0, 'value': 'Not a supplier', 'confidence': 0.88},
+        {'label': 'line_items', 'value': [
+            [
+                {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
+                {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
+                {'label': 'unit_price', 'page': 0, 'value': '10.00', 'confidence': 0.38},
+            ], [
+                {'label': 'description', 'page': 0, 'value': 'second line', 'confidence': 0.95},
+                {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
+                {'label': 'total_price', 'page': 0, 'value': '3691.95', 'confidence': 0.65},
+                {'label': 'unit_price', 'page': 0, 'value': '11.00', 'confidence': 0.38},
+                {'label': 'total_price', 'page': 0, 'value': '3.691.95', 'confidence': 0.36},
+            ], [
+                {'label': 'description', 'page': 0, 'value': 'third line', 'confidence': 0.94},
+                {'label': 'total_price', 'page': 0, 'value': '188.57', 'confidence': 0.40},
+            ]
+        ]},
+        {'label': 'supplier_name', 'page': 1, 'value': None, 'confidence': 0.89},
+        {'label': 'line_items', 'value': [
+            [
+                {'label': 'description', 'page': 1, 'value': 'third line', 'confidence': 0.96},
+                {'label': 'unit_price', 'page': 1, 'value': '10.11', 'confidence': 0.38},
+                {'label': 'product_code', 'page': 1, 'value': 'ABC123', 'confidence': 0.65},
+            ], [
+                {'label': 'total_price', 'page': 1, 'value': '395.40', 'confidence': 0.92},
+                {'label': 'description', 'page': 1, 'value': 'fourth line', 'confidence': 0.909},
+            ], [
+                {'label': 'total_price', 'page': 1, 'value': '23090.35', 'confidence': 0.60},
+                {'label': 'description', 'page': 1, 'value': 'fifth line', 'confidence': 0.55},
+                {'label': 'product_code', 'page': 1, 'value': 'fifth line', 'confidence': 0.302},
+            ]
+        ]},
+        {'label': 'supplier_name', 'page': 2, 'value': 'One cool supplier', 'confidence': 0.84},
+        {'label': 'line_items', 'value': [
+            [
+                {'label': 'total_price', 'page': 2, 'value': '72.15', 'confidence': 0.96},
+                {'label': 'unit_price', 'page': 2, 'value': '62.05', 'confidence': 0.61},
+                {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.48},
+            ], [
+                {'label': 'total_price', 'page': 2, 'value': '51.82', 'confidence': 0.93},
+                {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.48},
+                {'label': 'unit_price', 'page': 2, 'value': '48.95', 'confidence': 0.464},
+            ],
+        ]},
+    ]
+
+
+@pytest.fixture
+def line_predictions_after_merge():
+    return [
+        {'label': 'supplier_name', 'page': 0, 'value': 'One cool supplier', 'confidence': 0.90},
+        {'label': 'supplier_name', 'page': 0, 'value': 'Not a supplier', 'confidence': 0.88},
+        {'label': 'supplier_name', 'page': 1, 'value': None, 'confidence': 0.89},
+        {'label': 'supplier_name', 'page': 2, 'value': 'One cool supplier', 'confidence': 0.84},
+        {'label': 'line_items', 'value': [
+            [
+                {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
+                {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
+                {'label': 'unit_price', 'page': 0, 'value': '10.00', 'confidence': 0.38},
+            ], [
+                {'label': 'description', 'page': 0, 'value': 'second line', 'confidence': 0.95},
+                {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
+                {'label': 'total_price', 'page': 0, 'value': '3691.95', 'confidence': 0.65},
+                {'label': 'unit_price', 'page': 0, 'value': '11.00', 'confidence': 0.38},
+                {'label': 'total_price', 'page': 0, 'value': '3.691.95', 'confidence': 0.36},
+            ], [
+                {'label': 'description', 'page': 0, 'value': 'third line', 'confidence': 0.94},
+                {'label': 'total_price', 'page': 0, 'value': '188.57', 'confidence': 0.40},
+                {'label': 'description', 'page': 1, 'value': 'third line', 'confidence': 0.96},
+                {'label': 'unit_price', 'page': 1, 'value': '10.11', 'confidence': 0.38},
+                {'label': 'product_code', 'page': 1, 'value': 'ABC123', 'confidence': 0.65},
+            ], [
+                {'label': 'total_price', 'page': 1, 'value': '395.40', 'confidence': 0.92},
+                {'label': 'description', 'page': 1, 'value': 'fourth line', 'confidence': 0.909},
+            ], [
+                {'label': 'total_price', 'page': 1, 'value': '23090.35', 'confidence': 0.60},
+                {'label': 'description', 'page': 1, 'value': 'fifth line', 'confidence': 0.55},
+                {'label': 'product_code', 'page': 1, 'value': 'fifth line', 'confidence': 0.302},
+            ], [
+                {'label': 'total_price', 'page': 2, 'value': '72.15', 'confidence': 0.96},
+                {'label': 'unit_price', 'page': 2, 'value': '62.05', 'confidence': 0.61},
+                {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.48},
+            ], [
+                {'label': 'total_price', 'page': 2, 'value': '51.82', 'confidence': 0.93},
+                {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.48},
+                {'label': 'unit_price', 'page': 2, 'value': '48.95', 'confidence': 0.464},
+            ],
+        ]},
+    ]
+
+
+@pytest.mark.parametrize('field_config', [{
+    'supplier_name': {'type': 'string'},
+    'line_items': {
+        'type': 'lines',
+        'fields': {
+            'description': {'type': 'string'},
+            'total_price': {'type': 'amount'},
+            'unit_price': {'type': 'amount'},
+            'product_code': {'type': 'string'},
+        }
+    }
+}])
+def test_merge_lines_from_different_pages(field_config, line_predictions_to_merge, line_predictions_after_merge):
+    predictions = merge_lines_from_different_pages(line_predictions_to_merge, field_config)
+
+    assert predictions == line_predictions_after_merge

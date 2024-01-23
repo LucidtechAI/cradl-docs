@@ -50,6 +50,8 @@ def make_predictions(las_client, event):
             field_config = form_config['config']['fields']
             top1_preds = filter_by_top1(predictions)
 
+            predictions = merge_lines_from_different_pages(predictions, field_config)
+
             all_above_threshold_or_optional = True
             for prediction in top1_preds:
                 if is_line(field_config, prediction):

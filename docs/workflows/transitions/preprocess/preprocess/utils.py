@@ -115,3 +115,47 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
 
     return updated_predictions
 
+
+def overlap(last_lines, first_lines):
+    for first_line in first_lines:
+        for last_line in last_lines:
+            if first_line['label'] == last_line['label'] and first_line['value'] != last_line['value']:
+                return False
+    return True
+
+
+def merge_lines(last_line, first_line):
+    return last_line + first_line
+
+
+def merge_lines_from_different_pages(predictions, field_config):
+    line_labels = [field for field, config in field_config.items() if config['type'] == 'lines']
+
+    if not line_labels:
+        return predictions
+
+    line_predictions = {line_field: [] for line_field in line_labels}
+
+    merged_predictions = []
+    for prediction in predictions:
+        label = prediction['label']
+        if label in line_labels:
+            line_values = prediction['value']
+
+            last_line = line_predictions[label][-1] if line_predictions[label] else []
+            first_line = line_values[0]
+            if overlap(last_line, first_line):
+                merged_line = merge_lines(last_line, first_line)
+                line_values[0] = merged_line
+                if line_predictions[label]:  # Need to check if any lines have been processed
+                    line_predictions[label].pop()
+
+            line_predictions[label].extend(line_values)
+        else:
+            merged_predictions.append(prediction)
+
+    merged_predictions += [{'label': k, 'value': v} for k, v in line_predictions.items()]
+
+    return merged_predictions
+
+
