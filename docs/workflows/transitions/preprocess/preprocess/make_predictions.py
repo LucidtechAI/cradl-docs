@@ -21,13 +21,16 @@ def make_predictions(las_client, event):
 
     form_config_asset = las_client.get_asset(form_config_id)
     form_config = json.loads(base64.b64decode(form_config_asset['content']))
+
+    model_metadata = las_client.get_model(model_id).get('metadata', {})
+    logging.info(f'model metadata: {model_metadata}')
     
     output = {}
     needs_validation = True
     predictions = []
 
     start_page = 0
-    while start_page is not None and start_page < 100:
+    while start_page is not None and start_page < model_metadata.get('maxPredictionPages', 100):
         try:
             current_prediction = las_client.create_prediction(
                 document_id,
@@ -50,7 +53,8 @@ def make_predictions(las_client, event):
             field_config = form_config['config']['fields']
             top1_preds = filter_by_top1(predictions)
 
-            predictions = merge_lines_from_different_pages(predictions, field_config)
+            if model_metadata.get('mergeLines'):
+                predictions = merge_lines_from_different_pages(predictions, field_config)
 
             all_above_threshold_or_optional = True
             for prediction in top1_preds:

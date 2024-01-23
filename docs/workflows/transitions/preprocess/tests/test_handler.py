@@ -61,8 +61,10 @@ def form_config():
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
-def test_run_module(get_document, get_asset, update_excs, get_excs, create_pred, form_config, env):
+@patch('las.Client.get_model')
+def test_run_module(get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, env):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_model.return_value = {'metadata': {}}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'next_page': None}
@@ -86,11 +88,12 @@ def test_run_module(get_document, get_asset, update_excs, get_excs, create_pred,
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
+@patch('las.Client.get_model')
 def test_low_confidence_predictions(
-    get_document, get_asset, update_excs, get_excs, create_pred,
-    form_config, prediction, env
+    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, prediction, env
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_model.return_value = {'metadata': {}}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': prediction}
@@ -145,11 +148,12 @@ def test_low_confidence_predictions(
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
+@patch('las.Client.get_model')
 def test_high_confidence_predictions(
-    get_document, get_asset, update_excs, get_excs, create_pred,
-    form_config, predictions, env
+    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_model.return_value = {'metadata': {}}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
@@ -176,11 +180,12 @@ def test_high_confidence_predictions(
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
+@patch('las.Client.get_model')
 def test_low_confidence_and_optional_fields_are_omitted(
-    get_document, get_asset, update_excs, get_excs, create_pred,
-    form_config, predictions, env
+    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_model.return_value = {'metadata': {}}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
@@ -206,11 +211,12 @@ def test_low_confidence_and_optional_fields_are_omitted(
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
+@patch('las.Client.get_model')
 def test_enum_null_values_sent_to_need_validation(
-    get_document, get_asset, update_excs, get_excs, create_pred,
-    form_config, predictions, env
+    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_model.return_value = {'metadata': {}}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
@@ -232,9 +238,9 @@ def test_enum_null_values_sent_to_need_validation(
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
+@patch('las.Client.get_model')
 def test_update_ground_truth_values(
-    get_document, get_asset, update_excs, get_excs, create_pred,
-    form_config, predictions, env
+    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
 ):
     ground_truth = [
         {'label': 'total_amount', 'value': '100.00'},
@@ -247,6 +253,7 @@ def test_update_ground_truth_values(
         ]}
     ]
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_model.return_value = {'metadata': {}}
     get_document.return_value = {'groundTruth': ground_truth}
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
@@ -278,13 +285,15 @@ def test_update_ground_truth_values(
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
+@patch('las.Client.get_model')
 def test_update_ground_truth_values_no_lines(
-    get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
+    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
 ):
     ground_truth = [
         {'label': 'total_amount', 'value': '100.00'},
     ]
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_model.return_value = {'metadata': {}}
     get_document.return_value = {'groundTruth': ground_truth}
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
@@ -308,10 +317,12 @@ def test_update_ground_truth_values_no_lines(
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
+@patch('las.Client.get_model')
 def test_inactive_model(
-    get_document, get_asset, update_excs, get_excs, create_pred, form_config, env
+    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, env
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_model.return_value = {'metadata': {}}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
     
@@ -410,8 +421,14 @@ def line_predictions_to_merge():
                 {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.48},
             ], [
                 {'label': 'total_price', 'page': 2, 'value': '51.82', 'confidence': 0.93},
-                {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.48},
                 {'label': 'unit_price', 'page': 2, 'value': '48.95', 'confidence': 0.464},
+            ],
+        ]},
+        {'label': 'supplier_name', 'page': 3, 'value': 'some wrong prediction', 'confidence': 0.64},
+        {'label': 'line_items', 'value': [
+            [
+                {'label': 'description', 'page': 3, 'value': 'sixth line', 'confidence': 0.93},
+                {'label': 'product_code', 'page': 3, 'value': None, 'confidence': 0.68},
             ],
         ]},
     ]
@@ -424,6 +441,7 @@ def line_predictions_after_merge():
         {'label': 'supplier_name', 'page': 0, 'value': 'Not a supplier', 'confidence': 0.88},
         {'label': 'supplier_name', 'page': 1, 'value': None, 'confidence': 0.89},
         {'label': 'supplier_name', 'page': 2, 'value': 'One cool supplier', 'confidence': 0.84},
+        {'label': 'supplier_name', 'page': 3, 'value': 'some wrong prediction', 'confidence': 0.64},
         {'label': 'line_items', 'value': [
             [
                 {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
@@ -454,8 +472,9 @@ def line_predictions_after_merge():
                 {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.48},
             ], [
                 {'label': 'total_price', 'page': 2, 'value': '51.82', 'confidence': 0.93},
-                {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.48},
                 {'label': 'unit_price', 'page': 2, 'value': '48.95', 'confidence': 0.464},
+                {'label': 'description', 'page': 3, 'value': 'sixth line', 'confidence': 0.93},
+                {'label': 'product_code', 'page': 3, 'value': None, 'confidence': 0.68},
             ],
         ]},
     ]
