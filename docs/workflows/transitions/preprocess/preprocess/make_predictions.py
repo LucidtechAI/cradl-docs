@@ -15,7 +15,7 @@ def make_predictions(las_client, event):
     document_id = event['documentId']
     model_id = os.environ['MODEL_ID']
     form_config_id = os.environ['FORM_CONFIG_ASSET_ID']
-    
+
     logging.info(f'Processing event:')
     logging.info(json.dumps(event, indent=2))
 
@@ -24,7 +24,7 @@ def make_predictions(las_client, event):
 
     model_metadata = las_client.get_model(model_id).get('metadata', {})
     logging.info(f'model metadata: {model_metadata}')
-    
+
     output = {}
     needs_validation = True
 
@@ -36,7 +36,7 @@ def make_predictions(las_client, event):
                 current_prediction = las_client.create_prediction(
                     document_id,
                     model_id,
-                    preprocess_config={'startPage': start_page, 'maxPages': 1, 'imageQuality': 'LOW'}
+                    preprocess_config={'startPage': start_page, 'maxPages': 3, 'imageQuality': 'HIGH'}
                 )
                 predictions.extend(current_prediction.get('predictions'))
                 start_page = current_prediction.get('nextPage', None)
@@ -110,7 +110,7 @@ def make_predictions(las_client, event):
         })
 
     logging.info(f'output: {output}')
-    
+
     return {
         'documentId': document_id,
         'needsValidation': needs_validation,
