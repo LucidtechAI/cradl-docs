@@ -1,0 +1,125 @@
+---
+sidebar_position: 1
+title: UiPath
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+# Unlock Document Parsing with Cradl AI in UiPath
+
+<br/>
+
+This guide will show you how to extract data from your documents with Cradl AI in UiPath.
+By the end of this guide you should be able to:
+ - Train your own AI model customized to your own documents.
+ - Set up a feedback loop so your AI model can train and get better for every document you process.
+ - Process your documents in your UiPath workflow using Cradl AI.
+
+All you need to get started is:
+- UiPath Studio installed on your computer.
+- Account on Cradl AI (If you don't have one yet, you can sign up [here](https://app.cradl.ai/login?redirect=signup&utm_campaign=docs)).
+
+:::tip Scalable
+Cradl AI empowers you with the ability to create your own AI models. 15 examples are all you need to get started.
+:::
+
+<br/>
+
+## Overview
+
+<br/>
+The Cradl AI integration for UiPath can be downloaded [here](https://www.nuget.org/packages/CradlAI.UiPath.Activities), and consists of these activities:
+
+| Name        | Description |
+|:------------| :-----------|
+| Parse Document                        | Parse a document with a model in Cradl AI. |
+| Parse Document With Human In The Loop | Parse a document with a flow in Cradl AI. |
+| List Processed Documents              | Retrieve data from a flow in Cradl AI. |
+| Mark Run As Completed                 | Set a run's status to "completed" |
+
+<br/>
+
+## Step 1: Login to Cradl and setup a Flow
+
+<br/>
+
+There is very little setup required in Cradl before you are ready to use the activities in your UiPath workflows.
+All you have to do is:
+
+- Open the [Flow Builder](https://app.cradl.ai/flows) and press *create new*.
+- Select a pre-trained model to get started. You are also free to customize the model to extract the fields you want. 
+- Add your co-workers as human validators to get help with the initial validation process.
+- Give your flow a suitable name and press *save*.
+
+You are now ready to jump into UiPath Studio and start the integration.
+But on your way there, remember to bring the parameters listed under UiPath in the input and/or export dropdown.
+They are essential to identify you, your model and your flow. Here is a brief explanation of what they are and how they are used:
+
+| Parameter     | Type | Description |
+|:--------------| :------------- |:--- |
+| clientId     | Authentication | The identity of your UiPath integration. Store it as a variable in the Data Manager. |
+| clientSecret | Authentication | The secret key to authenticate your client. Do not share this with anyone, but store it safely as a variable in the Data Manager. |
+| flowId        | Input | The identity of the flow you just created. Store it as a variable in the Data Manager. |
+
+
+:::tip Adaptive
+You can at any point change the model in your flow by selecting another modelId.
+:::
+
+<br/>
+
+## Step 2: Cradl AI Example Project in UiPath
+
+<br/>
+
+- Download the [Example Project](https://docs.cradl.ai/cradl_ai_uipath.zip).
+- Unzip the folder and open the project in UiPath Studio.
+- Open the Data Manager in the side panel and store the parameters from [Flow Builder](https://app.cradl.ai/flows).
+
+<br/>
+
+## Step 3: Send a document to your flow in Cradl AI and complete a step of the feedback loop
+
+<br/>
+
+- To test that everything works, open _Start Execution.xaml_ from the zipped folder and do a test run. Make sure that clientId, clientSecret, and flowId all have correct values.
+- Head over to [Cradl](https://app.cradl.ai/flows). You can now go to the *Validator* by pressing the button [Run In Validator](https://app.cradl.ai/supervise/workflows/).
+ This is the Human-in-the-loop platform that comes with Cradl AI, and you should see your document appear in your flow.
+- To get your own customized model you need to provide some ground truth data, so the AI knows what to look for. This is done by heading down to [Tasks](https://app.cradl.ai/supervise/tasks/).
+- Fill in the correct values and press the big green button. You have now completed one iteration of the feedback loop. 
+
+The values that you annotated are used as ground truth when training the model, so you are one document closer to having your own customized model!
+
+:::tip
+You need to have at least 15 documents annotated this way before training a model.
+:::
+
+
+So just to sum up, we have now done the following:
+- Sent in a document for parsing to Cradl AI
+- Created a feedback loop and done one iteration of it. 
+
+Until now this seems like just another manual step in your workflow, where is the automation?  
+The automation starts after 15 documents have passed through the manual step, then you can train your model.
+When the training has completed, adjust the confidence thresholds in your flow so correctly predicted values from the model pass straight through the validation.
+This brings us to the next section, how do we get the predictions from the model back into UiPath?
+
+<br/>
+
+## Step 4: Get the parsed document back into UiPath
+
+<br/>
+
+- Open the sequence defined in _Parse Document From Flow.xaml_. 
+- Make sure that clientId, clientSecret, and flowId all have correct values. Then do a test run.
+- A message box will pop up for each processed document showing the output from Cradl AI. If not, check that you have processed at least one document in Cradl. 
+We are only listing succeeded runs here, so all runs that are waiting in line to be parsed manually will not show up here.
+- The demo process will loop through all the succeeded runs and mark them as *completed*, so you don't risk sending them further down your pipeline several times. 
+
+In this example, we simply print the data in a message box. This is just to illustrate how easy it is to retrieve the output from Cradl and pass it along to other stages in your workflow.
+The rest is up to you, you can write the data from each run to your database, send it to another API, or just safely store it in a local file. Happy document parsing!
+
+<br/>
+

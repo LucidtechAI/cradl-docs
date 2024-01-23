@@ -1,0 +1,144 @@
+---
+sidebar_position: 4
+title: REST API
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Using the REST API to run flows
+
+In this guide we'll demonstrate how to use the REST API to integrate your flow into existing systems. All examples use 
+the cURL command line tool, but any tool you're using that has support for making REST API calls will work similarly.
+
+<br/>
+
+## Prerequisites
+
+You need to have a [Cradl AI](https://app.cradl.ai/) account and have created a flow. If you haven't, go to 
+[flows](https://app.cradl.ai/flows) and create one.
+
+<br/>
+
+## Step 1: Acquire API credentials
+
+Go to the [API tab](https://app.cradl.ai/appclients) in Cradl to find or create API credentials. Read 
+more on how to use the credentials to make authenticated requests [here](../reference/authentication.md)
+
+:::caution
+
+Remember to add the Authorization header to all API requests demonstrated in this guide or the requests will fail. Read
+more about how to get and add the Authorization header 
+[here](../reference/authentication.md#getting-an-access-token-manually)
+
+:::
+
+<br/>
+
+## Step 2: Run a flow with a document
+
+Choose the REST API input integration on your flow by going to the flow builder in Cradl AI and locate the `workflowId` 
+that will be required to run a flow.
+
+![REST API Input Integration](/img/integrations/rest-api/rest-api-input.png)
+
+<br/>
+
+### Uploading a document
+
+Next, upload the document that you want to send to the flow. In order to do that you need to create a 
+document handle in the API.
+
+```bash
+curl -X POST https://api.lucidtech.ai/v1/documents 
+```
+
+In the response you'll find a `documentId` and a `fileUrl` which we'll need for the next steps.
+
+```json
+{
+  "documentId": "<your documentId>",
+  "fileUrl": "https://files.api.cradl.ai/<your fileId>"
+}
+```
+
+Upload the document from your computer to Cradl AI using the `fileUrl` from the previous step.
+
+```bash
+curl -X PUT https://files.api.cradl.ai/<your fileId> --data-binary @my-document-file.pdf
+```
+
+<br/>
+
+### Running the flow
+
+After successfully uploading a document to the API, you are now ready to run the flow with the `workflowId` that you 
+got from the REST API integration card in the flow builder and the `documentId` from the previous step.
+
+```bash
+curl -X POST https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions --json '{"documentId": "<your documentId>"}'
+```
+
+:::info
+
+You can give the flow run a `title` by adding a string value for the key `title` in the
+POST request. 
+
+```json
+{
+  "documentId": "<your documentId>",
+  "title": "My flow run title"
+}
+```
+
+:::
+
+<br/>
+
+## Step 3: Validate the document in Cradl AI
+
+Go to the [Cradl AI Validator](https://app.cradl.ai/supervise) and validate the document by going to Tasks, 
+selecting the correct flow and completing the validation task.
+
+<br/>
+
+## Step 4: Fetch the final result
+
+After successfully running the flow on a document you can now get the result from the API. When you made the API call 
+to `POST https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions` in step 2 , the response contained an 
+`executionId`. You will need the `executionId` in addition to the `workflowId` in order to get the output from the 
+flow.
+
+The output of the flow run contains values for all the fields automatically predicted by Cradl's AI, with potential 
+corrections made by a validator. You can now be sure that the extracted data is correct and use it for further 
+processing.
+
+```bash
+curl -X GET https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions/<your executionId>
+```
+
+The response JSON will have a key called `output` which contains the final (validated) results.
+
+```json
+{
+  "executionId": "<your executionId>",
+  "output": {
+    "documentId": "<your documentId>",
+    "values": {
+      "my_flow_field_1": "some_value_1",
+      "my_flow_field_2": "some_value_2"
+    }
+  }
+}
+```
+
+:::info
+
+Marking the flow run as `completed` will make it easier for you to track which runs have already been processed in 
+your system and which ones have not.
+
+```bash
+curl -X PATCH https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions/<your executionId> --json '{"status": "completed"}'
+```
+
+:::

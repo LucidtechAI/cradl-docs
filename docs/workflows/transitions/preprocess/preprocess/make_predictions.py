@@ -27,22 +27,23 @@ def make_predictions(las_client, event):
     
     output = {}
     needs_validation = True
-    predictions = []
 
-    start_page = 0
-    while start_page is not None and start_page < model_metadata.get('maxPredictionPages', 100):
-        try:
-            current_prediction = las_client.create_prediction(
-                document_id,
-                model_id,
-                preprocess_config={'startPage': start_page, 'maxPages': 1, 'imageQuality': 'LOW'}
-            )
-            predictions.extend(current_prediction.get('predictions'))
-            start_page = current_prediction.get('nextPage', None)
-            logging.info(f'start_page {start_page}')
-        except Exception as e:
-            logging.exception(e)
-            break
+    if not (predictions := event.get('predictions')):
+        start_page = 0
+        predictions = []
+        while start_page is not None and start_page < model_metadata.get('maxPredictionPages', 100):
+            try:
+                current_prediction = las_client.create_prediction(
+                    document_id,
+                    model_id,
+                    preprocess_config={'startPage': start_page, 'maxPages': 1, 'imageQuality': 'LOW'}
+                )
+                predictions.extend(current_prediction.get('predictions'))
+                start_page = current_prediction.get('nextPage', None)
+                logging.info(f'start_page {start_page}')
+            except Exception as e:
+                logging.exception(e)
+                break
 
     logging.info(f'Created predictions {predictions}')
 
@@ -84,7 +85,7 @@ def make_predictions(las_client, event):
 
             if old_ground_truth:
                 predictions = merge_predictions_and_gt(predictions, old_ground_truth, field_config)
-                logging.info(f'updated predictions: {predictions}')
+                logging.info(f'Updated predictions: {predictions}')
 
             output = {'predictions': predictions}
             if not needs_validation:
@@ -98,6 +99,15 @@ def make_predictions(las_client, event):
 
     except las.client.BadRequest as e:
         logging.exception(e)
+
+    if email_context := event.get('email'):
+        subject = email_context.get('subject') or ''
+        origin = email_context.get('origin') or ''
+        header = f'{subject} (From: {origin})'
+        output.update({
+            'leadingTextHeader': {'value': header},
+            'leadingText': {'value': email_context.get('body') or ''},
+        })
 
     logging.info(f'output: {output}')
     

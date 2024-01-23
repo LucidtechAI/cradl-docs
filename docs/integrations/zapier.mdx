@@ -1,0 +1,133 @@
+---
+sidebar_position: 3
+title: Zapier
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+# Unlock Document Parsing with Cradl AI in Zapier
+
+<br/>
+
+This guide will show you how to extract data from your documents with Cradl AI in Zapier.
+By the end of this guide you should be able to:
+ - Train your own AI model customized to your own documents.
+ - Set up a feedback loop so your AI model can train and get better for every document you process.
+ - Use Cradl AI to automate document processing with Zapier.
+
+All you need to get started is:
+- A [Zapier](https://zapier.com/) account.
+- A Cradl AI account (If you don't have one yet, you can sign up [here](https://app.cradl.ai/login?redirect=signup&utm_campaign=docs)).
+
+
+:::tip Scalable
+Cradl AI empowers you with the ability to create your own AI models. 15 examples is all you need to get started.
+:::
+
+<br/>
+
+## Overview
+
+<br/>
+
+Cradl currently offers three interactions in Zapier. This guide will use the *Parse Document With Human-In-The-Loop* 
+action and the *Document Parsing Completed* trigger.
+
+| Name                                  | Type    | Description                                                                             |
+|:--------------------------------------|:--------|:----------------------------------------------------------------------------------------|
+| Parse Document with Human-In-The-Loop | Action  | Takes a file as input and sends it to a Cradl AI flow for human-in-the-loop processing. |
+| Document Parsing Completed            | Trigger | Triggers whenever a document is completed in a Cradl AI flow.                           |
+| Parse Document                        | Action  | Takes a file as input and returns the output from a specific Cradl AI model.            |
+<br/>
+
+## Step 1: Login to Cradl and setup a Flow
+
+<br/>
+
+There is very little setup required in Cradl before you can start connecting to other apps with Zapier.
+All you have to do is:
+
+- Open the [Flow Builder](https://app.cradl.ai/flows) and press *create new*.
+- Select a pre-trained model to get started, you are also free to customize the model to extract the fields you want. 
+- (Optional) Add your co-workers as human validators to get help with the initial validation process.
+- Give your flow a suitable name and press *save*.
+
+You are now ready to jump into Zapier and start the integration.
+But on your way there, remember to bring the authentication parameters listed under Zapier in the input and/or export dropdown.
+
+| Parameter     | Type | Description                                                                                                          |
+|:--------------| :------------- |:---------------------------------------------------------------------------------------------------------------------|
+| Client ID     | Credentials | The identity of your Zapier integration. Input this along with Client Secret when prompted with credentials.         |
+| Client Secret | Credentials | The secret key to authenticate your client. Do not share this with anyone except Zapier, when prompted during login. |
+
+:::tip Adaptive
+You can at any point change the model in your flow by selecting a different AI model.
+:::
+
+<br/>
+
+## Step 2: Enable Cradl AI in Zapier
+
+<br/>
+
+- Follow the [invitation link](https://zapier.com/developer/public-invite/195548/361cd1a3142a6fecfd6a05d14fd39695/) and accept the invitation, if you have not already done so.
+- Cradl AI will now be visible when selecting Triggers and Actions in the Zap editor.
+
+![Cradl Zap Listing](/img/integrations/zapier/applisting.png)
+
+<br/>
+
+## Step 3: Send in a document to your flow in Cradl AI and complete a step of the feedback loop
+
+<br/>
+
+- Build a Zap with a trigger of your choice that provides a document file. For example, triggering when an email 
+with a file attachment is added to an email inbox.  
+- As the action following this trigger, select Cradl AI and the *Parse Document With Human-In-The-Loop* event.
+
+![Cradl Human-In-The-Loop event](/img/integrations/zapier/humanintheloopevent.png)
+
+- Under Account: when prompted, log in to Cradl using the Client ID and Client Secret.
+- Under Action: Link the document file from the trigger to the Document field in the action, select your previously 
+created Flow and test the integration. Your Zap should look something like this:
+
+![Cradl Gmail Trigger](/img/integrations/zapier/gmailtrigger.png)
+
+- If you head over to [Cradl](https://app.cradl.ai/flows), you can now go to the *Validator* by pressing the button [Run In Validator](https://app.cradl.ai/supervise/workflows/).
+ This is the Human-in-the-loop platform that comes with Cradl AI, and you should see your document appear in your flow.
+- To get your own customized model you need to provide some ground truth data, so the AI knows what to look for. This is done by heading down to [Tasks](https://app.cradl.ai/supervise/tasks/).
+- Fill in the correct values and press the big green button. You have now completed one iteration of the feedback loop. 
+
+The values you annotated are used as ground truth when training the model, so you are one document closer to having your own customized model!
+
+:::tip
+You need to have at least 15 documents annotated this way before training a model.
+:::
+
+
+So just to sum up, we have now done the following:
+- Sent in a document for parsing to Cradl AI
+- Created a feedback loop and done one iteration of it. 
+
+Until now this seems like just another manual step in your workflow, where is the automation?  
+The automation starts after 15 documents have passed through the manual step, then you can train your model.
+When the training has completed, adjust the confidence thresholds in your flow so correctly predicted values from the model just passes straight through the validation.
+This brings us to the next section, how do we get the predictions from the model back into Zapier?
+
+<br/>
+
+## Step 4: Get the parsed document back into Zapier
+
+<br/>
+
+- In Zapier, create a new Zap with the Document Parsing Completed trigger from Cradl AI.
+- Choose the Flow you processed the document with in step 3, and test the trigger.
+
+![Cradl Trigger Output](/img/integrations/zapier/triggeroutput.png)
+
+The validated data from the processed documents are now accessible with a `Values` prefix, and can now be used as input in your next action. Happy document parsing!
+
+<br/>
+

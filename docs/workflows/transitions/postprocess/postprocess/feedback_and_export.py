@@ -1,8 +1,6 @@
 import logging
 import os
 import las
-import json
-import base64
 import requests
 
 
@@ -27,7 +25,7 @@ def post_feedback(las_client: las.Client, document_id: str, dataset_id: str, ver
                 'value': value,
             })
 
-        response = las_client.update_document(
+        las_client.update_document(
             document_id=document_id,
             ground_truth=ground_truth,
             dataset_id=dataset_id

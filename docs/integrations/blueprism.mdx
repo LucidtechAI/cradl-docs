@@ -19,7 +19,8 @@ By the end of this guide you should be able to:
 
 All you need to get started is:
 - Blue Prism is installed on your computer.
-- Account on Cradl AI (If you don't have one yet, you can sign up [here](https://app.cradl.ai/login?redirect=signup&utm_campaign=docs).
+- Account on Cradl AI (If you don't have one yet, you can sign up [here](https://app.cradl.ai/login?redirect=signup&utm_campaign=docs)).
+- The [Cradl AI Blue Prism Release](https://github.com/LucidtechAI/cradl-integrations/tree/main/BluePrism).
 
 
 :::tip Scalable
@@ -51,13 +52,13 @@ There is very little setup required in Cradl before you are ready to add actions
 All you have to do is:
 
 - Open the [Flow Builder](https://app.cradl.ai/flows) and press *create new*.
-- Select a pre-trained model to get started, you are also free to customize the model to extract the fields you want. 
+- Select a pre-trained model to get started. You are also free to customize the model to extract the fields you want. 
 - Add your co-workers as human validators to get help with the initial validation process.
 - Give your flow a suitable name and press *save*.
 
 You are now ready to jump into Blue Prism and start the integration.
 But on your way there, remember to bring the parameters listed under Blue Prism in the input and/or export dropdown.
-They are essential to identify both you, your model and your flow. Here is a brief explanation of what they are and how they are used:
+They are essential to identify you, your model and your flow. Here is a brief explanation of what they are and how they are used:
 
 | Parameter     | Type | Description |
 |:--------------| :------------- |:--- |
@@ -77,8 +78,8 @@ You can at any point change the model in your flow by selecting another modelId.
 
 <br/>
 
-- Download the [Cradl AI Blue Prism Release](https://github.com/lucidtechAI/cradl-integrations),
-- Open Blue Prism and import the .bprelease file from the link above
+- Download the [Cradl AI Blue Prism Release](https://github.com/LucidtechAI/cradl-integrations/tree/main/BluePrism) if you have not already done so.
+- Open Blue Prism and import the .bprelease file from the link above.
 - When prompted with credentials, input the Client ID and Client Secret listed in the input or export step in your [flow builder](https://app.cradl.ai/flows).
 
 <br/>
@@ -88,12 +89,12 @@ You can at any point change the model in your flow by selecting another modelId.
 <br/>
 
 - To test that everything works, open the Cradl AI VBO and do a debug run of the action *Parse Document With Human In The Loop*. Remember to set the flowId to the correct value.
-- If you head over to [Cradl](https://app.cradl.ai/flows), you can now go to the *Validator* by pressing the button [Run In Validator](https://app.cradl.ai/supervise/workflows/).
+- Head over to [Cradl](https://app.cradl.ai/flows). You can now go to the *Validator* by pressing the button [Run In Validator](https://app.cradl.ai/supervise/workflows/).
  This is the Human-in-the-loop platform that comes with Cradl AI, and you should see your document appear in your flow.
 - To get your own customized model you need to provide some ground truth data, so the AI knows what to look for. This is done by heading down to [Tasks](https://app.cradl.ai/supervise/tasks/).
 - Fill in the correct values and press the big green button. You have now completed one iteration of the feedback loop. 
 
-The values you annotated are used as ground truth when training the model, so you are one document closer to having your own customized model!
+The values that you annotated are used as ground truth when training the model, so you are one document closer to having your own customized model!
 
 :::tip
 You need to have at least 15 documents annotated this way before training a model.
@@ -106,7 +107,7 @@ So just to sum up, we have now done the following:
 
 Until now this seems like just another manual step in your workflow, where is the automation?  
 The automation starts after 15 documents have passed through the manual step, then you can train your model.
-When the training has completed, adjust the confidence thresholds in your flow so correctly predicted values from the model just passes straight through the validation.
+When the training has completed, adjust the confidence thresholds in your flow so correctly predicted values from the model pass straight through the validation.
 This brings us to the next section, how do we get the predictions from the model back into Blue Prism?
 
 <br/>
@@ -125,7 +126,54 @@ We are only listing completed runs here, so all runs that are waiting in line to
 Open runs and get familiar with the output of each run. 
 - The demo process will loop through all the completed runs and mark them as *consumed*, so you don't risk sending them further down your pipeline several times. 
 
-The rest is up to you, inside the loop you can write the data from each run to your database, send it to another API, or just safely store it in a local file. Happy document parsing!
+The validated data from the processed documents are stored in `runs.output.values`, and can be extracted for each document in the loop. 
+Exactly how to extract the data depends on whether or not the field is a line items field or
+a regular key-value field.
+
+**Extracting a key-value field**
+
+If the data you want to extract is a key-value field, like `total_amount`, do the following:
+1. Add a *Calculation* to your process.
+2. In Expression, put `[runs.output.values.<YOUR FIELD>]`, where `<YOUR FIELD>` is exchanged with the field you want to
+extract (like `total_amount`).
+3. Remember to also add a *Data* object to store the value in.
+4. Process a new document in Cradl (Step 3), run the "Cradl Demo Process" again and see that something has been stored
+in your newly created Data object.
+
+![Crad Demo Process - extract total_amount](/img/integrations/blueprism/extract_total_amount.png)
+
+
+**Extracting line items fields**
+
+If the data you want to extract is a line items field, the process is slightly more complicated.
+You will first need to store all line items fields in a *Collection*, then, loop through the collection, and store
+the line items field you want in a separate *Collection*.
+
+1. Inside the loop iterating runs, add a *Calculation* that stores all the line items field in a *Collection*.
+If your field is called `line_items`, the expression in the calculation should be `[runs.output.values.line_items]`.
+2. Add a loop that iterates through the newly created line items collection.
+3. Create another *Collection* for storing the specific line items field, and add the field to the *Fields* of the collection. If you
+for instance want to extract the field `line_items/description`, you could add `description` to Fields.
+
+  ![Crad Demo Process - add description to collection](/img/integrations/blueprism/add_description_as_field.png)
+
+4. Add an *Action* from the built-in Collection object that adds a new row to the collection created in 3.
+5. Add a *Calculation* that stores the line items field in the newly created row in the Field in the collection.
+
+  ![Crad Demo Process - store description in collection](/img/integrations/blueprism/store_description.png)
+
+6. You might also want to delete all rows in the collection before you start processing a new document, so you do not
+continue adding rows to the collection.
+
+All in all, extracting key-value fields and line items fields will look something like this:
+
+![Crad Demo Process with data extraction](/img/integrations/blueprism/extract_data.png)
+
+If you want to test this out, or just take a closer look, you can download this process
+[here](https://github.com/LucidtechAI/cradl-integrations/tree/main/BluePrism/example_processes). Remember to first install
+the Cradl AI Blue Prism release.
+
+The rest is up to you, you can write the data from each run to your database, send it to another API, or just safely store it in a local file. Happy document parsing!
 
 <br/>
 
