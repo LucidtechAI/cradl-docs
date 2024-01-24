@@ -7,7 +7,7 @@ import runpy
 
 from unittest.mock import patch, MagicMock
 
-from preprocess.utils import filter_by_top1, merge_lines_from_different_pages
+from preprocess.utils import filter_by_top1, merge_lines_from_different_pages, patch_empty_predictions, get_labels
 
 
 @pytest.fixture
@@ -405,7 +405,8 @@ def expected_collapsed_predictions():
 
 
 def test_top1_filter(predictions_to_collapse, expected_collapsed_predictions):
-    filtered_predictions = filter_by_top1(predictions_to_collapse)
+    labels = get_labels(predictions_to_collapse)
+    filtered_predictions = filter_by_top1(predictions_to_collapse, labels)
     filtered_predictions = sorted(filtered_predictions, key=lambda item: item['label'])
     expected_filtered_predictions = sorted(expected_collapsed_predictions, key=lambda item: item['label'])
     assert filtered_predictions == expected_filtered_predictions
@@ -530,3 +531,42 @@ def test_merge_lines_from_different_pages(field_config, line_predictions_to_merg
     predictions = merge_lines_from_different_pages(line_predictions_to_merge, field_config)
 
     assert predictions == line_predictions_after_merge
+
+
+@pytest.mark.parametrize('predictions', [[
+        {'label': 'supplier_name', 'page': 0, 'value': 'One cool supplier', 'confidence': 0.90},
+        {'label': 'supplier_name', 'page': 0, 'value': 'Not a supplier', 'confidence': 0.88},
+        {'label': 'supplier_name', 'page': 1, 'value': None, 'confidence': 0.95},
+        {'label': 'supplier_name', 'page': 2, 'value': None, 'confidence': 0.84},
+        {'label': 'line_items', 'value': [
+            [
+                {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
+                {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
+                {'label': 'unit_price', 'page': 0, 'value': '10.00', 'confidence': 0.38},
+            ],
+            [
+                {'label': 'description', 'page': 1, 'value': 'second line', 'confidence': 0.96},
+                {'label': 'unit_price', 'page': 1, 'value': '10.11', 'confidence': 0.38},
+                {'label': 'product_code', 'page': 1, 'value': 'ABC123', 'confidence': 0.65},
+            ],
+        ]},
+    ]])
+@pytest.mark.parametrize('patched_predictions', [[
+        {'label': 'supplier_name', 'page': 0, 'value': 'One cool supplier', 'confidence': 0.90},
+        {'label': 'supplier_name', 'page': 0, 'value': 'Not a supplier', 'confidence': 0.88},
+        {'label': 'line_items', 'value': [
+            [
+                {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
+                {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
+                {'label': 'unit_price', 'page': 0, 'value': '10.00', 'confidence': 0.38},
+            ],
+            [
+                {'label': 'description', 'page': 1, 'value': 'second line', 'confidence': 0.96},
+                {'label': 'unit_price', 'page': 1, 'value': '10.11', 'confidence': 0.38},
+                {'label': 'product_code', 'page': 1, 'value': 'ABC123', 'confidence': 0.65},
+            ],
+        ]},
+        {'label': 'supplier_name', 'page': 2, 'value': None, 'confidence': 0.84},
+    ]])
+def test_patch_empty_predictions(predictions, patched_predictions):
+    assert patch_empty_predictions(predictions, ['supplier_name', 'line_items']) == patched_predictions

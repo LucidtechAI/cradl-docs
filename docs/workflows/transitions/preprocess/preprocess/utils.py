@@ -10,6 +10,10 @@ def is_enum(field_config, p):
     return field_config.get(p['label'], {}).get('type') == 'enum'
 
 
+def get_labels(predictions):
+    return set([p['label'] for p in predictions])
+
+
 def filter_optional_fields(predictions, field_config):
     def predicate(p):
         if is_line(field_config, p):
@@ -20,9 +24,7 @@ def filter_optional_fields(predictions, field_config):
     return list(filter(predicate, predictions))
 
 
-def filter_by_top1(predictions):
-    labels = set([p['label'] for p in predictions])
-    
+def filter_by_top1(predictions, labels):
     def top1(predictions, label):
         field_preds = [p for p in predictions if p['label'] == label]
         return max(field_preds, key=lambda p: p.get('confidence', 1.0))
@@ -33,7 +35,8 @@ def filter_by_top1(predictions):
         if isinstance(top_preds['value'], list):
             lines = []
             for line in top_preds['value']:
-                lines += [filter_by_top1(line)]
+                labels = get_labels(line)
+                lines += [filter_by_top1(line, labels)]
             
             top_preds['value'] = lines
         
@@ -160,5 +163,20 @@ def merge_lines_from_different_pages(predictions, field_config):
     merged_predictions += [{'label': k, 'value': v} for k, v in line_predictions.items()]
 
     return merged_predictions
+
+
+def patch_empty_predictions(predictions, labels):
+    empty_predictions = {label: [] for label in labels}
+    patched_predictions = []
+    for prediction in predictions:
+        if prediction['value'] is not None:
+            patched_predictions.append(prediction)
+        else:
+            empty_predictions[prediction['label']].append(prediction)
+
+    min_empty_predictions = [min(v, key=lambda p: p.get('confidence', 0.0)) for v in empty_predictions.values() if v]
+    patched_predictions += min_empty_predictions
+
+    return patched_predictions
 
 

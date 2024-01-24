@@ -52,10 +52,13 @@ def make_predictions(las_client, event):
 
         if predictions:
             field_config = form_config['config']['fields']
-            top1_preds = filter_by_top1(predictions)
+            labels = get_labels(predictions)
+            top1_preds = filter_by_top1(predictions, labels)
 
             if model_metadata.get('mergeLines'):
                 predictions = merge_lines_from_different_pages(predictions, field_config)
+
+            predictions = patch_empty_predictions(predictions, labels)
 
             all_above_threshold_or_optional = True
             for prediction in top1_preds:
