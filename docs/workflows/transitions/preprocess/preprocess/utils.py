@@ -98,7 +98,7 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
             continue
         if label in old_ground_truth:
             updated_labels.add(label)
-            value = old_ground_truth.pop(label, prediction['value'])
+            value = old_ground_truth.pop(label)
             confidence = None
             if is_line(field_config, prediction):
                 for line in value:
