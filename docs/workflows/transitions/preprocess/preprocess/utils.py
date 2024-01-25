@@ -1,5 +1,5 @@
 def required_labels(field_config):
-    return set([label for label in field_config if field_config[label].get('required', True)])
+    return {label for label in field_config if field_config[label].get('required', True)}
 
 
 def is_line(field_config, p):
@@ -10,8 +10,15 @@ def is_enum(field_config, p):
     return field_config.get(p['label'], {}).get('type') == 'enum'
 
 
-def get_labels(predictions):
-    return set([p['label'] for p in predictions])
+# def get_labels(predictions):
+#     return set([p['label'] for p in predictions])
+
+def get_labels(form_config):
+    return {label for label in form_config.keys()}
+
+
+def get_line_labels(form_config):
+    return {line_label for label, config in form_config.items() if config.get('type') == 'lines' for line_label in config['fields']}
 
 
 def filter_optional_fields(predictions, field_config):
@@ -24,23 +31,24 @@ def filter_optional_fields(predictions, field_config):
     return list(filter(predicate, predictions))
 
 
-def filter_by_top1(predictions, labels):
+def filter_by_top1(predictions, labels, line_labels=None):
+    labels = set([p['label'] for p in predictions])
     def top1(predictions, label):
         field_preds = [p for p in predictions if p['label'] == label]
-        return max(field_preds, key=lambda p: p.get('confidence', 1.0))
-    
+        return max(field_preds, key=lambda p: p.get('confidence', 1.0)) if field_preds else None
+
     result = []
     for label in labels:
         top_preds = top1(predictions, label)
         if isinstance(top_preds['value'], list):
             lines = []
             for line in top_preds['value']:
-                labels = get_labels(line)
-                lines += [filter_by_top1(line, labels)]
+                lines += [filter_by_top1(line, line_labels)]
             
             top_preds['value'] = lines
-        
-        result += [top_preds]
+
+        if top_preds:
+            result += [top_preds]
 
     return result
     
@@ -180,13 +188,13 @@ def merge_lines_from_different_pages(predictions, field_config):
     return merged_predictions
 
 
-def patch_empty_predictions(predictions, labels):
-    empty_predictions = {label: [] for label in labels}
+def patch_empty_predictions(predictions, labels, no_empty_prediction_fields):
+    empty_predictions = {label: [] for label in labels if label not in no_empty_prediction_fields}
     patched_predictions = []
     for prediction in predictions:
         if prediction['value'] is not None:
             patched_predictions.append(prediction)
-        else:
+        elif prediction['label'] not in no_empty_prediction_fields:
             empty_predictions[prediction['label']].append(prediction)
 
     min_empty_predictions = [min(v, key=lambda p: p.get('confidence', 0.0)) for v in empty_predictions.values() if v]

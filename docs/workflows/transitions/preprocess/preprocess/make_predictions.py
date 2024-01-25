@@ -28,19 +28,29 @@ def make_predictions(las_client, event):
     output = {}
     needs_validation = True
 
+    labels = get_labels(form_config['config']['fields'])
+    no_empty_prediction_fields = set()
+
     if not (predictions := event.get('predictions')):
         start_page = 0
         predictions = []
         while start_page is not None and start_page < model_metadata.get('maxPredictionPages', 100):
             try:
                 current_prediction = las_client.create_prediction(
-                    document_id,
-                    model_id,
-                    preprocess_config={'startPage': start_page, 'maxPages': 3, 'imageQuality': 'HIGH'}
+                    document_id=document_id,
+                    model_id=model_id,
+                    preprocess_config={'startPage': start_page, 'maxPages': 3, 'imageQuality': 'HIGH'},
                 )
-                predictions.extend(current_prediction.get('predictions'))
-                start_page = current_prediction.get('nextPage', None)
-                logging.info(f'start_page {start_page}')
+                start_page = current_prediction.get('nextPage')
+                current_prediction = current_prediction.get('predictions')
+
+                fields_with_empty_prediction = set(
+                    prediction['label'] for prediction in current_prediction if prediction['value'] is None
+                )
+                no_empty_prediction_fields = no_empty_prediction_fields.union(labels - fields_with_empty_prediction)
+
+                predictions.extend(current_prediction)
+                logging.info(f'new start_page {start_page}')
             except Exception as e:
                 logging.exception(e)
                 break
@@ -52,13 +62,13 @@ def make_predictions(las_client, event):
 
         if predictions:
             field_config = form_config['config']['fields']
-            labels = get_labels(predictions)
-            top1_preds = filter_by_top1(predictions, labels)
+            line_labels = get_line_labels(field_config)
+            top1_preds = filter_by_top1(predictions, labels, line_labels)
 
             if model_metadata.get('mergeLines'):
                 predictions = merge_lines_from_different_pages(predictions, field_config)
 
-            predictions = patch_empty_predictions(predictions, labels)
+            predictions = patch_empty_predictions(predictions, labels, no_empty_prediction_fields)
 
             all_above_threshold_or_optional = True
             for prediction in top1_preds:

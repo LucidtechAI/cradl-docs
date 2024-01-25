@@ -404,8 +404,9 @@ def expected_collapsed_predictions():
     ]
 
 
-def test_top1_filter(predictions_to_collapse, expected_collapsed_predictions):
-    labels = get_labels(predictions_to_collapse)
+def test_top1_filter(predictions_to_collapse, expected_collapsed_predictions, form_config):
+    form_config = json.loads(base64.b64decode(form_config))
+    labels = get_labels(form_config['config']['fields'])
     filtered_predictions = filter_by_top1(predictions_to_collapse, labels)
     filtered_predictions = sorted(filtered_predictions, key=lambda item: item['label'])
     expected_filtered_predictions = sorted(expected_collapsed_predictions, key=lambda item: item['label'])
@@ -534,6 +535,8 @@ def test_merge_lines_from_different_pages(field_config, line_predictions_to_merg
         {'label': 'supplier_name', 'page': 0, 'value': 'Not a supplier', 'confidence': 0.88},
         {'label': 'supplier_name', 'page': 1, 'value': None, 'confidence': 0.95},
         {'label': 'supplier_name', 'page': 2, 'value': None, 'confidence': 0.84},
+        {'label': 'total_amount', 'page': 0, 'value': '123.34', 'confidence': 0.56},
+        {'label': 'total_amount', 'page': 1, 'value': None, 'confidence': 0.56},
         {'label': 'line_items', 'value': [
             [
                 {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
@@ -550,6 +553,7 @@ def test_merge_lines_from_different_pages(field_config, line_predictions_to_merg
 @pytest.mark.parametrize('patched_predictions', [[
         {'label': 'supplier_name', 'page': 0, 'value': 'One cool supplier', 'confidence': 0.90},
         {'label': 'supplier_name', 'page': 0, 'value': 'Not a supplier', 'confidence': 0.88},
+        {'label': 'total_amount', 'page': 0, 'value': '123.34', 'confidence': 0.56},
         {'label': 'line_items', 'value': [
             [
                 {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
@@ -564,5 +568,6 @@ def test_merge_lines_from_different_pages(field_config, line_predictions_to_merg
         ]},
         {'label': 'supplier_name', 'page': 2, 'value': None, 'confidence': 0.84},
     ]])
-def test_patch_empty_predictions(predictions, patched_predictions):
-    assert patch_empty_predictions(predictions, ['supplier_name', 'line_items']) == patched_predictions
+@pytest.mark.parametrize('no_empty_prediction_fields', [{'total_amount'}])
+def test_patch_empty_predictions(predictions, patched_predictions, no_empty_prediction_fields):
+    assert patch_empty_predictions(predictions, ['supplier_name', 'total_amount', 'line_items'], no_empty_prediction_fields) == patched_predictions
