@@ -42,7 +42,7 @@ def make_predictions(las_client, event):
                     preprocess_config={'startPage': start_page, 'maxPages': 3, 'imageQuality': 'HIGH'},
                 )
                 start_page = current_prediction.get('nextPage')
-                current_prediction = current_prediction.get('predictions')
+                current_prediction = current_prediction['predictions']
 
                 fields_with_empty_prediction = set(
                     prediction['label'] for prediction in current_prediction if prediction['value'] is None
@@ -65,7 +65,7 @@ def make_predictions(las_client, event):
             line_labels = get_line_labels(field_config)
             top1_preds = filter_by_top1(predictions, labels, line_labels)
 
-            if model_metadata.get('mergeLines'):
+            if model_metadata.get('mergeContinuedLines'):
                 predictions = merge_lines_from_different_pages(predictions, field_config)
 
             predictions = patch_empty_predictions(predictions, labels, no_empty_prediction_fields)
