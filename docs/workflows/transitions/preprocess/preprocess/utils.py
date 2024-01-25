@@ -179,6 +179,18 @@ def merge_lines_from_different_pages(predictions, field_config):
 
 
 def patch_empty_predictions(predictions, labels, no_empty_prediction_fields):
+    """
+    If we have a document with more than 3 pages, we can have that we get no empty prediction for a field for the
+    first 3 pages, but for the next pages we can have empty predictions. This can for instance be the case
+    if supplier_name is written on page 0 (we will then not get any empty predictions for page 0 - 2), but
+    there are no supplier_name written on the other pages (so we will get an empty prediction for page 2 >). In this
+    case, we want to filter out all empty predictions. We will then add the field to no_empty_prediction_fields
+    and only return non-empty predictions.
+
+    In other cases, we want to use the empty prediction value with the minimum confidence value, so that we do
+    not overwrite other predictions.
+    TODO: Is this still the case with the new fix in las-workspace?
+    """
     empty_predictions = {label: [] for label in labels if label not in no_empty_prediction_fields}
     patched_predictions = []
     for prediction in predictions:
