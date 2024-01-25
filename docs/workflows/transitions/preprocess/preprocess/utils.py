@@ -10,9 +10,6 @@ def is_enum(field_config, p):
     return field_config.get(p['label'], {}).get('type') == 'enum'
 
 
-# def get_labels(predictions):
-#     return set([p['label'] for p in predictions])
-
 def get_labels(form_config):
     return {label for label in form_config.keys()}
 
@@ -32,7 +29,6 @@ def filter_optional_fields(predictions, field_config):
 
 
 def filter_by_top1(predictions, labels, line_labels=None):
-    labels = set([p['label'] for p in predictions])
     def top1(predictions, label):
         field_preds = [p for p in predictions if p['label'] == label]
         return max(field_preds, key=lambda p: p.get('confidence', 1.0)) if field_preds else None
@@ -40,14 +36,10 @@ def filter_by_top1(predictions, labels, line_labels=None):
     result = []
     for label in labels:
         top_preds = top1(predictions, label)
-        if isinstance(top_preds['value'], list):
-            lines = []
-            for line in top_preds['value']:
-                lines += [filter_by_top1(line, line_labels)]
-            
-            top_preds['value'] = lines
-
         if top_preds:
+            if isinstance(top_preds['value'], list):
+                top_preds['value'] = [filter_by_top1(line, line_labels) for line in top_preds['value']]
+
             result += [top_preds]
 
     return result
@@ -130,16 +122,24 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
     return updated_predictions
 
 
-def overlap(last_lines, first_lines):
-    for first_line in first_lines:
-        for last_line in last_lines:
-            if first_line['label'] == last_line['label'] and first_line['value'] != last_line['value']:
+def overlap(line_1, line_2):
+    """
+    Checks for overlapping lines.
+    The two lines are overlapping if the missing fields from line_1 is present in line_2 and visa versa, or, if
+    the value of the line field is the same for both lines for the same field (this includes empty values for both
+    lines).
+    """
+    for p in line_1:
+        for q in line_2:
+            if p['label'] == q['label'] and p['value'] != q['value']:
                 return False
     return True
 
 
-def merge_lines(last_line, first_line):
-    return last_line + first_line
+def _merge_lines(line_1, line_2):
+    # line_1 and line_2 can have overlapping values. We keep all values, and the one with the highest confidence is
+    # used later on.
+    return line_1 + line_2
 
 
 def merge_lines_from_different_pages(predictions, field_config):
@@ -148,41 +148,31 @@ def merge_lines_from_different_pages(predictions, field_config):
     if not line_labels:
         return predictions
 
-    line_predictions = {line_field: [] for line_field in line_labels}
+    # Each p in prediction can have lines from up to 3 pages. We first add all lines from all pages in one large list.
+    # We then iterate this list, and check if the lines across different pages can be merged.
+    line_predictions = {line_label: [] for line_label in line_labels}
+    for p in predictions:
+        if p['label'] in line_labels:
+            line_predictions[p['label']].extend(p['value'])
 
-    merged_predictions = []
-    for prediction in predictions:
-        label = prediction['label']
-        if label in line_labels:
-            line_values = prediction['value']
+    for line_label, line_values in line_predictions.items():
+        if not line_values or not line_values[0]:
+            continue
 
-            # Check lines within the prediction (can have up to 3 pages within a prediction)
-            previous_line = line_values[0]
-            previous_page = previous_line[0]['page']  # assume all fields in the line is from the same page
+        previous_line = line_values[0]
+        previous_page = previous_line[0]['page']  # assume all fields in the line is from the same page
 
-            for index, line in enumerate(line_values[1:], start=1):
-                current_page = line[0]['page']
-                if previous_page != current_page:
-                    if overlap(previous_line, line):
-                        line = merge_lines(previous_line, line)
-                        line_values[index] = line
-                        line_values[index - 1] = []
-                previous_page = current_page
-                previous_line = line
-            line_values = [line for line in line_values if line]
+        for index, line in enumerate(line_values[1:], start=1):
+            current_page = line[0]['page']
+            if previous_page != current_page and overlap(previous_line, line):
+                line = _merge_lines(previous_line, line)
+                line_values[index] = line
+                line_values[index - 1] = None
+            previous_page = current_page
+            previous_line = line
+        line_predictions[line_label] = [line for line in line_values if line]
 
-            # Check lines from last page in previous predicted pages
-            previously_predicted_line = line_predictions[label][-1] if line_predictions[label] else []
-            first_line = line_values[0]
-            if overlap(previously_predicted_line, first_line):
-                line_values[0] = merge_lines(previously_predicted_line, first_line)
-                if line_predictions[label]:  # Need to check if any lines have been processed
-                    line_predictions[label].pop()
-
-            line_predictions[label].extend(line_values)
-        else:
-            merged_predictions.append(prediction)
-
+    merged_predictions = [p for p in predictions if p['label'] not in line_labels]
     merged_predictions += [{'label': k, 'value': v} for k, v in line_predictions.items()]
 
     return merged_predictions
@@ -197,7 +187,7 @@ def patch_empty_predictions(predictions, labels, no_empty_prediction_fields):
         elif prediction['label'] not in no_empty_prediction_fields:
             empty_predictions[prediction['label']].append(prediction)
 
-    min_empty_predictions = [min(v, key=lambda p: p.get('confidence', 0.0)) for v in empty_predictions.values() if v]
+    min_empty_predictions = [min(v, key=lambda p: p['confidence']) for v in empty_predictions.values() if v]
     patched_predictions += min_empty_predictions
 
     return patched_predictions

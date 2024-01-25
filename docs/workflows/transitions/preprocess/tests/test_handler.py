@@ -7,7 +7,7 @@ import runpy
 
 from unittest.mock import patch, MagicMock
 
-from preprocess.utils import filter_by_top1, merge_lines_from_different_pages, patch_empty_predictions, get_labels
+from preprocess.utils import filter_by_top1, merge_lines_from_different_pages, patch_empty_predictions, get_labels, get_line_labels
 
 
 @pytest.fixture
@@ -377,7 +377,7 @@ def predictions_to_collapse():
     return [
         {'label': 'total_amount', 'value': '500', 'confidence': 0.99},
         {'label': 'total_amount', 'value': '300', 'confidence': 0.90},
-        {'label': 'orderlines', 'value': [
+        {'label': 'line_items', 'value': [
             [
                 {'label': 'subtotal', 'value': '100', 'confidence': 0.98},
                 {'label': 'subtotal', 'value': '200', 'confidence': 0.95},
@@ -393,7 +393,7 @@ def predictions_to_collapse():
 def expected_collapsed_predictions():
     return [
         {'label': 'total_amount', 'value': '500', 'confidence': 0.99},
-        {'label': 'orderlines', 'value': [
+        {'label': 'line_items', 'value': [
             [
                 {'label': 'subtotal', 'value': '100', 'confidence': 0.98},
             ],
@@ -406,10 +406,14 @@ def expected_collapsed_predictions():
 
 def test_top1_filter(predictions_to_collapse, expected_collapsed_predictions, form_config):
     form_config = json.loads(base64.b64decode(form_config))
-    labels = get_labels(form_config['config']['fields'])
-    filtered_predictions = filter_by_top1(predictions_to_collapse, labels)
+    form_config = form_config['config']['fields']
+    labels = get_labels(form_config)
+    line_labels = get_line_labels(form_config)
+
+    filtered_predictions = filter_by_top1(predictions_to_collapse, labels, line_labels)
     filtered_predictions = sorted(filtered_predictions, key=lambda item: item['label'])
     expected_filtered_predictions = sorted(expected_collapsed_predictions, key=lambda item: item['label'])
+
     assert filtered_predictions == expected_filtered_predictions
 
 
@@ -526,7 +530,6 @@ def line_predictions_after_merge():
 }])
 def test_merge_lines_from_different_pages(field_config, line_predictions_to_merge, line_predictions_after_merge):
     predictions = merge_lines_from_different_pages(line_predictions_to_merge, field_config)
-
     assert predictions == line_predictions_after_merge
 
 
@@ -570,4 +573,5 @@ def test_merge_lines_from_different_pages(field_config, line_predictions_to_merg
     ]])
 @pytest.mark.parametrize('no_empty_prediction_fields', [{'total_amount'}])
 def test_patch_empty_predictions(predictions, patched_predictions, no_empty_prediction_fields):
-    assert patch_empty_predictions(predictions, ['supplier_name', 'total_amount', 'line_items'], no_empty_prediction_fields) == patched_predictions
+    labels = ['supplier_name', 'total_amount', 'line_items']
+    assert patch_empty_predictions(predictions, labels, no_empty_prediction_fields) == patched_predictions
