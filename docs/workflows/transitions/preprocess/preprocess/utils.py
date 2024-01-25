@@ -148,11 +148,26 @@ def merge_lines_from_different_pages(predictions, field_config):
         if label in line_labels:
             line_values = prediction['value']
 
-            last_line = line_predictions[label][-1] if line_predictions[label] else []
+            # Check lines within the prediction (can have up to 3 pages within a prediction)
+            previous_line = line_values[0]
+            previous_page = previous_line[0]['page']  # assume all fields in the line is from the same page
+
+            for index, line in enumerate(line_values[1:], start=1):
+                current_page = line[0]['page']
+                if previous_page != current_page:
+                    if overlap(previous_line, line):
+                        line = merge_lines(previous_line, line)
+                        line_values[index] = line
+                        line_values[index - 1] = []
+                previous_page = current_page
+                previous_line = line
+            line_values = [line for line in line_values if line]
+
+            # Check lines from last page in previous predicted pages
+            previously_predicted_line = line_predictions[label][-1] if line_predictions[label] else []
             first_line = line_values[0]
-            if overlap(last_line, first_line):
-                merged_line = merge_lines(last_line, first_line)
-                line_values[0] = merged_line
+            if overlap(previously_predicted_line, first_line):
+                line_values[0] = merge_lines(previously_predicted_line, first_line)
                 if line_predictions[label]:  # Need to check if any lines have been processed
                     line_predictions[label].pop()
 

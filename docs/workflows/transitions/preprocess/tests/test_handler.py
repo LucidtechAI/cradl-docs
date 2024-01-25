@@ -458,9 +458,6 @@ def line_predictions_to_merge():
                 {'label': 'total_price', 'page': 2, 'value': '51.82', 'confidence': 0.93},
                 {'label': 'unit_price', 'page': 2, 'value': '48.95', 'confidence': 0.464},
             ],
-        ]},
-        {'label': 'supplier_name', 'page': 3, 'value': 'some wrong prediction', 'confidence': 0.64},
-        {'label': 'line_items', 'value': [
             [
                 {'label': 'description', 'page': 3, 'value': 'sixth line', 'confidence': 0.93},
                 {'label': 'product_code', 'page': 3, 'value': None, 'confidence': 0.68},
@@ -476,7 +473,6 @@ def line_predictions_after_merge():
         {'label': 'supplier_name', 'page': 0, 'value': 'Not a supplier', 'confidence': 0.88},
         {'label': 'supplier_name', 'page': 1, 'value': None, 'confidence': 0.89},
         {'label': 'supplier_name', 'page': 2, 'value': 'One cool supplier', 'confidence': 0.84},
-        {'label': 'supplier_name', 'page': 3, 'value': 'some wrong prediction', 'confidence': 0.64},
         {'label': 'line_items', 'value': [
             [
                 {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
