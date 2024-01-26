@@ -22,7 +22,9 @@ def make_predictions(las_client, event):
     form_config_asset = las_client.get_asset(form_config_id)
     form_config = json.loads(base64.b64decode(form_config_asset['content']))
 
-    model_metadata = las_client.get_model(model_id).get('metadata', {})
+    model = las_client.get_model(model_id)
+    model_metadata = model.get('metadata', {})
+    preprocess_config = model.get('preprocessConfig', {})
     logging.info(f'model metadata: {model_metadata}')
 
     output = {}
@@ -36,10 +38,11 @@ def make_predictions(las_client, event):
         predictions = []
         while start_page is not None and start_page < model_metadata.get('maxPredictionPages', 100):
             try:
+                preprocess_config['startPage'] = start_page
                 current_prediction = las_client.create_prediction(
                     document_id=document_id,
                     model_id=model_id,
-                    preprocess_config={'startPage': start_page, 'maxPages': 3, 'imageQuality': 'HIGH'},
+                    preprocess_config=preprocess_config,
                 )
                 start_page = current_prediction.get('nextPage')
                 current_prediction = current_prediction['predictions']
