@@ -1,5 +1,5 @@
 def required_labels(field_config):
-    return set([label for label in field_config if field_config[label].get('required', True)])
+    return {label for label in field_config if field_config[label].get('required', True)}
 
 
 def is_line(field_config, p):
@@ -8,6 +8,14 @@ def is_line(field_config, p):
 
 def is_enum(field_config, p):
     return field_config.get(p['label'], {}).get('type') == 'enum'
+
+
+def get_labels(form_config):
+    return {label for label in form_config.keys()}
+
+
+def get_line_labels(form_config):
+    return {line_label for label, config in form_config.items() if config.get('type') == 'lines' for line_label in config['fields']}
 
 
 def filter_optional_fields(predictions, field_config):
@@ -20,24 +28,19 @@ def filter_optional_fields(predictions, field_config):
     return list(filter(predicate, predictions))
 
 
-def filter_by_top1(predictions):
-    labels = set([p['label'] for p in predictions])
-    
+def filter_by_top1(predictions, labels, line_labels=None):
     def top1(predictions, label):
         field_preds = [p for p in predictions if p['label'] == label]
-        return max(field_preds, key=lambda p: p.get('confidence', 1.0))
-    
+        return max(field_preds, key=lambda p: p.get('confidence', 1.0)) if field_preds else None
+
     result = []
     for label in labels:
         top_preds = top1(predictions, label)
-        if isinstance(top_preds['value'], list):
-            lines = []
-            for line in top_preds['value']:
-                lines += [filter_by_top1(line)]
-            
-            top_preds['value'] = lines
-        
-        result += [top_preds]
+        if top_preds:
+            if isinstance(top_preds['value'], list):
+                top_preds['value'] = [filter_by_top1(line, line_labels) for line in top_preds['value']]
+
+            result += [top_preds]
 
     return result
     
@@ -86,12 +89,16 @@ def add_confidence_to_ground_truth(ground_truth):
 def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
     old_ground_truth = {gt['label']: gt['value'] for gt in old_ground_truth}
     updated_predictions = []
+    updated_labels = set()
 
     # override value if label is the same, add if it is not predicted
     for prediction in predictions:
         label = prediction['label']
+        if label in updated_labels:
+            continue
         if label in old_ground_truth:
-            value = old_ground_truth.pop(label, prediction['value'])
+            updated_labels.add(label)
+            value = old_ground_truth.pop(label)
             confidence = None
             if is_line(field_config, prediction):
                 for line in value:
@@ -113,4 +120,88 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
     updated_predictions += add_confidence_to_ground_truth(old_ground_truth)
 
     return updated_predictions
+
+
+def overlap(line_1, line_2):
+    """
+    Checks for overlapping lines.
+    The two lines are overlapping if the missing fields from line_1 is present in line_2 and visa versa, or, if
+    the value of the line field is the same for both lines for the same field (this includes empty values for both
+    lines).
+    """
+    for p in line_1:
+        for q in line_2:
+            if p['label'] == q['label'] and p['value'] != q['value']:
+                return False
+    return True
+
+
+def _merge_lines(line_1, line_2):
+    # line_1 and line_2 can have overlapping values. We keep all values, and the one with the highest confidence is
+    # used later on.
+    return line_1 + line_2
+
+
+def merge_lines_from_different_pages(predictions, field_config):
+    line_labels = [field for field, config in field_config.items() if config['type'] == 'lines']
+
+    if not line_labels:
+        return predictions
+
+    # Each p in prediction can have lines from up to 3 pages. We first add all lines from all pages in one large list.
+    # We then iterate this list, and check if the lines across different pages can be merged.
+    line_predictions = {line_label: [] for line_label in line_labels}
+    for p in predictions:
+        if p['label'] in line_labels:
+            line_predictions[p['label']].extend(p['value'])
+
+    for line_label, line_values in line_predictions.items():
+        if not line_values or not line_values[0]:
+            continue
+
+        previous_line = line_values[0]
+        previous_page = previous_line[0]['page']  # assume all fields in the line is from the same page
+
+        for index, line in enumerate(line_values[1:], start=1):
+            current_page = line[0]['page']
+            if previous_page != current_page and overlap(previous_line, line):
+                line = _merge_lines(previous_line, line)
+                line_values[index] = line
+                line_values[index - 1] = None
+            previous_page = current_page
+            previous_line = line
+        line_predictions[line_label] = [line for line in line_values if line]
+
+    merged_predictions = [p for p in predictions if p['label'] not in line_labels]
+    merged_predictions += [{'label': k, 'value': v} for k, v in line_predictions.items()]
+
+    return merged_predictions
+
+
+def patch_empty_predictions(predictions, labels, no_empty_prediction_fields):
+    """
+    If we have a document with more than 3 pages, we can have that we get no empty prediction for a field for the
+    first 3 pages, but for the next pages we can have empty predictions. This can for instance be the case
+    if supplier_name is written on page 0 (we will then not get any empty predictions for page 0 - 2), but
+    there are no supplier_name written on the other pages (so we will get an empty prediction for page 2 >). In this
+    case, we want to filter out all empty predictions. We will then add the field to no_empty_prediction_fields
+    and only return non-empty predictions.
+
+    In other cases, we want to use the empty prediction value with the minimum confidence value, so that we do
+    not overwrite other predictions.
+    TODO: Is this still the case with the new fix in las-workspace?
+    """
+    empty_predictions = {label: [] for label in labels if label not in no_empty_prediction_fields}
+    patched_predictions = []
+    for prediction in predictions:
+        if prediction['value'] is not None:
+            patched_predictions.append(prediction)
+        elif prediction['label'] not in no_empty_prediction_fields:
+            empty_predictions[prediction['label']].append(prediction)
+
+    min_empty_predictions = [min(v, key=lambda p: p['confidence']) for v in empty_predictions.values() if v]
+    patched_predictions += min_empty_predictions
+
+    return patched_predictions
+
 
