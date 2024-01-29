@@ -7,7 +7,7 @@ import runpy
 
 from unittest.mock import patch, MagicMock
 
-from preprocess.utils import filter_by_top1, merge_lines_from_different_pages, patch_empty_predictions, get_labels, get_line_labels
+from preprocess.utils import filter_by_top1, merge_lines_from_different_pages, patch_empty_predictions, get_labels, get_column_names
 
 
 @pytest.fixture
@@ -408,9 +408,10 @@ def test_top1_filter(predictions_to_collapse, expected_collapsed_predictions, fo
     form_config = json.loads(base64.b64decode(form_config))
     form_config = form_config['config']['fields']
     labels = get_labels(form_config)
-    line_labels = get_line_labels(form_config)
+    column_names = get_column_names(form_config)
+    labels = labels.union(column_names)
 
-    filtered_predictions = filter_by_top1(predictions_to_collapse, labels, line_labels)
+    filtered_predictions = filter_by_top1(predictions_to_collapse, labels)
     filtered_predictions = sorted(filtered_predictions, key=lambda item: item['label'])
     expected_filtered_predictions = sorted(expected_collapsed_predictions, key=lambda item: item['label'])
 
