@@ -65,8 +65,9 @@ def make_predictions(las_client, event):
 
         if predictions:
             field_config = form_config['config']['fields']
-            line_labels = get_line_labels(field_config)
-            top1_preds = filter_by_top1(predictions, labels, line_labels)
+            column_names = get_column_names(field_config)
+            labels = labels.union(column_names)
+            top1_preds = filter_by_top1(predictions, labels)
 
             if model_metadata.get('mergeContinuedLines'):
                 predictions = merge_lines_from_different_pages(predictions, field_config)

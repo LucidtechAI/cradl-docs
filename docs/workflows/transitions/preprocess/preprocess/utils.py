@@ -14,8 +14,10 @@ def get_labels(form_config):
     return {label for label in form_config.keys()}
 
 
-def get_line_labels(form_config):
-    return {line_label for label, config in form_config.items() if config.get('type') == 'lines' for line_label in config['fields']}
+def get_column_names(form_config):
+    return {
+        column for label, config in form_config.items() if config.get('type') == 'lines' for column in config['fields']
+    }
 
 
 def filter_optional_fields(predictions, field_config):
@@ -28,7 +30,7 @@ def filter_optional_fields(predictions, field_config):
     return list(filter(predicate, predictions))
 
 
-def filter_by_top1(predictions, labels, line_labels=None):
+def filter_by_top1(predictions, labels):
     def top1(predictions, label):
         field_preds = [p for p in predictions if p['label'] == label]
         return max(field_preds, key=lambda p: p.get('confidence', 1.0)) if field_preds else None
@@ -38,7 +40,7 @@ def filter_by_top1(predictions, labels, line_labels=None):
         top_preds = top1(predictions, label)
         if top_preds:
             if isinstance(top_preds['value'], list):
-                top_preds['value'] = [filter_by_top1(line, line_labels) for line in top_preds['value']]
+                top_preds['value'] = [filter_by_top1(line, labels) for line in top_preds['value']]
 
             result += [top_preds]
 
@@ -122,13 +124,15 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
     return updated_predictions
 
 
-def overlap(line_1, line_2):
+def overlap(line_1, line_2, column_names):
     """
     Checks for overlapping lines.
     The two lines are overlapping if the missing fields from line_1 is present in line_2 and visa versa, or, if
     the value of the line field is the same for both lines for the same field (this includes empty values for both
     lines).
     """
+    line_1 = filter_by_top1(line_1, column_names)
+    line_2 = filter_by_top1(line_2, column_names)
     for p in line_1:
         for q in line_2:
             if p['label'] == q['label'] and p['value'] != q['value']:
@@ -155,6 +159,8 @@ def merge_lines_from_different_pages(predictions, field_config):
         if p['label'] in line_labels:
             line_predictions[p['label']].extend(p['value'])
 
+    column_names = get_column_names(field_config)
+
     for line_label, line_values in line_predictions.items():
         if not line_values or not line_values[0]:
             continue
@@ -164,7 +170,7 @@ def merge_lines_from_different_pages(predictions, field_config):
 
         for index, line in enumerate(line_values[1:], start=1):
             current_page = line[0]['page']
-            if previous_page != current_page and overlap(previous_line, line):
+            if previous_page != current_page and overlap(previous_line, line, column_names):
                 line = _merge_lines(previous_line, line)
                 line_values[index] = line
                 line_values[index - 1] = None
