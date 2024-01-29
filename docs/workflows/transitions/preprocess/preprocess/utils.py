@@ -122,13 +122,15 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
     return updated_predictions
 
 
-def overlap(line_1, line_2):
+def overlap(line_1, line_2, line_labels):
     """
     Checks for overlapping lines.
     The two lines are overlapping if the missing fields from line_1 is present in line_2 and visa versa, or, if
     the value of the line field is the same for both lines for the same field (this includes empty values for both
     lines).
     """
+    line_1 = filter_by_top1(line_1, line_labels)
+    line_2 = filter_by_top1(line_2, line_labels)
     for p in line_1:
         for q in line_2:
             if p['label'] == q['label'] and p['value'] != q['value']:
@@ -155,6 +157,8 @@ def merge_lines_from_different_pages(predictions, field_config):
         if p['label'] in line_labels:
             line_predictions[p['label']].extend(p['value'])
 
+    line_fields = get_line_labels(field_config)
+
     for line_label, line_values in line_predictions.items():
         if not line_values or not line_values[0]:
             continue
@@ -164,7 +168,7 @@ def merge_lines_from_different_pages(predictions, field_config):
 
         for index, line in enumerate(line_values[1:], start=1):
             current_page = line[0]['page']
-            if previous_page != current_page and overlap(previous_line, line):
+            if previous_page != current_page and overlap(previous_line, line, line_fields):
                 line = _merge_lines(previous_line, line)
                 line_values[index] = line
                 line_values[index - 1] = None

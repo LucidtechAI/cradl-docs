@@ -442,6 +442,7 @@ def line_predictions_to_merge():
         {'label': 'line_items', 'value': [
             [
                 {'label': 'description', 'page': 1, 'value': 'third line', 'confidence': 0.96},
+                {'label': 'description', 'page': 1, 'value': 'thir line', 'confidence': 0.36},
                 {'label': 'unit_price', 'page': 1, 'value': '10.11', 'confidence': 0.38},
                 {'label': 'product_code', 'page': 1, 'value': 'ABC123', 'confidence': 0.65},
             ], [
@@ -493,6 +494,7 @@ def line_predictions_after_merge():
                 {'label': 'description', 'page': 0, 'value': 'third line', 'confidence': 0.94},
                 {'label': 'total_price', 'page': 0, 'value': '188.57', 'confidence': 0.40},
                 {'label': 'description', 'page': 1, 'value': 'third line', 'confidence': 0.96},
+                {'label': 'description', 'page': 1, 'value': 'thir line', 'confidence': 0.36},
                 {'label': 'unit_price', 'page': 1, 'value': '10.11', 'confidence': 0.38},
                 {'label': 'product_code', 'page': 1, 'value': 'ABC123', 'confidence': 0.65},
             ], [
