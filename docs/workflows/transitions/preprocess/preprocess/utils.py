@@ -234,7 +234,7 @@ def filter_away_low_confidence_lines(predictions, field_config):
                 line_columns_present = {line_dict['label'] for line_dict in line}
                 line += [{'confidence': 0.0} for _ in column_names[label] - line_columns_present]
                 average_confidence = np.mean([line_dict['confidence'] for line_dict in line])
-                if average_confidence <= MINIMUM_AVERAGE_LINE_CONFIDENCE:
+                if average_confidence < MINIMUM_AVERAGE_LINE_CONFIDENCE:
                     prediction['value'][index] = []
 
     return predictions
