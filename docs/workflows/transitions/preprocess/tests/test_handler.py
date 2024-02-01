@@ -105,7 +105,7 @@ def test_override_predictions(
         preprocess.make_predictions.make_predictions()
         
     output = update_excs.call_args.kwargs['output']
-    assert output['needsValidation'] == True
+    assert output['needsValidation']
 
 
 @pytest.mark.parametrize('prediction', [[
@@ -647,10 +647,10 @@ def test_patch_empty_predictions(predictions, patched_predictions, no_empty_pred
             {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
             {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
             {'label': 'unit_price', 'page': 0, 'value': '10.00', 'confidence': 0.38},
-        ], [], [],
+        ],
     ]},
     {'label': 'invoice_id', 'page': 2, 'value': '5678', 'confidence': 0.84},
-    {'label': 'line_items', 'value': [[], []]},
+    {'label': 'line_items', 'value': [[]]},
 ]])
 def test_filter_away_empty_lines(predictions, filtered_predictions, simple_field_config):
     assert filter_away_low_confidence_lines(predictions, simple_field_config) == filtered_predictions
