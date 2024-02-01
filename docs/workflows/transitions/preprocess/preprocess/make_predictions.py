@@ -73,6 +73,9 @@ def make_predictions(las_client, event):
                 predictions = merge_lines_from_different_pages(predictions, field_config)
 
             predictions = patch_empty_predictions(predictions, labels, no_empty_prediction_fields)
+            predictions = filter_away_low_confidence_lines(predictions, field_config)
+
+            logging.info(f'patched and filtered predictions {predictions}')
 
             all_above_threshold_or_optional = True
             for prediction in top1_preds:
@@ -82,6 +85,8 @@ def make_predictions(las_client, event):
 
                     for line in prediction['value']:
                         # Check that each prediction on each line is above threshold or optional
+                        if not line and field_config[label].get('required', True):
+                            all_above_threshold_or_optional = False
                         for line_pred in line:
                             if not above_threshold_or_optional(line_pred, line_field_config):
                                 all_above_threshold_or_optional = False

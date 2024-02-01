@@ -7,7 +7,14 @@ import runpy
 
 from unittest.mock import patch, MagicMock
 
-from preprocess.utils import filter_by_top1, merge_lines_from_different_pages, patch_empty_predictions, get_labels, get_column_names
+from preprocess.utils import (
+    filter_by_top1,
+    merge_lines_from_different_pages,
+    patch_empty_predictions,
+    get_labels,
+    get_column_names,
+    filter_away_low_confidence_lines,
+)
 
 
 @pytest.fixture
@@ -106,16 +113,37 @@ def test_override_predictions(
     {'label': 'total_amount', 'value': '1', 'confidence': 0.99},
     {'label': 'due_date', 'value': '1', 'confidence': 0.80},
     {'label': 'invoice_id', 'value': '1', 'confidence': 0.98},
+    {'label': 'currency', 'value': '1', 'confidence': 0.99},
+    {'label': 'line_items', 'type': 'lines', 'value': [
+        [{'label': 'subtotal', 'value': '50.00', 'confidence': 0.99}]
+    ]},
 ], [
     # Missing required field, but all existing fields above threshold
     {'label': 'total_amount', 'value': '1', 'confidence': 0.99},
     {'label': 'invoice_id', 'value': '1', 'confidence': 0.99},
 ], [
-     # One field below threshold
+    # One required field missing
     {'label': 'total_amount', 'value': '1', 'confidence': 0.99},
     {'label': 'due_date', 'value': '1', 'confidence': 0.99},
     {'label': 'invoice_id', 'value': '1', 'confidence': 0.99},
     {'label': 'random', 'value': 'foobar', 'confidence': 0.99},
+    {'label': 'currency', 'value': '1', 'confidence': 0.99},
+], [
+    # Line label below threshold
+    {'label': 'total_amount', 'value': '1', 'confidence': 0.99},
+    {'label': 'due_date', 'value': '1', 'confidence': 0.99},
+    {'label': 'invoice_id', 'value': '1', 'confidence': 0.99},
+    {'label': 'currency', 'value': '1', 'confidence': 0.99},
+    {'label': 'line_items', 'type': 'lines', 'value': [
+        [{'label': 'subtotal', 'value': '50.00', 'confidence': 0.1}]
+    ]},
+], [
+    # Line label empty
+    {'label': 'total_amount', 'value': '1', 'confidence': 0.99},
+    {'label': 'due_date', 'value': '1', 'confidence': 0.99},
+    {'label': 'invoice_id', 'value': '1', 'confidence': 0.99},
+    {'label': 'currency', 'value': '1', 'confidence': 0.99},
+    {'label': 'line_items', 'type': 'lines', 'value': [[]]},
 ]])
 @patch('las.Client.create_prediction')
 @patch('las.Client.get_transition_execution')
@@ -519,20 +547,24 @@ def line_predictions_after_merge():
     ]
 
 
-@pytest.mark.parametrize('field_config', [{
-    'supplier_name': {'type': 'string'},
-    'line_items': {
-        'type': 'lines',
-        'fields': {
-            'description': {'type': 'string'},
-            'total_price': {'type': 'amount'},
-            'unit_price': {'type': 'amount'},
-            'product_code': {'type': 'string'},
+@pytest.fixture
+def simple_field_config():
+    return {
+        'supplier_name': {'type': 'string'},
+        'line_items': {
+            'type': 'lines',
+            'fields': {
+                'description': {'type': 'string'},
+                'total_price': {'type': 'amount'},
+                'unit_price': {'type': 'amount'},
+                'product_code': {'type': 'string'},
+            }
         }
     }
-}])
-def test_merge_lines_from_different_pages(field_config, line_predictions_to_merge, line_predictions_after_merge):
-    predictions = merge_lines_from_different_pages(line_predictions_to_merge, field_config)
+
+
+def test_merge_lines_from_different_pages(simple_field_config, line_predictions_to_merge, line_predictions_after_merge):
+    predictions = merge_lines_from_different_pages(line_predictions_to_merge, simple_field_config)
     assert predictions == line_predictions_after_merge
 
 
@@ -578,3 +610,47 @@ def test_merge_lines_from_different_pages(field_config, line_predictions_to_merg
 def test_patch_empty_predictions(predictions, patched_predictions, no_empty_prediction_fields):
     labels = ['supplier_name', 'total_amount', 'line_items']
     assert patch_empty_predictions(predictions, labels, no_empty_prediction_fields) == patched_predictions
+
+
+@pytest.mark.parametrize('predictions', [[
+    {'label': 'invoice_id', 'page': 0, 'value': '1234', 'confidence': 0.90},
+    {'label': 'invoice_id', 'page': 0, 'value': '11234', 'confidence': 0.88},
+    {'label': 'line_items', 'value': [
+        [
+            {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
+            {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
+            {'label': 'unit_price', 'page': 0, 'value': '10.00', 'confidence': 0.38},
+        ], [
+            {'label': 'description', 'page': 0, 'value': 'second line', 'confidence': 0.2},
+            {'label': 'total_price', 'page': 0, 'value': '3691.95', 'confidence': 0.2},
+            {'label': 'unit_price', 'page': 0, 'value': '11.00', 'confidence': 0.3},
+            {'label': 'total_price', 'page': 0, 'value': '3.691.95', 'confidence': 0.36},
+        ], [],
+    ]},
+    {'label': 'invoice_id', 'page': 2, 'value': '5678', 'confidence': 0.84},
+    {'label': 'line_items', 'value': [
+        [
+            {'label': 'total_price', 'page': 2, 'value': '72.15', 'confidence': 1.0},
+        ],
+        [
+            {'label': 'total_price', 'page': 2, 'value': '72.15', 'confidence': 0.1},
+            {'label': 'unit_price', 'page': 2, 'value': '62.05', 'confidence': 0.1},
+            {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.1},
+        ],
+    ]},
+]])
+@pytest.mark.parametrize('filtered_predictions', [[
+    {'label': 'invoice_id', 'page': 0, 'value': '1234', 'confidence': 0.90},
+    {'label': 'invoice_id', 'page': 0, 'value': '11234', 'confidence': 0.88},
+    {'label': 'line_items', 'value': [
+        [
+            {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
+            {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
+            {'label': 'unit_price', 'page': 0, 'value': '10.00', 'confidence': 0.38},
+        ], [], [],
+    ]},
+    {'label': 'invoice_id', 'page': 2, 'value': '5678', 'confidence': 0.84},
+    {'label': 'line_items', 'value': [[], []]},
+]])
+def test_filter_away_empty_lines(predictions, filtered_predictions, simple_field_config):
+    assert filter_away_low_confidence_lines(predictions, simple_field_config) == filtered_predictions
