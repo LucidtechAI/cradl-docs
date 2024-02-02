@@ -1,3 +1,9 @@
+import numpy as np
+
+
+MINIMUM_AVERAGE_LINE_CONFIDENCE = 0.3
+
+
 def required_labels(field_config):
     return {label for label in field_config if field_config[label].get('required', True)}
 
@@ -211,3 +217,26 @@ def patch_empty_predictions(predictions, labels, no_empty_prediction_fields):
     return patched_predictions
 
 
+def filter_away_low_confidence_lines(predictions, field_config):
+    column_names = {
+        label: {column_name for column_name in config['fields']}
+        for label, config in field_config.items() if config.get('type') == 'lines'
+    }
+
+    for prediction in predictions:
+        label = prediction['label']
+        if field_config.get(label, {}).get('type') == 'lines':
+            line_predictions = []
+            for line in prediction['value']:
+                top_1_predictions = filter_by_top1(line, column_names[label])
+
+                # column names that are not present in the line counts as 0% confidence
+                line_columns_present = {p['label'] for p in top_1_predictions}
+                top_1_predictions += [{'confidence': 0.0} for _ in column_names[label] - line_columns_present]
+                average_confidence = np.mean([line_dict['confidence'] for line_dict in top_1_predictions])
+                if average_confidence >= MINIMUM_AVERAGE_LINE_CONFIDENCE:
+                    line_predictions.append(line)
+            line_predictions = line_predictions or [[]]  # still need one empty list if all lines are removed
+            prediction['value'] = line_predictions
+
+    return predictions
