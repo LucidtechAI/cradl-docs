@@ -228,13 +228,12 @@ def filter_away_low_confidence_lines(predictions, field_config):
         if field_config.get(label, {}).get('type') == 'lines':
             line_predictions = []
             for line in prediction['value']:
-                top_1_line = filter_by_top1(line, column_names[label])
-                if not top_1_line:
-                    continue
+                top_1_prediction = filter_by_top1(line, column_names[label])
+
                 # column names that are not present in the line counts as 0% confidence
-                line_columns_present = {line_dict['label'] for line_dict in top_1_line}
-                top_1_line += [{'confidence': 0.0} for _ in column_names[label] - line_columns_present]
-                average_confidence = np.mean([line_dict['confidence'] for line_dict in top_1_line])
+                line_columns_present = {p['label'] for p in top_1_prediction}
+                top_1_prediction += [{'confidence': 0.0} for _ in column_names[label] - line_columns_present]
+                average_confidence = np.mean([line_dict['confidence'] for line_dict in top_1_prediction])
                 if average_confidence >= MINIMUM_AVERAGE_LINE_CONFIDENCE:
                     line_predictions.append(line)
             line_predictions = line_predictions or [[]]  # still need one empty list if all lines are removed
