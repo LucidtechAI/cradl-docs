@@ -15,6 +15,15 @@ title: REST API
 
 ## Changelog
 
+
+### 2024-02-05
+
+- Added `monthlyNumberOfProductionWorkflowMinutesUsed`, `monthlyNumberOfUserMinutesUsed` to `/organizations`
+- Added `productionWorkflowMinutes`, `userMinutes` to `/plans`
+- Added `startPage` to `preprocessConfig` in `/models` and `/predictions`
+- Added `nextPage` to `POST /predictions` output indicating the next page in the document available for predictions, if
+there are more pages in the document that have not yet been processed.
+
 ### 2023-12-14
 
 - Added `status`, `monthlyNumberOfExecutionsCreated` and `monthlyNumberOfExecutionsAllowed` to `/workflows`. Workflows 
