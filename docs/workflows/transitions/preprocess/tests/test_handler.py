@@ -274,7 +274,7 @@ def test_low_confidence_and_optional_fields_are_omitted(
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
 @patch('las.Client.get_model')
-def test_enum_null_values_sent_to_need_validation(
+def test_enum_null_values_sent_need_validation(
     get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
@@ -288,6 +288,69 @@ def test_enum_null_values_sent_to_need_validation(
 
     output = update_excs.call_args.kwargs['output']
     assert output['needsValidation']
+
+
+@pytest.mark.parametrize('predictions', [[
+    {'label': 'due_date', 'value': '1991-08-02', 'confidence': 0.25},
+    {'label': 'invoice_id', 'value': '1337', 'confidence': 0.05},
+    {'label': 'currency', 'value': None, 'confidence': 0.99},
+    {'label': 'currency', 'value': 'EUR', 'confidence': 0.5},
+    {'label': 'line_items', 'value': [[{'label': 'subtotal', 'value': '10.00', 'confidence': 0.98}]]},
+]])
+@pytest.mark.parametrize('form_config', [base64.b64encode(json.dumps({
+    'config': {
+        'fields': {
+            'total_amount': {
+                'type': 'amount',
+                'confidenceLevels': {'automated': 0.0, 'high': 0.0, 'medium': 0.0, 'low': 0.0}
+            },
+            'due_date': {
+                'type': 'date',
+                'confidenceLevels': {'automated': 0.2, 'high': 0.0, 'medium': 0.0, 'low': 0.0}
+            },
+            'invoice_id': {
+                'type': 'string',
+                'confidenceLevels': {'automated': 0.0, 'high': 0.0, 'medium': 0.0, 'low': 0.0},
+                'required': False
+            },
+            'currency': {
+                'type': 'enum',
+                'confidenceLevels': {'automated': 0.0, 'high': 0.0, 'medium': 0.0, 'low': 0.0},
+            },
+            'line_items': {
+                'type': 'lines',
+                'fields': {
+                    'subtotal': {
+                        'type': 'string',
+                        'confidenceLevels': {'automated': 0.0, 'high': 0.0, 'medium': 0.0, 'low': 0.0},
+                    }
+                }
+            }
+        }
+    }
+}).encode('utf-8'))])
+@patch('las.Client.create_prediction')
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.get_asset')
+@patch('las.Client.get_document')
+@patch('las.Client.get_model')
+def test_all_sent_to_validation_when_threshold_zero(
+    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
+):
+    get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_model.return_value = {'metadata': {}}
+    get_document.return_value = MagicMock()
+
+    get_asset.return_value = {'content': form_config}
+    create_pred.return_value = {'predictions': predictions}
+
+    with patch.dict('preprocess.make_predictions.os.environ', env):
+        preprocess.make_predictions.make_predictions()
+
+    output = update_excs.call_args.kwargs['output']
+    assert not output['needsValidation']
+    assert output['verified']
 
 
 @pytest.mark.parametrize('predictions', [[
@@ -397,7 +460,7 @@ def test_inactive_model(
         preprocess.make_predictions.make_predictions()
         
     output = update_excs.call_args.kwargs['output']
-    assert output['needsValidation'] == True
+    assert output['needsValidation']
 
 
 @pytest.fixture

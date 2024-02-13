@@ -5,7 +5,12 @@ MINIMUM_AVERAGE_LINE_CONFIDENCE = 0.3
 
 
 def required_labels(field_config):
-    return {label for label in field_config if field_config[label].get('required', True)}
+    required = set()
+    for label, config in field_config.items():
+        if config.get('required', True) and config.get('confidenceLevels', {}).get('automated', 1.0) > 0.0:
+            required.add(label)
+
+    return required
 
 
 def is_line(field_config, p):
@@ -62,6 +67,17 @@ def above_threshold_or_optional(prediction, field_config):
     is_optional = not field_config[label].get('required', True)
 
     return (threshold['automated'] <= confidence) or (is_optional and confidence < threshold['low'])
+
+
+def threshold_is_zero_for_all(field_config):
+    for label_spec in field_config.values():
+        if label_spec['type'] == 'lines':
+            for line_spec in label_spec['fields'].values():
+                if line_spec['confidenceLevels']['automated'] > 0.0:
+                    return False
+        elif label_spec['confidenceLevels']['automated'] > 0.0:
+            return False
+    return True
 
 
 def format_verified_output(top1_preds):
