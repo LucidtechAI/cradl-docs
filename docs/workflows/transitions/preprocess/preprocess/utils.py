@@ -64,6 +64,17 @@ def above_threshold_or_optional(prediction, field_config):
     return (threshold['automated'] <= confidence) or (is_optional and confidence < threshold['low'])
 
 
+def threshold_is_zero_for_all(field_config):
+    for label_spec in field_config.values():
+        if label_spec['type'] == 'lines':
+            for line_spec in label_spec['fields'].values():
+                if line_spec['confidenceLevels']['automated'] > 0.0:
+                    return False
+        elif label_spec['confidenceLevels']['automated'] > 0.0:
+            return False
+    return True
+
+
 def format_verified_output(top1_preds):
     result = {}
     for pred in top1_preds:

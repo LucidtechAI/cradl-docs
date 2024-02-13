@@ -78,26 +78,30 @@ def make_predictions(las_client, event):
             logging.info(f'patched and filtered predictions {predictions}')
 
             all_above_threshold_or_optional = True
-            for prediction in top1_preds:
-                if is_line(field_config, prediction):
-                    label = prediction['label']
-                    line_field_config = field_config[label]['fields']
+            if threshold_is_zero_for_all(field_config):
+                needs_validation = False
+                has_all_required_labels = True
+            else:
+                for prediction in top1_preds:
+                    if is_line(field_config, prediction):
+                        label = prediction['label']
+                        line_field_config = field_config[label]['fields']
 
-                    for line in prediction['value']:
-                        # Check that each prediction on each line is above threshold or optional
-                        if not line and field_config[label].get('required', True):
-                            all_above_threshold_or_optional = False
-                        for line_pred in line:
-                            if not above_threshold_or_optional(line_pred, line_field_config):
+                        for line in prediction['value']:
+                            # Check that each prediction on each line is above threshold or optional
+                            if not line and field_config[label].get('required', True):
                                 all_above_threshold_or_optional = False
-                elif is_enum(field_config, prediction) and prediction['value'] is None:
-                    all_above_threshold_or_optional = False
-                    prediction['confidence'] = 0.0
-                elif not above_threshold_or_optional(prediction, field_config):
-                    all_above_threshold_or_optional = False
+                            for line_pred in line:
+                                if not above_threshold_or_optional(line_pred, line_field_config):
+                                    all_above_threshold_or_optional = False
+                    elif is_enum(field_config, prediction) and prediction['value'] is None:
+                        all_above_threshold_or_optional = False
+                        prediction['confidence'] = 0.0
+                    elif not above_threshold_or_optional(prediction, field_config):
+                        all_above_threshold_or_optional = False
 
-            has_all_required_labels = required_labels(field_config) <= set(map(lambda p: p['label'], predictions))
-            needs_validation = not has_all_required_labels or not all_above_threshold_or_optional
+                has_all_required_labels = required_labels(field_config) <= set(map(lambda p: p['label'], predictions))
+                needs_validation = not has_all_required_labels or not all_above_threshold_or_optional
 
             logging.info(f'All predictions above threshold (or optional): {all_above_threshold_or_optional}')
             logging.info(f'All required labels exist: {has_all_required_labels}')
