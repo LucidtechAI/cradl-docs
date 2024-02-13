@@ -94,10 +94,11 @@ def make_predictions(las_client, event):
                             for line_pred in line:
                                 if not above_threshold_or_optional(line_pred, line_field_config):
                                     all_above_threshold_or_optional = False
-                    elif is_enum(field_config, prediction) and prediction['value'] is None:
-                        all_above_threshold_or_optional = False
+                        continue
+                    if is_enum(field_config, prediction) and prediction['value'] is None:
+                        # Need to validate correct enum value, unless automation level is zero.
                         prediction['confidence'] = 0.0
-                    elif not above_threshold_or_optional(prediction, field_config):
+                    if not above_threshold_or_optional(prediction, field_config):
                         all_above_threshold_or_optional = False
 
                 has_all_required_labels = required_labels(field_config) <= set(map(lambda p: p['label'], predictions))

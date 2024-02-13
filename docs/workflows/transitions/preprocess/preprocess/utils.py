@@ -5,7 +5,12 @@ MINIMUM_AVERAGE_LINE_CONFIDENCE = 0.3
 
 
 def required_labels(field_config):
-    return {label for label in field_config if field_config[label].get('required', True)}
+    required = set()
+    for label, config in field_config.items():
+        if config.get('required', True) and config.get('confidenceLevels', {}).get('automated', 1.0) > 0.0:
+            required.add(label)
+
+    return required
 
 
 def is_line(field_config, p):

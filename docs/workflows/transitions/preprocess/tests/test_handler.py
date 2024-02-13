@@ -274,7 +274,7 @@ def test_low_confidence_and_optional_fields_are_omitted(
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
 @patch('las.Client.get_model')
-def test_enum_null_values_sent_to_need_validation(
+def test_enum_null_values_sent_need_validation(
     get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
@@ -291,7 +291,7 @@ def test_enum_null_values_sent_to_need_validation(
 
 
 @pytest.mark.parametrize('predictions', [[
-    {'label': 'due_date', 'value': '1991-08-02', 'confidence': 0.1},
+    {'label': 'due_date', 'value': '1991-08-02', 'confidence': 0.25},
     {'label': 'invoice_id', 'value': '1337', 'confidence': 0.05},
     {'label': 'currency', 'value': None, 'confidence': 0.99},
     {'label': 'currency', 'value': 'EUR', 'confidence': 0.5},
@@ -306,7 +306,7 @@ def test_enum_null_values_sent_to_need_validation(
             },
             'due_date': {
                 'type': 'date',
-                'confidenceLevels': {'automated': 0.0, 'high': 0.0, 'medium': 0.0, 'low': 0.0}
+                'confidenceLevels': {'automated': 0.2, 'high': 0.0, 'medium': 0.0, 'low': 0.0}
             },
             'invoice_id': {
                 'type': 'string',
@@ -349,7 +349,6 @@ def test_all_sent_to_validation_when_threshold_zero(
         preprocess.make_predictions.make_predictions()
 
     output = update_excs.call_args.kwargs['output']
-    print(output['verified'])
     assert not output['needsValidation']
     assert output['verified']
 
