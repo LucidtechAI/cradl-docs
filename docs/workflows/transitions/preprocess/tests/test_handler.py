@@ -7,7 +7,8 @@ import runpy
 
 from unittest.mock import patch, MagicMock
 
-from preprocess.utils import (
+from docs.workflows.transitions.preprocess.preprocess.utils import (  # might not work with docker image.
+# from preprocess.utils import (
     filter_by_top1,
     merge_lines_from_different_pages,
     patch_empty_predictions,
