@@ -6,8 +6,6 @@ import runpy
 
 from unittest.mock import patch, MagicMock
 
-import preprocess
-
 from ..preprocess.make_predictions import make_predictions
 from ..preprocess.utils import (
     filter_by_top1,
@@ -79,7 +77,7 @@ def test_run_module(get_model, get_document, get_asset, update_excs, get_excs, c
     create_pred.return_value = {'next_page': None}
 
     with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
-        runpy.run_module(preprocess.preprocess.__name__)
+        runpy.run_module('preprocess.preprocess', run_name='__main__')
 
 
 @pytest.mark.parametrize('predictions', [[

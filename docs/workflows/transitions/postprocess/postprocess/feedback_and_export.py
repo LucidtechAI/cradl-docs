@@ -37,11 +37,12 @@ def post_feedback(las_client: las.Client, document_id: str, dataset_id: str, ver
 
 @las.transition_handler
 def feedback_and_export(las_client, event):
+    print('-------------------------------------------------------------------------------')
     document_id = event['documentId']
     verified = event['verified']
     dataset_id = os.environ.get('DATASET_ID')
     skipped_validation = not event.get('needsValidation', True)
-    
+
     post_feedback(las_client, document_id, dataset_id, verified if not skipped_validation else {})
 
     response = {'documentId': document_id, 'datasetId': dataset_id, 'values': verified}
