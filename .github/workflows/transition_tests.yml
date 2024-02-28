@@ -19,14 +19,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r docs/workflows/transitions/preprocess/requirements.txt
+          pip install pytest
 
       - name: Test with pytest
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: eu-west-1
+#          AWS_DEFAULT_REGION: eu-west-1
         run: |
-          pip install pytest
           pytest -v docs/workflows/transitions/preprocess/tests
 
 #      - name: Set up Poetry
