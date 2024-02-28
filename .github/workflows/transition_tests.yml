@@ -23,9 +23,10 @@ jobs:
 
       - name: Test with pytest
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          AWS_DEFAULT_REGION: eu-west-1
+          LAS_CLIENT_ID: test
+          LAS_CLIENT_SECRET: test
+          LAS_AUTH_ENDPOINT: test
+          LAS_API_ENDPOINT: http://127.0.0.1:4010
         run: |
           pytest -v docs/workflows/transitions/preprocess/tests
 
