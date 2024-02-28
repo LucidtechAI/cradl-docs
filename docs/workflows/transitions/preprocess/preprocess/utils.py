@@ -37,7 +37,7 @@ def filter_optional_fields(predictions, field_config):
             return True
         conf_threshold = field_config.get(p['label'], {}).get('confidenceLevels', {}).get('low', 0.3)
         return p['label'] in required_labels(field_config) or conf_threshold < p['confidence']
-    
+
     return list(filter(predicate, predictions))
 
 
@@ -56,7 +56,7 @@ def filter_by_top1(predictions, labels):
             result += [top_preds]
 
     return result
-    
+
 
 def above_threshold_or_optional(prediction, field_config):
     label, confidence = prediction['label'], prediction.get('confidence')

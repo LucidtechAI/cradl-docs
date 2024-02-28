@@ -16,7 +16,7 @@ def make_predictions(las_client, event):
     model_id = os.environ['MODEL_ID']
     form_config_id = os.environ['FORM_CONFIG_ASSET_ID']
 
-    logging.info(f'Processing event:')
+    logging.info('Processing event:')
     logging.info(json.dumps(event, indent=2))
 
     form_config_asset = las_client.get_asset(form_config_id)
@@ -106,7 +106,7 @@ def make_predictions(las_client, event):
 
             logging.info(f'All predictions above threshold (or optional): {all_above_threshold_or_optional}')
             logging.info(f'All required labels exist: {has_all_required_labels}')
-            
+
             # Filter out optional fields where confidence < low
             predictions = filter_optional_fields(predictions, field_config)
 

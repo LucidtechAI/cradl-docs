@@ -12,7 +12,7 @@ def field_config():
     yield base64.b64encode(json.dumps({
         'total_amount': {},
     }).encode('utf-8'))
-    
+
 
 @pytest.fixture
 def env():
@@ -21,7 +21,7 @@ def env():
         'EXECUTION_ID': 'xyz',
         'MODEL_ID': 'las:model:xyz',
     }
-    
+
 
 @pytest.fixture
 def env_with_webhook(env):
@@ -44,7 +44,7 @@ def test_handler(get_document, get_asset, update_document, update_transition_exc
 
     with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
         runpy.run_module('postprocess.postprocess', run_name='__main__')
-        
+
 
 @patch('las.Client.get_transition_execution')
 @patch('las.Client.update_transition_execution')
@@ -71,7 +71,7 @@ def test_webhook(get_document, update_document, update_transition_excs, get_tran
 
             for key in ['documentId', 'datasetId', 'values']:
                 assert key in history.json()
-                
+
 
 @patch('las.Client.get_transition_execution')
 @patch('las.Client.update_transition_execution')
@@ -86,7 +86,7 @@ def test_update_ground_truth(get_document, update_document, update_transition_ex
             }
         }
     }
-    
+
     get_document.return_value = {'groundTruth': [{'label': 'baz', 'value': 'foobar'}]}
 
     with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
@@ -109,7 +109,9 @@ def test_update_ground_truth(get_document, update_document, update_transition_ex
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.update_document')
 @patch('las.Client.get_document')
-def test_update_ground_truth_with_lines(get_document, update_document, update_transition_excs, get_transition_excs, env):
+def test_update_ground_truth_with_lines(
+    get_document, update_document, update_transition_excs, get_transition_excs, env
+):
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
@@ -192,7 +194,9 @@ def test_update_ground_truth_with_lines(get_document, update_document, update_tr
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.update_document')
 @patch('las.Client.get_document')
-def test_update_ground_truth_with_same_lines(get_document, update_document, update_transition_excs, get_transition_excs, env):
+def test_update_ground_truth_with_same_lines(
+    get_document, update_document, update_transition_excs, get_transition_excs, env
+):
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
@@ -263,7 +267,9 @@ def test_update_ground_truth_with_same_lines(get_document, update_document, upda
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.update_document')
 @patch('las.Client.get_document')
-def test_update_ground_truth_with_empty_lines(get_document, update_document, update_transition_excs, get_transition_excs, env):
+def test_update_ground_truth_with_empty_lines(
+    get_document, update_document, update_transition_excs, get_transition_excs, env
+):
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
