@@ -41,13 +41,13 @@ def feedback_and_export(las_client, event):
     verified = event['verified']
     dataset_id = os.environ.get('DATASET_ID')
     skipped_validation = not event.get('needsValidation', True)
-    
+
     post_feedback(las_client, document_id, dataset_id, verified if not skipped_validation else {})
 
     response = {'documentId': document_id, 'datasetId': dataset_id, 'values': verified}
-    
+
     if webhook_uri := os.environ.get('WEBHOOK_URI'):
         logging.info(f'Posting result to {webhook_uri}...')
         requests.post(webhook_uri, json=response)
-    
+
     return response

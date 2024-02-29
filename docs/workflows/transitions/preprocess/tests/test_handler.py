@@ -1,5 +1,4 @@
 import pytest
-import preprocess
 import las
 import json
 import base64
@@ -7,7 +6,8 @@ import runpy
 
 from unittest.mock import patch, MagicMock
 
-from preprocess.utils import (
+from ..preprocess.make_predictions import make_predictions
+from ..preprocess.utils import (
     filter_by_top1,
     merge_lines_from_different_pages,
     patch_empty_predictions,
@@ -76,8 +76,8 @@ def test_run_module(get_model, get_document, get_asset, update_excs, get_excs, c
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'next_page': None}
 
-    with patch.dict('preprocess.make_predictions.os.environ', env):
-        runpy.run_module(preprocess.__name__)
+    with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
+        runpy.run_module('preprocess.preprocess', run_name='__main__')
 
 
 @pytest.mark.parametrize('predictions', [[
@@ -101,9 +101,9 @@ def test_override_predictions(
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
 
-    with patch.dict('preprocess.make_predictions.os.environ', env):
-        preprocess.make_predictions.make_predictions()
-        
+    with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
+        make_predictions()
+
     output = update_excs.call_args.kwargs['output']
     assert output['needsValidation']
 
@@ -160,12 +160,12 @@ def test_low_confidence_predictions(
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': prediction}
 
-    with patch.dict('preprocess.make_predictions.os.environ', env):
-        preprocess.make_predictions.make_predictions()
-        
+    with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
+        make_predictions()
+
     output = update_excs.call_args.kwargs['output']
     assert output['needsValidation']
-    
+
 
 @pytest.mark.parametrize('predictions', [[
     # All above threshold
@@ -220,14 +220,14 @@ def test_high_confidence_predictions(
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
 
-    with patch.dict('preprocess.make_predictions.os.environ', env):
-        preprocess.make_predictions.make_predictions()
-        
+    with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
+        make_predictions()
+
     output = update_excs.call_args.kwargs['output']
 
     assert not output['needsValidation']
     assert output['verified']
-    
+
 
 @pytest.mark.parametrize('predictions', [[
     # All required above threshold, optional below lower threshold
@@ -252,8 +252,8 @@ def test_low_confidence_and_optional_fields_are_omitted(
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
 
-    with patch.dict('preprocess.make_predictions.os.environ', env):
-        preprocess.make_predictions.make_predictions()
+    with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
+        make_predictions()
 
     output = update_excs.call_args.kwargs['output']
     assert 'invoice_id' not in output['verified']
@@ -283,8 +283,8 @@ def test_enum_null_values_sent_need_validation(
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
 
-    with patch.dict('preprocess.make_predictions.os.environ', env):
-        preprocess.make_predictions.make_predictions()
+    with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
+        make_predictions()
 
     output = update_excs.call_args.kwargs['output']
     assert output['needsValidation']
@@ -345,8 +345,8 @@ def test_all_sent_to_validation_when_threshold_zero(
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
 
-    with patch.dict('preprocess.make_predictions.os.environ', env):
-        preprocess.make_predictions.make_predictions()
+    with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
+        make_predictions()
 
     output = update_excs.call_args.kwargs['output']
     assert not output['needsValidation']
@@ -370,12 +370,10 @@ def test_update_ground_truth_values(
     ground_truth = [
         {'label': 'total_amount', 'value': '100.00'},
         {'label': 'line_items', 'value': [[
-                {'label': 'total_price', 'value': '10.00'}, {'label': 'description', 'value': 'line 1'},
-            ],
-            [
-                {'label': 'total_price', 'value': '99.00'}, {'label': 'description', 'value': 'line 2'},
-            ],
-        ]}
+            {'label': 'total_price', 'value': '10.00'}, {'label': 'description', 'value': 'line 1'},
+        ], [
+            {'label': 'total_price', 'value': '99.00'}, {'label': 'description', 'value': 'line 2'},
+        ]]}
     ]
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
     get_model.return_value = {'metadata': {}}
@@ -383,8 +381,8 @@ def test_update_ground_truth_values(
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
 
-    with patch.dict('preprocess.make_predictions.os.environ', env):
-        preprocess.make_predictions.make_predictions()
+    with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
+        make_predictions()
 
     output = update_excs.call_args.kwargs['output']
 
@@ -423,8 +421,8 @@ def test_update_ground_truth_values_no_lines(
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
 
-    with patch.dict('preprocess.make_predictions.os.environ', env):
-        preprocess.make_predictions.make_predictions()
+    with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
+        make_predictions()
 
     output = update_excs.call_args.kwargs['output']
 
@@ -450,15 +448,15 @@ def test_inactive_model(
     get_model.return_value = {'metadata': {}}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
-    
+
     def side_effect(*args, **kwargs):
         raise las.client.BadRequest('Some bad request')
 
     create_pred.side_effect = side_effect
 
-    with patch.dict('preprocess.make_predictions.os.environ', env):
-        preprocess.make_predictions.make_predictions()
-        
+    with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
+        make_predictions()
+
     output = update_excs.call_args.kwargs['output']
     assert output['needsValidation']
 
@@ -632,43 +630,43 @@ def test_merge_lines_from_different_pages(simple_field_config, line_predictions_
 
 
 @pytest.mark.parametrize('predictions', [[
-        {'label': 'supplier_name', 'page': 0, 'value': 'One cool supplier', 'confidence': 0.90},
-        {'label': 'supplier_name', 'page': 0, 'value': 'Not a supplier', 'confidence': 0.88},
-        {'label': 'supplier_name', 'page': 1, 'value': None, 'confidence': 0.95},
-        {'label': 'supplier_name', 'page': 2, 'value': None, 'confidence': 0.84},
-        {'label': 'total_amount', 'page': 0, 'value': '123.34', 'confidence': 0.56},
-        {'label': 'total_amount', 'page': 1, 'value': None, 'confidence': 0.56},
-        {'label': 'line_items', 'value': [
-            [
-                {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
-                {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
-                {'label': 'unit_price', 'page': 0, 'value': '10.00', 'confidence': 0.38},
-            ],
-            [
-                {'label': 'description', 'page': 1, 'value': 'second line', 'confidence': 0.96},
-                {'label': 'unit_price', 'page': 1, 'value': '10.11', 'confidence': 0.38},
-                {'label': 'product_code', 'page': 1, 'value': 'ABC123', 'confidence': 0.65},
-            ],
-        ]},
-    ]])
+    {'label': 'supplier_name', 'page': 0, 'value': 'One cool supplier', 'confidence': 0.90},
+    {'label': 'supplier_name', 'page': 0, 'value': 'Not a supplier', 'confidence': 0.88},
+    {'label': 'supplier_name', 'page': 1, 'value': None, 'confidence': 0.95},
+    {'label': 'supplier_name', 'page': 2, 'value': None, 'confidence': 0.84},
+    {'label': 'total_amount', 'page': 0, 'value': '123.34', 'confidence': 0.56},
+    {'label': 'total_amount', 'page': 1, 'value': None, 'confidence': 0.56},
+    {'label': 'line_items', 'value': [
+        [
+            {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
+            {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
+            {'label': 'unit_price', 'page': 0, 'value': '10.00', 'confidence': 0.38},
+        ],
+        [
+            {'label': 'description', 'page': 1, 'value': 'second line', 'confidence': 0.96},
+            {'label': 'unit_price', 'page': 1, 'value': '10.11', 'confidence': 0.38},
+            {'label': 'product_code', 'page': 1, 'value': 'ABC123', 'confidence': 0.65},
+        ],
+    ]},
+]])
 @pytest.mark.parametrize('patched_predictions', [[
-        {'label': 'supplier_name', 'page': 0, 'value': 'One cool supplier', 'confidence': 0.90},
-        {'label': 'supplier_name', 'page': 0, 'value': 'Not a supplier', 'confidence': 0.88},
-        {'label': 'total_amount', 'page': 0, 'value': '123.34', 'confidence': 0.56},
-        {'label': 'line_items', 'value': [
-            [
-                {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
-                {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
-                {'label': 'unit_price', 'page': 0, 'value': '10.00', 'confidence': 0.38},
-            ],
-            [
-                {'label': 'description', 'page': 1, 'value': 'second line', 'confidence': 0.96},
-                {'label': 'unit_price', 'page': 1, 'value': '10.11', 'confidence': 0.38},
-                {'label': 'product_code', 'page': 1, 'value': 'ABC123', 'confidence': 0.65},
-            ],
-        ]},
-        {'label': 'supplier_name', 'page': 2, 'value': None, 'confidence': 0.84},
-    ]])
+    {'label': 'supplier_name', 'page': 0, 'value': 'One cool supplier', 'confidence': 0.90},
+    {'label': 'supplier_name', 'page': 0, 'value': 'Not a supplier', 'confidence': 0.88},
+    {'label': 'total_amount', 'page': 0, 'value': '123.34', 'confidence': 0.56},
+    {'label': 'line_items', 'value': [
+        [
+            {'label': 'description', 'page': 0, 'value': 'first line', 'confidence': 0.93},
+            {'label': 'product_code', 'page': 0, 'value': None, 'confidence': 0.65},
+            {'label': 'unit_price', 'page': 0, 'value': '10.00', 'confidence': 0.38},
+        ],
+        [
+            {'label': 'description', 'page': 1, 'value': 'second line', 'confidence': 0.96},
+            {'label': 'unit_price', 'page': 1, 'value': '10.11', 'confidence': 0.38},
+            {'label': 'product_code', 'page': 1, 'value': 'ABC123', 'confidence': 0.65},
+        ],
+    ]},
+    {'label': 'supplier_name', 'page': 2, 'value': None, 'confidence': 0.84},
+]])
 @pytest.mark.parametrize('no_empty_prediction_fields', [{'total_amount'}])
 def test_patch_empty_predictions(predictions, patched_predictions, no_empty_prediction_fields):
     labels = ['supplier_name', 'total_amount', 'line_items']

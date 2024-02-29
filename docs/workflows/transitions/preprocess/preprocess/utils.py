@@ -37,7 +37,7 @@ def filter_optional_fields(predictions, field_config):
             return True
         conf_threshold = field_config.get(p['label'], {}).get('confidenceLevels', {}).get('low', 0.3)
         return p['label'] in required_labels(field_config) or conf_threshold < p['confidence']
-    
+
     return list(filter(predicate, predictions))
 
 
@@ -56,7 +56,7 @@ def filter_by_top1(predictions, labels):
             result += [top_preds]
 
     return result
-    
+
 
 def above_threshold_or_optional(prediction, field_config):
     label, confidence = prediction['label'], prediction.get('confidence')
@@ -146,28 +146,6 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
     return updated_predictions
 
 
-def overlap(line_1, line_2, column_names):
-    """
-    Checks for overlapping lines.
-    The two lines are overlapping if the missing fields from line_1 is present in line_2 and visa versa, or, if
-    the value of the line field is the same for both lines for the same field (this includes empty values for both
-    lines).
-    """
-    line_1 = filter_by_top1(line_1, column_names)
-    line_2 = filter_by_top1(line_2, column_names)
-    for p in line_1:
-        for q in line_2:
-            if p['label'] == q['label'] and p['value'] != q['value']:
-                return False
-    return True
-
-
-def _merge_lines(line_1, line_2):
-    # line_1 and line_2 can have overlapping values. We keep all values, and the one with the highest confidence is
-    # used later on.
-    return line_1 + line_2
-
-
 def merge_lines_from_different_pages(predictions, field_config):
     line_labels = [field for field, config in field_config.items() if config['type'] == 'lines']
 
@@ -192,7 +170,7 @@ def merge_lines_from_different_pages(predictions, field_config):
 
         for index, line in enumerate(line_values[1:], start=1):
             current_page = line[0]['page']
-            if previous_page != current_page and overlap(previous_line, line, column_names):
+            if previous_page != current_page and _overlap(previous_line, line, column_names):
                 line = _merge_lines(previous_line, line)
                 line_values[index] = line
                 line_values[index - 1] = None
@@ -256,3 +234,25 @@ def filter_away_low_confidence_lines(predictions, field_config):
             prediction['value'] = line_predictions
 
     return predictions
+
+
+def _overlap(line_1, line_2, column_names):
+    """
+    Checks for overlapping lines.
+    The two lines are overlapping if the missing fields from line_1 is present in line_2 and visa versa, or, if
+    the value of the line field is the same for both lines for the same field (this includes empty values for both
+    lines).
+    """
+    line_1 = filter_by_top1(line_1, column_names)
+    line_2 = filter_by_top1(line_2, column_names)
+    for p in line_1:
+        for q in line_2:
+            if p['label'] == q['label'] and p['value'] != q['value']:
+                return False
+    return True
+
+
+def _merge_lines(line_1, line_2):
+    # line_1 and line_2 can have overlapping values. We keep all values, and the one with the highest confidence is
+    # used later on.
+    return line_1 + line_2
