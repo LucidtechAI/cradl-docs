@@ -2,6 +2,7 @@ import logging
 import os
 import las
 import requests
+import json
 
 
 def post_feedback_v1(las_client: las.Client, document_id: str, dataset_id: str, verified: dict):
@@ -73,6 +74,19 @@ def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, 
         ground_truth=ground_truth,
         dataset_id=dataset_id
     )
+    
+
+def parse_webhook_endpoints(s):
+    if not s: return []
+
+    try:
+        webhook_endpoints = json.loads(s)
+        if isinstance(webhook_endpoints, list):
+            return webhook_endpoints
+    except RuntimeError:
+        logging.error('Unable to JSON decode webhook endpoints')
+    
+    return []
 
 
 @las.transition_handler
@@ -99,11 +113,13 @@ def feedback_and_export(las_client, event):
         'values': feedback_v1,
         'validatedPredictions': feedback_v2,
     }
-    
-    webhook_endpoints = os.environ.get('WEBHOOK_ENDPOINTS', [])
-    if uri := os.environ.get('WEBHOOK_URI'):
-        webhook_endpoints += [{'uri': uri}]
-    
+
+    webhook_endpoints = []
+    if webhooks := os.environ.get('WEBHOOK_ENDPOINTS'):
+        webhook_endpoints = parse_webhook_endpoints(webhooks)
+    elif uri := os.environ.get('WEBHOOK_URI'):
+        webhook_endpoints = [{'uri': uri}]
+
     for endpoint in webhook_endpoints:
         logging.info(f'Posting result to {endpoint}...')
         requests.post(endpoint['uri'], json=response)
