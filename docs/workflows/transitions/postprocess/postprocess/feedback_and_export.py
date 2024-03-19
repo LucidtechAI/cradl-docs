@@ -4,50 +4,108 @@ import las
 import requests
 
 
-def post_feedback(las_client: las.Client, document_id: str, dataset_id: str, verified: dict):
-    logging.info(f'Posting feedback to dataset {dataset_id}: {verified}...')
+def post_feedback_v1(las_client: las.Client, document_id: str, dataset_id: str, verified: dict):
+    document = las_client.get_document(document_id=document_id)
+    old_ground_truth = {g['label']: g['value'] for g in document.get('groundTruth', [])}
 
-    try:
-        document = las_client.get_document(document_id=document_id)
-        old_ground_truth = {g['label']: g['value'] for g in document.get('groundTruth', [])}
+    new_ground_truth = {**old_ground_truth, **verified}
 
-        new_ground_truth = {**old_ground_truth, **verified}
+    ground_truth = []
+    for label, value in new_ground_truth.items():
+        if isinstance(value, list):
+            if not value:
+                continue  # Do not write completely empty lines to GT
+            if not isinstance(value[0], list):
+                value = [[{'label': k, 'value': v} for k, v in line_pred.items()] for line_pred in value]
+        ground_truth.append({
+            'label': label,
+            'value': value,
+        })
 
-        ground_truth = []
-        for label, value in new_ground_truth.items():
-            if isinstance(value, list):
-                if not value:
-                    continue  # Do not write completely empty lines to GT
-                if not isinstance(value[0], list):
-                    value = [[{'label': k, 'value': v} for k, v in line_pred.items()] for line_pred in value]
-            ground_truth.append({
+    las_client.update_document(
+        document_id=document_id,
+        ground_truth=ground_truth,
+        dataset_id=dataset_id
+    )
+
+
+def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, feedback: dict):
+    def should_post_feedback(item, label):
+        return not item[label].get('automated') or feedback[label].get('isEdited')
+
+    ground_truth = []
+
+    for label in feedback:
+        is_line_item = isinstance(feedback[label], list)
+        if is_line_item:
+            if not feedback[label]:
+                # Ignore blank lines
+                continue
+            
+            lines = []
+            for line in feedback[label]:
+                line_gt = []
+                for line_label in line:
+                    if should_post_feedback(line, line_label):
+                        line_gt += [{
+                            'label': line_label,
+                            'value': line[line_label]['value'],
+                            'pages': line[line_label]['pages']
+                        }]
+
+                lines += [line_gt]
+
+            ground_truth += [{
                 'label': label,
-                'value': value,
-            })
+                'value': lines,
+            }]
+        else:
+            # This is a non-line item field
+            if should_post_feedback(feedback, label):
+                ground_truth += [{
+                    'label': label,
+                    'value': feedback[label]['value'],
+                    'pages': feedback[label]['pages']
+                }]
 
-        las_client.update_document(
-            document_id=document_id,
-            ground_truth=ground_truth,
-            dataset_id=dataset_id
-        )
-    except Exception as e:
-        logging.exception(e)
-        raise
+    las_client.update_document(
+        document_id=document_id,
+        ground_truth=ground_truth,
+        dataset_id=dataset_id
+    )
 
 
 @las.transition_handler
 def feedback_and_export(las_client, event):
     document_id = event['documentId']
-    verified = event['verified']
     dataset_id = os.environ.get('DATASET_ID')
     skipped_validation = not event.get('needsValidation', True)
+    feedback_v1 = event.get('verified')
+    feedback_v2 = event.get('validatedPredictions') 
 
-    post_feedback(las_client, document_id, dataset_id, verified if not skipped_validation else {})
+    try:
+        logging.info(f'Posting feedback to dataset {dataset_id} ...')
 
-    response = {'documentId': document_id, 'datasetId': dataset_id, 'values': verified}
+        if feedback_v2:
+            post_feedback_v2(las_client, document_id, dataset_id, feedback_v2 if not skipped_validation else {})
+        elif feedback_v1:
+            post_feedback_v1(las_client, document_id, dataset_id, feedback_v1 if not skipped_validation else {})
+    except Exception as e:
+        logging.exception(e)
 
-    if webhook_uri := os.environ.get('WEBHOOK_URI'):
-        logging.info(f'Posting result to {webhook_uri}...')
-        requests.post(webhook_uri, json=response)
+    response = {
+        'documentId': document_id,
+        'datasetId': dataset_id,
+        'values': feedback_v1,
+        'validatedPredictions': feedback_v2,
+    }
+    
+    webhook_endpoints = os.environ.get('WEBHOOK_ENDPOINTS', [])
+    if uri := os.environ.get('WEBHOOK_URI'):
+        webhook_endpoints += [{'uri': uri}]
+    
+    for endpoint in webhook_endpoints:
+        logging.info(f'Posting result to {endpoint}...')
+        requests.post(endpoint['uri'], json=response)
 
     return response

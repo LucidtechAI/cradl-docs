@@ -4,7 +4,7 @@ import base64
 import runpy
 import requests_mock
 
-from unittest.mock import patch
+from unittest.mock import patch, ANY
 
 
 @pytest.fixture
@@ -19,6 +19,7 @@ def env():
     yield {
         'TRANSITION_ID': 'xyz',
         'EXECUTION_ID': 'xyz',
+        'DATASET_ID': 'las:dataset:xyz',
         'MODEL_ID': 'las:model:xyz',
     }
 
@@ -101,9 +102,8 @@ def test_update_ground_truth(get_document, update_document, update_transition_ex
             'label': 'foo',
             'value': 'bar'
         }],
-        dataset_id=None
+        dataset_id='las:dataset:xyz'
     )
-
 
 @patch('las.Client.get_transition_execution')
 @patch('las.Client.update_transition_execution')
@@ -186,7 +186,7 @@ def test_update_ground_truth_with_lines(
             'label': 'purchase_date',
             'value': '2023-09-21'
         }],
-        dataset_id=None
+        dataset_id='las:dataset:xyz'
     )
 
 
@@ -259,7 +259,7 @@ def test_update_ground_truth_with_same_lines(
             'label': 'purchase_date',
             'value': '2023-09-21'
         }],
-        dataset_id=None
+        dataset_id='las:dataset:xyz'
     )
 
 
@@ -304,5 +304,40 @@ def test_update_ground_truth_with_empty_lines(
             'label': 'string_value',
             'value': '',
         }],
-        dataset_id=None
+        dataset_id='las:dataset:xyz'
     )
+
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.update_document')
+@patch('las.Client.get_document')
+def test_post_feedback_v2(get_document, update_document, update_transition_excs, get_transition_excs, env):
+    validated_predictions = {
+        'totalAmount': {"value": "100.00", "pages": [0, 1], "confidence": 1.0},
+        'line_items': [{ 
+            "unitPrice": {"value": "50.00", "pages": [0], "confidence": 0.8},
+            "totalPrice": {"value": "100.00", "pages": [0], "confidence": 0.9}
+        }, { 
+            "unitPrice": {"value": "50.00", "pages": [0], "confidence": 0.8},
+            "totalPrice": {"value": "100.00", "pages": [0], "confidence": 0.9}
+        }]
+    }
+
+    get_transition_excs.return_value = {
+        'input': {
+            'documentId': 'las:document:xyz',
+            'validatedPredictions': validated_predictions
+        }
+    }
+
+    get_document.return_value = {'groundTruth': [{'label': 'baz', 'value': 'foobar'}]}
+
+    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess.postprocess', run_name='__main__')
+        
+    update_document.assert_called_with(
+        document_id='las:document:xyz',
+        ground_truth=ANY,
+        dataset_id='las:dataset:xyz'
+    )
+
