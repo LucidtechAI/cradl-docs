@@ -83,8 +83,11 @@ def parse_webhook_endpoints(s):
         webhook_endpoints = json.loads(s)
         if isinstance(webhook_endpoints, list):
             return webhook_endpoints
-    except RuntimeError:
-        logging.error('Unable to JSON decode webhook endpoints')
+        else:
+            print('Ignoring WEBHOOK_ENDPOINTS. It must be a JSON list, not dict.')
+            return []
+    except json.JSONDecodeError as e:
+        logging.error(f'Unable to JSON decode webhook endpoints: {e}')
     
     return []
 
