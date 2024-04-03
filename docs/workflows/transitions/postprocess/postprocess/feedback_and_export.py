@@ -93,7 +93,7 @@ def parse_webhook_endpoints(s):
 def feedback_and_export(las_client, event):
     document_id = event['documentId']
     dataset_id = os.environ.get('DATASET_ID')
-    skipped_validation = not event.get('needsValidation', True)
+    validated = event.get('needsValidation') is True
     feedback_v1 = event.get('verified')
     feedback_v2 = event.get('validatedPredictions') 
 
@@ -101,9 +101,9 @@ def feedback_and_export(las_client, event):
         logging.info(f'Posting feedback to dataset {dataset_id} ...')
 
         if feedback_v2:
-            post_feedback_v2(las_client, document_id, dataset_id, feedback_v2 if not skipped_validation else {})
+            post_feedback_v2(las_client, document_id, dataset_id, feedback_v2 if validated else {})
         elif feedback_v1:
-            post_feedback_v1(las_client, document_id, dataset_id, feedback_v1 if not skipped_validation else {})
+            post_feedback_v1(las_client, document_id, dataset_id, feedback_v1 if validated else {})
     except Exception as e:
         logging.exception(e)
 
