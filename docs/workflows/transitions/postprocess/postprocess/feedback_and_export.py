@@ -31,27 +31,30 @@ def post_feedback_v1(las_client: las.Client, document_id: str, dataset_id: str, 
 
 
 def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, feedback: dict):
-    def should_post_feedback(item, label):
-        return not item[label].get('automated', True) or item[label].get('isEdited', True)
+    document = las_client.get_document(document_id=document_id)
+    old_ground_truth = {g['label']: {**g, 'isOldGt': True} for g in document.get('groundTruth', [])}
+
+    def should_post_feedback(v):
+        return not v.get('automated', True) or v.get('isEdited', True) or v.get('isOldGt', False)
 
     ground_truth = []
 
-    for label, value in feedback.items():
+    for label, value in {**old_ground_truth, **feedback}.items():
         is_line_item = isinstance(value, list)
         if is_line_item:
             if not value:
                 # Ignore blank lines
                 continue
-            
+
             lines = []
             for line in value:
                 line_gt = []
                 for line_label, line_value in line.items():
-                    if should_post_feedback(line, line_label):
+                    if should_post_feedback(line_value):
                         line_gt += [{
                             'label': line_label,
                             'value': line_value['value'],
-                            'pages': line_value['pages']
+                            'pages': line_value.get('pages')
                         }]
 
                 lines += [line_gt]
@@ -62,11 +65,11 @@ def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, 
             }]
         else:
             # This is a non-line item field
-            if should_post_feedback(feedback, label):
+            if should_post_feedback(value):
                 ground_truth += [{
                     'label': label,
                     'value': value['value'],
-                    'pages': value['pages']
+                    'pages': value.get('pages')
                 }]
 
     las_client.update_document(
@@ -74,10 +77,11 @@ def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, 
         ground_truth=ground_truth,
         dataset_id=dataset_id
     )
-    
+
 
 def parse_webhook_endpoints(s):
-    if not s: return []
+    if not s:
+        return []
 
     try:
         webhook_endpoints = json.loads(s)
@@ -88,7 +92,7 @@ def parse_webhook_endpoints(s):
             return []
     except json.JSONDecodeError as e:
         logging.error(f'Unable to JSON decode webhook endpoints: {e}')
-    
+
     return []
 
 
@@ -96,9 +100,9 @@ def parse_webhook_endpoints(s):
 def feedback_and_export(las_client, event):
     document_id = event['documentId']
     dataset_id = os.environ.get('DATASET_ID')
-    validated = event.get('needsValidation') is True
+    validated = event.get('needsValidation', True) is True
     feedback_v1 = event.get('verified')
-    feedback_v2 = event.get('validatedPredictions') 
+    feedback_v2 = event.get('validatedPredictions')
 
     try:
         logging.info(f'Posting feedback to dataset {dataset_id} ...')
@@ -123,15 +127,14 @@ def feedback_and_export(las_client, event):
     elif uri := os.environ.get('WEBHOOK_URI'):
         webhook_endpoints = [{'uri': uri}]
 
-
-    request_exception = None 
+    request_exception = None
     for endpoint in webhook_endpoints:
         logging.info(f'Posting result to {endpoint}...')
         try:
             requests.post(endpoint['uri'], json=response)
         except requests.exceptions.RequestException as re:
             request_exception = re
-            
+
     if request_exception:
         raise request_exception
 

@@ -70,7 +70,7 @@ def test_webhook(get_document, update_document, update_transition_excs, get_tran
             'verified': {}
         }
     }
-    
+
     with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env_with_webhook_uri):
         with requests_mock.Mocker() as m:
             m.post(env_with_webhook_uri['WEBHOOK_URI'])
@@ -97,7 +97,7 @@ def test_multiple_webhook_endpoints(get_document, update_document, update_transi
             'verified': {}
         }
     }
-    
+
     with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env_with_webhook_endpoints):
         with requests_mock.Mocker() as m:
             endpoints = json.loads(env_with_webhook_endpoints['WEBHOOK_ENDPOINTS'])
@@ -146,6 +146,7 @@ def test_update_ground_truth(get_document, update_document, update_transition_ex
         dataset_id='las:dataset:xyz'
     )
 
+
 @patch('las.Client.get_transition_execution')
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.update_document')
@@ -156,6 +157,7 @@ def test_update_ground_truth_with_lines(
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
+            'needsValidation': True,
             'verified': {
                 'foo': 'bar',
                 'line_items': [
@@ -241,6 +243,7 @@ def test_update_ground_truth_with_same_lines(
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
+            'needsValidation': True,
             'verified': {
                 'foo': 'bar',
                 'line_items': [
@@ -314,6 +317,7 @@ def test_update_ground_truth_with_empty_lines(
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
+            'needsValidation': True,
             'verified': {
                 'foo': 'bar',
                 'line_items': [],
@@ -348,6 +352,7 @@ def test_update_ground_truth_with_empty_lines(
         dataset_id='las:dataset:xyz'
     )
 
+
 @patch('las.Client.get_transition_execution')
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.update_document')
@@ -355,10 +360,10 @@ def test_update_ground_truth_with_empty_lines(
 def test_post_feedback_v2(get_document, update_document, update_transition_excs, get_transition_excs, env):
     validated_predictions = {
         'totalAmount': {"value": "100.00", "pages": [0, 1], "confidence": 1.0},
-        'line_items': [{ 
+        'line_items': [{
             "unitPrice": {"value": "50.00", "pages": [0], "confidence": 0.8},
             "totalPrice": {"value": "100.00", "pages": [0], "confidence": 0.9}
-        }, { 
+        }, {
             "unitPrice": {"value": "50.00", "pages": [0], "confidence": 0.8},
             "totalPrice": {"value": "100.00", "pages": [0], "confidence": 0.9}
         }]
@@ -375,10 +380,9 @@ def test_post_feedback_v2(get_document, update_document, update_transition_excs,
 
     with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
         runpy.run_module('postprocess.postprocess', run_name='__main__')
-        
+
     update_document.assert_called_with(
         document_id='las:document:xyz',
         ground_truth=ANY,
         dataset_id='las:dataset:xyz'
     )
-
