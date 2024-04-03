@@ -89,7 +89,10 @@ def test_webhook(get_document, update_document, update_transition_excs, get_tran
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.update_document')
 @patch('las.Client.get_document')
-def test_multiple_webhook_endpoints(get_document, update_document, update_transition_excs, get_transition_excs, env_with_webhook_endpoints):
+def test_multiple_webhook_endpoints(
+    get_document, update_document, update_transition_excs,
+    get_transition_excs, env_with_webhook_endpoints
+):
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
