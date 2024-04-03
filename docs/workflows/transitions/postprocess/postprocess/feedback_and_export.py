@@ -32,7 +32,7 @@ def post_feedback_v1(las_client: las.Client, document_id: str, dataset_id: str, 
 
 def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, feedback: dict):
     def should_post_feedback(item, label):
-        return not item[label].get('automated') or feedback[label].get('isEdited')
+        return not item[label].get('automated') or item[label].get('isEdited')
 
     ground_truth = []
 
