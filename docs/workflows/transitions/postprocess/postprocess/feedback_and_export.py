@@ -32,26 +32,26 @@ def post_feedback_v1(las_client: las.Client, document_id: str, dataset_id: str, 
 
 def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, feedback: dict):
     def should_post_feedback(item, label):
-        return not item[label].get('automated') or item[label].get('isEdited')
+        return not item[label].get('automated', True) or item[label].get('isEdited', True)
 
     ground_truth = []
 
-    for label in feedback:
-        is_line_item = isinstance(feedback[label], list)
+    for label, value in feedback.items():
+        is_line_item = isinstance(value, list)
         if is_line_item:
-            if not feedback[label]:
+            if not value:
                 # Ignore blank lines
                 continue
             
             lines = []
-            for line in feedback[label]:
+            for line in value:
                 line_gt = []
-                for line_label in line:
+                for line_label, line_value in line.items():
                     if should_post_feedback(line, line_label):
                         line_gt += [{
                             'label': line_label,
-                            'value': line[line_label]['value'],
-                            'pages': line[line_label]['pages']
+                            'value': line_value['value'],
+                            'pages': line_value['pages']
                         }]
 
                 lines += [line_gt]
@@ -65,8 +65,8 @@ def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, 
             if should_post_feedback(feedback, label):
                 ground_truth += [{
                     'label': label,
-                    'value': feedback[label]['value'],
-                    'pages': feedback[label]['pages']
+                    'value': value['value'],
+                    'pages': value['pages']
                 }]
 
     las_client.update_document(
