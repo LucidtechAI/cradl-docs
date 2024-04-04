@@ -26,6 +26,16 @@ from .utils import (
 logging.getLogger().setLevel(logging.INFO)
 
 
+@on_exception(expo, las.client.TooManyRequestsException, max_tries=4)
+@on_exception(expo, las.client.RequestException, max_tries=3, giveup=_fatal_code)
+def _create_prediction(las_client, document_id, model_id, preprocess_config):
+    return las_client.create_prediction(
+        document_id=document_id,
+        model_id=model_id,
+        preprocess_config=preprocess_config,
+    )
+
+
 @las.transition_handler
 def make_predictions(las_client, event):
     document_id = event['documentId']
@@ -55,7 +65,7 @@ def make_predictions(las_client, event):
         while start_page is not None and start_page < model_metadata.get('maxPredictionPages', 100):
             try:
                 preprocess_config['startPage'] = start_page
-                current_prediction = las_client.create_prediction(
+                current_prediction = _create_prediction(
                     document_id=document_id,
                     model_id=model_id,
                     preprocess_config=preprocess_config,
