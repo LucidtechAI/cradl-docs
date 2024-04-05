@@ -4,6 +4,8 @@ import las
 import json
 import base64
 
+from backoff import constant, on_exception
+
 from .utils import (
     above_threshold_or_optional,
     add_confidence_to_ground_truth,
@@ -26,8 +28,14 @@ from .utils import (
 logging.getLogger().setLevel(logging.INFO)
 
 
-@on_exception(expo, las.client.TooManyRequestsException, max_tries=4)
-@on_exception(expo, las.client.RequestException, max_tries=3, giveup=_fatal_code)
+def _fatal_code(e):
+    return 400 <= e.response.status_code < 500
+
+
+# Using a constant interval of 30 seconds between tries. Jitter needs to be None to make sure the interval is
+# constant, if not a random number <= 30 will be used.
+@on_exception(constant, las.client.TooManyRequestsException, max_tries=6, interval=30, jitter=None)
+@on_exception(constant, las.client.RequestException, max_tries=6, giveup=_fatal_code, interval=30, jitter=None)
 def _create_prediction(las_client, document_id, model_id, preprocess_config):
     return las_client.create_prediction(
         document_id=document_id,
@@ -66,6 +74,7 @@ def make_predictions(las_client, event):
             try:
                 preprocess_config['startPage'] = start_page
                 current_prediction = _create_prediction(
+                    las_client=las_client,
                     document_id=document_id,
                     model_id=model_id,
                     preprocess_config=preprocess_config,
@@ -88,7 +97,11 @@ def make_predictions(las_client, event):
 
     try:
         old_ground_truth = las_client.get_document(document_id=document_id).get('groundTruth')
+    except Exception as e:
+        logging.exception(e)
+        old_ground_truth = None
 
+    try:
         if predictions:
             field_config = form_config['config']['fields']
             column_names = get_column_names(field_config)
