@@ -2,7 +2,6 @@ import logging
 import os
 import las
 import requests
-import json
 
 from .utils import parse_webhook_endpoints, convert_predictions_to_v2
 
