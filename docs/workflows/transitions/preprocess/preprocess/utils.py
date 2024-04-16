@@ -1,6 +1,3 @@
-import numpy as np
-
-
 MINIMUM_AVERAGE_LINE_CONFIDENCE = 0.3
 
 
@@ -227,7 +224,7 @@ def filter_away_low_confidence_lines(predictions, field_config):
                 # column names that are not present in the line counts as 0% confidence
                 line_columns_present = {p['label'] for p in top_1_predictions}
                 top_1_predictions += [{'confidence': 0.0} for _ in column_names[label] - line_columns_present]
-                average_confidence = np.mean([line_dict['confidence'] for line_dict in top_1_predictions])
+                average_confidence = sum([p['confidence'] for p in top_1_predictions]) / len(top_1_predictions)
                 if average_confidence >= MINIMUM_AVERAGE_LINE_CONFIDENCE:
                     line_predictions.append(line)
             line_predictions = line_predictions or [[]]  # still need one empty list if all lines are removed
