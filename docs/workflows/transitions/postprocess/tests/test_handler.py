@@ -54,8 +54,8 @@ def test_handler(get_document, get_asset, update_document, update_transition_exc
         }
     }
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
-        runpy.run_module('postprocess.postprocess', run_name='__main__')
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
 
 
 @patch('las.Client.get_transition_execution')
@@ -71,10 +71,10 @@ def test_webhook(get_document, update_document, update_transition_excs, get_tran
         }
     }
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env_with_webhook_uri):
+    with patch.dict('postprocess.feedback_and_export.os.environ', env_with_webhook_uri):
         with requests_mock.Mocker() as m:
             m.post(env_with_webhook_uri['WEBHOOK_URI'])
-            runpy.run_module('postprocess.postprocess', run_name='__main__')
+            runpy.run_module('postprocess', run_name='__main__')
             assert m.call_count == 1
 
             history = m.request_history[0]
@@ -101,13 +101,13 @@ def test_multiple_webhook_endpoints(
         }
     }
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env_with_webhook_endpoints):
+    with patch.dict('postprocess.feedback_and_export.os.environ', env_with_webhook_endpoints):
         with requests_mock.Mocker() as m:
             endpoints = json.loads(env_with_webhook_endpoints['WEBHOOK_ENDPOINTS'])
             for endpoint in endpoints:
                 m.post(endpoint['uri'])
 
-            runpy.run_module('postprocess.postprocess', run_name='__main__')
+            runpy.run_module('postprocess', run_name='__main__')
             assert m.call_count == len(endpoints)
 
             history = m.request_history[0]
@@ -134,8 +134,8 @@ def test_update_ground_truth(get_document, update_document, update_transition_ex
 
     get_document.return_value = {'groundTruth': [{'label': 'baz', 'value': 'foobar'}]}
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
-        runpy.run_module('postprocess.postprocess', run_name='__main__')
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
         document_id='las:document:xyz',
@@ -189,8 +189,8 @@ def test_update_ground_truth_with_lines(
             [{'label': 'prod', 'value': 'def'}, {'label': 'unit_price', 'value': '20.00'}]]}
     ]}
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
-        runpy.run_module('postprocess.postprocess', run_name='__main__')
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
         document_id='las:document:xyz',
@@ -275,8 +275,8 @@ def test_update_ground_truth_with_same_lines(
             [{'label': 'description', 'value': 'def'}, {'label': 'total_price', 'value': '20.00'}]]}
     ]}
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
-        runpy.run_module('postprocess.postprocess', run_name='__main__')
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
         document_id='las:document:xyz',
@@ -334,8 +334,8 @@ def test_update_ground_truth_with_empty_lines(
         {'label': 'baz', 'value': 'foobar'},
     ]}
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
-        runpy.run_module('postprocess.postprocess', run_name='__main__')
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
         document_id='las:document:xyz',
@@ -381,8 +381,8 @@ def test_post_feedback_v2(get_document, update_document, update_transition_excs,
 
     get_document.return_value = {'groundTruth': [{'label': 'baz', 'value': 'foobar'}]}
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
-        runpy.run_module('postprocess.postprocess', run_name='__main__')
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
         document_id='las:document:xyz',

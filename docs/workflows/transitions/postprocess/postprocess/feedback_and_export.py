@@ -4,6 +4,8 @@ import las
 import requests
 import json
 
+from .utils import parse_webhook_endpoints, convert_predictions_to_v2
+
 
 def post_feedback_v1(las_client: las.Client, document_id: str, dataset_id: str, verified: dict):
     document = las_client.get_document(document_id=document_id)
@@ -79,23 +81,6 @@ def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, 
     )
 
 
-def parse_webhook_endpoints(s):
-    if not s:
-        return []
-
-    try:
-        webhook_endpoints = json.loads(s)
-        if isinstance(webhook_endpoints, list):
-            return webhook_endpoints
-        else:
-            print('Ignoring WEBHOOK_ENDPOINTS. It must be a JSON list, not dict.')
-            return []
-    except json.JSONDecodeError as e:
-        logging.error(f'Unable to JSON decode webhook endpoints: {e}')
-
-    return []
-
-
 @las.transition_handler
 def feedback_and_export(las_client, event):
     document_id = event['documentId']
@@ -119,6 +104,7 @@ def feedback_and_export(las_client, event):
         'datasetId': dataset_id,
         'values': feedback_v1,
         'validatedPredictions': feedback_v2,
+        'predictions': convert_predictions_to_v2(event.get('predictions'))
     }
 
     webhook_endpoints = []
@@ -132,7 +118,7 @@ def feedback_and_export(las_client, event):
         logging.info(f'Posting result to {endpoint}...')
         try:
             requests.post(endpoint['uri'], json=response)
-        except requests.exceptions.RequestException as re:
+        except (requests.exceptions.RequestException, KeyError) as re:
             request_exception = re
 
     if request_exception:
