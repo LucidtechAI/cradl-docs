@@ -1,4 +1,6 @@
-from .feedback_and_export import feedback_and_export
+import os
+
+from postprocess.feedback_and_export import feedback_and_export
 
 
 def main(lambda_event, _):
