@@ -8,6 +8,7 @@ from unittest.mock import patch, MagicMock
 
 from ..preprocess.make_predictions import make_predictions
 from ..preprocess.utils import (
+    create_form_config_from_model,
     filter_by_top1,
     merge_lines_from_different_pages,
     patch_empty_predictions,
@@ -63,6 +64,22 @@ def form_config():
     }).encode('utf-8'))
 
 
+@pytest.fixture
+def simple_model_field_config():
+    return {
+        'total_amount': {},
+        'due_date': {},
+        'invoice_id': {},
+        'currency': {},
+        'line_items': {
+            'type': 'lines',
+            'fields': {
+                'subtotal': {}
+            }
+        }
+    }
+
+
 @patch('las.Client.create_prediction')
 @patch('las.Client.get_transition_execution')
 @patch('las.Client.update_transition_execution')
@@ -91,13 +108,13 @@ def test_run_module(get_model, get_document, get_asset, update_excs, get_excs, c
 @patch('las.Client.get_document')
 @patch('las.Client.get_model')
 def test_override_predictions(
-    get_model, get_document, get_asset, update_excs, get_excs, form_config, predictions, env
+    get_model, get_document, get_asset, update_excs, get_excs, form_config, predictions, env, simple_model_field_config,
 ):
     get_excs.return_value = {'input': {
         'documentId': 'las:document:xyz',
         'predictions': predictions
     }}
-    get_model.return_value = {'metadata': {}}
+    get_model.return_value = {'metadata': {}, 'fieldConfig': simple_model_field_config}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
 
@@ -152,10 +169,19 @@ def test_override_predictions(
 @patch('las.Client.get_document')
 @patch('las.Client.get_model')
 def test_low_confidence_predictions(
-    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, prediction, env
+    get_model,
+    get_document,
+    get_asset,
+    update_excs,
+    get_excs,
+    create_pred,
+    form_config,
+    prediction,
+    env,
+    simple_model_field_config,
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
-    get_model.return_value = {'metadata': {}}
+    get_model.return_value = {'metadata': {}, 'fieldConfig': simple_model_field_config}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': prediction}
@@ -212,10 +238,19 @@ def test_low_confidence_predictions(
 @patch('las.Client.get_document')
 @patch('las.Client.get_model')
 def test_high_confidence_predictions(
-    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
+    get_model,
+    get_document,
+    get_asset,
+    update_excs,
+    get_excs,
+    create_pred,
+    form_config,
+    predictions,
+    env,
+    simple_model_field_config,
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
-    get_model.return_value = {'metadata': {}}
+    get_model.return_value = {'metadata': {}, 'fieldConfig': simple_model_field_config}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
@@ -244,10 +279,19 @@ def test_high_confidence_predictions(
 @patch('las.Client.get_document')
 @patch('las.Client.get_model')
 def test_low_confidence_and_optional_fields_are_omitted(
-    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
+    get_model,
+    get_document,
+    get_asset,
+    update_excs,
+    get_excs,
+    create_pred,
+    form_config,
+    predictions,
+    env,
+    simple_model_field_config,
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
-    get_model.return_value = {'metadata': {}}
+    get_model.return_value = {'metadata': {}, 'fieldConfig': simple_model_field_config}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
@@ -275,10 +319,19 @@ def test_low_confidence_and_optional_fields_are_omitted(
 @patch('las.Client.get_document')
 @patch('las.Client.get_model')
 def test_enum_null_values_sent_need_validation(
-    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
+    get_model,
+    get_document,
+    get_asset,
+    update_excs,
+    get_excs,
+    create_pred,
+    form_config,
+    predictions,
+    env,
+    simple_model_field_config,
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
-    get_model.return_value = {'metadata': {}}
+    get_model.return_value = {'metadata': {}, 'fieldConfig': simple_model_field_config}
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
@@ -336,10 +389,19 @@ def test_enum_null_values_sent_need_validation(
 @patch('las.Client.get_document')
 @patch('las.Client.get_model')
 def test_all_sent_to_validation_when_threshold_zero(
-    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
+    get_model,
+    get_document,
+    get_asset,
+    update_excs,
+    get_excs,
+    create_pred,
+    form_config,
+    predictions,
+    env,
+    simple_model_field_config,
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
-    get_model.return_value = {'metadata': {}}
+    get_model.return_value = {'metadata': {}, 'fieldConfig': simple_model_field_config}
     get_document.return_value = MagicMock()
 
     get_asset.return_value = {'content': form_config}
@@ -365,7 +427,16 @@ def test_all_sent_to_validation_when_threshold_zero(
 @patch('las.Client.get_document')
 @patch('las.Client.get_model')
 def test_update_ground_truth_values(
-    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
+    get_model,
+    get_document,
+    get_asset,
+    update_excs,
+    get_excs,
+    create_pred,
+    form_config,
+    predictions,
+    env,
+    simple_model_field_config,
 ):
     ground_truth = [
         {'label': 'total_amount', 'value': '100.00'},
@@ -376,7 +447,7 @@ def test_update_ground_truth_values(
         ]]}
     ]
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
-    get_model.return_value = {'metadata': {}}
+    get_model.return_value = {'metadata': {}, 'fieldConfig': simple_model_field_config}
     get_document.return_value = {'groundTruth': ground_truth}
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
@@ -410,13 +481,22 @@ def test_update_ground_truth_values(
 @patch('las.Client.get_document')
 @patch('las.Client.get_model')
 def test_update_ground_truth_values_no_lines(
-    get_model, get_document, get_asset, update_excs, get_excs, create_pred, form_config, predictions, env
+    get_model,
+    get_document,
+    get_asset,
+    update_excs,
+    get_excs,
+    create_pred,
+    form_config,
+    predictions,
+    env,
+    simple_model_field_config,
 ):
     ground_truth = [
         {'label': 'total_amount', 'value': '100.00'},
     ]
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
-    get_model.return_value = {'metadata': {}}
+    get_model.return_value = {'metadata': {}, 'fieldConfig': simple_model_field_config}
     get_document.return_value = {'groundTruth': ground_truth}
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': predictions}
@@ -715,3 +795,30 @@ def test_patch_empty_predictions(predictions, patched_predictions, no_empty_pred
 ]])
 def test_filter_away_empty_lines(predictions, filtered_predictions, simple_field_config):
     assert filter_away_low_confidence_lines(predictions, simple_field_config) == filtered_predictions
+
+
+@pytest.mark.parametrize('field_config', [{
+    'vat_amount': {'type': 'amount'},
+    'invoice_date': {'type': 'date'},
+    'invoice_id': {'type': 'string'},
+    'currency': {'type': 'enum'},
+    'line_items': {
+        'type': 'lines',
+        'fields': {
+            'subtotal': {'type': 'amount'},
+            'product_code': {'type': 'string'},
+        }
+    }
+}])
+def test_create_form_config_from_model(field_config):
+    form_config = create_form_config_from_model(field_config)
+
+    for field in field_config:
+        specific_config = form_config['config']['fields'][field]
+        assert field in form_config['config']['fields']
+        if field_config[field]['type'] != 'lines':
+            assert specific_config['confidenceLevels']['automated']
+        else:
+            for line_field in field_config[field]['fields']:
+                assert line_field in specific_config['fields']
+                assert specific_config['fields'][line_field]['confidenceLevels']['automated']
