@@ -31,6 +31,28 @@ def get_column_names(form_config):
     }
 
 
+def create_form_config_from_model(model_field_config):
+    form_config = {'config': {'fields': {}}}
+    # Confidence levels are not set, so we do not let any fields be fully automated
+    empty_confidence_levels = {'automated': 1.00, 'high': 0.90, 'medium': 0.8, 'low': 0.5}
+
+    for field, config in model_field_config.items():
+        if config['type'] == 'lines':
+            updated_config = {
+                field: {
+                    'type': 'lines',
+                    'fields': {
+                        line_field: {'type': line_config['type'], 'confidenceLevels': empty_confidence_levels}
+                        for line_field, line_config in config['fields'].items()
+                    }
+                }
+            }
+        else:
+            updated_config = {field: {'type': config['type'], 'confidenceLevels': empty_confidence_levels}}
+        form_config['config']['fields'].update(updated_config)
+    return form_config
+
+
 def filter_optional_fields(predictions, field_config):
     def predicate(p):
         if is_line(field_config, p):
