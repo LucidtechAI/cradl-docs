@@ -32,8 +32,8 @@ def get_column_names(form_config):
 
 
 def create_form_config_from_model(model_field_config, original_form_config):
-    original_form_config = original_form_config['config']['fields']
-    form_config = {'config': {'fields': {}}}
+    simplified_form_config = original_form_config['config']['fields']
+
     # Confidence levels are not set, so we do not let any fields be fully automated
     empty_confidence_levels = {'automated': 1.00, 'high': 0.90, 'medium': 0.8, 'low': 0.5}
 
@@ -41,11 +41,11 @@ def create_form_config_from_model(model_field_config, original_form_config):
         if config['type'] == 'lines':
             confidence_levels = {}
             for line_field in config['fields']:
-                if field in original_form_config and line_field in original_form_config[field]['fields']:
-                    confidence_levels[line_field] = original_form_config[field]['fields'][line_field]['confidenceLevels']  # noqa
+                if field in simplified_form_config and line_field in simplified_form_config[field]['fields']:
+                    confidence_levels[line_field] = simplified_form_config[field]['fields'][line_field]['confidenceLevels']  # noqa
                 else:
                     confidence_levels[line_field] = empty_confidence_levels
-            updated_config = {
+            original_form_config['config']['fields'].update({
                 field: {
                     'type': 'lines',
                     'fields': {
@@ -53,15 +53,12 @@ def create_form_config_from_model(model_field_config, original_form_config):
                         for line_field, line_config in config['fields'].items()
                     }
                 }
-            }
-        else:
-            if field in original_form_config:
-                confidence_levels = original_form_config[field]['confidenceLevels']
-            else:
-                confidence_levels = empty_confidence_levels
-            updated_config = {field: {'type': config['type'], 'confidenceLevels': confidence_levels}}
-        form_config['config']['fields'].update(updated_config)
-    return form_config
+            })
+        elif field not in simplified_form_config:
+            original_form_config['config']['fields'].update(
+                {field: {'type': config['type'], 'confidenceLevels': empty_confidence_levels}}
+            )
+    return original_form_config
 
 
 def filter_optional_fields(predictions, field_config):

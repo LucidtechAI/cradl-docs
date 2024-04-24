@@ -808,7 +808,8 @@ def test_filter_away_empty_lines(predictions, filtered_predictions, simple_field
             'subtotal': {'type': 'amount'},
             'product_code': {'type': 'string'},
         }
-    }
+    },
+    'line_items-2': {'type': 'lines', 'fields': {'subsubtotal': {'type': 'amount'}}}
 }])
 def test_create_form_config_from_model(field_config, form_config):
     form_config = json.loads(base64.b64decode(form_config))
