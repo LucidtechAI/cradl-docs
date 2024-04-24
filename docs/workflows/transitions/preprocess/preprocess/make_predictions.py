@@ -71,7 +71,7 @@ def make_predictions(las_client, event):
 
     if labels != model_labels:
         # model has been updated, but form config has not been updated
-        form_config = create_form_config_from_model(model_field_config)
+        form_config = create_form_config_from_model(model_field_config, form_config)
         labels = model_labels
         logging.info(f'\nlabels in fieldConfig does not match form_config. Updated form_config is: {form_config}')
 

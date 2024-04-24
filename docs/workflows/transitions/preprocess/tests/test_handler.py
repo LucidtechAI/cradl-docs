@@ -810,15 +810,25 @@ def test_filter_away_empty_lines(predictions, filtered_predictions, simple_field
         }
     }
 }])
-def test_create_form_config_from_model(field_config):
-    form_config = create_form_config_from_model(field_config)
+def test_create_form_config_from_model(field_config, form_config):
+    form_config = json.loads(base64.b64decode(form_config))
+    new_form_config = create_form_config_from_model(field_config, form_config)
 
+    form_config = form_config['config']['fields']
     for field in field_config:
-        specific_config = form_config['config']['fields'][field]
-        assert field in form_config['config']['fields']
+        specific_config = new_form_config['config']['fields'][field]
+        assert field in new_form_config['config']['fields']
         if field_config[field]['type'] != 'lines':
-            assert specific_config['confidenceLevels']['automated']
+            conf_levels = specific_config['confidenceLevels']['automated']
+            if field not in form_config:
+                assert conf_levels
+            else:
+                assert conf_levels == form_config[field]['confidenceLevels']['automated']
         else:
             for line_field in field_config[field]['fields']:
                 assert line_field in specific_config['fields']
-                assert specific_config['fields'][line_field]['confidenceLevels']['automated']
+                conf_levels = specific_config['fields'][line_field]['confidenceLevels']['automated']
+                if line_field not in form_config[field]['fields']:
+                    assert conf_levels
+                else:
+                    assert conf_levels == form_config[field]['fields'][line_field]['confidenceLevels']['automated']
