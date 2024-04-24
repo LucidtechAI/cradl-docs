@@ -66,13 +66,12 @@ def make_predictions(las_client, event):
     output = {}
     needs_validation = True
 
-    labels = get_labels(form_config['config']['fields'])
-    model_labels = get_labels(model_field_config)
+    form_config_labels = get_labels(form_config['config']['fields'])
+    labels = get_labels(model_field_config)
 
-    if labels != model_labels:
+    if form_config_labels != labels:
         # model has been updated, but form config has not been updated
         form_config = create_form_config_from_model(model_field_config, form_config)
-        labels = model_labels
         logging.info(f'\nlabels in fieldConfig does not match form_config. Updated form_config used is: {form_config}')
 
     no_empty_prediction_fields = set()
