@@ -173,7 +173,7 @@ def make_predictions(las_client, event):
         else:
             output = {'predictions': predictions}
 
-    except las.client.BadRequest as e:
+    except Exception as e:
         logging.exception(e)
 
     if email_context := event.get('email'):
