@@ -9,6 +9,7 @@ from backoff import constant, on_exception
 from .utils import (
     above_threshold_or_optional,
     add_confidence_to_ground_truth,
+    create_form_config_from_model,
     filter_away_low_confidence_lines,
     filter_by_top1,
     filter_optional_fields,
@@ -59,12 +60,20 @@ def make_predictions(las_client, event):
     model = las_client.get_model(model_id)
     model_metadata = model.get('metadata', {})
     preprocess_config = model.get('preprocessConfig', {})
+    model_field_config = model.get('fieldConfig', {})
     logging.info(f'model metadata: {model_metadata}')
 
     output = {}
     needs_validation = True
 
-    labels = get_labels(form_config['config']['fields'])
+    form_config_labels = get_labels(form_config['config']['fields'])
+    labels = get_labels(model_field_config)
+
+    if form_config_labels != labels:
+        # model has been updated, but form config has not been updated
+        form_config = create_form_config_from_model(model_field_config, form_config)
+        logging.info(f'\nlabels in fieldConfig does not match form_config. Updated form_config used is: {form_config}')
+
     no_empty_prediction_fields = set()
 
     if not (predictions := event.get('predictions')):
@@ -163,7 +172,7 @@ def make_predictions(las_client, event):
         else:
             output = {'predictions': predictions}
 
-    except las.client.BadRequest as e:
+    except Exception as e:
         logging.exception(e)
 
     if email_context := event.get('email'):
