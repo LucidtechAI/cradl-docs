@@ -393,10 +393,10 @@ def test_update_ground_truth_with_empty_lines(
     ),
 ])
 def test_post_feedback_v2(
-    get_transition_excs,
-    update_transition_excs,
-    update_document,
     get_document,
+    update_document,
+    update_transition_excs,
+    get_transition_excs,
     env,
     expected_update,
     gt,
