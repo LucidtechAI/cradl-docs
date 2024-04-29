@@ -393,13 +393,13 @@ def test_update_ground_truth_with_empty_lines(
     ),
 ])
 def test_post_feedback_v2(
+    get_transition_excs,
+    update_transition_excs,
+    update_document,
+    get_document,
     env,
     expected_update,
-    get_document,
-    get_transition_excs,
     gt,
-    update_document,
-    update_transition_excs,
     validated_predictions,
 ):
     doc_id = 'las:document:xyz'
