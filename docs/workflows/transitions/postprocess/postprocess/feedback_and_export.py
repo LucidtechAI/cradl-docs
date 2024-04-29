@@ -31,6 +31,14 @@ def post_feedback_v1(las_client: las.Client, document_id: str, dataset_id: str, 
     )
 
 
+def _create_gt_dict(label, gt_info):
+    return {
+        'label': label,
+        'value': gt_info.get('rawValue', gt_info['value']),
+        'pages': gt_info.get('pages')
+    }
+
+
 def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, feedback: dict):
     document = las_client.get_document(document_id=document_id)
     old_ground_truth = {g['label']: {**g, 'isOldGt': True} for g in document.get('groundTruth', [])}
@@ -49,29 +57,12 @@ def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, 
 
             lines = []
             for line in value:
-                line_gt = []
-                for line_label, line_value in line.items():
-                    if should_post_feedback(line_value):
-                        line_gt += [{
-                            'label': line_label,
-                            'value': line_value['value'],
-                            'pages': line_value.get('pages')
-                        }]
+                line_gt = [_create_gt_dict(_l, _v) for _l, _v in line.items() if should_post_feedback(_v)]
+                lines.append(line_gt)
 
-                lines += [line_gt]
-
-            ground_truth += [{
-                'label': label,
-                'value': lines,
-            }]
-        else:
-            # This is a non-line item field
-            if should_post_feedback(value):
-                ground_truth += [{
-                    'label': label,
-                    'value': value['value'],
-                    'pages': value.get('pages')
-                }]
+            ground_truth.append({'label': label, 'value': lines})
+        elif should_post_feedback(value):
+            ground_truth.append(_create_gt_dict(label, value))
 
     las_client.update_document(
         document_id=document_id,
