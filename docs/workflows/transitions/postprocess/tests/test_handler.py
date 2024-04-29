@@ -4,7 +4,7 @@ import base64
 import runpy
 import requests_mock
 
-from unittest.mock import patch, ANY
+from unittest.mock import patch
 
 
 @pytest.fixture
