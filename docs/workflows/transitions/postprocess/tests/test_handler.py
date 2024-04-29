@@ -352,7 +352,7 @@ def test_update_ground_truth_with_empty_lines(
             'label': 'string_value',
             'value': '',
         }],
-        dataset_id='las:dataset:xyz'
+        dataset_id='las:dataset:xyz',
     )
 
 
@@ -360,32 +360,62 @@ def test_update_ground_truth_with_empty_lines(
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.update_document')
 @patch('las.Client.get_document')
-def test_post_feedback_v2(get_document, update_document, update_transition_excs, get_transition_excs, env):
-    validated_predictions = {
-        'totalAmount': {"value": "100.00", "pages": [0, 1], "confidence": 1.0},
-        'line_items': [{
-            "unitPrice": {"value": "50.00", "pages": [0], "confidence": 0.8},
-            "totalPrice": {"value": "100.00", "pages": [0], "confidence": 0.9}
-        }, {
-            "unitPrice": {"value": "50.00", "pages": [0], "confidence": 0.8},
-            "totalPrice": {"value": "100.00", "pages": [0], "confidence": 0.9}
-        }]
-    }
-
+@pytest.mark.parametrize(('validated_predictions', 'gt', 'expected_update'), [
+    (
+        {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': True}},
+        [{'label': 'totalAmount', 'value': '200.00'}],
+        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1]}],
+    ),
+    (
+        {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': False}},
+        [{'label': 'totalAmount', 'value': '200.00'}],
+        [],  # We probably want to set this gt if gt and prediction coincide?
+    ),
+    (
+        {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': False, 'isEdited': False}},
+        [{'label': 'totalAmount', 'value': '200.00'}],
+        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1]}],
+    ),
+    (
+        {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': False, 'isEdited': True}},
+        [{'label': 'totalAmount', 'value': '200.00'}],
+        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1]}],
+    ),
+    (
+        {
+            'line_items': [{
+                'unitPrice': {'value': '50.00', 'pages': [1], 'confidence': 0.8},
+                'totalPrice': {'value': '100.00', 'pages': [0], 'confidence': 0.9, 'isEdited': False}
+            }]
+        },
+        [{'label': 'line_items', 'value': None}],
+        [{'label': 'line_items', 'value': [[{'label': 'unitPrice', 'value': '50.00', 'pages': [1]}]]}],
+    ),
+])
+def test_post_feedback_v2(
+    env,
+    expected_update,
+    get_document,
+    get_transition_excs,
+    gt,
+    update_document,
+    update_transition_excs,
+    validated_predictions,
+):
+    doc_id = 'las:document:xyz'
+    get_document.return_value = {'groundTruth': gt}
     get_transition_excs.return_value = {
         'input': {
-            'documentId': 'las:document:xyz',
-            'validatedPredictions': validated_predictions
+            'documentId': doc_id,
+            'validatedPredictions': validated_predictions,
         }
     }
-
-    get_document.return_value = {'groundTruth': [{'label': 'baz', 'value': 'foobar'}]}
 
     with patch.dict('postprocess.feedback_and_export.os.environ', env):
         runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
-        document_id='las:document:xyz',
-        ground_truth=ANY,
-        dataset_id='las:dataset:xyz'
+        document_id=doc_id,
+        ground_truth=expected_update,
+        dataset_id=env['DATASET_ID'],
     )
