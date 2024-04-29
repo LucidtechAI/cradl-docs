@@ -41,11 +41,10 @@ def _create_gt_dict(label, gt_info):
 
 def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, feedback: dict):
     document = las_client.get_document(document_id=document_id)
-    # TODO: This will overwrite multivalue gts
     old_ground_truth = {g['label']: {**g, 'isOldGt': True} for g in document.get('groundTruth', [])}
 
     def should_post_feedback(v):
-            return not v.get('automated', True) or v.get('isEdited', True) or v.get('isOldGt', False)
+        return not v.get('automated', True) or v.get('isEdited', True) or v.get('isOldGt', False)
 
     ground_truth = []
 
@@ -62,10 +61,8 @@ def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, 
                 lines.append(line_gt)
 
             ground_truth.append({'label': label, 'value': lines})
-        else:
-            # This is a non-line item field
-            if should_post_feedback(value):
-                ground_truth.append(_create_gt_dict(label, value))
+        elif should_post_feedback(value):
+            ground_truth.append(_create_gt_dict(label, value))
 
     las_client.update_document(
         document_id=document_id,
