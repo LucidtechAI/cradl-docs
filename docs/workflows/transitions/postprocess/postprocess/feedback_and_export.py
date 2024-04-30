@@ -32,11 +32,16 @@ def post_feedback_v1(las_client: las.Client, document_id: str, dataset_id: str, 
 
 
 def _create_gt_dict(label, gt_info):
-    return {
+    gt_dict = {
         'label': label,
         'value': gt_info.get('rawValue', gt_info['value']),
         'pages': gt_info.get('pages')
     }
+
+    if 'confidence' in gt_info:
+        gt_dict['confidence'] = gt_info['confidence']
+
+    return gt_dict
 
 
 def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, feedback: dict):
