@@ -369,7 +369,7 @@ def test_update_ground_truth_with_empty_lines(
     (
         {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': False}},
         [{'label': 'totalAmount', 'value': '200.00'}],
-        [],  # We probably want to set this gt if gt and prediction coincide?
+        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
     ),
     (
         {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': False, 'isEdited': False}},

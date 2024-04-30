@@ -49,7 +49,7 @@ def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, 
     old_ground_truth = {g['label']: {**g, 'isOldGt': True} for g in document.get('groundTruth', [])}
 
     def should_post_feedback(v):
-        return not v.get('automated', True) or v.get('isEdited', True) or v.get('isOldGt', False)
+        return True
 
     ground_truth = []
 
