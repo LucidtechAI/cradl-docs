@@ -39,8 +39,7 @@ def _create_gt_dict(label, gt_info):
     }
 
     if 'confidence' in gt_info:
-        gt_dict['confidence'] = gt_info['confidence']
-
+        gt_dict['confidence'] = 1.0 if gt_info.get('isEdited', False) else gt_info['confidence']
     return gt_dict
 
 
