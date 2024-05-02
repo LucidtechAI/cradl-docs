@@ -364,22 +364,22 @@ def test_update_ground_truth_with_empty_lines(
     (
         {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': True}},
         [{'label': 'totalAmount', 'value': '200.00'}],
-        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1]}],
+        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
     ),
     (
         {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': False}},
         [{'label': 'totalAmount', 'value': '200.00'}],
-        [],  # We probably want to set this gt if gt and prediction coincide?
+        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
     ),
     (
         {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': False, 'isEdited': False}},
         [{'label': 'totalAmount', 'value': '200.00'}],
-        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1]}],
+        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
     ),
     (
         {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': False, 'isEdited': True}},
         [{'label': 'totalAmount', 'value': '200.00'}],
-        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1]}],
+        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
     ),
     (
         {
@@ -389,7 +389,14 @@ def test_update_ground_truth_with_empty_lines(
             }]
         },
         [{'label': 'line_items', 'value': None}],
-        [{'label': 'line_items', 'value': [[{'label': 'unitPrice', 'value': '50.00', 'pages': [1]}]]}],
+        [{'label': 'line_items', 'value':
+            [
+                [
+                    {'label': 'unitPrice', 'value': '50.00', 'pages': [1], 'confidence': 0.8},
+                    {'label': 'totalPrice', 'value': '100.00', 'pages': [0], 'confidence': 0.9},
+                ]
+            ]
+        }],
     ),
 ])
 def test_post_feedback_v2(

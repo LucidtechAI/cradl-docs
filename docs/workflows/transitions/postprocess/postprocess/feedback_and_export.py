@@ -32,36 +32,35 @@ def post_feedback_v1(las_client: las.Client, document_id: str, dataset_id: str, 
 
 
 def _create_gt_dict(label, gt_info):
-    return {
+    gt_dict = {
         'label': label,
         'value': gt_info.get('rawValue', gt_info['value']),
         'pages': gt_info.get('pages')
     }
 
+    if 'confidence' in gt_info:
+        gt_dict['confidence'] = 1.0 if gt_info.get('isEdited', False) else gt_info['confidence']
+    return gt_dict
+
 
 def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, feedback: dict):
     document = las_client.get_document(document_id=document_id)
     old_ground_truth = {g['label']: {**g, 'isOldGt': True} for g in document.get('groundTruth', [])}
-
-    def should_post_feedback(v):
-        return not v.get('automated', True) or v.get('isEdited', True) or v.get('isOldGt', False)
-
     ground_truth = []
 
     for label, value in {**old_ground_truth, **feedback}.items():
         is_line_item = isinstance(value, list)
         if is_line_item:
             if not value:
-                # Ignore blank lines
-                continue
+                continue  # Ignore blank lines
 
             lines = []
             for line in value:
-                line_gt = [_create_gt_dict(_l, _v) for _l, _v in line.items() if should_post_feedback(_v)]
+                line_gt = [_create_gt_dict(_l, _v) for _l, _v in line.items()]
                 lines.append(line_gt)
 
             ground_truth.append({'label': label, 'value': lines})
-        elif should_post_feedback(value):
+        else:
             ground_truth.append(_create_gt_dict(label, value))
 
     las_client.update_document(
