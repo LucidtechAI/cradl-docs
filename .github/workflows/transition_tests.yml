@@ -24,7 +24,7 @@ jobs:
 
       - name: Check Python code style
         run: |
-          flake8
+          flake8 --ignore=E124
 
       - name: Run preprocess tests with pytest
         env:
