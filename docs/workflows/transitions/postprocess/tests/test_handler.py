@@ -393,7 +393,7 @@ def test_update_ground_truth_with_empty_lines(
             [
                 [
                     {'label': 'unitPrice', 'value': '50.00', 'pages': [1], 'confidence': 0.8},
-                    {'label': 'totalPrice', 'value': '100.00', 'pages': [0], 'confidence': 0.9}
+                    {'label': 'totalPrice', 'value': '100.00', 'pages': [0], 'confidence': 0.9},
                 ]
             ]
         }],
