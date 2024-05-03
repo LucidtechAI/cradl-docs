@@ -6,6 +6,9 @@ import requests
 from .utils import parse_webhook_endpoints, convert_predictions_to_v2
 
 
+logging.getLogger().setLevel(logging.INFO)
+
+
 def post_feedback_v1(las_client: las.Client, document_id: str, dataset_id: str, verified: dict):
     document = las_client.get_document(document_id=document_id)
     old_ground_truth = {g['label']: g['value'] for g in document.get('groundTruth', [])}
@@ -79,7 +82,7 @@ def feedback_and_export(las_client, event):
     feedback_v2 = event.get('validatedPredictions')
 
     try:
-        logging.info(f'Posting feedback to dataset {dataset_id} ...')
+        logging.info(f'Posting feedback to document {document_id} of dataset {dataset_id} ...')
 
         if feedback_v2:
             post_feedback_v2(las_client, document_id, dataset_id, feedback_v2 if validated else {})
