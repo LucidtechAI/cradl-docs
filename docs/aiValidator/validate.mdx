@@ -1,0 +1,44 @@
+---
+sidebar_position: 2
+---
+
+# Validate documents
+:::info
+This guide assumes that you have created, trained and tested your AI Model from the previous steps.
+:::
+
+## 1. Upload documents 
+Welcome to the `AI Validator`. Simply upload a document in order to start scanning.
+<div class="image-backdrop utils-mb-10">
+<p class="image-backdrop-caption text-sm">Empty AI Validator view.</p>
+![Image](../../static/img/validator/validator-studio.png)
+</div>
+
+ You will notice that the `AI Model` will automatically start running and scan documents when they are uploaded from the AI Validator interface:
+
+<div class="image-backdrop utils-mb-10">
+<p class="image-backdrop-caption text-sm">Documents are being scanned in the AI Validator.</p>
+![Image](../../static/img/validator/validator-running.png)
+</div>
+## 2. Validate documents 
+Once your model has stopped running (click  <span className="utils-admonition-success">**`refresh`**</span> for status updates), click on <span className="utils-admonition-success">**`Validate documents`**</span>:
+
+<div class="image-backdrop utils-mb-10">
+<p class="image-backdrop-caption text-sm">Document scanning completed.</p>
+![Image](../../static/img/validator/validator-ran.png)
+</div>
+
+## 3. Inspect extracted data from documents
+After your AI Model has extracted data, the model assigns a confidence level to each field.
+
+- If all the scores is above the confidence threshold (default is 95%), the model will not ask for your feedback and automatically export the document.
+- If one of the confidence scores is below your threshold, you will be notified and ask to validate the result. 
+- Your corrections will be used to improve the model when you retrain it. 
+<div class="image-backdrop utils-mb-10">
+<p class="image-backdrop-caption text-sm">Extracted data view.</p>
+![Image](../../static/img/validator/validator-validated.png)
+</div>
+
+Congratulations. You know have an AI model that automatically scans manually uploaded documents. Click <span className="utils-admonition-success">**`Validate`**</span> 
+
+In the next section of this guide, we will set up automated uploads of documents instead of manual uploads. 

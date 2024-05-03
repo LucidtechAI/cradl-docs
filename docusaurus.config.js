@@ -1,84 +1,104 @@
 // @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
+// `@type` JSDoc annotations allow editor autocompletion and type checking
+// (when paired with `@ts-check`).
+// There are various equivalent ways to declare your Docusaurus config.
+// See: https://docusaurus.io/docs/api/docusaurus-config
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Cradl documentation',
-  tagline: 'AI-powered data capture APIs for any document',
+  tagline: 'No-code AI data-extraction for any document',
   url: 'https://docs.cradl.ai',
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.png',
+
+  // GitHub pages deployment config.
+  // If you aren't using GitHub pages, you don't need these.
   organizationName: 'LucidtechAI', // Usually your GitHub org/user name.
   projectName: 'cradl-docs', // Usually your repo name.
-  plugins: ['docusaurus-plugin-sass', require.resolve('docusaurus-lunr-search')],
-  scripts: [
-    {
-      src: 'https://plausible.io/js/plausible.js',
-      defer: true,
-      "data-domain": process.env.PLAUSIBLE_DOMAIN,
-    },
-  ],
+
+
+  // Even if you don't use internationalization, you can use this field to set
+  // useful metadata like html lang. For example, if your site is Chinese, you
+  // may want to replace "en" with "zh-Hans".
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+  },
+
   presets: [
     [
-      '@docusaurus/preset-classic',
+      'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          breadcrumbs: true,
+          sidebarPath: './sidebars.js',
           routeBasePath: '/',
-          sidebarCollapsed: false,
-          sidebarCollapsible: false,
+          // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
+          // editUrl:
+          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+        },
+        blog: {
+          showReadingTime: true,
+          // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
+          // editUrl:
+          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: './src/css/custom.css',
         },
       }),
-    ],
-    [
-      'redocusaurus',
-      {
-        debug: Boolean(process.env.DEBUG || process.env.CI),
-        specs: [
-          {
-            specUrl: './oas.yaml',
-            routePath: '/rest-api-reference/',
-          }
-        ],
-        theme: {
-          primaryColor: '#5f59f7',
-          redocOptions: { hideDownloadButton: false },
-        },
-      },
     ],
   ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      colorMode: {
-        respectPrefersColorScheme: true,
-        defaultMode: 'light'
-      },
+      // Replace with your project's social card
+      image: 'img/docusaurus-social-card.jpg',
+
       navbar: {
-        title: 'Docs',
         logo: {
           alt: 'Cradl AI logo',
-          src: 'img/cradl-docs-black.svg',
-          srcDark: 'img/cradl-docs-white.svg',
+          src: 'img/logo/docs-logo-black.svg',
+          srcDark: 'img/logo/cradl-docs-white.svg',
           href: '/',
           target: '_self',
-        }
+        
+        },
+            // hideOnScroll: true,
+        items: [
+          // {
+          // to: '/blog', 
+          // label: 'Blog', 
+          // position: 'left'
+          // },
+          {
+            href: 'https://app.cradl.ai/flows',
+            label: 'Open Cradl AI',
+            position: 'right',
+            className: 'button button--primary button--md navbar-btn utils-mr-8'
+          },
+         ],
       },
+      docs: {
+        // sidebar: {
+        //   hideable: true,
+        // },
+      },
+    
       footer: {
         logo: {
           alt: 'Cradl AI logo',
-          src: 'img/cradl-docs-black.svg',
-          srcDark: 'img/cradl-docs-white.svg',
+          src: 'img/logo/cradl-docs-black.svg',
+          srcDark: 'img/logo/cradl-docs-white.svg',
           href: '/',
         },
         links: [
@@ -137,10 +157,24 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Lucidtech AS. All rights reserved.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: prismThemes.github,
+        darkTheme: prismThemes.dracula,
       },
     }),
+
+    plugins: [
+      async function myPlugin(context, options) {
+        return {
+          name: "docusaurus-tailwindcss",
+          configurePostCss(postcssOptions) {
+            // Appends TailwindCSS and AutoPrefixer.
+            postcssOptions.plugins.push(require("tailwindcss"));
+            postcssOptions.plugins.push(require("autoprefixer"));
+            return postcssOptions;
+          },
+        };
+      },
+    ],
 };
 
-module.exports = config;
+export default config;

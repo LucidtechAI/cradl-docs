@@ -1,0 +1,211 @@
+---
+sidebar_position: 1
+---
+# Create your AI Model
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## 1. New Flow
+### Go to Flows
+Start by completing the sign-up to a free Cradl AI account. Once logged in: 
+- Find and click <span className="utils-admonition-success">**`Flows`**</span> in the top navigation bar. 
+- Create a <span className="utils-admonition-success">**`New Flow`**</span>. 
+
+
+<div class="image-backdrop utils-mb-10">
+<p class="image-backdrop-caption text-sm">Welcome to your Flow overview. A Flow is simply a pipeline that connects an AI model with your documents' Triggers and Export destinations.</p>
+![Image](../../static/img/flow/flow-overview.png)
+</div>
+
+<div class="utils-mt-22 utils-mb-10">
+<Tabs>
+  <TabItem value="triggers" label="Trigger" default>
+   - **`Triggers`** is where you import your documents after you have trained your `AI Model`. Documents can be imported by `manual upload`, `email`, `API`, or `integrations`.
+  </TabItem>
+
+  <TabItem value="aiModel" label="AI Model">
+    - **`AI Model`** is where you create your custom `AI model` - trained to scan your documents.
+  </TabItem>
+  
+  <TabItem value="validator" label="Validator">
+     - **`Validator`** is where newly scanned documents are ready to be validated by you.
+    </TabItem>
+
+    <TabItem value="export" label="Export">
+      - **`Export`** is the output destination for your scanned documents. Documents can be exported to `webhook`, `API`, `integrations`, `CSV`, etc.
+    </TabItem>
+</Tabs>
+</div>
+{/* <details className='custom-accordion'>
+  <summary>Triggers</summary>
+- **`Triggers`** is where you import your documents after you have trained your `AI Model`. Documents can be imported by `manual upload`, `email`, `API`, or `integrations`.
+</details>
+<details className='custom-accordion'>
+  <summary>AI Studio</summary>
+- **`AI Studio`** is where you create your custom `AI model` - trained to scan your documents.
+</details>
+<details className='custom-accordion'>
+  <summary>Validation</summary>
+- **`Validation`** is where newly scanned documents are ready to be validated by you.
+</details>
+<details className='custom-accordion'>
+  <summary>Export</summary>
+- **`Export`** is the output destination for your scanned documents. Documents can be exported to `webhook`, `API`, `integrations`, `CSV`, etc.
+</details> */}
+
+### Go to New model
+From your `Flows` overview, click on <span className="utils-admonition-success">**`New Model`**</span>. 
+<div class="image-backdrop">
+<p class="image-backdrop-caption text-sm">New Model:</p>
+![Image](../../static/img/create-model/create-model-modal.png)
+</div>
+
+## 2. New model 
+### Name your model
+The model's name is only for your convenience. Examples of names can be "invoice model", "receipt model".
+
+
+### Choose model from template or choose model from scratch
+Whether to start from scratch or whether to start from a template depends on your document. Here are some tips:
+
+<details className='custom-accordion'>
+  <summary>Model from template</summary>
+   <p>Start with a model from template if you find a template with `fields` that are similar to your documents. It is totally OK to add new `fields` or to remove `fields` you do not need from a template.</p>
+   <p>It is recommended to start with a **template** if you:</p>
+    <ul>
+        <li>find a template with `fields` that are similar to those you want to extract from your documents (i.e, a template might have a "total_amount" field, and so does your documents).</li>
+        <li> want to test a model on your data quickly. Using a template will give better results out of the box.</li>
+    </ul>
+  </details>
+
+<details className='custom-accordion'>
+  <summary>Model from scratch</summary>
+   <p>When starting from scratch, you define and train every `field` yourself. It is the best option if your documents are dissimilar to any of the templates, but it takes more training data to get as good results as a template.</p>
+</details>
+
+
+### Choose fields you want to extract from your documents
+Make a list of the data you want to extract from your documents. Your list of data should be informed by
+
+- The data you want to export out of Cradle AI and into your other apps. 
+- It is recommended to only include **data that you need** when training your first model. You can introduce data that is **nice to have** once you are getting good results from your base model.
+
+<details className='custom-accordion'>
+  <summary>See example</summary>
+<div>
+<div class="image-backdrop utils-mb-10">
+<p class="image-backdrop-caption text-sm">Typical data you would want to extract from an invoice include: the recipent's full name, the recipient's address, invoice ID number, total amount, VAT, currency, etc.</p>
+  ![Image](../../static/img/create-model/create-model-exampleDoc.jpg)
+  </div>
+</div>
+</details>
+
+
+## 3. Create Fields 
+For every piece of information you want to extract from your documents, you create a corresponding `field`. Your amount of fields is flexible; you can start with a limited amount and introduce new fields in the future if neccessary.
+
+<div class="image-backdrop utils-mb-10">
+<p class="image-backdrop-caption">A field consists of a field title and a data type.</p>
+  ![Image](../../static/img/create-model/create-model-field.png)
+</div>
+
+### Choose field Title
+- A `field`'s `title` is yours to decide. It does not have to correspond to what you see on your documents. 
+- For example, if your documents have a total amount of 20.000 labelled as "total: 20.000", you are free to call your field's name `total`, `total amount`, `price`, or something in another language.
+:::warning
+Avoid changing a `field`'s `title` once you have started training your model (we will train the model in the next section of this tutorial). Changing the title of your fields after training will require you to retrain that specific field.
+:::
+
+
+### Choose field Data type
+A `field`'s ` data type` improves the model's performance. For example, using the `date` type instead of a `numeric` type for a date will give better results.
+
+<Tabs>
+  <TabItem value="string" label="String" default>
+  <p>`String` is the most commonly used type. It is used for data containing letters or a mix of letters and numbers.</p>
+
+  <p>A common usecase for strings are addresses, which you can create in one `string` field instead of making multiple fields for each line of the address:</p>
+  <div class="image-backdrop utils-mb-10">
+    <p class="image-backdrop-caption">Example of a multiline address in a String field.</p>
+    ![Image](../../static/img/annotate/annotate-string-address.png)
+    </div>
+  </TabItem>
+
+  <TabItem value="amount" label="Amount">
+  <p>Use the `Amount` type if your document has monetary amounts.</p>
+  </TabItem>
+  
+  <TabItem value="date" label="Date">
+    <p>Use the `Date` type if your document has dates.</p>
+    </TabItem>
+
+    <TabItem value="numeric" label="Numeric">
+        <p>`Numeric` is used for numbers, such as quantities, numeric IDs, etc. A Numeric field does not accept letters.</p>
+    </TabItem>
+
+    <TabItem value="lineItems" label="Line items">
+    <p>
+        `Line items` are used for single and multiline tabular data:
+    </p>
+    <div class="image-backdrop utils-mb-10">
+        <p class="image-backdrop-caption">Example of multiline tabular data.</p>
+        ![Image](../../static/img/create-model/create-model-lineItems.png)
+    </div>
+    </TabItem>
+
+    <TabItem value="classification" label="Classification">
+        <p>Info about classification.</p>
+    </TabItem> 
+</Tabs>
+
+{/* <details>
+  <summary>String</summary>
+  <p>String is the most commonly used type. It is used for data containing letters or a mix of letters and numbers.</p>
+
+  <p>A common usecase for strings are addresses, which you can create in one `string` field instead of making multiple fields for each line of the address:</p>
+  <div>
+    ![Image](../../static/img/annotate/annotate-string-address.png)
+    </div>
+</details> */}
+{/* 
+<details>
+  <summary>Amount</summary>
+  <p>Use the `Amount` type if your document has monetary amounts.</p>
+</details> */}
+{/* 
+<details>
+  <summary>Date</summary>
+  <p>Use the `Date` type if your document has dates.</p>
+</details> */}
+
+{/* <details>
+  <summary>Numeric</summary>
+  <p>Numeric is used for numbers, such as quantities, numeric IDs, etc. A Numeric field does not accept letters.</p>
+</details> */}
+
+{/* <details>
+  <summary>Line items</summary>
+  <p>
+  Line items are used for multiline tabular data:
+  </p>
+  <div>
+  ![Image](../../static/img/create-model/create-model-lineItems.png)
+  </div>
+</details> */}
+
+{/* <details>
+  <summary>Classification</summary>
+ <p>Info about classification.</p>
+</details> */}
+
+### Create model & save Flow
+When you have finished adding your `fields`: 
+1. Click <span className="utils-admonition-success">**`Create model`**</span>
+2. Back in your `Flows` overview, click save your Flow by clicking <span className="utils-admonition-success">**`Save`**</span> in the upright corner of the top right navigation bar.
+3. In your `Flows` overview, your `AI Model` box will now have a button named <span className="utils-admonition-success">**`Train model`**</span>:
+
+![Image](../../static/img/create-model/create-model-saveButton.png)
+
+### Go to Train model
+Click <span className="utils-admonition-success">**`Train model`**</span> and proceed to the next section of this tutorial, where we will train the model.

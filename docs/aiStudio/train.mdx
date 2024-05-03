@@ -1,0 +1,136 @@
+---
+sidebar_position: 2
+---
+
+# Train your AI Model
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+##  1. Upload training documents
+
+Clicking <span className="utils-admonition-success">**`Train model`**</span> takes you to an upload manager:
+
+<div class="image-backdrop utils-mb-10">
+<p class="image-backdrop-caption text-sm">Training your model requires a minimum of 15 uploaded documents.</p>
+![Image](../../static/img/upload/upload-trainingData.png)
+</div>
+Here are some key points to keep in mind when choosing your first 15 training documents:
+
+- You will likely want to extract data that might be **present** on some documents, but **absent** from other documents. For example, 15 of your documents might have "total amount" whereas "VAT" might only be present on 8. This is unproblematic, but try to compensate for the 7 documents without "VAT" by including 7 new documents with VAT, bumping your total documents up to 22. Your aim is to have **15 samples of every field** rather than 15 documents.
+- For a production setting, you want to train your model on more than 15 documents. You want to train until your model gives your reliable results and asks for your feedback when it is unsure of its accuracy (we will set up such a feedback loop later in this tutorial).
+
+## 2. Annotate training documents
+### How to annotate
+The `annotation` stage is where you tell your `AI Model` "what to look for" when it scans your documents.
+
+<div class="image-backdrop utils-mb-10">
+<p class="image-backdrop-caption text-sm">After uploading your first training documents, you will be taken to the annotation interface:</p>
+![Image](../../static/img/annotate/annotate-studio.png)
+</div>
+
+:::info
+
+When scanning your documents, your `AI Model` uses a mix of vision and textual understanding. This is important to keep in the back of your mind when you annotate your training documents. Typically, you will want your input to **mirror** the document as closely as possible. For example: if a date is written in MM/DD/YYYY format, type it as what you see (a MM/DD/YYYY date) rather than another format, such as DD/MM/YYYY or YYYY/MM/DD.
+:::
+
+Here are some tips for each field `data type` to help you make informed decisions when you `annotate` your training documents:
+<details className='custom-accordion'>
+  <summary>String</summary>
+  <p>In addition to regular text and text+numbers, use strings are addresses, which you can create in one `string` field my mirroring how the address is depicted in your documents: </p>
+  <div>
+    ![Image](../../static/img/annotate/annotate-string-address.png)
+  </div>
+</details>
+
+<details className='custom-accordion'>
+  <summary>Amount</summary>
+  <p>When you type something in the `amount` field, your input will be **auto-formatted:** </p>
+  - **Commas** "," are formatted to separate thousands. 
+  - **Dots** "." are formatted to separate decimals. 
+  <p>For example: Fifteen-thousand will look like: 15,000.00</p>
+</details>
+
+<details className='custom-accordion'>
+  <summary>Date</summary>
+  <p>Dates are very common to extract. When you type a date in a `date` field, you must **mirror** the way the date is written on your document. </p>
+  :::info
+  If you created your model before 30th April 2024, you must continue entering dates in a DD/MM/YYYY format instead of mirroring what is written in your document.
+  :::
+</details>
+
+<details className='custom-accordion'>
+  <summary>Numeric</summary>
+  <p>Numeric is used for numbers, such as quantities, numeric IDs, etc. A Numeric field does not accept letters. </p>
+</details>
+
+<details className='custom-accordion'>
+  <summary>Line items</summary>
+  <p> Line items are used for multiline tabular data. You do not have to annotate every single item in the table - 3 will do. If there are more than 3 items, pick 3 random items rather than the first three for better results.</p>
+  <div>
+  ![Image](../../static/img/create-model/create-model-lineItems.png)
+  </div>
+</details>
+
+<details className='custom-accordion'>
+  <summary>Classification</summary>
+</details>
+
+### Go to training
+Once you havee annotated at least 15 documents, you're presented with two options, `Add more data` or `Go to training`. Click <span className="utils-admonition-success">**`Go to training`**</span>
+
+
+<div class="image-backdrop utils-mb-10">
+<p class="image-backdrop-caption text-sm">Summary of your annotated documents:</p>
+![Image](../../static/img/annotate/annotate-review.png)
+</div>
+- <span className="utils-admonition-success">`Green`</span> checkmarks means that you have provided at least 15 samples of a `field`. Well done. 
+- <span className="utils-admonition-warning">`Yellow`</span> checkmarks means that you have not provided at least 15 samples of a `field`. While not necessary for testing, it is recommended that you provide at least 15 samples.
+
+##  3. Train model
+Congratulations, you have finished the hard part. In the next section, it is time for your `AI model` to start working.
+
+### Go to Train model
+From your annotation summary, click <span className="utils-admonition-success">**`Train model`**</span> to begin the model's initial training.
+Training usually takes from 20 to 60 minutes. 
+<details className='custom-accordion'>
+  <summary>Viewing training progress</summary>
+  <p>While your model is training, you can monitor the training progress by clicking <span className="utils-admonition-success">**`View training details`**</span> from your `Flow` overview:</p>
+  <div>
+    ![Image](../../static/img/training/training-progress.png)
+  </div>
+  <p>No action is required from you here. Simply wait until the training is over.</p>
+</details>
+
+
+### Review training results
+Once your training is complete, you will see the results of your training. 
+
+<details className='custom-accordion'>
+  <summary>Training results</summary>
+  <div>
+    ![Image](../../static/img/training/training-results.png)
+  </div>
+  
+- <span className="utils-admonition-success">`Green`</span> checkmark means that the model was able to predicted the field with high confidence.
+- <span className="utils-admonition-warning">`Yellow`</span> checkmark means that the model was unable to predict the field with high confidence and will not automatically parse the field before a manual inspection. A yellow checkmark is often the result of either insufficent training or inconsistent annotation of training data.
+
+</details>
+{/* <details className='custom-accordion'>
+  <summary>Good training results</summary>
+  <p> Line items are used for multiline tabular data. You do not have to annotate every single item in the table - 3 will do. If there are more than 3 items, pick 3 random items rather than the first three for better results.</p>
+  <div>
+    ![Image](../../static/img/training/training-results-better.png)
+  </div>
+</details>
+<details className='custom-accordion'>
+  <summary>Poor training results</summary>
+  <p> Line items are used for multiline tabular data. You do not have to annotate every single item in the table - 3 will do. If there are more than 3 items, pick 3 random items rather than the first three for better results.</p>
+  <div>
+    ![Image](../../static/img/training/training-results-bad.png)
+  </div>
+</details> */}
+
+
+### Go to testing
+After reviewing your training results, click <span className="utils-admonition-success">**`Test model`**</span> from the training results screen.
