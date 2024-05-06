@@ -6,19 +6,31 @@ sidebar_position: 1
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+This guide is intended to take you from start to finish in Cradl AI. Once you have completed the guide, you will:
+
+- have an AI model that is trained to scan your documents.
+- have a workflow where you automatically import documents (images and PDFs), scan them into structured data, and export the data to your preferred destination.
+
+
+
+This guide does not assume that you are a programmer. Cradl AI is designed to enable you to create and and maintain your own AI models without requiring a specialist or adding technical overhead to your organization.
+
 ## 1. New Flow
 ### Go to Flows
-Start by completing the sign-up to a free Cradl AI account. Once logged in: 
+Start by completing the sign-up to a [free Cradl AI account](https://app.cradl.ai/login). Once logged in: 
 - Find and click <span className="utils-admonition-success">**`Flows`**</span> in the top navigation bar. 
 - Create a <span className="utils-admonition-success">**`New Flow`**</span>. 
 
 
 <div class="image-backdrop utils-mb-10">
-<p class="image-backdrop-caption text-sm">Welcome to your Flow overview. A Flow is simply a pipeline that connects an AI model with your documents' Triggers and Export destinations.</p>
+<p class="image-backdrop-caption text-sm">Welcome to your Flow builder. A Flow is simply a pipeline that connects an AI model with your documents' Triggers and Export destinations.</p>
 ![Image](../../static/img/flow/flow-overview.png)
 </div>
 
-<div class="utils-mt-22 utils-mb-10">
+<div class="utils-mt-22 image-backdrop">
+<p class="image-backdrop-caption">The 4 parts of a Flow:</p>
+
+<div style={{padding: '0 40px 40px 40px'}}>
 <Tabs>
   <TabItem value="triggers" label="Trigger" default>
    - **`Triggers`** is where you import your documents after you have trained your `AI Model`. Documents can be imported by `manual upload`, `email`, `API`, or `integrations`.
@@ -36,6 +48,7 @@ Start by completing the sign-up to a free Cradl AI account. Once logged in:
       - **`Export`** is the output destination for your scanned documents. Documents can be exported to `webhook`, `API`, `integrations`, `CSV`, etc.
     </TabItem>
 </Tabs>
+</div>
 </div>
 {/* <details className='custom-accordion'>
   <summary>Triggers</summary>
@@ -121,6 +134,10 @@ Avoid changing a `field`'s `title` once you have started training your model (we
 ### Choose field Data type
 A `field`'s ` data type` improves the model's performance. For example, using the `date` type instead of a `numeric` type for a date will give better results.
 
+<div class="utils-mt-22 image-backdrop">
+<p class="image-backdrop-caption">The different field data types:</p>
+
+<div style={{padding: '0 40px 40px 40px'}}>
 <Tabs>
   <TabItem value="string" label="String" default>
   <p>`String` is the most commonly used type. It is used for data containing letters or a mix of letters and numbers.</p>
@@ -158,7 +175,8 @@ A `field`'s ` data type` improves the model's performance. For example, using th
         <p>Info about classification.</p>
     </TabItem> 
 </Tabs>
-
+</div>
+</div>
 {/* <details>
   <summary>String</summary>
   <p>String is the most commonly used type. It is used for data containing letters or a mix of letters and numbers.</p>
@@ -205,7 +223,10 @@ When you have finished adding your `fields`:
 2. Back in your `Flows` overview, click save your Flow by clicking <span className="utils-admonition-success">**`Save`**</span> in the upright corner of the top right navigation bar.
 3. In your `Flows` overview, your `AI Model` box will now have a button named <span className="utils-admonition-success">**`Train model`**</span>:
 
+<div class="image-backdrop">
+<p class="image-backdrop-caption text-sm"></p>
 ![Image](../../static/img/create-model/create-model-saveButton.png)
+</div>
 
 ### Go to Train model
 Click <span className="utils-admonition-success">**`Train model`**</span> and proceed to the next section of this tutorial, where we will train the model.

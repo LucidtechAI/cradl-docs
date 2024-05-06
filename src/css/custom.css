@@ -16,7 +16,7 @@
     --ifm-heading-font-weight: 600;
     --ifm-heading-color: #3A3A3C;
     --ifm-font-color-base: #464c53;
-    --ifm-background-color: #FCFCFD;
+    --ifm-background-color: #fdfdfc;
     --ifm-color-primary: #5f59f7;
     --ifm-color-primary-dark: #4039f5;
     --ifm-color-primary-darker: #3129f5;
@@ -28,7 +28,7 @@
     --ifm-menu-color: rgb(125, 125, 137);
     --ifm-font-family-base: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont,
     'Segoe UI', Helvetica, Arial, sans-serif;
-    --color-backdrop: rgb(238, 240, 242);
+    --color-backdrop: rgb(244, 247, 248);
     --color-gray-light: rgb(231, 231, 231);
    /* --doc-sidebar-width: 300px !important; */
    /* --ifm-menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(124,124,124,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>') */
@@ -161,6 +161,11 @@ h3 {
 .utils-mb-10 {
   margin-bottom: 10px;
 }
+
+.utils-mb-20 {
+  margin-bottom: 20px;
+}
+
 .utils-ml-10 {
   margin-left: 10px;
 }
@@ -171,6 +176,7 @@ h3 {
 .utils-mr-8 {
   margin-right: 8px;
 }
+
 
 .utils-opacity-lightest {
   opacity: 0.85;
@@ -274,6 +280,7 @@ h3 {
   /* background-color: var(--color-backdrop); */
   background-color: var(--color-backdrop);
   border-bottom: 3px solid var( --color-gray-light);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px;
 }
 
 .image-backdrop img {
@@ -308,6 +315,7 @@ h3 {
   font-size: 1.3em;
   font-weight: 400;
 }
+
 
 /* Style sidebar and navbar */
 html[data-theme='light'] .theme-doc-sidebar-container {
