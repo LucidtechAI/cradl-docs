@@ -13,11 +13,12 @@ export const VideoBox = ({ title, text, icon, onClick, children, background, bor
         }} onClick={onClick}>
       { icon }
   
-      <div style={{ padding: '2px 12px 16px 12px' }} >
+      <div className='flex flex-col justify-between' style={{ padding: '2px 12px 16px 12px' }} >
+      <div>
         <h3>{title}</h3>
         { text && <p>{text}</p>}
         { children }
- 
+      </div>
          <video width="100%" height="240" controls>
             <source src="" type="video/mp4" />
         </video>

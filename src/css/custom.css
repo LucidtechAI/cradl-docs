@@ -340,6 +340,10 @@ details.custom-accordion summary {
   color: var(--ifm-color-primary)
 }
 
+.navbar-sidebar__back {
+  display: none;
+}
+
 
 /* @media screen and (min-width: 920px) {
   .col {
