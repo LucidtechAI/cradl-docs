@@ -56,6 +56,23 @@ const config = {
         },
       }),
     ],
+    [
+      'redocusaurus',
+      {
+        // debug: Boolean(process.env.DEBUG || process.env.CI),
+        specs: [
+          {
+            spec: './static/oas.yaml',
+            route: '/rest-api-reference/',
+          }
+        ],
+        theme: {
+          primaryColor: '#5f59f7',
+          redocOptions: { hideDownloadButton: false },
+        },
+      },
+    ],
+    
   ],
 
   themeConfig:
