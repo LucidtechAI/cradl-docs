@@ -10,7 +10,10 @@
     margin-bottom: 16px;
 }
 
+/* Remove fontsize and fontweight after demo lol */
 .header h3 {
     margin: 0;
     margin-left: 16px;
+    font-size: 1.1em;
+    font-weight: 600;
 }

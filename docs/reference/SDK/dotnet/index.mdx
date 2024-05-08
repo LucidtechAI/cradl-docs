@@ -1,0 +1,27 @@
+# Overview
+
+## Installation
+The .NET SDK for Cradl can be downloaded from
+[nuget](https://www.nuget.org/packages/Lucidtech.Las)
+
+```commandline
+dotnet add package Lucidtech.Las
+```
+
+
+## Getting started
+After Lucidtech.Las is installed and you have received credentials,
+you are ready to enhance your document-flow with the las client:
+```cs
+using System;
+using Lucidtech.Las;
+
+var client = new Client();
+var models = client.ListModels();
+var documents = client.ListDocuments();
+var workflows = client.ListWorkflows();
+```
+
+
+The .NET SDK is open-source, and the code can be found [here](https://github.com/LucidtechAI/las-sdk-net).
+Contributions are more than welcome.
