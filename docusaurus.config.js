@@ -72,8 +72,12 @@ const config = {
         },
       },
     ],
-    
   ],
+
+  // scripts: [
+  //   // String format.
+  //   'http://localhost:3000/rudderAnalytics.js'
+  // ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */

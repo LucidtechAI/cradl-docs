@@ -20,7 +20,7 @@ export const VideoBox = ({ title, text, icon, onClick, children, background, bor
         { children }
       </div>
          <video width="100%" height="240" controls>
-            <source src="https://app.arcade.software/share/AyZEiEkxEbAB4zokScn4" type="video/mp4" />
+            <source src="/video/ai_studio.mp4" type="video/mp4" />
         </video>
       </div>
     </div>

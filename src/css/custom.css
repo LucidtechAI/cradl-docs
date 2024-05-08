@@ -14,7 +14,7 @@
   /* --base-background-color: #FCFCFD; */
     --ifm-navbar-height: 4.2rem;
     --ifm-heading-font-weight: 600;
-    --ifm-heading-color: #3A3A3C;
+    --ifm-heading-color: #515159;
     --ifm-font-color-base: #464c53;
     --ifm-background-color: #fdfdfc;
     --ifm-color-primary: #5f59f7;
@@ -234,6 +234,7 @@ h3 {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  margin-top: 10px;
 }
 
 
@@ -351,10 +352,13 @@ details.custom-accordion summary {
   }
 } */
 /* Makes indexpage fullwidth. Normally pages are 75% width bc of table of contents.  */
-/* .docs-doc-id-index .col {
-  max-width: 100% !important;
-  margin: 0 auto;
-} */
+@media screen and (min-width: 992px) {
+  .docs-doc-id-index .col {
+    max-width: 85% !important;
+    margin: 0 auto;
+  }
+}
+
 /* .col {
   max-width: 100% !important;
   margin: 0 auto;
