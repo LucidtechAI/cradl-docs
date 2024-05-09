@@ -35,3 +35,17 @@ def convert_predictions_to_v2(predictions):
             result[label] = sorted(result[label], key=lambda p: -p['confidence'])
 
     return result
+
+
+def to_validated_format(predictions):
+    def add_metainfo(el):
+        return {'isEdited': False, 'automated': True, **el}
+    
+    def top1_pred(val):
+        if 'value' in val[0].keys():
+            return add_metainfo(val[0])
+
+        return [to_validated_format(line) for line in val]
+
+    
+    return {field: top1_pred(val) for field, val in predictions.items()}
