@@ -42,7 +42,7 @@ def to_validated_format(predictions):
         return {'isEdited': False, 'automated': True, **el}
 
     def top1_pred(val):
-        if 'value' in val[0].keys():
+        if 'value' in val[0]:
             return add_metainfo(val[0])
 
         return [to_validated_format(line) for line in val]
