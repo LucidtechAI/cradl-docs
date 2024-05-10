@@ -194,6 +194,9 @@ h3 {
 .utils-active-link {
   color: rgb(76, 179, 212)
 }
+.utils-shadow-md	{
+  box-shadow: rgba(100, 100, 111, 0.8) 0px 7px 29px 0px;
+}
 
 /* Sidebar icons for collapsible titles */
 .icon-code > div::before { 
@@ -316,6 +319,7 @@ h3 {
   font-size: 1.3em;
   font-weight: 400;
 }
+
 
 
 /* Style sidebar and navbar */
