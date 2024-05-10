@@ -3,7 +3,7 @@ import os
 import las
 import requests
 
-from .utils import parse_webhook_endpoints, convert_predictions_to_v2
+from .utils import parse_webhook_endpoints, convert_predictions_to_v2, to_validated_format
 
 
 logging.getLogger().setLevel(logging.INFO)
@@ -80,6 +80,7 @@ def feedback_and_export(las_client, event):
     validated = event.get('needsValidation', True) is True
     feedback_v1 = event.get('verified')
     feedback_v2 = event.get('validatedPredictions')
+    predictions_v2 = convert_predictions_to_v2(event.get('predictions'))
 
     try:
         logging.info(f'Posting feedback to document {document_id} of dataset {dataset_id} ...')
@@ -95,8 +96,8 @@ def feedback_and_export(las_client, event):
         'documentId': document_id,
         'datasetId': dataset_id,
         'values': feedback_v1,
-        'validatedPredictions': feedback_v2,
-        'predictions': convert_predictions_to_v2(event.get('predictions'))
+        'validatedPredictions': feedback_v2 if not validated else to_validated_format(predictions_v2),
+        'predictions': predictions_v2
     }
 
     webhook_endpoints = []
