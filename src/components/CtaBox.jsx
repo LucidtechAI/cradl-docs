@@ -22,7 +22,7 @@ export const CtaBox = () => (
     </div>
       
         <div className='flex justify-center items-center pb-12'>
-          <a href="/aiStudio/new-model" className=' button button--primary button--md font-semibold text-lg h-min text-white' role="button">
+          <a href="/aiStudio/new-model" className='shadow-lg button button--primary button--md font-semibold text-lg h-min text-white' role="button">
             Get started 
           </a>
         </div>

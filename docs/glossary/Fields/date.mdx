@@ -1,0 +1,68 @@
+---
+pagination_next: null
+pagination_prev: null
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Date
+
+### When to use `Date` as a a field's `data type`
+<details className='custom-accordion'>
+  <summary>Date</summary>
+  <p>Dates are very common to extract. Use this data type for dates. The dates can be be full so that it includes day, month and year,</p>
+  <p>Dates are very common to extract. When you type a date in a `date` field, you must **mirror** the way the date is written on your document. I.e, don't format the date - type the date exactly as it is written on the document </p>
+</details>
+
+### How to annotate dates
+When you annotate your training documents, you will want your input to **mirror** the document as closely as possible. `Date` is no exception from this rule. **Type what you see.**
+
+
+<div style={{padding: '0 40px 40px 40px'}}>
+<Tabs>
+  <TabItem value="string" label="Example 1" default>
+    <div class="image-backdrop utils-mb-10">
+        <p class="image-backdrop-caption">Example of a multiline address in a String field.</p>
+        ![Image](/img/annotate/annotate-string-address.png)
+    </div>
+  </TabItem>
+
+  <TabItem value="amount" label="Example 2">
+    <div class="image-backdrop utils-mb-10">
+        <p class="image-backdrop-caption">Example of a multiline address in a String field.</p>
+        ![Image](/img/annotate/annotate-string-address.png)
+    </div>
+  </TabItem>
+  
+  <TabItem value="date" label="Example 3">
+   <div class="image-backdrop utils-mb-10">
+    <p class="image-backdrop-caption">Example of a multiline address in a String field.</p>
+    ![Image](/img/annotate/annotate-string-address.png)
+    </div>
+    </TabItem>
+
+    <TabItem value="numeric" label="Example 4">
+  <div class="image-backdrop utils-mb-10">
+    <p class="image-backdrop-caption">Example of a multiline address in a String field.</p>
+    ![Image](/img/annotate/annotate-string-address.png)
+    </div>
+    </TabItem>
+
+    <TabItem value="lineItems" label="Example 5">
+   <div class="image-backdrop utils-mb-10">
+    <p class="image-backdrop-caption">Example of a multiline address in a String field.</p>
+    ![Image](/img/annotate/annotate-string-address.png)
+    </div>
+    </TabItem>
+</Tabs>
+</div>
+
+
+:::info
+  If you created your model before 30th April 2024, you must continue entering dates in a DD/MM/YYYY format instead of mirroring what is written in your document.
+:::
+
+If you created your model before
+
+### Validating dates
