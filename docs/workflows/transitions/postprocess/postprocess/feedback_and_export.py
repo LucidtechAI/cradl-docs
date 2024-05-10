@@ -1,0 +1,53 @@
+import logging
+import os
+import las
+import requests
+
+
+def post_feedback(las_client: las.Client, document_id: str, dataset_id: str, verified: dict):
+    logging.info(f'Posting feedback to dataset {dataset_id}: {verified}...')
+
+    try:
+        document = las_client.get_document(document_id=document_id)
+        old_ground_truth = {g['label']: g['value'] for g in document.get('groundTruth', [])}
+
+        new_ground_truth = {**old_ground_truth, **verified}
+
+        ground_truth = []
+        for label, value in new_ground_truth.items():
+            if isinstance(value, list):
+                if not value:
+                    continue  # Do not write completely empty lines to GT
+                if not isinstance(value[0], list):
+                    value = [[{'label': k, 'value': v} for k, v in line_pred.items()] for line_pred in value]
+            ground_truth.append({
+                'label': label,
+                'value': value,
+            })
+
+        las_client.update_document(
+            document_id=document_id,
+            ground_truth=ground_truth,
+            dataset_id=dataset_id
+        )
+    except Exception as e:
+        logging.exception(e)
+        raise
+
+
+@las.transition_handler
+def feedback_and_export(las_client, event):
+    document_id = event['documentId']
+    verified = event['verified']
+    dataset_id = os.environ.get('DATASET_ID')
+    skipped_validation = not event.get('needsValidation', True)
+
+    post_feedback(las_client, document_id, dataset_id, verified if not skipped_validation else {})
+
+    response = {'documentId': document_id, 'datasetId': dataset_id, 'values': verified}
+
+    if webhook_uri := os.environ.get('WEBHOOK_URI'):
+        logging.info(f'Posting result to {webhook_uri}...')
+        requests.post(webhook_uri, json=response)
+
+    return response
