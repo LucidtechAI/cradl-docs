@@ -77,10 +77,10 @@ def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, 
 def feedback_and_export(las_client, event):
     document_id = event['documentId']
     dataset_id = os.environ.get('DATASET_ID')
-    validated = event.get('needsValidation', True) is True
+    validated = event.get('needsValidation', True)
     feedback_v1 = event.get('verified')
     feedback_v2 = event.get('validatedPredictions')
-    predictions_v2 = convert_predictions_to_v2(event.get('predictions'))
+    predictions = convert_predictions_to_v2(event.get('predictions'))
 
     try:
         logging.info(f'Posting feedback to document {document_id} of dataset {dataset_id} ...')
@@ -96,8 +96,8 @@ def feedback_and_export(las_client, event):
         'documentId': document_id,
         'datasetId': dataset_id,
         'values': feedback_v1,
-        'validatedPredictions': feedback_v2 if not validated else to_validated_format(predictions_v2),
-        'predictions': predictions_v2
+        'validatedPredictions': feedback_v2 if feedback_v2 else to_validated_format(predictions),
+        'predictions': predictions
     }
 
     webhook_endpoints = []

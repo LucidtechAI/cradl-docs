@@ -5,6 +5,7 @@ import runpy
 import requests_mock
 
 from unittest.mock import patch
+from postprocess.utils import to_validated_format, convert_predictions_to_v2
 
 
 @pytest.fixture
@@ -426,4 +427,82 @@ def test_post_feedback_v2(
         document_id=doc_id,
         ground_truth=expected_update,
         dataset_id=env['DATASET_ID'],
+    )
+
+    update_transition_excs.assert_called_with(
+        transition_id=env['TRANSITION_ID'],
+        execution_id = env['EXECUTION_ID'],
+        status='succeeded',
+        output=dict(
+            documentId=doc_id,
+            datasetId=env['DATASET_ID'],
+            values=None,
+            validatedPredictions=validated_predictions,
+            predictions={},
+        ),
+    )
+
+
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.update_document')
+@patch('las.Client.get_document')
+@pytest.mark.parametrize(('validated_predictions', 'predictions'), [
+    (
+        {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': True}},
+        [{'label': 'totalAmount', 'value': '200.00', 'pages': [0, 1], 'confidence': 0.9}],
+    ),
+    (
+        None,
+        [{'label': 'totalAmount', 'value': '200.00', 'pages': [0, 1], 'confidence': 0.9}],
+    ),
+    (
+        {
+            'line_items': [{
+                'unitPrice': {'value': '150.00', 'pages': [0], 'confidence': 0.5},
+                'totalPrice': {'value': '200.00', 'pages': [1], 'confidence': 0.5, 'isEdited': False}
+            }]
+        },
+        [{
+            'label': 'line_items', 'value': [[
+                {'label': 'unitPrice', 'value': '50.00', 'pages': [1], 'confidence': 0.8},
+                {'label': 'totalPrice', 'value': '100.00', 'pages': [0], 'confidence': 0.9},
+            ]]
+        }],
+    ),
+])
+def test_validated_predictions(
+    get_document,
+    update_document,
+    update_transition_excs,
+    get_transition_excs,
+    env,
+    predictions,
+    validated_predictions,
+):
+    validated_predictions_output = validated_predictions or to_validated_format(convert_predictions_to_v2(predictions))
+    doc_id = 'las:document:xyz'
+    get_document.return_value = {'groundTruth': []}
+    get_transition_excs.return_value = {
+        'input': {
+            'documentId': doc_id,
+            'validatedPredictions': validated_predictions,
+            'predictions': predictions,
+        }
+    }
+
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
+
+    update_transition_excs.assert_called_with(
+        transition_id=env['TRANSITION_ID'],
+        execution_id = env['EXECUTION_ID'],
+        status='succeeded',
+        output=dict(
+            documentId=doc_id,
+            datasetId=env['DATASET_ID'],
+            values=None,
+            validatedPredictions=validated_predictions_output,
+            predictions=convert_predictions_to_v2(predictions),
+        ),
     )
