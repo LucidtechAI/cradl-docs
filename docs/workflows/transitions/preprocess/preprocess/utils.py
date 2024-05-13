@@ -147,10 +147,10 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
         label = prediction['label']
         if label in updated_labels:
             continue
-        if label in old_ground_truth:
+        if label in old_ground_truth and (value := old_ground_truth.pop(label)):
             updated_labels.add(label)
-            value = old_ground_truth.pop(label)
             confidence = None
+            raw_value = old_ground_truth.pop('rawValue', None)
             if is_line(field_config, prediction):
                 for line in value:
                     for line_pred in line:
@@ -159,6 +159,7 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
                 confidence = 1.0
         else:
             value = prediction['value']
+            raw_value = prediction.get('rawValue')
             confidence = prediction['confidence'] if not is_line(field_config, prediction) else None
         updated_prediction = {
             'label': label,
@@ -166,6 +167,9 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
         }
         if confidence:
             updated_prediction['confidence'] = confidence
+        if raw_value:
+            updated_prediction['rawValue'] = raw_value
+
         updated_predictions.append(updated_prediction)
 
     updated_predictions += add_confidence_to_ground_truth(old_ground_truth)
