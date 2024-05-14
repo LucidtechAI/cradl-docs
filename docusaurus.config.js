@@ -76,7 +76,6 @@ const config = {
 
   scripts: [
     '/rudderAnalytics.js'
-    // 'http://localhost:3000/rudderAnalytics.js'
   ],
 
   themeConfig:
