@@ -431,7 +431,7 @@ def test_post_feedback_v2(
 
     update_transition_excs.assert_called_with(
         transition_id=env['TRANSITION_ID'],
-        execution_id = env['EXECUTION_ID'],
+        execution_id=env['EXECUTION_ID'],
         status='succeeded',
         output=dict(
             documentId=doc_id,
@@ -496,7 +496,7 @@ def test_validated_predictions(
 
     update_transition_excs.assert_called_with(
         transition_id=env['TRANSITION_ID'],
-        execution_id = env['EXECUTION_ID'],
+        execution_id=env['EXECUTION_ID'],
         status='succeeded',
         output=dict(
             documentId=doc_id,
