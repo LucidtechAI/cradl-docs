@@ -13,5 +13,5 @@ document.head?document.head.appendChild(e):document.body.appendChild(e)
 },"undefined"==typeof Promise||"undefined"==typeof globalThis){var d=document.createElement("script")
 ;d.src="https://polyfill-fastly.io/v3/polyfill.min.js?version=3.111.0&features=Symbol%2CPromise&callback=rudderAnalyticsMount",
 d.async=asyncScript,document.head?document.head.appendChild(d):document.body.appendChild(d)}else{
-window.rudderAnalyticsMount()}window.rudderanalytics.load("2JrNMUKXfeg8wlsaEmR4SrmNqb0","https://r.cradl.ai",{})}();
+window.rudderAnalyticsMount()}window.rudderanalytics.load("2JrNMUKXfeg8wlsaEmR4SrmNqb0","https://r.cradl.ai", {configUrl: 'https://ra.cradl.ai'})}();
                                                                                       
