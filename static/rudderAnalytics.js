@@ -1,4 +1,4 @@
-!function(){"use strict";window.RudderSnippetVersion="3.0.3";var sdkBaseUrl="https://cdn.rudderlabs.com/v3"
+!function(){"use strict";window.RudderSnippetVersion="3.0.3";var sdkBaseUrl="https://rac.cradl.ai"
 ;var sdkName="rsa.min.js";var asyncScript=true;window.rudderAnalyticsBuildType="legacy",window.rudderanalytics=[]
 ;var e=["setDefaultInstanceKey","load","ready","page","track","identify","alias","group","reset","setAnonymousId","startSession","endSession","consent"]
 ;for(var n=0;n<e.length;n++){var t=e[n];window.rudderanalytics[t]=function(e){return function(){
@@ -14,4 +14,5 @@ document.head?document.head.appendChild(e):document.body.appendChild(e)
 ;d.src="https://polyfill-fastly.io/v3/polyfill.min.js?version=3.111.0&features=Symbol%2CPromise&callback=rudderAnalyticsMount",
 d.async=asyncScript,document.head?document.head.appendChild(d):document.body.appendChild(d)}else{
 window.rudderAnalyticsMount()}window.rudderanalytics.load("2JrNMUKXfeg8wlsaEmR4SrmNqb0","https://r.cradl.ai", {configUrl: 'https://ra.cradl.ai'})}();
+window.rudderanalytics.page();
                                                                                       

@@ -281,9 +281,11 @@ h3 {
 
 .image-backdrop {
   position: relative;
+  margin: 1rem;
   /* background-color: var(--color-backdrop); */
   background-color: var(--color-backdrop);
   border-bottom: 3px solid var( --color-gray-light);
+  border-left: 2px solid var( --color-gray-light);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px;
 }
 
@@ -367,3 +369,8 @@ details.custom-accordion summary {
   max-width: 100% !important;
   margin: 0 auto;
 } */
+
+.page-powerAutomate-cradlLogo {
+   padding: 10px;
+    height: auto;
+}
