@@ -31,7 +31,7 @@ export const CtaBox = () => {
         <div className='basis-full xl:basis-1/2 p-4 lg:p-8 flex flex-col justify-between mb-4'>
           <HeaderText icon="/img/steps/01.svg" title="AI Studio" text="Tell your AI Model what to look for by training it on 15 of your own documents. After training, test how successfully it extracts data." />
           <div className="video-container">
-            <video className='utils-shadow-md scale-95' poster="/video/ai_studio_thumb.png" width="100%">
+            <video className='utils-shadow-md scale-95 object-fill' poster="/video/ai_studio_thumb.png" width="100%">
               <source src="/video/ai_studio.mp4" type="video/mp4" />
             </video>
           </div>
@@ -39,7 +39,7 @@ export const CtaBox = () => {
         <div className='basis-full xl:basis-1/2 p-4 lg:p-8 flex flex-col justify-between mb-4'>
           <HeaderText icon="/img/steps/02.svg" title="AI Validator" text="The AI Validator let's you stay in control. Automate eagerly or find the right balance between human inspection and AI automation." />
           <div className="video-container">
-            <video className='utils-shadow-md scale-95 object-cover' width="100%" poster="/video/ai_validator_thumb.png">
+            <video className='utils-shadow-md scale-95 object-fill' width="100%" poster="/video/ai_validator_thumb.png">
               <source src="/video/ai_validator.mp4" type="video/mp4" />
             </video>
           </div>

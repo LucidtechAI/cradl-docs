@@ -20,6 +20,7 @@ Clicking <span className="utils-admonition-success">**`Train model`**</span> tak
 </div>
 Here are some key points to keep in mind when choosing your first 15 training documents:
 
+- Prioritise your high-volume documents. For example, if you have 10x more invoice documents from one vendor, start by training on that vendor.
 - You will likely want to extract data that might be **present** on some documents, but **absent** from other documents. For example, 15 of your documents might have "total amount" whereas "VAT" might only be present on 8. This is unproblematic, but try to compensate for the 7 documents without "VAT" by including 7 new documents with VAT, bumping your total documents up to 22. Your aim is to have **15 samples of every field** rather than 15 documents.
 - For a production setting, you want to train your model on more than 15 documents. You want to train until your model gives your reliable results and asks for your feedback when it is unsure of its accuracy (we will set up such a feedback loop later in this tutorial).
 
