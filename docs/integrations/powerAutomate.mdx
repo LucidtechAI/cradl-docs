@@ -16,11 +16,12 @@ pagination_prev: null
 Power Automate is a popular automation platform. Cradl AI has a connector that you can easily integrate into your automation flows in Power Automate. 
 
 :::info
-### Prerequisites
+## Prerequisites
 - You need a CRADL AI Model. [Follow these steps if you do not have an AI Model.](/aiStudio/new-model)
 - You need a Microsoft 365 account. [Follow this link if you do not have one.](/aiStudio/new-model) 
 :::
 
+## Import documents into Cradl AI from Power Automate
 ### Sign into Power Automate and create new Connector
 Inside Power Automate: 
 - Go to **My flows**
@@ -52,7 +53,7 @@ You can give your flow a name and choose how to trigger the flow
 </div>
 
 
-
+### Create Connection to Cradl AI
 <div  class="image-backdrop">
 You will be prompted to Create Connection if this is your first time connecting Cradl AI to Power Automate.
 - Give you connection a name.
@@ -67,7 +68,7 @@ You will be prompted to Create Connection if this is your first time connecting 
     ![Image](../../static/img/powerAutomate/addTrigger.png)
 </div>
 
-
+### Create document
 <div  class="image-backdrop">
 - Back in Power Automate, paste your credentials into the Client Credentials field and click **Create new**. 
 - You will prompted to create a new document. Give your document a name. 
@@ -76,6 +77,7 @@ You will be prompted to Create Connection if this is your first time connecting 
     ![Image](../../static/img/powerAutomate/contentBytes.png)
 </div>
 
+### Parse document with human in the loop
 <div  class="image-backdrop">
 - Click the + icon below your Create document box to **Add an action**.
 - Search for "cradl" again, and **select Parse document with human-in-the-loop** 
@@ -91,7 +93,7 @@ You will be prompted to Create Connection if this is your first time connecting 
 </div>
 
 
-
+### Test your connection
 - From the top navigation bar, **Save** your flow and click **Test**.
 <div  class="image-backdrop">
 - **Select Manually** and **click Test**.
@@ -105,6 +107,7 @@ You will be prompted to Create Connection if this is your first time connecting 
 <p class="image-backdrop-caption text-sm"></p>
 - Head back to your Flow overview in Cradl AI.
 - **Click Go to Validator**
+
     ![Image](../../static/img/powerAutomate/goToValidator.png)
 </div>
 
@@ -112,7 +115,8 @@ You will be prompted to Create Connection if this is your first time connecting 
 <p class="image-backdrop-caption text-sm"></p>
 - Inside the Validator, **click Validate documents**.
 - (If the validation status of your document has not updated, **try clicking Refresh**)
-- **Click Go to Validator**
+- **Click Validate documents**
+
     ![Image](../../static/img/powerAutomate/insideValidator.png)
 </div>
 
@@ -123,5 +127,80 @@ Congratulations, you should be seeing your first parsed document with the Power 
     ![Image](../../static/img/powerAutomate/validatedDocument.png)
 </div>
 
+## Export documents from Cradl AI into Power Automate
+### Generate a webhook endpoint in Cradl AI
+<div class="image-backdrop">
+- Inside your Flow overview in your Cradl AI account, **click Add export destination** and **select Webhook**  
+- Search for "http" and **Select HTTP** from the In App connector.
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/exportToWebhook.png)
+</div>
+### Repeat the steps to create a new flow
+Inside Power Automate: 
+- Go to **My flows**
+- Click **New flow**
+- Click **Instant cloud flow**
+
+You can give your flow a name and choose how to trigger the flow
+- Choose a name. I.e: "Cradl AI Webhook". The name is only for your convenience. 
+- Click **Create** 
+<div class="image-backdrop">
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/newFlowDashboard.png)
+</div>
+
+<div class="image-backdrop">
+- **Click on the «Add trigger»** box.
+- Search for "http" and **Request** from the In App connector.
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/http.png)
+</div>
+
+<div class="image-backdrop">
+- **Select Anyone** from the Who can Trigger The Flow dropdown menu.
+- Search for "http" and **Request** from the In App connector.
+- We will come back and get our HTTP URL once we add an action and save.
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/httpConfigure.png)
+</div>
+
+<div  class="image-backdrop">
+- **Click the + icon** below your HTTP trigger box.
+- Search for "terminate" and **click the Terminate In App connector** from the search results.
+- **Click on Status** and **select Succeeded**
+- **Click Save** from the top navigation to sace your flow. 
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/createDocument.png)
+</div>
+
+<div  class="image-backdrop">
+- **Click your HTTP trigger** to view your webhook URL. Copy it.
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/copyWebhook.png)
+</div>
+
+<div  class="image-backdrop">
+- Go back to Cradl AI and paste it into your Webhook endpoint uri. 
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/pasteEndpoint.png)
+</div>
+
+- To test your export flow, go back to the import flow you created earlier. Trigger the import flow by *clicking Test* and repeating the import procedure. 
+- In Cradl AI, **click Validator** 
+- **Click Validate documents** once the documents are processed (**click Refresh** for status updates.)
+- Inspect your documents and **click Validate**
+
+<div  class="image-backdrop">
+- Go back to your Power Automate webhook flow. You will see your recent export in your run history. 
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/exportedToPA.png)
+</div>
+
+<div  class="image-backdrop">
+- Click on a run job, and inspect it's output. 
+Congratulations, you just parsed in Cradl AI and exported it as structured data into Power Automate!
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/extracted.png)
+</div>
 
 
