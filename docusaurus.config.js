@@ -95,11 +95,11 @@ const config = {
         },
             // hideOnScroll: true,
         items: [
-          // {
-          // to: '/blog', 
-          // label: 'Blog', 
-          // position: 'left'
-          // },
+        //   {
+        //   to: '/blog', 
+        //   label: 'Changelog', 
+        //   position: 'right'
+        //   },
           {
             href: 'https://app.cradl.ai/flows',
             label: 'Open Cradl AI',
