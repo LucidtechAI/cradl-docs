@@ -131,15 +131,52 @@ Congratulations, you should be seeing your first parsed document with the Power 
 ### Generate a webhook endpoint in Cradl AI
 <div class="image-backdrop">
 - Inside your Flow overview in your Cradl AI account, **click Add export destination** and **select Webhook**  
-- Search for "http" and **Select HTTP** from the In App connector.
+{/* - Search for "http" and **Select HTTP** from the In App connector. */}
 <p class="image-backdrop-caption text-sm"></p>
     ![Image](../../static/img/powerAutomate/exportToWebhook.png)
 </div>
-### Repeat the steps to create a new flow
-Inside Power Automate: 
+
+Inside Power Automate, repeat the steps to create a new flow: 
 - Go to **My flows**
 - Click **New flow**
-- Click **Instant cloud flow**
+
+<div class="image-backdrop">
+ - Select **When an http request is received**
+ - Click **Create** 
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/addTriggerHttp.png)
+</div>
+
+<div class="image-backdrop">
+- **Click on the Manual box**
+- **Select Anyone** from the Who can Trigger The Flow dropdown menu.
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/httpConfigure.png)
+- **Click the + icon** under the Manual box and **Add an action**
+</div>
+
+<div class="image-backdrop">
+- Search for "terminate" and click it. 
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/terminate.png)
+</div>
+
+<div class="image-backdrop">
+- **Save** your flow from the top navigation.
+- **Click on manual** and **copy the HTTP URL**
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/copyHttpWebhook.png)
+</div>
+
+<div  class="image-backdrop">
+- Go back to Cradl AI and paste it into your Webhook endpoint uri. 
+<p class="image-backdrop-caption text-sm"></p>
+    ![Image](../../static/img/powerAutomate/pasteEndpoint.png)
+    - **click the Save button** in the top-right corner.
+</div>
+
+
+{/* -------
 
 You can give your flow a name and choose how to trigger the flow
 - Choose a name. I.e: "Cradl AI Webhook". The name is only for your convenience. 
@@ -178,16 +215,12 @@ You can give your flow a name and choose how to trigger the flow
 <p class="image-backdrop-caption text-sm"></p>
     ![Image](../../static/img/powerAutomate/copyWebhook.png)
 </div>
+ */}
 
-<div  class="image-backdrop">
-- Go back to Cradl AI and paste it into your Webhook endpoint uri. 
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/pasteEndpoint.png)
-</div>
-
-- To test your export flow, go back to the import flow you created earlier. Trigger the import flow by *clicking Test* and repeating the import procedure. 
+## Test your Webhook
+- To test your Webhook export from Cradl AI, go back to the **Create document** with **Human-in-the-loop** parsing flow you created earlier in Power Automate. Trigger the import flow by **clicking Run** and upload a document to parse. 
 - In Cradl AI, **click Validator** 
-- **Click Validate documents** once the documents are processed (**click Refresh** for status updates.)
+- **Click Validate documents** once the documents are processed.
 - Inspect your documents and **click Validate**
 
 <div  class="image-backdrop">
