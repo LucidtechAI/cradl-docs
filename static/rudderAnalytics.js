@@ -1,4 +1,4 @@
-!function(){"use strict";window.RudderSnippetVersion="3.0.3";var sdkBaseUrl="https://rac.cradl.ai"
+!function(){"use strict";window.RudderSnippetVersion="3.0.3";var sdkBaseUrl="https://rac.cradl.ai/v3"
 ;var sdkName="rsa.min.js";var asyncScript=true;window.rudderAnalyticsBuildType="legacy",window.rudderanalytics=[]
 ;var e=["setDefaultInstanceKey","load","ready","page","track","identify","alias","group","reset","setAnonymousId","startSession","endSession","consent"]
 ;for(var n=0;n<e.length;n++){var t=e[n];window.rudderanalytics[t]=function(e){return function(){
