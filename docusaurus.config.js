@@ -82,7 +82,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/cradl-social-card.jpg',
+      image: 'img/cradl-social-card.png',
 
       navbar: {
         logo: {
