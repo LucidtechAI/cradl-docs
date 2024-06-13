@@ -7,8 +7,8 @@ sidebar_position: 2
 import ScrollProgressBar from '/src/components/ScrollProgressBar'
 
 <ScrollProgressBar />
-
-:::info
+The goal of AI data extraction is to achieve a higher degree of automation and spend less time on manual data entry. Since no AI is flawless, you typically want to verify the extracted data somehow. The Cradl AI Validator lets you address this by improving its accuracy over time as it learns from corrections.
+{/* :::info
 This guide assumes that you have created, trained and tested your AI Model from the AI Studio steps.
 :::
 
@@ -17,33 +17,40 @@ Welcome to the `AI Validator`. Simply upload a document in order to start scanni
 <div class="image-backdrop utils-mb-10">
 <p class="image-backdrop-caption text-sm">Empty AI Validator view.</p>
 ![Image](../../static/img/validator/validator-studio.png)
-</div>
+</div> */}
 
- You will notice that the `AI Model` will automatically start running and scan documents when they are uploaded from the AI Validator interface:
-
-<div class="image-backdrop utils-mb-10">
-<p class="image-backdrop-caption text-sm">Documents are being scanned in the AI Validator.</p>
-![Image](../../static/img/validator/validator-running.png)
-</div>
-## 2. Validate documents 
-Once your model has stopped running (click  <span className="utils-admonition-success">**`refresh`**</span> for status updates), click on <span className="utils-admonition-success">**`Validate documents`**</span>:
+&#8226; **Click on Validate documents** to launch the validator.
 
 <div class="image-backdrop utils-mb-10">
-<p class="image-backdrop-caption text-sm">Document scanning completed.</p>
-![Image](../../static/img/validator/validator-ran.png)
+<div class="image-backdrop-caption text-sm"></div>
+![Image](../../static/img/how-to/validate-model/validator-overview.png)
 </div>
 
-## 3. Inspect extracted data from documents
-After your AI Model has extracted data, the model assigns a confidence level to each field.
+<div class="utils-spacerBottom-md"></div>
 
-- If all the scores is above the confidence threshold (default is 95%), the model will not require your feedback.
-- If one of the confidence scores is below your threshold, you will be notified and ask to validate the result. 
+## Validate documents 
+
+<div class="image-backdrop utils-mb-10">
+<div class="image-backdrop-caption text-sm"></div>
+![Image](../../static/img/how-to/validate-model/validate-document.png)
+</div>
+
+**Correct the extracted data from documents**
+<p>Your AI Model has extracted data, and also assigned a confidence percentage to each extracted field.</p>
+
+If a field is correctly extracted you do not have to take any actions. If a field is incorrectly extracted, enter what the correct value should have been in its corresponding input field.
+
+- If all the scores is above the confidence threshold (default is 95%), your model will not ask for human inspection.
+- If one of the confidence scores is below your threshold, you will be notified and ask to validate the result (if you have added a user to the validator). 
 - Your corrections will be used to improve the model when you retrain it. 
-<div class="image-backdrop utils-mb-10">
-<p class="image-backdrop-caption text-sm">Extracted data view.</p>
-![Image](../../static/img/validator/validator-validated.png)
-</div>
 
-Congratulations. You know have an AI model that automatically scans manually uploaded documents. Click <span className="utils-admonition-success">**`Validate`**</span> 
+&#8226; **Click on Validate** once you have made any necessary corrections.
 
-In the next section of this guide, we will set up automated uploads of documents instead of manual uploads. 
+**Improving your model as you go**
+<p> Whenever you make a correction, that correction will be used to make sure your AI Model does not repeat the same mistake.</p>
+
+:::warning
+To retrain your model, you have to start a new training by **clicking on Improve model** from your model overview, and then on **Train model**. Your model will not retrain every time you validate a document, only when you run a new training.
+
+A general rule of thumb is to retain your model every time you double your dataset. For example, if your first training consisted of 5-7 documents, you should retrain your model after you have validated 10-14 documents. This will ensure that your model improves as your dataset grows.
+:::
