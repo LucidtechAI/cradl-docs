@@ -30,7 +30,7 @@
     'Segoe UI', Helvetica, Arial, sans-serif;
     --color-backdrop: rgb(244, 247, 248);
     --color-gray-light: rgb(231, 231, 231);
-   /* --doc-sidebar-width: 300px !important; */
+   --doc-sidebar-width: 350px !important;
    /* --ifm-menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(124,124,124,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>') */
  }
  
@@ -50,16 +50,14 @@
 
 h2 { 
   font-size: 2rem;
-  font-weight: 700;
-  /* margin-bottom: 0.5em !important; */
+  font-weight: 600;
 }
 
 h3 { 
   font-size: 1.3rem;
-  font-weight: 700;
-  /* margin-bottom: 0.1em !important; */
+  font-weight: 600;
+  line-height: 1.4;
 }
- /* rgb(74, 74, 80) */
 
 
 
@@ -82,9 +80,6 @@ h3 {
   text-align: left;
   color: var(--ifm-heading-color);
 }
-  /* html[data-theme='light'] .menu__list-item-collapsible > .menu__link  {
-    color: rgb(124, 124, 134)
-} */
 
  /* Sidebar level 2 list container */
  .theme-doc-sidebar-item-category-level-1 > .menu__list {
@@ -93,7 +88,6 @@ h3 {
  } 
  /* Sidebar level 2 list  item */
  .theme-doc-sidebar-item-link-level-2 .menu__link, .theme-doc-sidebar-item-category-level-2 .menu__link {
-  /* font-size: 0.95em; */
   font-weight: 400;
   color: var(--ifm-menu-color)
  }
@@ -166,9 +160,9 @@ h3 {
   margin-bottom: 20px;
 }
 
-/* .utils-mb-2rem {
-    margin-bottom: 2rem;
-} */
+.utils-spacerBottom-md {
+    margin-bottom: 6rem;
+}
 
 .utils-ml-10 {
   margin-left: 10px;
@@ -194,6 +188,9 @@ h3 {
 }
 .utils-admonition-warning {
  color: rgb(230, 167, 0)
+}
+.utils-admonition-danger {
+color: #fa383e;
 }
 .utils-active-link {
   color: rgb(76, 179, 212)
@@ -288,14 +285,14 @@ h3 {
   padding: 1rem;
   /* background-color: var(--color-backdrop); */
   background-color: var(--color-backdrop);
-  border-bottom: 3px solid var( --color-gray-light);
-  border-left: 2px solid var( --color-gray-light);
+  /* border-bottom: 3px solid var( --color-gray-light);
+  border-left: 2px solid var( --color-gray-light); */
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px;
   margin-bottom: 3rem;
 }
 
 .image-backdrop img {
-  padding: 0 30px 30px 30px;
+  padding: 0 30px 10px 30px;
   margin: 0 auto;
   width: 100%;
 }
@@ -305,7 +302,7 @@ h3 {
   left: 0;
   padding: 10px;
   font-size: 0.9em;
-  font-style: italic;
+  /* font-style: italic; */
 }
 
 
@@ -348,8 +345,7 @@ details {
 
 details.custom-accordion summary {
   font-weight: 600;
-  color: rgb(76, 179, 212);
-  color: var(--ifm-color-primary)
+  text-decoration: underline;
 }
 
 .navbar-sidebar__back {

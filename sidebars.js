@@ -28,7 +28,7 @@ const sidebars = {
     // },
     {
       type: 'html',
-      value: 'Platform',
+      value: 'Get Started',
       className: 'utils-mt-22 utils-fontWeight-700 utils-font-xs',
     },
     // {
