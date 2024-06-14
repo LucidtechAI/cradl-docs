@@ -113,6 +113,7 @@ def feedback_and_export(las_client, event):
             res = requests.post(endpoint['uri'], json=response)
             res.raise_for_status()
         except (requests.exceptions.RequestException, requests.exceptions.HTTPError, KeyError) as re:
+            logging.exception(re)
             request_exception = re
 
     if request_exception:
