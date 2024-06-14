@@ -110,8 +110,10 @@ def feedback_and_export(las_client, event):
     for endpoint in webhook_endpoints:
         logging.info(f'Posting result to {endpoint}...')
         try:
-            requests.post(endpoint['uri'], json=response)
-        except (requests.exceptions.RequestException, KeyError) as re:
+            res = requests.post(endpoint['uri'], json=response)
+            res.raise_for_status()
+        except (requests.exceptions.RequestException, requests.exceptions.HTTPError, KeyError) as re:
+            logging.exception(re)
             request_exception = re
 
     if request_exception:
