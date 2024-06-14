@@ -43,8 +43,53 @@ In the example below, «Muzica Inc.» is the supplier_name, «IN023» is the inv
 ![Image](../../static/img/annotate/annotate-studio.png)
 </div>
 
+<div class="utils-spacerBottom-md"></div>
 
-Here are some tips for each field data type to help you make informed decisions when you annotate your training documents:
+## Annotation tips
+
+  **String**
+  <p>In addition to regular text and text+numbers, strings can be used for multi-line text fields, such as addresses: </p>
+  <div>
+    ![A screenshot with instructions](../../static/img/how-to/create-model/annotate-string-address.png)
+  </div>
+
+<div class="utils-spacerBottom-md"></div>
+
+
+  **Amount**
+  <p>When you type something in the amount field, your input will be auto-formatted: </p>
+  - Commas "," are formatted to separate thousands. 
+  - Dots "." are formatted to separate decimals. 
+  <p>For example: Fifteen-thousand will look like: 15,000.00</p>
+
+<div class="utils-spacerBottom-md"></div>
+
+  **Date**
+  <p>Dates are very common to extract. When you type a date in a date field, you should **mirror** the way the date is written on your document. I.e, don't format the date - type the date exactly as it is written on the document </p>
+  :::info
+  If you created your model before 30th April 2024, you must continue entering dates in a DD/MM/YYYY format instead of mirroring what is written in your document.
+  :::
+
+  <div class="utils-spacerBottom-md"></div>
+
+**Numeric**
+  <p>Numeric is used for numbers, such as quantities, numeric IDs, etc. A Numeric field does not accept letters. </p>
+
+<div class="utils-spacerBottom-md"></div>
+
+**Line items**
+  <p> Line items are used for multiline tabular data. You do not have to annotate every single item in the table - 3 will do. If there are more than 3 items, pick 3 random items rather than the first three for better results.</p>
+  <div>
+  ![A screenshot with instructions](../../static/img/how-to/create-model/line_items.png)
+  </div>
+
+<div class="utils-spacerBottom-md"></div>
+
+
+**Classification**
+  <p>The 'Classification' type is ideal when your model must predict one of several pre-defined classes. For instance, you might include a classification field with two classes, INVOICE and CREDIT_NOTE, to discern whether a document is an invoice or a credit note. Classification is often also recommended for reading out currencies from documents.</p>
+
+{/* Here are some tips for each field data type to help you make informed decisions when you annotate your training documents:
 <details className='custom-accordion'>
   <summary>String</summary>
   <p>In addition to regular text and text+numbers, use strings are addresses, which you can create in one string field my mirroring how the address is depicted in your documents: </p>
@@ -85,11 +130,11 @@ Here are some tips for each field data type to help you make informed decisions 
 <details className='custom-accordion'>
 <summary>Classification</summary>
   <p>The 'Classification' type is ideal when your model must predict one of several pre-defined classes. For instance, you might include a classification field with two classes, INVOICE and CREDIT_NOTE, to discern whether a document is an invoice or a credit note. Classification is often also recommended for reading out currencies from documents.</p>
-</details>
+</details> */}
 
-:::info
+{/* :::info
 When scanning your documents, your AI Model uses a mix of vision and textual understanding. This is important to keep in the back of your mind when you annotate your training documents. Typically, you will want your input to **mirror** the document as closely as possible. For example: if a date is written in MM/DD/YYYY format, type it as what you see (a MM/DD/YYYY date) rather than another format, such as DD/MM/YYYY or YYYY/MM/DD.
-:::
+::: */}
 
 <div class="utils-spacerBottom-md"></div>
 
