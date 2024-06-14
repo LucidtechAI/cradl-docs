@@ -38,7 +38,7 @@ def _create_gt_dict(label, gt_info):
     gt_dict = {
         'label': label,
         'value': gt_info.get('rawValue', gt_info['value']),
-        'pages': gt_info.get('pages')
+        'pages': gt_info.get('pages') or []
     }
 
     if 'confidence' in gt_info:
