@@ -37,7 +37,7 @@ def post_feedback_v1(las_client: las.Client, document_id: str, dataset_id: str, 
 def _create_gt_dict(label, gt_info):
     gt_dict = {
         'label': label,
-        'value': gt_info.get('rawValue', gt_info['value']),
+        'value': gt_info.get('rawValue', gt_info.get('value')),
         'pages': gt_info.get('pages') or []
     }
 
