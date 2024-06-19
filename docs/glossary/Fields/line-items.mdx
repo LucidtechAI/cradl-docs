@@ -1,0 +1,54 @@
+---
+pagination_next: null
+pagination_prev: null
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Line item
+<div class="utils-spacerBottom-md"></div>
+
+
+## When to use a Line item field
+  Line item is used for multiline layouts. The most common example of a line item is a list of products. It typically contains a product name, price, quantity, product code, etc. 
+  
+
+  <div>
+    ![A screenshot with instructions](../../../static/img/how-to/create-model/line_items.png)
+  </div>
+
+
+A common mistake when creating a Line item field is to create a Line item field that corresponds to a singular line on your document. One Line item field can contain a whole table of items &lpar;which will save you *a lot* of time&rpar;.
+
+    <Tabs>
+  <TabItem value="example-1" label="Correct" default>
+   <div class="image-backdrop utils-mb-10 bg-red-100" style={{background: "rgb(220, 252, 231)"}}>
+        <div class="image-backdrop-caption">A correctly created Line item field &lpar;of the above table&rpar;. 1 Line Item field for 1 table. </div>
+       ![A screenshot with instructions](../../../static/img/glossary/fields/line_item/line_item_correct.png)
+    </div>
+  </TabItem>
+
+ <TabItem value="example-2" label="Incorrect" default>
+     <div class="image-backdrop utils-mb-10"  style={{background: "rgb(254, 226, 226)"}}>
+                <div class="image-backdrop-caption">An incorrectly created Line item field &lpar;of the above table&rpar;. 2+ Line Item fields for 1 table. </div>
+       ![A screenshot with instructions](../../../static/img/glossary/fields/line_item/line_item_incorrect.png)
+    </div>
+  </TabItem>
+
+</Tabs>
+
+<div class="utils-spacerBottom-md"></div>
+
+
+## How to annotate a Line Item field
+You do not need to annotate every line in a Line item field. It is sufficient to annotate a minimum of 3 lines if your Line item field is several lines long. 
+
+So, if a table on your document has 20 lines, you can annotate 3 of the lines instead of all 20.
+
+
+<div class="utils-spacerBottom-md"></div>
+
+
+## How to validate a Line item field
+You should validate every incorrecty extracted line in a line item field. 
