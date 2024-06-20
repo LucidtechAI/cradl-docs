@@ -30,6 +30,8 @@
     'Segoe UI', Helvetica, Arial, sans-serif;
     --color-backdrop: rgb(244, 247, 248);
     --color-gray-light: rgb(231, 231, 231);
+    --background-admonition-danger: rgb(254, 226, 226);
+    --background-admonition-success: rgb(220, 252, 231);
    --doc-sidebar-width: 350px !important;
    /* --ifm-menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(124,124,124,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>') */
  }
@@ -42,6 +44,8 @@
    --ifm-menu-color: rgb(169, 169, 183);
    --color-backdrop: rgba(238, 240, 242, 0.1);
    --color-gray-light: rgba(231, 231, 231, 0.1);
+   --background-admonition-danger: rgb(127, 29, 29);
+   --background-admonition-success: rgb(20, 83, 45);
  }
  
  h1 { 
@@ -192,6 +196,14 @@ h3 {
 .utils-admonition-danger {
 color: #fa383e;
 }
+
+.utils-admonition-success-background {
+background-color: var(--background-admonition-success) !important;
+}
+.utils-admonition-danger-background {
+background-color: var(--background-admonition-danger) !important;
+}
+
 .utils-active-link {
   color: rgb(76, 179, 212)
 }
@@ -303,10 +315,9 @@ color: #fa383e;
   padding: 10px;
   margin-bottom: 4px;
   font-size: 0.9em;
+ 
   /* font-style: italic; */
 }
-
-
 
  /**************** Theme overrides *****************/
  /* Hide TOC and breadcrumbs from frontpage */
