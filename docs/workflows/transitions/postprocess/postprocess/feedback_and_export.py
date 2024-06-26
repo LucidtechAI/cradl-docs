@@ -111,10 +111,17 @@ def feedback_and_export(las_client, event):
         logging.info(f'Posting result to {endpoint}...')
         try:
             res = requests.post(endpoint['uri'], json=response)
-            res.raise_for_status()
-        except (requests.exceptions.RequestException, requests.exceptions.HTTPError, KeyError) as re:
+        except (requests.exceptions.RequestException, KeyError) as re:
             logging.exception(re)
             request_exception = re
+            continue
+
+        try:
+            res.raise_for_status()
+        except requests.exceptions.HTTPError as re:
+            logging.exception(re)
+            request_exception = re
+            logging.error(res.content)
 
     if request_exception:
         raise request_exception
