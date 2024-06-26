@@ -121,7 +121,7 @@ def feedback_and_export(las_client, event):
         except requests.exceptions.HTTPError as re:
             logging.exception(re)
             request_exception = re
-            print(res.content)
+            logging.error(res.content)
 
     if request_exception:
         raise request_exception
