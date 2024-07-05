@@ -229,7 +229,7 @@ def patch_empty_predictions(predictions, labels, no_empty_prediction_fields):
     for prediction in predictions:
         if prediction['value'] is not None:
             patched_predictions.append(prediction)
-        elif prediction['label'] not in no_empty_prediction_fields:
+        elif prediction['label'] in labels and prediction['label'] not in no_empty_prediction_fields:
             empty_predictions[prediction['label']].append(prediction)
 
     min_empty_predictions = [min(v, key=lambda p: p['confidence']) for v in empty_predictions.values() if v]
