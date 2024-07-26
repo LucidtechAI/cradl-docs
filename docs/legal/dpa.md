@@ -77,6 +77,12 @@ The following Sub-processor(s) are approved by the Data Controller:&#x20;
 
 In addition, the Data Processor has the right to use other Sub-processors, but is obliged to inform the Data Controller of any intended changes concerning the addition or replacement of other processors. The information shall be given at least three months prior to the planned changes taking effect. If the Data Controller does not consent in the change, the Data Controller has the right to terminate the Agreement with three month’s notice.
 
+If the Data Controller chooses to enable third-party LLMs (large language models) on their account, the Data Controller accepts that the selected third party will be used as a Sub-processor. The following third parties provide LLM capabilities:
+
+* Google Ireland Limited
+* Microsoft Ireland Operations Limited
+
+
 ## 6. TRANSFER OF PERSONAL DATA OUTSIDE THE EU/EAA
 
 The Data Processor may not process or use Sub-processors that process Personal Data outside the EU/EEA without prior written approval from the Data Controller. The Data Processor shall ensure that there is a legal basis for the Processing of Personal Data data outside the EU/EEA, or facilitate the establishment of such legal basis.

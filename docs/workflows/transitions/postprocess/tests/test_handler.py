@@ -5,6 +5,7 @@ import runpy
 import requests_mock
 
 from unittest.mock import patch
+from postprocess.utils import to_validated_format, convert_predictions_to_v2
 
 
 @pytest.fixture
@@ -19,13 +20,25 @@ def env():
     yield {
         'TRANSITION_ID': 'xyz',
         'EXECUTION_ID': 'xyz',
+        'DATASET_ID': 'las:dataset:xyz',
         'MODEL_ID': 'las:model:xyz',
     }
 
 
 @pytest.fixture
-def env_with_webhook(env):
-    yield {**env, 'WEBHOOK_URI': 'https://foo.bar/'}
+def env_with_webhook_uri(env):
+    yield {
+        **env,
+        'WEBHOOK_URI': 'https://foo.bar/',
+    }
+
+
+@pytest.fixture
+def env_with_webhook_endpoints(env):
+    yield {
+        **env,
+        'WEBHOOK_ENDPOINTS': '[{"uri": "https://foo.bar/"}, {"uri": "https://baz.bar/"}]'
+    }
 
 
 @patch('las.Client.get_transition_execution')
@@ -42,15 +55,15 @@ def test_handler(get_document, get_asset, update_document, update_transition_exc
         }
     }
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
-        runpy.run_module('postprocess.postprocess', run_name='__main__')
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
 
 
 @patch('las.Client.get_transition_execution')
 @patch('las.Client.update_transition_execution')
 @patch('las.Client.update_document')
 @patch('las.Client.get_document')
-def test_webhook(get_document, update_document, update_transition_excs, get_transition_excs, env_with_webhook):
+def test_webhook(get_document, update_document, update_transition_excs, get_transition_excs, env_with_webhook_uri):
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
@@ -59,15 +72,48 @@ def test_webhook(get_document, update_document, update_transition_excs, get_tran
         }
     }
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env_with_webhook):
+    with patch.dict('postprocess.feedback_and_export.os.environ', env_with_webhook_uri):
         with requests_mock.Mocker() as m:
-            m.post(env_with_webhook['WEBHOOK_URI'])
-            runpy.run_module('postprocess.postprocess', run_name='__main__')
+            m.post(env_with_webhook_uri['WEBHOOK_URI'])
+            runpy.run_module('postprocess', run_name='__main__')
             assert m.call_count == 1
 
             history = m.request_history[0]
             assert history.method == 'POST'
-            assert history.url == env_with_webhook['WEBHOOK_URI']
+            assert history.url == env_with_webhook_uri['WEBHOOK_URI']
+
+            for key in ['documentId', 'datasetId', 'values']:
+                assert key in history.json()
+
+
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.update_document')
+@patch('las.Client.get_document')
+def test_multiple_webhook_endpoints(
+    get_document, update_document, update_transition_excs,
+    get_transition_excs, env_with_webhook_endpoints
+):
+    get_transition_excs.return_value = {
+        'input': {
+            'documentId': 'las:document:xyz',
+            'needsValidation': True,
+            'verified': {}
+        }
+    }
+
+    with patch.dict('postprocess.feedback_and_export.os.environ', env_with_webhook_endpoints):
+        with requests_mock.Mocker() as m:
+            endpoints = json.loads(env_with_webhook_endpoints['WEBHOOK_ENDPOINTS'])
+            for endpoint in endpoints:
+                m.post(endpoint['uri'])
+
+            runpy.run_module('postprocess', run_name='__main__')
+            assert m.call_count == len(endpoints)
+
+            history = m.request_history[0]
+            assert history.method == 'POST'
+            assert history.url == endpoints[0]['uri']
 
             for key in ['documentId', 'datasetId', 'values']:
                 assert key in history.json()
@@ -89,8 +135,8 @@ def test_update_ground_truth(get_document, update_document, update_transition_ex
 
     get_document.return_value = {'groundTruth': [{'label': 'baz', 'value': 'foobar'}]}
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
-        runpy.run_module('postprocess.postprocess', run_name='__main__')
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
         document_id='las:document:xyz',
@@ -101,7 +147,7 @@ def test_update_ground_truth(get_document, update_document, update_transition_ex
             'label': 'foo',
             'value': 'bar'
         }],
-        dataset_id=None
+        dataset_id='las:dataset:xyz'
     )
 
 
@@ -115,6 +161,7 @@ def test_update_ground_truth_with_lines(
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
+            'needsValidation': True,
             'verified': {
                 'foo': 'bar',
                 'line_items': [
@@ -143,8 +190,8 @@ def test_update_ground_truth_with_lines(
             [{'label': 'prod', 'value': 'def'}, {'label': 'unit_price', 'value': '20.00'}]]}
     ]}
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
-        runpy.run_module('postprocess.postprocess', run_name='__main__')
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
         document_id='las:document:xyz',
@@ -186,7 +233,7 @@ def test_update_ground_truth_with_lines(
             'label': 'purchase_date',
             'value': '2023-09-21'
         }],
-        dataset_id=None
+        dataset_id='las:dataset:xyz'
     )
 
 
@@ -200,6 +247,7 @@ def test_update_ground_truth_with_same_lines(
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
+            'needsValidation': True,
             'verified': {
                 'foo': 'bar',
                 'line_items': [
@@ -228,8 +276,8 @@ def test_update_ground_truth_with_same_lines(
             [{'label': 'description', 'value': 'def'}, {'label': 'total_price', 'value': '20.00'}]]}
     ]}
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
-        runpy.run_module('postprocess.postprocess', run_name='__main__')
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
         document_id='las:document:xyz',
@@ -259,7 +307,7 @@ def test_update_ground_truth_with_same_lines(
             'label': 'purchase_date',
             'value': '2023-09-21'
         }],
-        dataset_id=None
+        dataset_id='las:dataset:xyz'
     )
 
 
@@ -273,6 +321,7 @@ def test_update_ground_truth_with_empty_lines(
     get_transition_excs.return_value = {
         'input': {
             'documentId': 'las:document:xyz',
+            'needsValidation': True,
             'verified': {
                 'foo': 'bar',
                 'line_items': [],
@@ -286,8 +335,8 @@ def test_update_ground_truth_with_empty_lines(
         {'label': 'baz', 'value': 'foobar'},
     ]}
 
-    with patch.dict('postprocess.postprocess.feedback_and_export.os.environ', env):
-        runpy.run_module('postprocess.postprocess', run_name='__main__')
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
         document_id='las:document:xyz',
@@ -304,5 +353,156 @@ def test_update_ground_truth_with_empty_lines(
             'label': 'string_value',
             'value': '',
         }],
-        dataset_id=None
+        dataset_id='las:dataset:xyz',
+    )
+
+
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.update_document')
+@patch('las.Client.get_document')
+@pytest.mark.parametrize(('validated_predictions', 'gt', 'expected_update'), [
+    (
+        {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': True}},
+        [{'label': 'totalAmount', 'value': '200.00'}],
+        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
+    ),
+    (
+        {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': False}},
+        [{'label': 'totalAmount', 'value': '200.00'}],
+        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
+    ),
+    (
+        {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': False, 'isEdited': False}},
+        [{'label': 'totalAmount', 'value': '200.00'}],
+        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
+    ),
+    (
+        {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': False, 'isEdited': True}},
+        [{'label': 'totalAmount', 'value': '200.00'}],
+        [{'label': 'totalAmount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
+    ),
+    (
+        {
+            'line_items': [{
+                'unitPrice': {'value': '50.00', 'pages': [1], 'confidence': 0.8},
+                'totalPrice': {'value': '100.00', 'pages': [0], 'confidence': 0.9, 'isEdited': False}
+            }]
+        },
+        [{'label': 'line_items', 'value': None}],
+        [{
+            'label': 'line_items',
+            'value': [
+                [
+                    {'label': 'unitPrice', 'value': '50.00', 'pages': [1], 'confidence': 0.8},
+                    {'label': 'totalPrice', 'value': '100.00', 'pages': [0], 'confidence': 0.9},
+                ]
+            ]
+        }],
+    ),
+])
+def test_post_feedback_v2(
+    get_document,
+    update_document,
+    update_transition_excs,
+    get_transition_excs,
+    env,
+    expected_update,
+    gt,
+    validated_predictions,
+):
+    doc_id = 'las:document:xyz'
+    get_document.return_value = {'groundTruth': gt}
+    get_transition_excs.return_value = {
+        'input': {
+            'documentId': doc_id,
+            'validatedPredictions': validated_predictions,
+        }
+    }
+
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
+
+    update_document.assert_called_with(
+        document_id=doc_id,
+        ground_truth=expected_update,
+        dataset_id=env['DATASET_ID'],
+    )
+
+    update_transition_excs.assert_called_with(
+        transition_id=env['TRANSITION_ID'],
+        execution_id=env['EXECUTION_ID'],
+        status='succeeded',
+        output=dict(
+            documentId=doc_id,
+            datasetId=env['DATASET_ID'],
+            values=None,
+            validatedPredictions=validated_predictions,
+            predictions={},
+        ),
+    )
+
+
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.update_document')
+@patch('las.Client.get_document')
+@pytest.mark.parametrize(('validated_predictions', 'predictions'), [
+    (
+        {'totalAmount': {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': True}},
+        [{'label': 'totalAmount', 'value': '200.00', 'pages': [0, 1], 'confidence': 0.9}],
+    ),
+    (
+        None,
+        [{'label': 'totalAmount', 'value': '200.00', 'pages': [0, 1], 'confidence': 0.9}],
+    ),
+    (
+        {
+            'line_items': [{
+                'unitPrice': {'value': '150.00', 'pages': [0], 'confidence': 0.5},
+                'totalPrice': {'value': '200.00', 'pages': [1], 'confidence': 0.5, 'isEdited': False}
+            }]
+        },
+        [{
+            'label': 'line_items', 'value': [[
+                {'label': 'unitPrice', 'value': '50.00', 'pages': [1], 'confidence': 0.8},
+                {'label': 'totalPrice', 'value': '100.00', 'pages': [0], 'confidence': 0.9},
+            ]]
+        }],
+    ),
+])
+def test_validated_predictions(
+    get_document,
+    update_document,
+    update_transition_excs,
+    get_transition_excs,
+    env,
+    predictions,
+    validated_predictions,
+):
+    validated_predictions_output = validated_predictions or to_validated_format(convert_predictions_to_v2(predictions))
+    doc_id = 'las:document:xyz'
+    get_document.return_value = {'groundTruth': []}
+    get_transition_excs.return_value = {
+        'input': {
+            'documentId': doc_id,
+            'validatedPredictions': validated_predictions,
+            'predictions': predictions,
+        }
+    }
+
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
+        runpy.run_module('postprocess', run_name='__main__')
+
+    update_transition_excs.assert_called_with(
+        transition_id=env['TRANSITION_ID'],
+        execution_id=env['EXECUTION_ID'],
+        status='succeeded',
+        output=dict(
+            documentId=doc_id,
+            datasetId=env['DATASET_ID'],
+            values=None,
+            validatedPredictions=validated_predictions_output,
+            predictions=convert_predictions_to_v2(predictions),
+        ),
     )
