@@ -2,8 +2,8 @@
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 # Models
 
@@ -88,8 +88,8 @@ field_config = {
   'due_date': { 'type': 'date', 'maxLength': 10, 'description': '' },
 }
 model = client.create_model(
-  width=321, 
-  height=321, 
+  width=321,
+  height=321,
   field_config=field_config,
   name='Invoice',
   description='v1',
@@ -133,7 +133,7 @@ The model is now defined, and in an `inactive` state. Once you start training, i
 
 The `height` and `width` parameters of the model define the shape of images that the model accepts. If you use a differently sized image, or a PDF, as input to the model, it will be resized to `height x width` before entering the model.
 
-The size of the images has implications for training time, response time and accuracy of the model. This is because larger images require more computation to process, while higher resolution *may* improve the reading quality of the model - especially if your images contain fine print that would be illegible at lower resolutions.
+The size of the images has implications for training time, response time and accuracy of the model. This is because larger images require more computation to process, while higher resolution _may_ improve the reading quality of the model - especially if your images contain fine print that would be illegible at lower resolutions.
 
 :::caution
 
@@ -171,45 +171,80 @@ A field config is formatted as
 
 where the `<field_type>` is one of the following:
 
-{/* <table>
+<table>
   <thead>
     <tr>
-      <th><b>Field type</b></th>
-      <th><b>Data format</b></th>
-      <th><b>Characters in output</b></th>
-      <th><b>Output format</b></th>
+      <th>
+        <b>Field type</b>
+      </th>
+      <th>
+        <b>Data format</b>
+      </th>
+      <th>
+        <b>Characters in output</b>
+      </th>
+      <th>
+        <b>Output format</b>
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><b><code>date</code></b></td>
+      <td>
+        <b>
+          <code>date</code>
+        </b>
+      </td>
       <td>YYYY-MM-DD</td>
-      <td><code>-0123456789</code></td>
-      <td><code>YYYY-MM-DD</code> </td>
+      <td>
+        <code>-0123456789</code>
+      </td>
+      <td>
+        <code>YYYY-MM-DD</code>
+      </td>
     </tr>
     <tr>
-      <td><b><code>amount</code></b></td>
-      <td>Decimal number</td>
-      <td><code>-.0123456789</code></td>
       <td>
-        <p><code> 123.45</code>
+        <b>
+          <code>amount</code>
+        </b>
+      </td>
+      <td>Decimal number</td>
+      <td>
+        <code>-.0123456789</code>
+      </td>
+      <td>
+        <p>
+          <code> 123.45</code>
         </p>
-        <p><code>-123.45</code>
+        <p>
+          <code>-123.45</code>
         </p>
       </td>
     </tr>
     <tr>
-      <td><b><code>string</code></b>
+      <td>
+        <b>
+          <code>string</code>
+        </b>
       </td>
       <td>String of characters</td>
       <td>
-        <p><code>␣0123456789</code>
+        <p>
+          <code>␣0123456789</code>
         </p>
-        <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
+        <p>
+          <code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
-        <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
+        <p>
+          <code>
+            &#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;
+          </code>
         </p>
-        <p><code>!&quot;#$%&amp;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;</code>
+        <p>
+          <code>
+            !&quot;#$%&amp;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;
+          </code>
         </p>
       </td>
       <td>
@@ -217,29 +252,42 @@ where the `<field_type>` is one of the following:
       </td>
     </tr>
     <tr>
-      <td><b><code>digits</code></b>
+      <td>
+        <b>
+          <code>digits</code>
+        </b>
       </td>
       <td>String of digits</td>
-      <td><code>0123456789</code>
+      <td>
+        <code>0123456789</code>
       </td>
-      <td><code>Any</code>
+      <td>
+        <code>Any</code>
       </td>
     </tr>
     <tr>
       <td>
-        <b><code>enum</code></b>
+        <b>
+          <code>enum</code>
+        </b>
       </td>
+      <td>List of enumerations</td>
       <td>
-        List of enumerations
-      </td>
-      <td>
-        <p><code>␣0123456789</code>
+        <p>
+          <code>␣0123456789</code>
         </p>
-        <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
+        <p>
+          <code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
-        <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
+        <p>
+          <code>
+            &#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;
+          </code>
         </p>
-        <p><code>!&quot;#$%&amp;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;</code>
+        <p>
+          <code>
+            !&quot;#$%&amp;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;
+          </code>
         </p>
       </td>
       <td>
@@ -248,28 +296,35 @@ where the `<field_type>` is one of the following:
     </tr>
     <tr>
       <td>
-        <b><code>lines</code></b>
+        <b>
+          <code>lines</code>
+        </b>
       </td>
+      <td>Nested structure representing line items / tables</td>
       <td>
-        Nested structure representing line items / tables
-      </td>
-      <td>
-        <p><code>␣0123456789</code>
+        <p>
+          <code>␣0123456789</code>
         </p>
-        <p><code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
+        <p>
+          <code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>
         </p>
-        <p><code>&#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;</code>
+        <p>
+          <code>
+            &#xC1;&#xC3;&#xC4;&#xC5;&#xC6;&#xC8;&#xC9;&#xCA;&#xCB;&#xCD;&#xCE;&#xD3;&#xD6;&#xD8;&#xDB;&#xDC;
+          </code>
         </p>
-        <p><code>!&quot;#$%&amp;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;</code>
+        <p>
+          <code>
+            !&quot;#$%&amp;()*+,-./\:;&lt;=&gt;?@[]^_&#123;&#124;&#125;&#xA7;
+          </code>
         </p>
       </td>
       <td>
         <code>Any</code>
       </td>
-    </tr>k
+    </tr>
   </tbody>
-</table> */}
-
+</table>
 
 ## Selecting training data
 
@@ -296,4 +351,3 @@ Any program can be improved - and machine learning models are no exception. You 
 Often, the key to improving your model is to supply more fresh data \(or simply more historical data\), or to improve the quality of already existing data. You may want to sample some of your training data to check whether the ground truth attached to the documents match the data on the documents, or check for more historical data in your source systems.
 
 In any case, new and improved data should be uploaded and added to new dataset\(s\), which again is added to a new data bundle that will be used to request training. We will then initiate a new training session with more and/or better data, and you should expect further improvement on your existing model.
-

@@ -3,18 +3,20 @@ pagination_next: null
 pagination_prev: null
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 # Date
 
 ### When to use `Date` as a a field's `data type`
-  <p>Dates are very common to extract. Use `date` when you want to extract dates.</p>
 
+<p>
+  Dates are very common to extract. Use `date` when you want to extract dates.
+</p>
 
 ### How to annotate dates
-When you annotate dates in your training documents, you will want your date input to **mirror** the document's date. **Type what you see.**
 
+When you annotate dates in your training documents, you will want your date input to **mirror** the document's date. **Type what you see.**
 
 <div style={{padding: '0 40px 40px 40px'}}>
 <Tabs>
@@ -42,12 +44,12 @@ When you annotate dates in your training documents, you will want your date inpu
 </Tabs>
 </div>
 
-
 :::info
-  If you created your model before 30th April 2024, you must continue entering dates in a DD/MM/YYYY format instead of mirroring what is written in your document.
+If you created your model before 30th April 2024, you must continue entering dates in a DD/MM/YYYY format instead of mirroring what is written in your document.
 :::
 
 ### Validating dates
+
 Dates are automatically formatted into ISO-format when parsed.
 
 If a parsed date looks wrong, make sure that the date actually is wrong, and not a corrct date that has been ISO-formatted.

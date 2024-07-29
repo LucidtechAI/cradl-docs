@@ -5,35 +5,46 @@ sidebar_position: 2
 # What's new in Cradl
 
 ## May 21, 2024 - Introducing v.4 of the Cradl AI base model and New features
-*Key Takeaways:*
-- *Our new base AI model has been improved, particularly for tabular data and receipts.*
-- *Dates need to be annotated differently if your model is created after April 30, 2024.*
+
+_Key Takeaways:_
+
+- _Our new base AI model has been improved, particularly for tabular data and receipts._
+- _Dates need to be annotated differently if your model is created after April 30, 2024._
 
 <h3>Base model version 4</h3>
-The newest version of our base model has seen major improvements in reading multiline tabular data, making it much more robust at handling complex document layouts. Version 4 also features enhancements to our receipt model and improved understanding of logo typography.  
+The newest version of our base model has seen major improvements in reading multiline
+tabular data, making it much more robust at handling complex document layouts. Version
+4 also features enhancements to our receipt model and improved understanding of logo
+typography.{" "}
 
 <h3>New Features</h3>
-**«Runs»** is a new in-app tool that lets users easily manage all of Cradl AI’s core functionalities in one place. In Runs, you can view your run execution history, making it easier to stay organized in Cradl AI. You can also intuitively upload and parse documents without having to pre-configure import and export destinations. Simply drag and drop the documents you want to parse.
+**«Runs»** is a new in-app tool that lets users easily manage all of Cradl AI’s core
+functionalities in one place. In Runs, you can view your run execution history, making
+it easier to stay organized in Cradl AI. You can also intuitively upload and parse
+documents without having to pre-configure import and export destinations. Simply
+drag and drop the documents you want to parse.
 <div class="image-backdrop">
-<p class="image-backdrop-caption text-sm">Once you have trained your AI Model, you’re ready to use Runs.</p>
-![Runs interface](/img/changelog/may2024-runs.png)
+  <p class="image-backdrop-caption text-sm">
+    Once you have trained your AI Model, you’re ready to use Runs.
+  </p>
+  ![Runs interface](/img/changelog/may2024-runs.png)
 </div>
-**«Templates»** help new users get up and running quickly by providing pre-configured Triggers, Export destinations, and AI Models (that you can tweak).
+**«Templates»** help new users get up and running quickly by providing pre-configured
+Triggers, Export destinations, and AI Models &lpar;that you can tweak&rpar;.
 
 <div class="image-backdrop">
-<p class="image-backdrop-caption text-sm"></p>
-![Templates interface](/img/changelog/may2024-templates.png)
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Templates interface](/img/changelog/may2024-templates.png)
 </div>
 <h3>Breaking Changes</h3>
 **Before:** Dates should be annotated in DD/MM/YYYY format.
 
 **Now:** Dates should mirror the document's date. Type what you see. [More info](/glossary/fields/date)
 
-*If you created your model before April 30, 2024, you should continue entering dates in DD/MM/YYYY format instead of mirroring what is written in your document.*
+_If you created your model before April 30, 2024, you should continue entering dates in DD/MM/YYYY format instead of mirroring what is written in your document._
 
 <h3>Other Updates</h3>
 There have been multiple improvements to the app's UI and the Cradl AI documentation.
-
 
 ## Feb 29, 2024 - Multiline input in Validator.
 
@@ -41,17 +52,16 @@ In the Validator form you may now use line breaks in regular string input fields
 Pressing Shift + Enter inside a normal string input field will convert the field into a text area with line numbers for visual help.
 If the text in a document extends over multiple lines, adding line breaks to match the text will improve your models' accuracy.
 
-
 ![Validator Multiline](/img/changelog/validator-multiline.png)
-
 
 ## Feb 5, 2024 - Improving the visuals for flow runs.
 
-You can now get an overview on how far your documents have progressed in your flow. The new view makes it easier to 
+You can now get an overview on how far your documents have progressed in your flow. The new view makes it easier to
 track and debug flows.
 
 ![Validator Flows](/img/changelog/validator-flows.png)
 
 Other changes:
-- The PDF viewer scrolls to the page where the prediction is found when focusing on a field. 
+
+- The PDF viewer scrolls to the page where the prediction is found when focusing on a field.
 - Squashed bugs related to confidence for line items predictions not showing in the validator view.

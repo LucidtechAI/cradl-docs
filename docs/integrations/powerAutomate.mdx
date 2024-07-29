@@ -4,110 +4,126 @@ pagination_next: null
 pagination_prev: null
 ---
 
-
-
-<div style={{display: 'flex', height: '70px', width: '100%'}}>
-    <img className="page-powerAutomate-cradlLogo" src="/img/logo/powerAutomate.svg" />
-    <img  className="page-powerAutomate-cradlLogo" src="/img/logo/cradl-docs-black.svg" />
+<div style={{ display: "flex", height: "70px", width: "100%" }}>
+  <img
+    className="page-powerAutomate-cradlLogo"
+    src="/img/logo/powerAutomate.svg"
+  />
+  <img
+    className="page-powerAutomate-cradlLogo"
+    src="/img/logo/cradl-docs-black.svg"
+  />
 </div>
 
-
 {/* # Integrating Power Automate with Cradl AI */}
-Power Automate is a popular automation platform. Cradl AI has a connector that you can easily integrate into your automation flows in Power Automate. 
+Power Automate is a popular automation platform. Cradl AI has a connector that you can easily integrate into your automation flows in Power Automate.
 
 :::info
+
 ## Prerequisites
+
 - You need a CRADL AI Model. [Follow these steps if you do not have an AI Model.](/aiStudio/new-model)
 - You need a Microsoft 365 account.
-:::
+  :::
 
 ## Import documents into Cradl AI from Power Automate
+
 ### Sign into Power Automate and create new Connector
-Inside Power Automate: 
+
+Inside Power Automate:
+
 - Go to **My flows**
 - Click **New flow**
 - Click **Instant cloud flow**
 
 You can give your flow a name and choose how to trigger the flow
-- Choose a name. I.e: "My invoice flow". The name is only for your convenience. 
+
+<!-- prettier-ignore-start -->
+  <div class="image-backdrop">
+- Choose a name. I.e: "My invoice flow". The name is only for your convenience.
 - Select **Manually trigger a flow**
-- Click **Create** 
-<div class="image-backdrop">
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/newFlowDashboard.png)
+- Click **Create**
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/newFlowDashboard.png)
+
 </div>
 
 <div class="image-backdrop">
-- **Click on the «Manually trigger a flow»** box to add an input.
+- **Click on the «Manually trigger a flow»** box to add an input. 
 - **Select file** from the user input options.
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/addInput.png)
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/addInput.png)
+
 </div>
 
-<div  class="image-backdrop">
-- **Click the + icon** below your «Manually trigger a flow» box.
-- **Click Add an action** from the menu.
-- Search for "cradl" and Select **Create document** from the available Connectors.
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/createDocument.png)
+<div class="image-backdrop">
+  - **Click the + icon** below your «Manually trigger a flow» box. 
+  - **Click Add an action** from the menu. 
+  - Search for "cradl" and Select **Create document** from the available Connectors.
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/createDocument.png)
 </div>
-
 
 ### Create Connection to Cradl AI
-<div  class="image-backdrop">
-You will be prompted to Create Connection if this is your first time connecting Cradl AI to Power Automate.
-- Give you connection a name.
-- Log into your Cradl AI account in order to generate your credentials.
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/createConnection.png)
+
+<div class="image-backdrop">
+  You will be prompted to Create Connection if this is your first time
+  connecting Cradl AI to Power Automate. - Give you connection a name. - Log
+  into your Cradl AI account in order to generate your credentials.
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/createConnection.png)
 </div>
 
-<div  class="image-backdrop">
-- Inside your Flow overview in your Cradl AI account, **click Add trigger** and **select PowerAutomate**  
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/addTrigger.png)
+<div class="image-backdrop">
+  - Inside your Flow overview in your Cradl AI account, **click Add trigger**
+  and **select PowerAutomate**
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/addTrigger.png)
 </div>
 
 ### Create document
-<div  class="image-backdrop">
-- Back in Power Automate, paste your credentials into the Client Credentials field and click **Create new**. 
-- You will prompted to create a new document. Give your document a name. 
-- In the Body field, click the **lightning bolt icon**, click **See more**, and select **File content contentBytes** .
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/contentBytes.png)
+
+<div class="image-backdrop">
+  - Back in Power Automate, paste your credentials into the Client Credentials field and click **Create new**. 
+  - You will prompted to create a new document. Give your document a name. 
+  - In the Body field, click the **lightning bolt icon**, click **See more**, and select **File content contentBytes** .
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/contentBytes.png)
 </div>
 
 ### Parse document with human in the loop
-<div  class="image-backdrop">
-- Click the + icon below your Create document box to **Add an action**.
-- Search for "cradl" again, and **select Parse document with human-in-the-loop** 
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/parseWithHitl.png)
+
+<div class="image-backdrop">
+  - Click the + icon below your Create document box to **Add an action**. 
+  - Search for "cradl" again, and **select Parse document with human-in-the-loop**
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/parseWithHitl.png)
 </div>
 
-<div  class="image-backdrop">
-- From the Workflow dropdown, **Select your workflow** from the options.
-- In the Document ID box, **click the lightning bolt icon** and **select body/documentId** from the options.
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/parseWithHitl-2.png)
+<div class="image-backdrop">
+  - From the Workflow dropdown, **Select your workflow** from the options. 
+  - In the Document ID box, **click the lightning bolt icon** and **select body/documentId** from the options.
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/parseWithHitl-2.png)
 </div>
-
 
 ### Test your connection
-- From the top navigation bar, **Save** your flow and click **Test**.
-<div  class="image-backdrop">
-- **Select Manually** and **click Test**.
-- You will be shown your log in status. **Click Continue**
-- **Upload a file** you would like to process and **click Run flow**.
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/runFlow.png)
+
+<div class="image-backdrop">
+  - From the top navigation bar, **Save** your flow and click **Test**. 
+  - **Select Manually** and **click Test**. 
+  - You will be shown your log in status. **Click Continue** 
+  - **Upload a file** you would like to process and **click Run flow**.
+  <p class="image-backdrop-caption text-sm"></p>
+![Image](../../static/img/powerAutomate/runFlow.png)
+
 </div>
 
 <div class="image-backdrop">
 <p class="image-backdrop-caption text-sm"></p>
 - Head back to your Flow overview in Cradl AI.
 - **Click Go to Validator**
-
+  <p class="image-backdrop-caption text-sm"></p>
     ![Image](../../static/img/powerAutomate/goToValidator.png)
 </div>
 
@@ -116,124 +132,86 @@ You will be prompted to Create Connection if this is your first time connecting 
 - Inside the Validator, **click Validate documents**.
 - (If the validation status of your document has not updated, **try clicking Refresh**)
 - **Click Validate documents**
-
+  <p class="image-backdrop-caption text-sm"></p>
     ![Image](../../static/img/powerAutomate/insideValidator.png)
 </div>
 
 <div class="image-backdrop">
 <p class="image-backdrop-caption text-sm"></p>
 Congratulations, you should be seeing your first parsed document with the Power Automate integration up and running.
-
+  <p class="image-backdrop-caption text-sm"></p>
     ![Image](../../static/img/powerAutomate/validatedDocument.png)
 </div>
 
 ## Export documents from Cradl AI into Power Automate
+
 ### Generate a webhook endpoint in Cradl AI
+
 <div class="image-backdrop">
-- Inside your Flow overview in your Cradl AI account, **click Add export destination** and **select Webhook**  
-{/* - Search for "http" and **Select HTTP** from the In App connector. */}
+- Inside your Flow overview in your Cradl AI account, **click Add export destination** and **select Webhook**
+
 <p class="image-backdrop-caption text-sm"></p>
     ![Image](../../static/img/powerAutomate/exportToWebhook.png)
 </div>
 
-Inside Power Automate, repeat the steps to create a new flow: 
+Inside Power Automate, repeat the steps to create a new flow:
+
 - Go to **My flows**
 - Click **New flow**
 
 <div class="image-backdrop">
- - Select **When an http request is received**
- - Click **Create** 
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/addTriggerHttp.png)
+  - Select **When an http request is received** - Click **Create**
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/addTriggerHttp.png)
 </div>
 
 <div class="image-backdrop">
-- **Click on the Manual box**
-- **Select Anyone** from the Who can Trigger The Flow dropdown menu.
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/httpConfigure.png)
-- **Click the + icon** under the Manual box and **Add an action**
+  - **Click on the Manual box** - **Select Anyone** from the Who can Trigger The
+  Flow dropdown menu.
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/httpConfigure.png) - **Click the + icon**
+  under the Manual box and **Add an action**
 </div>
 
 <div class="image-backdrop">
-- Search for "terminate" and click it. 
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/terminate.png)
+  - Search for "terminate" and click it.
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/terminate.png)
 </div>
 
 <div class="image-backdrop">
-- **Save** your flow from the top navigation.
-- **Click on manual** and **copy the HTTP URL**
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/copyHttpWebhook.png)
-</div>
-
-<div  class="image-backdrop">
-- Go back to Cradl AI and paste it into your Webhook endpoint uri. 
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/pasteEndpoint.png)
-    - **click the Save button** in the top-right corner.
-</div>
-
-
-{/* -------
-
-You can give your flow a name and choose how to trigger the flow
-- Choose a name. I.e: "Cradl AI Webhook". The name is only for your convenience. 
-- Click **Create** 
-<div class="image-backdrop">
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/newFlowDashboard.png)
+  - **Save** your flow from the top navigation. - **Click on manual** and **copy
+  the HTTP URL**
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/copyHttpWebhook.png)
 </div>
 
 <div class="image-backdrop">
-- **Click on the «Add trigger»** box.
-- Search for "http" and **Request** from the In App connector.
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/http.png)
+  - Go back to Cradl AI and paste it into your Webhook endpoint uri.
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/pasteEndpoint.png) - **click the Save button**
+  in the top-right corner.
 </div>
-
-<div class="image-backdrop">
-- **Select Anyone** from the Who can Trigger The Flow dropdown menu.
-- Search for "http" and **Request** from the In App connector.
-- We will come back and get our HTTP URL once we add an action and save.
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/httpConfigure.png)
-</div>
-
-<div  class="image-backdrop">
-- **Click the + icon** below your HTTP trigger box.
-- Search for "terminate" and **click the Terminate In App connector** from the search results.
-- **Click on Status** and **select Succeeded**
-- **Click Save** from the top navigation to sace your flow. 
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/createDocument.png)
-</div>
-
-<div  class="image-backdrop">
-- **Click your HTTP trigger** to view your webhook URL. Copy it.
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/copyWebhook.png)
-</div>
- */}
 
 ## Test your Webhook
-- To test your Webhook export from Cradl AI, go back to the **Create document** with **Human-in-the-loop** parsing flow you created earlier in Power Automate. Trigger the import flow by **clicking Run** and upload a document to parse. 
-- In Cradl AI, **click Validator** 
+
+- To test your Webhook export from Cradl AI, go back to the **Create document** with **Human-in-the-loop** parsing flow you created earlier in Power Automate. Trigger the import flow by **clicking Run** and upload a document to parse.
+- In Cradl AI, **click Validator**
 - **Click Validate documents** once the documents are processed.
 - Inspect your documents and **click Validate**
 
-<div  class="image-backdrop">
-- Go back to your Power Automate webhook flow. You will see your recent export in your run history. 
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/exportedToPA.png)
+<div class="image-backdrop">
+  - Go back to your Power Automate webhook flow. You will see your recent export
+  in your run history.
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/exportedToPA.png)
 </div>
 
-<div  class="image-backdrop">
-- Click on a run job, and inspect it's output. 
-Congratulations, you just parsed in Cradl AI and exported it as structured data into Power Automate!
-<p class="image-backdrop-caption text-sm"></p>
-    ![Image](../../static/img/powerAutomate/extracted.png)
+<div class="image-backdrop">
+  - Click on a run job, and inspect it's output. Congratulations, you just
+  parsed in Cradl AI and exported it as structured data into Power Automate!
+  <p class="image-backdrop-caption text-sm"></p>
+  ![Image](../../static/img/powerAutomate/extracted.png)
 </div>
 
-
+<!-- prettier-ignore-end -->
