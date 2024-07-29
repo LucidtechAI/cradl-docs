@@ -5,7 +5,7 @@ import runpy
 import requests_mock
 
 from unittest.mock import patch
-from postprocess.utils import to_validated_format, convert_predictions_to_v2
+from ..postprocess.utils import to_validated_format, convert_predictions_to_v2
 
 
 @pytest.fixture
