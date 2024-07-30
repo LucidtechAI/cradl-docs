@@ -1,54 +1,57 @@
 .listContainer {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.boxContent {
-  display: flex;
-  flex-direction: column;
-}
-
-.boxContainer {
-  display: flex;
-  width: 250px;
-}
-
-.box, .textBox {
-   display: flex;
-   border-radius: 5px;
-}
-
-.box { border: 1px solid #ddd; }
-
-.box svg, .textBox svg {
-    min-width: 32px;
-    min-height: 32px;
-    color: #5f59f7;
-}
-
-.box svg {
-    margin-right: 0.5em;
-    margin-left: 0.5em;
-}
-
-.textBox svg {
-    margin-right: 1em;
-    margin-left: 1em;
-}
-
-html[data-theme='dark'] .box {
-   background: #222;
-   border: 1px solid #444;
-}
-
-.boxAction {
-   display: flex;
-   width: 100%;
-}
-
-.boxAction:hover { background-color: #f8f8f8; }
-html[data-theme='dark'] .boxAction:hover { background-color: #252525; }
-
-.boxAction span { flex-grow: 1; }
-.boxAction svg { min-height: 18px; max-height: 18px }
-.boxAction a:link, a:hover { text-decoration: none; }
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .boxContent {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .boxContainer {
+    display: flex;
+    width: 250px;
+  }
+  
+  .box, .textBox {
+     display: flex;
+     border-radius: 5px;
+  }
+  
+  .box { 
+    background: white; 
+    border: 1px solid #ddd; 
+  }
+  
+  .box svg, .textBox svg {
+      min-width: 32px;
+      min-height: 32px;
+      color: #5f59f7;
+  }
+  
+  .box svg {
+      margin-right: 0.5em;
+      margin-left: 0.5em;
+  }
+  
+  .textBox svg {
+      margin-right: 1em;
+      margin-left: 1em;
+  }
+  
+  html[data-theme='dark'] .box {
+     background: #222;
+     border: 1px solid #444;
+  }
+  
+  .boxAction {
+     display: flex;
+     width: 100%;
+  }
+  
+  .boxAction:hover { background-color: #f8f8f8; }
+  html[data-theme='dark'] .boxAction:hover { background-color: #252525; }
+  
+  .boxAction span { flex-grow: 1; }
+  .boxAction svg { min-height: 18px; max-height: 18px }
+  .boxAction a:link, a:hover { text-decoration: none; }

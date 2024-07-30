@@ -2,8 +2,8 @@
 sidebar_position: 4
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 # Trainings
 
@@ -11,9 +11,9 @@ A _training_ in Cradl is the process of training a machine learning model on the
 
 ## Start a training job
 
-The simplest way to start a training job is to use the training wizard in the Cradl app, just go to 
-[**Models**](https://app.cradl.ai/models) > **Your model** > **Training jobs** > **New training**. If you want to start 
-a training job using one of our SDKs or CLI you need to create a [**Data Bundle**](training-data.mdx#data-bundle) 
+The simplest way to start a training job is to use the training wizard in the Cradl app, just go to
+[**Models**](https://app.cradl.ai/models) > **Your model** > **Training jobs** > **New training**. If you want to start
+a training job using one of our SDKs or CLI you need to create a [**Data Bundle**](training-data.mdx#data-bundle)
 first.
 
 <Tabs groupId="programming-language">
@@ -44,8 +44,8 @@ curl -X POST 'https://api.lucidtech.ai/v1/models/<modelId>/trainings' \
 
 ```python
 data_bundle = client.create_training(
-    model_id='<modelId>', 
-    data_bundle_ids=['<dataBundleId>'], 
+    model_id='<modelId>',
+    data_bundle_ids=['<dataBundleId>'],
     name='Initial training of receipt model'
 )
 ```
@@ -53,19 +53,19 @@ data_bundle = client.create_training(
 </TabItem>
 </Tabs>
 
-You will be notified by email when a training is started or changes status. You can also check the status of your 
+You will be notified by email when a training is started or changes status. You can also check the status of your
 training by inspecting the training object with the CLI or in the Cradl app.
 
 ## Data Bundle
 
-A _data bundle_ is a model-specific collection of one or more [Datasets](datasets.mdx). Before training a model, you 
-must specify a data bundle that the model will use for training. Before the training job is started, one of our data 
+A _data bundle_ is a model-specific collection of one or more [Datasets](datasets.mdx). Before training a model, you
+must specify a data bundle that the model will use for training. Before the training job is started, one of our data
 scientists will review the auto-generated [Data Report](training-data.mdx#data-report) as part of our QA process.
 
 ### Creating a data bundle
 
-To create a data bundle for a model you must specify the `modelId` and one or more `datasetIds`, optionally giving it a 
-name and description. See [Creating a model](models.mdx#creating-a-model) and 
+To create a data bundle for a model you must specify the `modelId` and one or more `datasetIds`, optionally giving it a
+name and description. See [Creating a model](models.mdx#creating-a-model) and
 [Creating a dataset](datasets.mdx#creating-a-dataset) for more information on how to create models and datasets.
 
 <Tabs groupId="programming-language">
@@ -126,13 +126,13 @@ data_bundle = client.create_data_bundle(
 }
 ```
 
-The data bundle will immediately begin to generate a [Data Report](training-data.mdx#data-report). This process may 
-take a few minutes, depending on the size of the datasets being used. While this process is running, the data bundle 
+The data bundle will immediately begin to generate a [Data Report](training-data.mdx#data-report). This process may
+take a few minutes, depending on the size of the datasets being used. While this process is running, the data bundle
 will have status `processing`. When the data report is complete, the data bundle will be in a `ready` state.
 
 ### Updating a data bundle
 
-Whenever you have updated a dataset, by adding, removing or updating documents, you must update the affected data 
+Whenever you have updated a dataset, by adding, removing or updating documents, you must update the affected data
 bundles in order to use the updated data for training.
 
 <Tabs groupId="programming-language">
@@ -165,120 +165,121 @@ data_bundle = client.update_data_bundle(
 
 ## Data report
 
-The data report can be viewed in the Cradl app. It scores the data contained in the data bundle, based on several 
-measures of data quality. First, each label present in the underlying documents is scored based on the following 
+The data report can be viewed in the Cradl app. It scores the data contained in the data bundle, based on several
+measures of data quality. First, each label present in the underlying documents is scored based on the following
 statistical measures:
 
-| Measure | Description |
-| :--- | :--- |
-| **Completeness** | Percentage of documents with values. |
-| **Validity** | Percentage of valid values among occurring values. |
-| **Coverage** | Percentage of documents with valid values. |
-| **Uniqueness** | Percentage of values outside the top 10 most frequent. |
-| **Uniformity** | Proportion of information entropy in values outside the top 10 most frequent, relative to maximum obtainable entropy. Put simply, this measures how much different information is present in the values. |
-| **Variation** | Mean of Uniqueness and Uniformity. |
+| Measure          | Description                                                                                                                                                                                              |
+| :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Completeness** | Percentage of documents with values.                                                                                                                                                                     |
+| **Validity**     | Percentage of valid values among occurring values.                                                                                                                                                       |
+| **Coverage**     | Percentage of documents with valid values.                                                                                                                                                               |
+| **Uniqueness**   | Percentage of values outside the top 10 most frequent.                                                                                                                                                   |
+| **Uniformity**   | Proportion of information entropy in values outside the top 10 most frequent, relative to maximum obtainable entropy. Put simply, this measures how much different information is present in the values. |
+| **Variation**    | Mean of Uniqueness and Uniformity.                                                                                                                                                                       |
 
-After scoring each label individually, the Coverage and Variation scores are aggregated to cross-label mean statistics. 
+After scoring each label individually, the Coverage and Variation scores are aggregated to cross-label mean statistics.
 The overall score for the data bundle is the mean of these aggregate Coverage and Variation statistics.
 
-If the overall score is acceptable \(suggested value is 70%-100%\), you can request training for your model with the 
-data in the bundle as training data. If not, you should improve your data in one or more of the ways outlined in the 
+If the overall score is acceptable \(suggested value is 70%-100%\), you can request training for your model with the
+data in the bundle as training data. If not, you should improve your data in one or more of the ways outlined in the
 section on [Data quality](training-data.mdx#data-quality).
 
 ## Data quality
 
-Having a good set of training data is the most important factor when building a machine learning model, and Cradl 
-models are no exception. Your data must check all of the following boxes if you want to successfully train a model that 
+Having a good set of training data is the most important factor when building a machine learning model, and Cradl
+models are no exception. Your data must check all of the following boxes if you want to successfully train a model that
 is accurate and able to generalize to new documents.
 
 #### Sufficient quantity
 
-Humans have a life of experience and context to help us conceptualize and speed up our learning process when faced with 
-new tasks. We can therefore learn from fewer examples than the most powerful machine learning algorithms today. In 
-Cradl, we have set a minimum of 15 documents to allow training. In fact, to achieve good results we recommend that 
+Humans have a life of experience and context to help us conceptualize and speed up our learning process when faced with
+new tasks. We can therefore learn from fewer examples than the most powerful machine learning algorithms today. In
+Cradl, we have set a minimum of 15 documents to allow training. In fact, to achieve good results we recommend that
 each label have 15 associated ground truths.
 
 :::info Example
-Your datasets contain a total of 15 invoices, of which 2 contain a value for a field called `company_name` in the 
+Your datasets contain a total of 15 invoices, of which 2 contain a value for a field called `company_name` in the
 ground truth.
 
-While the number of documents in total is good, we would not be able to guarantee good results for predictions on the 
+While the number of documents in total is good, we would not be able to guarantee good results for predictions on the
 `company_name` field due to few examples.
 :::
 
 #### Good variation
 
-Machine learning algorithms are adaptable by design, and will learn patterns from the training data. One example of 
-this is if the training data has a large number of similar training examples, the model may be encouraged to prioritize 
-these documents at the expense of the less frequent ones. The variation of your data is quantified in the variation 
+Machine learning algorithms are adaptable by design, and will learn patterns from the training data. One example of
+this is if the training data has a large number of similar training examples, the model may be encouraged to prioritize
+these documents at the expense of the less frequent ones. The variation of your data is quantified in the variation
 statistic of the [Data bundle](training-data.mdx#data-report).
 
 :::info Example
-Building on the above example, suppose you have extracted an additional 100 invoices from your archive, all of which 
-contain a`company_name`field, so you now have a total of 102 invoices with`company_name`values. This is a good number 
-of `company_name` examples, but if all the additional 100 invoices were issued by just one company, over 90% of your 
-examples would be from a single company. It is then easy for your model to predict only that company's name - after 
+Building on the above example, suppose you have extracted an additional 100 invoices from your archive, all of which
+contain a`company_name`field, so you now have a total of 102 invoices with`company_name`values. This is a good number
+of `company_name` examples, but if all the additional 100 invoices were issued by just one company, over 90% of your
+examples would be from a single company. It is then easy for your model to predict only that company's name - after
 all, this strategy is successful 90% of the time, which is hard to beat.
 
-In this case, your data report get a low score on the Uniqueness statistic, and you should either find more varied 
-examples containing`company_name` data, or leave the`company_name` field out of your model until you have collected 
+In this case, your data report get a low score on the Uniqueness statistic, and you should either find more varied
+examples containing`company_name` data, or leave the`company_name` field out of your model until you have collected
 enough data to properly train the model.
 :::
 
 #### Representative data
 
-Another way your data may be skewed is if it doesn't represent the range of documents you actually want the model to 
-read. If, for instance, your training data contains documents issued in English and German, it will be hard for your 
-model to read Chinese - or perhaps even Dutch - documents, since language, formatting and standards vary from country 
-to country. This is not limited to geographical differences; if you train a model to read personal data from drivers' 
+Another way your data may be skewed is if it doesn't represent the range of documents you actually want the model to
+read. If, for instance, your training data contains documents issued in English and German, it will be hard for your
+model to read Chinese - or perhaps even Dutch - documents, since language, formatting and standards vary from country
+to country. This is not limited to geographical differences; if you train a model to read personal data from drivers'
 licences, you can't expect it to read data from passports without supplying a good amount of passport data as well.
 
-Since our models don't know in advance what sort of documents they will be used for reading, it is up to you to supply 
+Since our models don't know in advance what sort of documents they will be used for reading, it is up to you to supply
 sufficient data for your use cases.
 
 #### Correct data
 
-Last, but not least: The ground truths for the training data you supply must be correct, so that your model does not 
-inherit any errors from the underlying data. Our models learn by example, and if they are shown faulty examples, they 
-may inherit those faults. If you have many errors in your data, you can expect the trained model to make predictions 
+Last, but not least: The ground truths for the training data you supply must be correct, so that your model does not
+inherit any errors from the underlying data. Our models learn by example, and if they are shown faulty examples, they
+may inherit those faults. If you have many errors in your data, you can expect the trained model to make predictions
 with lower quality.
 
-To ensure that your data is correct, you should inspect it beforehand by taking samples and checking that the 
+To ensure that your data is correct, you should inspect it beforehand by taking samples and checking that the
 information presented in the ground truth of a document is, in fact, correct and present on the document.
 
 :::info Example
-You want to extract the due date of invoices, but due to clerical errors, some of the data entered into your archive 
-system is actually the date of payment, which may be different from the due date. If such errors are present in only a 
-few documents, it will not pose a large issue when training. However, if this is a systematic error, you should either 
+You want to extract the due date of invoices, but due to clerical errors, some of the data entered into your archive
+system is actually the date of payment, which may be different from the due date. If such errors are present in only a
+few documents, it will not pose a large issue when training. However, if this is a systematic error, you should either
 discard the erroneous data and obtain new, correct data, or correct the erroneous data before training.
 :::
 
 #### Error handling
 
-The datasets you select for training might contain errors or values that are unexpected for specific label types. We 
-are trying to catch these when you create a data bundle and give you an overview so that you can correct your data 
+The datasets you select for training might contain errors or values that are unexpected for specific label types. We
+are trying to catch these when you create a data bundle and give you an overview so that you can correct your data
 before training your model.
 
 Errors are divided into the following categories:
-- Errors on document level prefixed with DE, meaning that the entire document could not be processed and is omitted 
-from the training. 
-- Errors on label level prefixed with LE, meaning that one or more labels in the ground truth of the document could not 
-be parsed correctly and is ignored during training.
-- Errors on trainability level are prefixed with TE, meaning that the entire label is un-trainable, and therefore 
-ignored during training.
 
-| Error Code | Description |
-| :--- | :--- |
-| DE001 | Generic document error. Something went wrong in parsing the document, we cannot give you more concrete information as of now. |
-| DE002 | Missing ground truth error. No ground truth found in document. |
-| LE001 | Generic label error. Something went wrong in parsing the label, we cannot give you more concrete information as of now. |
-| LE002 | Invalid date error. Date value must be a string on ISO format `YYYY-MM-DD`. |
-| LE003 | Invalid amount error. Amount value must be a string, int or float and is parsed with two decimals, such as `123.45` or `-123.45`. |
-| LE004 | Invalid numeric error. Numeric value must be a string, int or float. If value is string it must be parseable as a number. |
-| LE005 | Invalid digits error. Digits value must only contain `0123456789`. |
-| LE006 | Invalid enum error. Enum value is not defined in `enum` array of field in `fieldConfig`. |
-| LE007 | Invalid label value. Value is incompatible with given field type in `fieldConfig`. |
-| TE001 | Too few label values. There are too few ground truth values to be able to train on the given label. |
-| TE002 | Too few unique values. The ground truth values for the given label needs to be more varied. |
-| TE003 | Too unevenly distributed enum values. One or more of the enum values have considerably fewer examples than the others. Consider restructuring the enum categories. |
-| TE004 | Too few distinct enum values. Need more varied enum examples in order to train on the label. |
+- Errors on document level prefixed with DE, meaning that the entire document could not be processed and is omitted
+  from the training.
+- Errors on label level prefixed with LE, meaning that one or more labels in the ground truth of the document could not
+  be parsed correctly and is ignored during training.
+- Errors on trainability level are prefixed with TE, meaning that the entire label is un-trainable, and therefore
+  ignored during training.
+
+| Error Code | Description                                                                                                                                                        |
+| :--------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DE001      | Generic document error. Something went wrong in parsing the document, we cannot give you more concrete information as of now.                                      |
+| DE002      | Missing ground truth error. No ground truth found in document.                                                                                                     |
+| LE001      | Generic label error. Something went wrong in parsing the label, we cannot give you more concrete information as of now.                                            |
+| LE002      | Invalid date error. Date value must be a string on ISO format `YYYY-MM-DD`.                                                                                        |
+| LE003      | Invalid amount error. Amount value must be a string, int or float and is parsed with two decimals, such as `123.45` or `-123.45`.                                  |
+| LE004      | Invalid numeric error. Numeric value must be a string, int or float. If value is string it must be parseable as a number.                                          |
+| LE005      | Invalid digits error. Digits value must only contain `0123456789`.                                                                                                 |
+| LE006      | Invalid enum error. Enum value is not defined in `enum` array of field in `fieldConfig`.                                                                           |
+| LE007      | Invalid label value. Value is incompatible with given field type in `fieldConfig`.                                                                                 |
+| TE001      | Too few label values. There are too few ground truth values to be able to train on the given label.                                                                |
+| TE002      | Too few unique values. The ground truth values for the given label needs to be more varied.                                                                        |
+| TE003      | Too unevenly distributed enum values. One or more of the enum values have considerably fewer examples than the others. Consider restructuring the enum categories. |
+| TE004      | Too few distinct enum values. Need more varied enum examples in order to train on the label.                                                                       |

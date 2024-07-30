@@ -1,0 +1,55 @@
+---
+pagination_next: null
+pagination_prev: null
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Date
+
+### When to use `Date` as a a field's `data type`
+
+<p>
+  Dates are very common to extract. Use `date` when you want to extract dates.
+</p>
+
+### How to annotate dates
+
+When you annotate dates in your training documents, you will want your date input to **mirror** the document's date. **Type what you see.**
+
+<div style={{padding: '0 40px 40px 40px'}}>
+<Tabs>
+  <TabItem value="example-1" label="Example 1" default>
+    <div class="image-backdrop utils-mb-10">
+        <p class="image-backdrop-caption">Annotate date as **` Mar 19th 2024 `**</p>
+        ![Image](/img/glossary/fields/date/example-1.png)
+    </div>
+  </TabItem>
+
+ <TabItem value="example-2" label="Example 2" default>
+    <div class="image-backdrop utils-mb-10">
+        <p class="image-backdrop-caption">Annotate date as **` January 13, 2024 `**</p>
+        ![Image](/img/glossary/fields/date/example-2.png)
+    </div>
+  </TabItem>
+  
+  <TabItem value="example-3" label="Example 3" default>
+    <div class="image-backdrop utils-mb-10">
+        <p class="image-backdrop-caption">Annotate date as **` 03/30/2017 `**</p>
+        ![Image](/img/glossary/fields/date/example-3.png)
+    </div>
+  </TabItem>
+  
+</Tabs>
+</div>
+
+:::info
+If you created your model before 30th April 2024, you must continue entering dates in a DD/MM/YYYY format instead of mirroring what is written in your document.
+:::
+
+### Validating dates
+
+Dates are automatically formatted into ISO-format when parsed.
+
+If a parsed date looks wrong, make sure that the date actually is wrong, and not a corrct date that has been ISO-formatted.

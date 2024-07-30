@@ -1,0 +1,10 @@
+.scroll-progress-bar {
+    position: fixed;
+    top: 4.2rem;
+    left: 0;
+    height: 7px;
+    background-color: #007bff; /* Change color as needed */
+    z-index: 9999;
+    transition: width 0.1s ease-out;
+  }
+  
