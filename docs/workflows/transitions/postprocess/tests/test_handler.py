@@ -5,7 +5,7 @@ import runpy
 import requests_mock
 
 from unittest.mock import patch
-from ..postprocess.utils import to_validated_format, convert_predictions_to_v2
+from postprocess.utils import to_validated_format, convert_predictions_to_v2
 
 
 @pytest.fixture
@@ -55,7 +55,7 @@ def test_handler(get_document, get_asset, update_document, update_transition_exc
         }
     }
 
-    with patch.dict('..postprocess.feedback_and_export.os.environ', env):
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
         runpy.run_module('postprocess', run_name='__main__')
 
 
@@ -72,7 +72,7 @@ def test_webhook(get_document, update_document, update_transition_excs, get_tran
         }
     }
 
-    with patch.dict('..postprocess.feedback_and_export.os.environ', env_with_webhook_uri):
+    with patch.dict('postprocess.feedback_and_export.os.environ', env_with_webhook_uri):
         with requests_mock.Mocker() as m:
             m.post(env_with_webhook_uri['WEBHOOK_URI'])
             runpy.run_module('postprocess', run_name='__main__')
@@ -102,7 +102,7 @@ def test_multiple_webhook_endpoints(
         }
     }
 
-    with patch.dict('..postprocess.feedback_and_export.os.environ', env_with_webhook_endpoints):
+    with patch.dict('postprocess.feedback_and_export.os.environ', env_with_webhook_endpoints):
         with requests_mock.Mocker() as m:
             endpoints = json.loads(env_with_webhook_endpoints['WEBHOOK_ENDPOINTS'])
             for endpoint in endpoints:
@@ -135,7 +135,7 @@ def test_update_ground_truth(get_document, update_document, update_transition_ex
 
     get_document.return_value = {'groundTruth': [{'label': 'baz', 'value': 'foobar'}]}
 
-    with patch.dict('..postprocess.feedback_and_export.os.environ', env):
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
         runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
@@ -190,7 +190,7 @@ def test_update_ground_truth_with_lines(
             [{'label': 'prod', 'value': 'def'}, {'label': 'unit_price', 'value': '20.00'}]]}
     ]}
 
-    with patch.dict('..postprocess.feedback_and_export.os.environ', env):
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
         runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
@@ -276,7 +276,7 @@ def test_update_ground_truth_with_same_lines(
             [{'label': 'description', 'value': 'def'}, {'label': 'total_price', 'value': '20.00'}]]}
     ]}
 
-    with patch.dict('..postprocess.feedback_and_export.os.environ', env):
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
         runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
@@ -335,7 +335,7 @@ def test_update_ground_truth_with_empty_lines(
         {'label': 'baz', 'value': 'foobar'},
     ]}
 
-    with patch.dict('..postprocess.feedback_and_export.os.environ', env):
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
         runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
@@ -420,7 +420,7 @@ def test_post_feedback_v2(
         }
     }
 
-    with patch.dict('..postprocess.feedback_and_export.os.environ', env):
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
         runpy.run_module('postprocess', run_name='__main__')
 
     update_document.assert_called_with(
@@ -491,7 +491,7 @@ def test_validated_predictions(
         }
     }
 
-    with patch.dict('..postprocess.feedback_and_export.os.environ', env):
+    with patch.dict('postprocess.feedback_and_export.os.environ', env):
         runpy.run_module('postprocess', run_name='__main__')
 
     update_transition_excs.assert_called_with(

@@ -1,6 +1,6 @@
 import pytest
 
-from ..postprocess.utils import convert_predictions_to_v2, to_validated_format
+from postprocess.utils import convert_predictions_to_v2, to_validated_format
 
 
 @pytest.fixture
