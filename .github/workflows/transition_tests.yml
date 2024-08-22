@@ -20,7 +20,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r docs/workflows/transitions/preprocess/requirements.txt
           pip install -r docs/workflows/transitions/postprocess/requirements.txt
-          pip install pytest
+          pip install pytest requests-mock~=1.11.0
 
       - name: Check Python code style
         run: |
