@@ -421,30 +421,38 @@ def test_update_ground_truth_with_empty_lines(
 @patch('las.Client.get_model')
 @pytest.mark.parametrize(('validated_predictions', 'gt', 'expected_update'), [
     (
-        {'total_amount':
-             {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': True}
-         },
+        {
+            'total_amount': {
+                'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': True,
+            },
+        },
         [{'label': 'total_amount', 'value': '200.00'}],
         [{'label': 'total_amount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
     ),
     (
-        {'total_amount':
-             {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': False}
-         },
+        {
+            'total_amount': {
+                'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': True, 'isEdited': False,
+            },
+        },
         [{'label': 'total_amount', 'value': '200.00'}],
         [{'label': 'total_amount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
     ),
     (
-        {'total_amount':
-             {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': False, 'isEdited': False}
-         },
+        {
+            'total_amount': {
+                'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': False, 'isEdited': False,
+            },
+        },
         [{'label': 'total_amount', 'value': '200.00'}],
         [{'label': 'total_amount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
     ),
     (
-        {'total_amount':
-             {'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': False, 'isEdited': True}
-         },
+        {
+            'total_amount': {
+                'value': '100.00', 'pages': [0, 1], 'confidence': 1.0, 'automated': False, 'isEdited': True,
+            },
+        },
         [{'label': 'total_amount', 'value': '200.00'}],
         [{'label': 'total_amount', 'value': '100.00', 'pages': [0, 1], 'confidence': 1.0}],
     ),
