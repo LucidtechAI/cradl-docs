@@ -127,13 +127,17 @@ def test_to_validated_format(v2_preds, model):
     assert len(validated['multivalue_field']) == 2
     assert validated['multivalue_field'][0]['value'] == v2_preds['multivalue_field'][0]['value']
     assert validated['multivalue_field'][1]['value'] == v2_preds['multivalue_field'][1]['value']
-    assert validated['line_items'][0]['line_amount']['value'] == v2_preds['line_items'][0]['line_amount'][0]['value']
-    assert validated['line_items'][0]['description']['value'] == v2_preds['line_items'][0]['description'][0]['value']
-    assert len(validated['line_items'][0]['multivalue_col']) == 2
-    assert validated['line_items'][0]['multivalue_col'][0]['value'] == v2_preds['line_items'][0]['multivalue_col'][0]['value']
-    assert validated['line_items'][0]['multivalue_col'][1]['value'] == v2_preds['line_items'][0]['multivalue_col'][1]['value']
-    assert validated['line_items'][1]['line_amount']['value'] == v2_preds['line_items'][1]['line_amount'][0]['value']
-    assert validated['line_items'][1]['description']['value'] == v2_preds['line_items'][1]['description'][0]['value']
-    assert len(validated['line_items'][1]['multivalue_col']) == 2
-    assert validated['line_items'][1]['multivalue_col'][0]['value'] == v2_preds['line_items'][1]['multivalue_col'][0]['value']
-    assert validated['line_items'][1]['multivalue_col'][1]['value'] == v2_preds['line_items'][1]['multivalue_col'][1]['value']
+    line_0_val = validated['line_items'][0]
+    line_0_pred = v2_preds['line_items'][0]
+    assert line_0_val['line_amount']['value'] == line_0_pred['line_amount'][0]['value']
+    assert line_0_val['description']['value'] == line_0_pred['description'][0]['value']
+    assert len(line_0_val['multivalue_col']) == 2
+    assert line_0_val['multivalue_col'][0]['value'] == line_0_pred['multivalue_col'][0]['value']
+    assert line_0_val['multivalue_col'][1]['value'] == line_0_pred['multivalue_col'][1]['value']
+    line_1_val = validated['line_items'][1]
+    line_1_pred = v2_preds['line_items'][1]
+    assert line_1_val['line_amount']['value'] == line_1_pred['line_amount'][0]['value']
+    assert line_1_val['description']['value'] == line_1_pred['description'][0]['value']
+    assert len(line_1_val['multivalue_col']) == 2
+    assert line_1_val['multivalue_col'][0]['value'] == line_1_pred['multivalue_col'][0]['value']
+    assert line_1_val['multivalue_col'][1]['value'] == line_1_pred['multivalue_col'][1]['value']
