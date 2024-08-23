@@ -541,7 +541,7 @@ def test_inactive_model(
     assert output['needsValidation']
 
 
-@pytest.mark.parametrize(('predictions_batch_1','predictions_batch_2', 'expected_predictions'), [
+@pytest.mark.parametrize(('predictions_batch_1', 'predictions_batch_2', 'expected_predictions'), [
     (
         [
             {
