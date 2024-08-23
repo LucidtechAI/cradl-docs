@@ -10,7 +10,7 @@ from ..preprocess.make_predictions import make_predictions
 from ..preprocess.utils import (
     create_form_config_from_model,
     filter_by_top1,
-    merge_lines_from_different_pages,
+    merge_lines_from_different_pages_and_continued_lines,
     patch_empty_predictions,
     get_labels,
     get_column_names,
@@ -541,6 +541,75 @@ def test_inactive_model(
     assert output['needsValidation']
 
 
+@pytest.mark.parametrize(('predictions_batch_1','predictions_batch_2', 'expected_predictions'), [
+    (
+        [
+            {
+                'label': 'line_items', 'value': [
+                    [{'label': 'subtotal', 'value': '50.00', 'confidence': 0.99, 'page': 0}],
+                    [{'label': 'subtotal', 'value': '100.00', 'confidence': 0.99, 'page': 0}],
+                ],
+            },
+        ],
+        [
+            {
+                'label': 'line_items', 'value': [
+                    [{'label': 'subtotal', 'value': '150.00', 'confidence': 0.99, 'page': 1}],
+                    [{'label': 'subtotal', 'value': '200.00', 'confidence': 0.99, 'page': 1}],
+                ],
+            },
+        ],
+        [
+            {
+                'label': 'line_items', 'value': [
+                    [{'label': 'subtotal', 'value': '50.00', 'confidence': 0.99, 'page': 0}],
+                    [{'label': 'subtotal', 'value': '100.00', 'confidence': 0.99, 'page': 0}],
+                    [{'label': 'subtotal', 'value': '150.00', 'confidence': 0.99, 'page': 1}],
+                    [{'label': 'subtotal', 'value': '200.00', 'confidence': 0.99, 'page': 1}],
+                ],
+            },
+        ]
+    ),
+])
+@patch('las.Client.create_prediction')
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.get_asset')
+@patch('las.Client.get_document')
+@patch('las.Client.get_model')
+def test_merge_line_predictions_from_multiple_api_calls(
+    get_model,
+    get_document,
+    get_asset,
+    update_excs,
+    get_excs,
+    create_prediction,
+    form_config,
+    predictions_batch_1,
+    predictions_batch_2,
+    expected_predictions,
+    env,
+    simple_model_field_config,
+):
+    get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_model.return_value = {'metadata': {}, 'fieldConfig': simple_model_field_config}
+    get_document.return_value = MagicMock()
+    get_asset.return_value = {'content': form_config}
+
+    def gen_pred():
+        yield {'predictions': predictions_batch_1, 'nextPage': 1}
+        yield {'predictions': predictions_batch_2}
+
+    predictions = gen_pred()
+    create_prediction.side_effect = lambda *args, **kwargs: next(predictions)
+
+    with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
+        make_predictions()
+
+    output = update_excs.call_args.kwargs['output']
+    assert output['predictions'] == expected_predictions
+
+
 @pytest.fixture
 def predictions_to_collapse():
     return [
@@ -704,8 +773,12 @@ def simple_field_config():
     }
 
 
-def test_merge_lines_from_different_pages(simple_field_config, line_predictions_to_merge, line_predictions_after_merge):
-    predictions = merge_lines_from_different_pages(line_predictions_to_merge, simple_field_config)
+def test_merge_lines_from_different_pages_and_continued_lines(
+    simple_field_config,
+    line_predictions_to_merge,
+    line_predictions_after_merge,
+):
+    predictions = merge_lines_from_different_pages_and_continued_lines(line_predictions_to_merge, simple_field_config)
     assert predictions == line_predictions_after_merge
 
 
