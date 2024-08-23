@@ -10,7 +10,7 @@ from ..preprocess.make_predictions import make_predictions
 from ..preprocess.utils import (
     create_form_config_from_model,
     filter_by_top1,
-    merge_lines_from_different_pages_and_continued_lines,
+    concatenate_lines_from_different_pages_and_merge_continued_lines,
     patch_empty_predictions,
     get_labels,
     get_column_names,
@@ -577,7 +577,7 @@ def test_inactive_model(
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
 @patch('las.Client.get_model')
-def test_merge_line_predictions_from_multiple_api_calls(
+def test_concatenate_line_predictions_from_multiple_api_calls(
     get_model,
     get_document,
     get_asset,
@@ -778,7 +778,10 @@ def test_merge_lines_from_different_pages_and_continued_lines(
     line_predictions_to_merge,
     line_predictions_after_merge,
 ):
-    predictions = merge_lines_from_different_pages_and_continued_lines(line_predictions_to_merge, simple_field_config)
+    predictions = concatenate_lines_from_different_pages_and_merge_continued_lines(
+        predictions=line_predictions_to_merge,
+        field_config=simple_field_config,
+    )
     assert predictions == line_predictions_after_merge
 
 

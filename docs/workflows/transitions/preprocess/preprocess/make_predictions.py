@@ -18,8 +18,8 @@ from .utils import (
     get_labels,
     is_enum,
     is_line,
-    merge_lines_from_different_pages_and_continued_lines,
-    merge_lines_from_different_pages,
+    concatenate_lines_from_different_pages_and_merge_continued_lines,
+    concatenate_lines_from_different_pages,
     merge_predictions_and_gt,
     patch_empty_predictions,
     required_labels,
@@ -119,9 +119,12 @@ def make_predictions(las_client, event):
             top1_preds = filter_by_top1(predictions, labels)
 
             if model_metadata.get('mergeContinuedLines'):
-                predictions = merge_lines_from_different_pages_and_continued_lines(predictions, field_config)
+                predictions = concatenate_lines_from_different_pages_and_merge_continued_lines(
+                    predictions=predictions,
+                    field_config=field_config,
+                )
             else:
-                predictions = merge_lines_from_different_pages(predictions, field_config)
+                predictions = concatenate_lines_from_different_pages(predictions, field_config)
 
             predictions = patch_empty_predictions(predictions, labels, no_empty_prediction_fields)
             predictions = filter_away_low_confidence_lines(predictions, field_config)
