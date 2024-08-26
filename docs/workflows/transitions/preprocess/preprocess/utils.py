@@ -270,7 +270,10 @@ def filter_away_low_confidence_lines(predictions, field_config):
 
                 # column names that are not present in the line counts as 0% confidence
                 line_columns_present = {p['label'] for p in top_1_predictions}
-                top_1_predictions += [{'confidence': 0.0} for _ in column_names[label] - line_columns_present]
+                top_1_predictions += [
+                    {'value': 'dummy', 'confidence': 0.0} for _ in column_names[label] - line_columns_present
+                ]
+                top_1_predictions = [t for t in top_1_predictions if t.get('value')]
                 average_confidence = sum([p['confidence'] for p in top_1_predictions]) / len(top_1_predictions)
                 if average_confidence >= MINIMUM_AVERAGE_LINE_CONFIDENCE:
                     line_predictions.append(line)
