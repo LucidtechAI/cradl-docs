@@ -173,7 +173,24 @@ def merge_predictions_and_gt(predictions, old_ground_truth, field_config):
     return updated_predictions
 
 
-def merge_lines_from_different_pages(predictions, field_config):
+def concatenate_lines_from_different_pages(predictions, field_config):
+    line_labels = [field for field, config in field_config.items() if config['type'] == 'lines']
+
+    if not line_labels:
+        return predictions
+
+    line_predictions = {line_label: [] for line_label in line_labels}
+    for p in predictions:
+        if p['label'] in line_labels:
+            line_predictions[p['label']].extend(p['value'])
+
+    concatenated_predictions = [p for p in predictions if p['label'] not in line_labels]
+    concatenated_predictions += [{'label': k, 'value': v} for k, v in line_predictions.items() if v]
+
+    return concatenated_predictions
+
+
+def concatenate_lines_from_different_pages_and_merge_continued_lines(predictions, field_config):
     line_labels = [field for field, config in field_config.items() if config['type'] == 'lines']
 
     if not line_labels:
