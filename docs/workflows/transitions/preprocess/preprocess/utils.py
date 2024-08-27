@@ -273,10 +273,16 @@ def filter_away_low_confidence_lines(predictions, field_config):
                 top_1_predictions += [
                     {'value': 'dummy', 'confidence': 0.0} for _ in column_names[label] - line_columns_present
                 ]
+
+                # Don't count fields that are empty
                 top_1_predictions = [t for t in top_1_predictions if t.get('value')]
+                if not top_1_predictions: # If no fields are present we can safely skip it
+                    continue
+
                 average_confidence = sum([p['confidence'] for p in top_1_predictions]) / len(top_1_predictions)
                 if average_confidence >= MINIMUM_AVERAGE_LINE_CONFIDENCE:
                     line_predictions.append(line)
+
             line_predictions = line_predictions or [[]]  # still need one empty list if all lines are removed
             prediction['value'] = line_predictions
 
