@@ -873,6 +873,21 @@ def test_filter_away_empty_lines(predictions, filtered_predictions, simple_field
     assert filter_away_low_confidence_lines(predictions, simple_field_config) == filtered_predictions
 
 
+@pytest.mark.parametrize('predictions', [[
+    {'label': 'line_items', 'value': [
+        [
+            {'label': 'unit_price', 'page': 1, 'value': None, 'confidence': 0.9},
+            {'label': 'product_code', 'page': 1, 'value': None, 'confidence': 0.9},
+            {'label': 'total_price', 'page': 1, 'value': None, 'confidence': 0.9},
+            {'label': 'description', 'page': 1, 'value': None, 'confidence': 0.9},
+        ],
+    ]},
+]])
+@pytest.mark.parametrize('filtered_predictions', [[{'label': 'line_items', 'value': [[]]}]])
+def test_filter_away_null_lines(predictions, filtered_predictions, simple_field_config):
+    assert filter_away_low_confidence_lines(predictions, simple_field_config) == filtered_predictions
+
+
 @pytest.mark.parametrize('field_config', [{
     'vat_amount': {'type': 'amount'},
     'invoice_date': {'type': 'date'},

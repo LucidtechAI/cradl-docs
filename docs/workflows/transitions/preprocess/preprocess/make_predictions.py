@@ -83,6 +83,7 @@ def make_predictions(las_client, event):
         while start_page is not None and start_page < model_metadata.get('maxPredictionPages', 100):
             try:
                 preprocess_config['startPage'] = start_page
+                preprocess_config['maxPages'] = 1
                 current_prediction = _create_prediction(
                     las_client=las_client,
                     document_id=document_id,
