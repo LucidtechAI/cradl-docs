@@ -277,7 +277,7 @@ def filter_away_low_confidence_lines(predictions, field_config):
                 # Count missing fields as if they had zero confidence
                 top_1_predictions.extend([{'confidence': 0.0} for _ in column_names[label] - line_columns_present])
 
-                if not top_1_predictions: # If no fields are present we can safely skip it
+                if not top_1_predictions:  # If no fields are present we can safely skip it
                     continue
 
                 average_confidence = sum([p['confidence'] for p in top_1_predictions]) / len(top_1_predictions)
