@@ -64,13 +64,13 @@ def post_feedback_v2(las_client: las.Client, document_id: str, dataset_id: str, 
             lines = []
             for line in value:
                 line_gt = []
-                for row_label, row_values in line.items():
-                    col_config = config.get('fields', {}).get(row_label, {})
-                    if col_config.get('isMultivalue', False):
-                        for row_value in row_values:
-                            line_gt.append(_create_gt_dict(row_label, row_value))
+                for line_label, line_values in line.items():
+                    line_config = config.get('fields', {}).get(line_label, {})
+                    if line_config.get('isMultivalue', False):
+                        for line_value in line_values:
+                            line_gt.append(_create_gt_dict(line_label, line_value))
                     else:
-                        line_gt.append(_create_gt_dict(row_label, row_values))
+                        line_gt.append(_create_gt_dict(line_label, line_values))
                 lines.append(line_gt)
 
             ground_truth.append({'label': label, 'value': lines})

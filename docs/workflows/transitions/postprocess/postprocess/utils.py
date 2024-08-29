@@ -47,10 +47,10 @@ def to_validated_format(predictions_v2, field_config):
     def to_validated(v):
         return {'isEdited': False, 'automated': True, **v}
 
-    def to_top1_or_multivalue(v, multivalue):
-        if multivalue:
+    def to_top1_or_multivalue(v, _is_multivalue):
+        if _is_multivalue:
             return [to_validated(_v) for _v in v]
-        elif len(v):
+        elif v:
             return to_validated(v[0])
         return {}
 
