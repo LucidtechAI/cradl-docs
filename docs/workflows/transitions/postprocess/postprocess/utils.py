@@ -63,7 +63,7 @@ def to_validated_format(predictions_v2, field_config):
 
         if config['type'] == 'lines':
             validated_format[field] = [to_validated_format(line, config.get('fields', {})) for line in val]
-        elif len(val):
+        elif val:
             validated_format[field] = to_top1_or_multivalue(val, is_multivalue)
 
     return validated_format
