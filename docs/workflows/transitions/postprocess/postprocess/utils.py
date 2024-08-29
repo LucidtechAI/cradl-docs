@@ -20,16 +20,20 @@ def parse_webhook_endpoints(s):
     return []
 
 
-def convert_predictions_to_v2(predictions):
+def convert_predictions_to_v2(predictions, field_config):
     if not predictions:
         return {}
 
     result = collections.defaultdict(list)
     for p in predictions:
         label, value = p['label'], p['value']
+        config = field_config.get(label)
+        if not config:
+            logging.info(f'Could not find entry for label {label} in fieldConfig, skipping...')
+            continue
 
-        if isinstance(value, list):
-            result[label] = [convert_predictions_to_v2(line) for line in value]
+        if config['type'] == 'lines':
+            result[label] = [convert_predictions_to_v2(line, config.get('fields', {})) for line in value]
         else:
             result[label] += [{k: p[k] for k in p.keys() - {'label'}}]
             result[label] = sorted(result[label], key=lambda p: -p['confidence'])
@@ -37,11 +41,29 @@ def convert_predictions_to_v2(predictions):
     return result
 
 
-def to_validated_format(predictions_v2):
-    def top1_pred(val):
-        if not all([isinstance(v, list) for v in val[0].values()]):
-            return {'isEdited': False, 'automated': True, **val[0]}
+def to_validated_format(predictions_v2, field_config):
+    validated_format = {}
 
-        return [to_validated_format(line) for line in val]
+    def to_validated(v):
+        return {'isEdited': False, 'automated': True, **v}
 
-    return {field: top1_pred(val) for field, val in predictions_v2.items()}
+    def to_top1_or_multivalue(v, _is_multivalue):
+        if _is_multivalue:
+            return [to_validated(_v) for _v in v]
+        elif v:
+            return to_validated(v[0])
+        return {}
+
+    for field, val in predictions_v2.items():
+        config = field_config.get(field)
+        if not config:
+            logging.info(f'Could not find entry for label {field} in fieldConfig, skipping...')
+            continue
+        is_multivalue = config.get('isMultivalue', False)
+
+        if config['type'] == 'lines':
+            validated_format[field] = [to_validated_format(line, config.get('fields', {})) for line in val]
+        elif val:
+            validated_format[field] = to_top1_or_multivalue(val, is_multivalue)
+
+    return validated_format
