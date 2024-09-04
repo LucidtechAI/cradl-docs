@@ -854,6 +854,12 @@ def test_patch_empty_predictions(predictions, patched_predictions, no_empty_pred
             {'label': 'unit_price', 'page': 2, 'value': '62.05', 'confidence': 0.1},
             {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.1},
         ],
+        [
+            {'label': 'total_price', 'page': 2, 'value': '72.15', 'confidence': 0.45},
+            {'label': 'unit_price', 'page': 2, 'value': '62.05', 'confidence': 0.45},
+            {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.62},
+            {'label': 'description', 'page': 2, 'value': None, 'confidence': 0.62},
+        ],
     ]},
 ]])
 @pytest.mark.parametrize('filtered_predictions', [[
