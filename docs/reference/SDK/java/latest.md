@@ -1843,7 +1843,7 @@ Used to fetch and store credentials.
 
 * `authEndpoint` Auth endpoint 
 
-* `apiEndpoint` Domain endpoint of the api, e.g. [https://&#123;prefix}.api.lucidtech.ai/&#123;version}](https://&#123;prefix}.api.lucidtech.ai/&#123;version})
+* `apiEndpoint` Domain endpoint of the api, e.g. `https://{prefix}.api.lucidtech.ai/{version}`
 
 #### Exceptions
 * `[MissingCredentialsException](#classai_1_1lucidtech_1_1las_1_1sdk_1_1_missing_credentials_exception)` Raised if some of credentials are missing
