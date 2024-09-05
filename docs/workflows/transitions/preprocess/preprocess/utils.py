@@ -1,4 +1,4 @@
-MINIMUM_AVERAGE_LINE_CONFIDENCE = 0.3
+AVERAGE_LINE_CONFIDENCE_THRESHOLD = 0.3
 
 
 def required_labels(field_config):
@@ -255,11 +255,14 @@ def patch_empty_predictions(predictions, labels, no_empty_prediction_fields):
     return patched_predictions
 
 
-def filter_away_low_confidence_lines(predictions, field_config):
+def filter_away_low_confidence_lines(predictions, field_config, filter_lines_config):
     column_names = {
         label: {column_name for column_name in config['fields']}
         for label, config in field_config.items() if config.get('type') == 'lines'
     }
+    confidence_threshold = filter_lines_config.get(
+        'average_line_confidence_threshold', AVERAGE_LINE_CONFIDENCE_THRESHOLD
+    )
 
     for prediction in predictions:
         label = prediction['label']
@@ -268,14 +271,26 @@ def filter_away_low_confidence_lines(predictions, field_config):
             for line in prediction['value']:
                 top_1_predictions = filter_by_top1(line, column_names[label])
 
-                # Count missing fields and fields that have been predicted null as if they have zero confidence
+                # column names that are not present in the line counts as 0% confidence
+                line_columns_present = {p['label'] for p in top_1_predictions}
+
+                # Remove columns that have been predicted null, so they don't affect the average confidence
                 top_1_predictions = [t for t in top_1_predictions if t.get('value')]
+
+                # Count missing fields as if they had zero confidence
+                top_1_predictions.extend([{'confidence': 0.0} for _ in column_names[label] - line_columns_present])
 
                 if not top_1_predictions:  # If no fields are present we can safely skip it
                     continue
 
-                average_confidence = sum([p['confidence'] for p in top_1_predictions]) / len(column_names[label])
-                if average_confidence >= MINIMUM_AVERAGE_LINE_CONFIDENCE:
+                if filter_lines_config.get('include_all_fields', False):
+                    # If include_all_fields is toggled, we count null fields as if they have zero confidence
+                    num_columns = len(column_names[label])
+                else:
+                    num_columns = len(top_1_predictions)
+
+                average_confidence = sum([p['confidence'] for p in top_1_predictions]) / num_columns
+                if average_confidence >= confidence_threshold:
                     line_predictions.append(line)
 
             line_predictions = line_predictions or [[]]  # still need one empty list if all lines are removed

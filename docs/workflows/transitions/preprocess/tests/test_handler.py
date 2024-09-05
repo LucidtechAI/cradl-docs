@@ -1,3 +1,4 @@
+import copy
 import pytest
 import las
 import json
@@ -854,12 +855,6 @@ def test_patch_empty_predictions(predictions, patched_predictions, no_empty_pred
             {'label': 'unit_price', 'page': 2, 'value': '62.05', 'confidence': 0.1},
             {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.1},
         ],
-        [
-            {'label': 'total_price', 'page': 2, 'value': '72.15', 'confidence': 0.45},
-            {'label': 'unit_price', 'page': 2, 'value': '62.05', 'confidence': 0.45},
-            {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.62},
-            {'label': 'description', 'page': 2, 'value': None, 'confidence': 0.62},
-        ],
     ]},
 ]])
 @pytest.mark.parametrize('filtered_predictions', [[
@@ -876,7 +871,7 @@ def test_patch_empty_predictions(predictions, patched_predictions, no_empty_pred
     {'label': 'line_items', 'value': [[]]},
 ]])
 def test_filter_away_empty_lines(predictions, filtered_predictions, simple_field_config):
-    assert filter_away_low_confidence_lines(predictions, simple_field_config) == filtered_predictions
+    assert filter_away_low_confidence_lines(predictions, simple_field_config, {}) == filtered_predictions
 
 
 @pytest.mark.parametrize('predictions', [[
@@ -891,7 +886,30 @@ def test_filter_away_empty_lines(predictions, filtered_predictions, simple_field
 ]])
 @pytest.mark.parametrize('filtered_predictions', [[{'label': 'line_items', 'value': [[]]}]])
 def test_filter_away_null_lines(predictions, filtered_predictions, simple_field_config):
-    assert filter_away_low_confidence_lines(predictions, simple_field_config) == filtered_predictions
+    assert filter_away_low_confidence_lines(predictions, simple_field_config, {}) == filtered_predictions
+
+
+@pytest.mark.parametrize('predictions', [[
+    {'label': 'line_items', 'value': [
+        [
+            {'label': 'total_price', 'page': 2, 'value': '72.15', 'confidence': 0.45},
+            {'label': 'unit_price', 'page': 2, 'value': '62.05', 'confidence': 0.45},
+            {'label': 'product_code', 'page': 2, 'value': None, 'confidence': 0.62},
+            {'label': 'description', 'page': 2, 'value': None, 'confidence': 0.62},
+        ],
+    ]},
+]])
+@pytest.mark.parametrize('filtered_predictions', [[({'label': 'line_items', 'value': [[]]})]])
+@pytest.mark.parametrize('filter_config', [{'include_all_fields': True}, {'include_all_fields': False}])
+def test_filter_lines_count_null(predictions, filtered_predictions, simple_field_config, filter_config):
+    predictions_to_filter = copy.deepcopy(predictions)
+    filtered_lines = filter_away_low_confidence_lines(predictions_to_filter, simple_field_config, filter_config)
+    if filter_config['include_all_fields']:
+        assert filtered_lines == filtered_predictions
+        assert filtered_lines != predictions
+    else:
+        assert filtered_lines == predictions
+        assert filtered_lines != filtered_predictions
 
 
 @pytest.mark.parametrize('field_config', [{

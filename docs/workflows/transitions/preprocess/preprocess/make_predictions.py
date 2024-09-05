@@ -128,7 +128,8 @@ def make_predictions(las_client, event):
                 predictions = concatenate_lines_from_different_pages(predictions, field_config)
 
             predictions = patch_empty_predictions(predictions, labels, no_empty_prediction_fields)
-            predictions = filter_away_low_confidence_lines(predictions, field_config)
+            filter_lines_config = model_metadata.get('Cradl:filterLowLinesConfig', {})
+            predictions = filter_away_low_confidence_lines(predictions, field_config, filter_lines_config)
 
             logging.info(f'patched and filtered predictions {predictions}')
 
