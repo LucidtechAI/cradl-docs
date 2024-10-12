@@ -8,7 +8,6 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import partial
 
 import las
-import requests
 from backoff import constant, on_exception
 from pypdf import PdfReader
 
