@@ -1,3 +1,4 @@
-lucidtech-las~=11.2
+backoff==2.2.1
 flake8~=7.0.0
-backoff
+lucidtech-las~=11.2
+pypdf==5.0.1

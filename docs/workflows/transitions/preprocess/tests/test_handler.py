@@ -1,7 +1,8 @@
-import pytest
-import las
-import json
 import base64
+import json
+import las
+import pathlib
+import pytest
 import runpy
 
 from unittest.mock import patch, MagicMock
@@ -16,6 +17,12 @@ from ..preprocess.utils import (
     get_column_names,
     filter_away_low_confidence_lines,
 )
+
+
+@pytest.fixture
+def pdf():
+    pdf_path = pathlib.Path(__file__).parent / 'test.pdf'
+    return pdf_path.read_bytes()
 
 
 @pytest.fixture
@@ -92,6 +99,36 @@ def test_run_module(get_model, get_document, get_asset, update_excs, get_excs, c
     get_document.return_value = MagicMock()
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'next_page': None}
+
+    with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
+        runpy.run_module('preprocess.preprocess', run_name='__main__')
+
+
+@patch('las.Client.create_prediction')
+@patch('las.Client.get_transition_execution')
+@patch('las.Client.update_transition_execution')
+@patch('las.Client.get_asset')
+@patch('las.Client.get_document')
+@patch('las.Client.get_model')
+@patch('requests.get')
+def test_run_module_pdf(
+    requests_get,
+    get_model,
+    get_document,
+    get_asset,
+    update_excs,
+    get_excs,
+    create_pred,
+    form_config,
+    env,
+    pdf,
+):
+    get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
+    get_model.return_value = {'metadata': {}}
+    get_document.return_value = {'fileUrl': 'test'}
+    get_asset.return_value = {'content': form_config}
+    create_pred.return_value = {'predictions': []}
+    requests_get.return_value.content = pdf
 
     with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
         runpy.run_module('preprocess.preprocess', run_name='__main__')
