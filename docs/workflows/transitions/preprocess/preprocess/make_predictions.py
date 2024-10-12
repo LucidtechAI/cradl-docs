@@ -53,8 +53,7 @@ def _create_prediction(las_client, document_id, model_id, preprocess_config):
 
 def get_num_pages(las_client, document_id):
     document = las_client.get_document(document_id)
-    document_content = io.BytesIO(requests.get(document['fileUrl']).content)
-    pdf = PdfReader(document_content)
+    pdf = PdfReader(io.BytesIO(base64.b64decode(document['content'])))
     return min(len(pdf.pages), 100)
 
 

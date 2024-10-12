@@ -21,7 +21,7 @@ from ..preprocess.utils import (
 
 @pytest.fixture
 def pdf():
-    pdf_path = pathlib.Path(__file__).parent / 'test.pdf'
+    pdf_path = pathlib.Path(__file__).parent / 'test2.pdf'
     return pdf_path.read_bytes()
 
 
@@ -125,10 +125,9 @@ def test_run_module_pdf(
 ):
     get_excs.return_value = {'input': {'documentId': 'las:document:xyz'}}
     get_model.return_value = {'metadata': {}}
-    get_document.return_value = {'fileUrl': 'test'}
+    get_document.return_value = {'content': base64.b64encode(pdf).decode()}
     get_asset.return_value = {'content': form_config}
     create_pred.return_value = {'predictions': []}
-    requests_get.return_value.content = pdf
 
     with patch.dict('preprocess.preprocess.make_predictions.os.environ', env):
         runpy.run_module('preprocess.preprocess', run_name='__main__')
