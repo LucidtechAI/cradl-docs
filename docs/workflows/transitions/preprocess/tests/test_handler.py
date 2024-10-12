@@ -110,9 +110,7 @@ def test_run_module(get_model, get_document, get_asset, update_excs, get_excs, c
 @patch('las.Client.get_asset')
 @patch('las.Client.get_document')
 @patch('las.Client.get_model')
-@patch('requests.get')
 def test_run_module_pdf(
-    requests_get,
     get_model,
     get_document,
     get_asset,
