@@ -131,7 +131,6 @@ def test_run_module_pdf(
         runpy.run_module('preprocess.preprocess', run_name='__main__')
 
 
-
 @pytest.mark.parametrize('predictions', [[
     {'label': 'total_amount', 'value': '1', 'confidence': 0.99},
     {'label': 'due_date', 'value': '1', 'confidence': 0.80},
