@@ -21,7 +21,7 @@ from ..preprocess.utils import (
 
 @pytest.fixture
 def pdf():
-    pdf_path = pathlib.Path(__file__).parent / 'test2.pdf'
+    pdf_path = pathlib.Path(__file__).parent / 'test.pdf'
     return pdf_path.read_bytes()
 
 
