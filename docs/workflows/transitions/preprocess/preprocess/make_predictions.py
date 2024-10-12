@@ -120,7 +120,9 @@ def make_predictions(las_client, event):
                         fields_with_empty_prediction = set(
                             prediction['label'] for prediction in current_prediction if prediction['value'] is None
                         )
-                        no_empty_prediction_fields = no_empty_prediction_fields.union(labels - fields_with_empty_prediction)
+                        no_empty_prediction_fields = no_empty_prediction_fields.union(
+                            labels - fields_with_empty_prediction
+                        )
                         results[start_page] = current_prediction
                     except Exception as e:
                         logging.exception(e)
@@ -141,7 +143,9 @@ def make_predictions(las_client, event):
                     fields_with_empty_prediction = set(
                         prediction['label'] for prediction in current_prediction if prediction['value'] is None
                     )
-                    no_empty_prediction_fields = no_empty_prediction_fields.union(labels - fields_with_empty_prediction)
+                    no_empty_prediction_fields = no_empty_prediction_fields.union(
+                        labels - fields_with_empty_prediction
+                    )
 
                     predictions.extend(current_prediction)
                     logging.info(f'new start_page {start_page}')
