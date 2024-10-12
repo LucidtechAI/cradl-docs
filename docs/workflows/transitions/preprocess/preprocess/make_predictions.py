@@ -1,4 +1,5 @@
 import base64
+import copy
 import io
 import json
 import logging
@@ -108,8 +109,9 @@ def make_predictions(las_client, event):
             with ThreadPoolExecutor(max_workers=max_workers) as executor:
                 futures = {}
                 for start_page in range(num_pages):
-                    preprocess_config['startPage'] = start_page
-                    futures[executor.submit(prediction_fn, preprocess_config=preprocess_config)] = start_page
+                    config = copy.deepcopy(preprocess_config)
+                    config['startPage'] = start_page
+                    futures[executor.submit(prediction_fn, preprocess_config=config)] = start_page
                 results = {}
                 for future in as_completed(futures):
                     try:
