@@ -32,7 +32,6 @@ COMMON_ENV = [
     '_AWS_XRAY_DAEMON_PORT',
     '_HANDLER',
     '_X_AMZN_TRACE_ID',
-    # These seems to be present when warmstarting, but no need to wipe them I guess?
     'AWS_LAMBDA_FUNCTION_VERSION',
     'AWS_SESSION_TOKEN',
 ]
@@ -40,7 +39,7 @@ COMMON_ENV = [
 
 def main(lambda_event, _):
     print('Environment variables start')
-    for key in list(os.environ):
+    for key in os.environ:
         if key not in COMMON_ENV:
             os.environ.pop(key)
             print(f'Remove {key} from env')
