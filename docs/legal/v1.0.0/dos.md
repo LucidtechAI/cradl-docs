@@ -8,7 +8,7 @@ All predictions made by the machine learning models shall be considered as sugge
 
 The following diagram illustrates the flow of document data when using the Service:
 
-![Data Flow](../../static/img/description-of-services.png)
+![Data Flow](/img/description-of-services.png)
 
 **Description of the processing:**
 
