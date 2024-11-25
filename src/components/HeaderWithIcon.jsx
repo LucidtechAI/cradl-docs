@@ -1,6 +1,6 @@
 import React from "react";
 
-const HeaderWithIcon = ({ children, icon }) => {
+const HeaderWithIcon = ({ icon, copy }) => {
   return (
     <h1>
       {/* {icon && ( */}
@@ -8,13 +8,13 @@ const HeaderWithIcon = ({ children, icon }) => {
         src={icon}
         alt=""
         style={{
-          display: "inline-block",
+          display: "inline",
           marginRight: "8px",
           verticalAlign: "middle",
         }}
       />
       {/* )} */}
-      {children}
+      <span>{copy}</span>
     </h1>
   );
 };
