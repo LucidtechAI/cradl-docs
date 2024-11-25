@@ -1,19 +1,52 @@
 ---
-title: Webhook
+title: "Webhook"
 pagination_next: null
 pagination_prev: null
 ---
 
-# Integrating with Webhooks
+# Webhook Integration
 
 Cradl AI supports webhooks, allowing you to automatically receive extracted
 data in JSON format.
 
-<div class="utils-spacerBottom-md"></div>
+<div className="utils-spacerBottom-md"></div>
+
+## Connecting to a webhook endpoint
+
+:::info
+
+You need a Cradl AI Model to follow these steps. [How to create an AI Model.](/aiStudio/new-model)
+:::
+It only takes a few clicks to connect to a webhook from Cradl AI.
+
+Select `Webhook` from the list of Export options:
+
+<div className="image-backdrop">
+  <div className="image-backdrop-caption text-sm"></div>
+  ![Screenshot of the list of export destinations inside the Cradl AI
+  application](../../static/img/integrations/webhook/webhook-trigger.webp)
+</div>
+
+Paste your webhook endpoint into the Endpoint URI, and save. You're now connected to your endpoint.
+
+<div className="image-backdrop">
+  <div className="image-backdrop-caption text-sm"></div>
+  ![Screenshot of the list of the URI input field inside the Cradl AI
+  application](../../static/img/integrations/webhook/webhook-uri-input.webp)
+</div>
+
+To quickly test your connection, go to [Webhook.site](https://webhook.site) and paste your unique, auto-generated endpoint into your webhook URI field. Upload a document in Cradl AI, validate it, and then inspect the JSON payload directly on Webhook.site.
+
+<div className="image-backdrop">
+  <div className="image-backdrop-caption text-sm"></div>
+  ![Image](../../static/img/integrations/webhook/webook-test-response.webp)
+</div>
+
+<div className="utils-spacerBottom-md"></div>
 
 ## Request and JSON payload
 
-Cradl AI' sends a `POST request` to your specified webhook endpoint whenever a document is validated in Cradl AI. The request includes a JSON payload containing the extracted values and various metadata.
+Cradl AI sends a `POST request` to your specified webhook endpoint whenever a document is validated in Cradl AI. The request includes a JSON payload containing the extracted values and various metadata.
 
 JSON payload of an invoice example:
 
@@ -95,36 +128,3 @@ JSON payload of an invoice example:
     ...,
 }
 ```
-
-<div class="utils-spacerBottom-md"></div>
-
-## How to Use
-
-:::info
-
-- You need a CRADL AI Model to follow these steps. [How to create an AI Model.](/aiStudio/new-model)
-  :::
-  It only takes a few clicks to connect to a Webhook from Cradl AI.
-
-  Select Webhook from the list of Export options.
-
-<div class="image-backdrop">
-  <div class="image-backdrop-caption text-sm"></div>
-  ![Screenshot of the list of export destinations inside the Cradl AI
-  application](../../static/img/integrations/webhook/webhook-trigger.webp)
-</div>
-
-Paste your webhook endpoint into the endpoint URI, and save. You're now connected to your endpoint.
-
-<div class="image-backdrop">
-  <div class="image-backdrop-caption text-sm"></div>
-  ![Screenshot of the list of the URI input field inside the Cradl AI
-  application](../../static/img/integrations/webhook/webhook-uri-input.webp)
-</div>
-
-To quickly test your connection, go to [Webhook.site](https://webhook.site) and paste your unique auto-generated endpoint into your Webhook URI. Upload a document in Cradl AI, validate it, and then inspect the JSON payload directly on Webhook.site.
-
-<div class="image-backdrop">
-  <div class="image-backdrop-caption text-sm"></div>
-  ![Image](../../static/img/integrations/webhook/webook-test-response.webp)
-</div>
