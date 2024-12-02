@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Lucidtech API",
-    "version": "2024-02-02T13:36:49Z"
+    "version": "2024-11-29T08:05:46Z"
   },
   "servers": [
     {
@@ -10381,6 +10381,212 @@
         ]
       }
     },
+    "/predictions/{predictionId}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "predictionId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prediction"
+                }
+              }
+            },
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "400 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "403 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "404 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "415 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "500 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "api.lucidtech.ai/predictions:read"
+            ]
+          }
+        ]
+      },
+      "options": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "predictionId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Empty"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Empty"
+                }
+              }
+            },
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Methods": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/profiles/{profileId}": {
       "get": {
         "parameters": [
@@ -16711,14 +16917,14 @@
                 "type": "integer"
               },
               "pages": {
-                "maxItems": 3,
+                "maxItems": 100,
                 "type": "array",
                 "items": {
                   "type": "integer"
                 }
               },
               "maxPages": {
-                "maximum": 3,
+                "maximum": 100,
                 "minimum": 1,
                 "type": "integer"
               },
@@ -16795,7 +17001,7 @@
                     "type": "object",
                     "properties": {
                       "n": {
-                        "maximum": 3,
+                        "maximum": 100,
                         "minimum": 1,
                         "type": "integer"
                       },
@@ -16842,7 +17048,7 @@
                       "maxLength": {
                         "type": "integer",
                         "minimum": 1,
-                        "maximum": 512
+                        "maximum": 1024
                       },
                       "enum": {
                         "maxItems": 500,
@@ -16866,6 +17072,23 @@
                             "type": "null"
                           }
                         ]
+                      },
+                      "isMultivalue": {
+                        "type": "boolean"
+                      },
+                      "format": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 4096
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "strict": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -16902,7 +17125,7 @@
                               "maxLength": {
                                 "type": "integer",
                                 "minimum": 1,
-                                "maximum": 512
+                                "maximum": 1024
                               },
                               "enum": {
                                 "maxItems": 500,
@@ -16926,6 +17149,23 @@
                                     "type": "null"
                                   }
                                 ]
+                              },
+                              "isMultivalue": {
+                                "type": "boolean"
+                              },
+                              "format": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "maxLength": 4096
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "strict": {
+                                "type": "boolean"
                               }
                             },
                             "required": [
@@ -17063,6 +17303,19 @@
                   "type": "string",
                   "nullable": true
                 },
+                "assets": {
+                  "type": "object",
+                  "properties": {
+                    "jsRemoteComponent": {
+                      "pattern": "^las:asset:[a-f0-9]{32}$",
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": {
+                    "pattern": "^las:asset:[a-f0-9]{32}$",
+                    "type": "string"
+                  }
+                },
                 "updatedBy": {
                   "maxLength": 4096,
                   "type": "string",
@@ -17080,41 +17333,17 @@
                     }
                   ]
                 },
-                "description": {
-                  "maxLength": 4096,
-                  "type": "string",
-                  "nullable": true
-                },
-                "inputJsonSchema": {
-                  "type": "object"
-                },
-                "timeoutInSeconds": {
-                  "maximum": 3600,
-                  "minimum": 60,
-                  "type": "integer"
-                },
-                "outputJsonSchema": {
-                  "type": "object"
-                },
-                "assets": {
-                  "type": "object",
-                  "properties": {
-                    "jsRemoteComponent": {
-                      "pattern": "^las:asset:[a-f0-9]{32}$",
-                      "type": "string"
-                    }
-                  },
-                  "additionalProperties": {
-                    "pattern": "^las:asset:[a-f0-9]{32}$",
-                    "type": "string"
-                  }
-                },
                 "createdBy": {
                   "maxLength": 4096,
                   "type": "string",
                   "nullable": true
                 },
                 "name": {
+                  "maxLength": 4096,
+                  "type": "string",
+                  "nullable": true
+                },
+                "description": {
                   "maxLength": 4096,
                   "type": "string",
                   "nullable": true
@@ -17128,11 +17357,17 @@
                   "type": "string",
                   "enum": [
                     "docker",
-                    "manual"
+                    "manual",
+                    "lambda"
                   ]
                 },
                 "parameters": {
                   "type": "object"
+                },
+                "timeoutInSeconds": {
+                  "maximum": 10800,
+                  "minimum": 60,
+                  "type": "integer"
                 }
               },
               "additionalProperties": false
@@ -17144,7 +17379,8 @@
               "type": "string",
               "enum": [
                 "docker",
-                "manual"
+                "manual",
+                "lambda"
               ]
             }
           }
@@ -17297,6 +17533,11 @@
                     "type": "integer"
                   }
                 },
+                "confidence": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
                 "label": {
                   "maxLength": 36,
                   "minLength": 1,
@@ -17306,7 +17547,7 @@
                 "value": {
                   "anyOf": [
                     {
-                      "maxLength": 512,
+                      "maxLength": 1024,
                       "minLength": 0,
                       "type": "string",
                       "nullable": true
@@ -17367,7 +17608,8 @@
               "application/pdf",
               "image/jpeg",
               "image/png",
-              "image/tiff"
+              "image/tiff",
+              "image/webp"
             ],
             "nullable": true
           }
@@ -17395,6 +17637,11 @@
                     "type": "integer"
                   }
                 },
+                "confidence": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
                 "label": {
                   "maxLength": 36,
                   "minLength": 1,
@@ -17404,7 +17651,7 @@
                 "value": {
                   "anyOf": [
                     {
-                      "maxLength": 512,
+                      "maxLength": 1024,
                       "minLength": 0,
                       "type": "string",
                       "nullable": true
@@ -17725,7 +17972,7 @@
                 "type": "object",
                 "properties": {
                   "trainingId": {
-                    "pattern": "^las:model-training:[a-f0-9]{32}$",
+                    "pattern": "^las:model-training:[a-z0-9-_]+$",
                     "type": "string"
                   }
                 },
@@ -17739,7 +17986,7 @@
             ]
           },
           "trainingId": {
-            "pattern": "^las:model-training:[a-f0-9]{32}$",
+            "pattern": "^las:model-training:[a-z0-9-_]+$",
             "type": "string"
           },
           "modelId": {
@@ -17789,10 +18036,15 @@
             "type": "string",
             "nullable": true
           },
+          "statistics": {
+            "type": "object",
+            "nullable": true
+          },
           "status": {
             "type": "string",
             "enum": [
               "waiting-for-approval",
+              "preparing",
               "pending",
               "running",
               "running-final-evaluation",
@@ -18485,7 +18737,7 @@
             "type": "object",
             "properties": {
               "trainingId": {
-                "pattern": "^las:model-training:[a-f0-9]{32}$",
+                "pattern": "^las:model-training:[a-z0-9-_]+$",
                 "type": "string"
               }
             },
@@ -18525,62 +18777,14 @@
         "title": "prediction",
         "required": [
           "documentId",
-          "inferenceTime",
           "modelId",
           "predictionId",
           "predictions"
         ],
         "type": "object",
         "properties": {
-          "preprocessConfig": {
-            "minProperties": 1,
-            "type": "object",
-            "properties": {
-              "startPage": {
-                "type": "integer"
-              },
-              "pages": {
-                "maxItems": 3,
-                "type": "array",
-                "items": {
-                  "type": "integer"
-                }
-              },
-              "maxPages": {
-                "maximum": 3,
-                "minimum": 1,
-                "type": "integer"
-              },
-              "rotation": {
-                "type": "integer",
-                "enum": [
-                  0,
-                  90,
-                  180,
-                  270
-                ]
-              },
-              "autoRotate": {
-                "type": "boolean"
-              },
-              "imageQuality": {
-                "type": "string",
-                "enum": [
-                  "LOW",
-                  "HIGH"
-                ]
-              }
-            },
-            "additionalProperties": false,
-            "nullable": true
-          },
           "trainingId": {
-            "pattern": "^las:model-training:[a-f0-9]{32}$",
-            "type": "string",
-            "nullable": true
-          },
-          "createdBy": {
-            "maxLength": 4096,
+            "pattern": "^las:model-training:[a-z0-9-_]+$",
             "type": "string",
             "nullable": true
           },
@@ -18643,7 +18847,7 @@
                     "type": "object",
                     "properties": {
                       "n": {
-                        "maximum": 3,
+                        "maximum": 100,
                         "minimum": 1,
                         "type": "integer"
                       },
@@ -18658,22 +18862,15 @@
             ],
             "nullable": true
           },
-          "createdTime": {
-            "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
-            "type": "string",
-            "nullable": true
-          },
           "inferenceTime": {
             "minimum": 0,
-            "type": "number"
+            "type": "number",
+            "nullable": true
           },
-          "documentId": {
-            "pattern": "^las:document:[a-f0-9]{32}$",
-            "type": "string"
-          },
-          "predictionId": {
-            "pattern": "^las:prediction:[a-f0-9]{32}$",
-            "type": "string"
+          "error": {
+            "maxLength": 4096,
+            "type": "string",
+            "nullable": true
           },
           "predictions": {
             "anyOf": [
@@ -18689,6 +18886,12 @@
                       ],
                       "type": "object",
                       "properties": {
+                        "rawValue": {
+                          "maxLength": 1024,
+                          "minLength": 1,
+                          "type": "string",
+                          "nullable": true
+                        },
                         "confidence": {
                           "maximum": 1,
                           "minimum": 0,
@@ -18713,8 +18916,15 @@
                         "page": {
                           "type": "integer"
                         },
+                        "source": {
+                          "type": "string",
+                          "enum": [
+                            "llm",
+                            "model"
+                          ]
+                        },
                         "value": {
-                          "maxLength": 512,
+                          "maxLength": 1024,
                           "minLength": 1,
                           "type": "string",
                           "nullable": true
@@ -18751,6 +18961,12 @@
                               ],
                               "type": "object",
                               "properties": {
+                                "rawValue": {
+                                  "maxLength": 1024,
+                                  "minLength": 1,
+                                  "type": "string",
+                                  "nullable": true
+                                },
                                 "confidence": {
                                   "maximum": 1,
                                   "minimum": 0,
@@ -18775,8 +18991,15 @@
                                 "page": {
                                   "type": "integer"
                                 },
+                                "source": {
+                                  "type": "string",
+                                  "enum": [
+                                    "llm",
+                                    "model"
+                                  ]
+                                },
                                 "value": {
-                                  "maxLength": 512,
+                                  "maxLength": 1024,
                                   "minLength": 1,
                                   "type": "string",
                                   "nullable": true
@@ -18790,12 +19013,82 @@
                       "additionalProperties": false
                     }
                   ]
-                }
+                },
+                "nullable": true
               },
               {
                 "type": "object",
-                "additionalProperties": false
+                "additionalProperties": false,
+                "nullable": true
               }
+            ]
+          },
+          "preprocessConfig": {
+            "minProperties": 1,
+            "type": "object",
+            "properties": {
+              "startPage": {
+                "type": "integer"
+              },
+              "pages": {
+                "maxItems": 100,
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "maxPages": {
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "rotation": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  90,
+                  180,
+                  270
+                ]
+              },
+              "autoRotate": {
+                "type": "boolean"
+              },
+              "imageQuality": {
+                "type": "string",
+                "enum": [
+                  "LOW",
+                  "HIGH"
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 4096,
+            "type": "string",
+            "nullable": true
+          },
+          "createdTime": {
+            "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
+            "type": "string",
+            "nullable": true
+          },
+          "documentId": {
+            "pattern": "^las:document:[a-f0-9]{32}$",
+            "type": "string"
+          },
+          "predictionId": {
+            "pattern": "^las:prediction:[a-f0-9]{32}$",
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "succeeded",
+              "failed"
             ]
           }
         },
@@ -19335,6 +19628,11 @@
                           "type": "integer"
                         }
                       },
+                      "confidence": {
+                        "maximum": 1,
+                        "minimum": 0,
+                        "type": "number"
+                      },
                       "label": {
                         "maxLength": 36,
                         "minLength": 1,
@@ -19344,7 +19642,7 @@
                       "value": {
                         "anyOf": [
                           {
-                            "maxLength": 512,
+                            "maxLength": 1024,
                             "minLength": 0,
                             "type": "string",
                             "nullable": true
@@ -19405,7 +19703,8 @@
                     "application/pdf",
                     "image/jpeg",
                     "image/png",
-                    "image/tiff"
+                    "image/tiff",
+                    "image/webp"
                   ],
                   "nullable": true
                 }
@@ -19469,62 +19768,14 @@
             "items": {
               "required": [
                 "documentId",
-                "inferenceTime",
                 "modelId",
                 "predictionId",
                 "predictions"
               ],
               "type": "object",
               "properties": {
-                "preprocessConfig": {
-                  "minProperties": 1,
-                  "type": "object",
-                  "properties": {
-                    "startPage": {
-                      "type": "integer"
-                    },
-                    "pages": {
-                      "maxItems": 3,
-                      "type": "array",
-                      "items": {
-                        "type": "integer"
-                      }
-                    },
-                    "maxPages": {
-                      "maximum": 3,
-                      "minimum": 1,
-                      "type": "integer"
-                    },
-                    "rotation": {
-                      "type": "integer",
-                      "enum": [
-                        0,
-                        90,
-                        180,
-                        270
-                      ]
-                    },
-                    "autoRotate": {
-                      "type": "boolean"
-                    },
-                    "imageQuality": {
-                      "type": "string",
-                      "enum": [
-                        "LOW",
-                        "HIGH"
-                      ]
-                    }
-                  },
-                  "additionalProperties": false,
-                  "nullable": true
-                },
                 "trainingId": {
-                  "pattern": "^las:model-training:[a-f0-9]{32}$",
-                  "type": "string",
-                  "nullable": true
-                },
-                "createdBy": {
-                  "maxLength": 4096,
+                  "pattern": "^las:model-training:[a-z0-9-_]+$",
                   "type": "string",
                   "nullable": true
                 },
@@ -19587,7 +19838,7 @@
                           "type": "object",
                           "properties": {
                             "n": {
-                              "maximum": 3,
+                              "maximum": 100,
                               "minimum": 1,
                               "type": "integer"
                             },
@@ -19602,22 +19853,15 @@
                   ],
                   "nullable": true
                 },
-                "createdTime": {
-                  "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
-                  "type": "string",
-                  "nullable": true
-                },
                 "inferenceTime": {
                   "minimum": 0,
-                  "type": "number"
+                  "type": "number",
+                  "nullable": true
                 },
-                "documentId": {
-                  "pattern": "^las:document:[a-f0-9]{32}$",
-                  "type": "string"
-                },
-                "predictionId": {
-                  "pattern": "^las:prediction:[a-f0-9]{32}$",
-                  "type": "string"
+                "error": {
+                  "maxLength": 4096,
+                  "type": "string",
+                  "nullable": true
                 },
                 "predictions": {
                   "anyOf": [
@@ -19633,6 +19877,12 @@
                             ],
                             "type": "object",
                             "properties": {
+                              "rawValue": {
+                                "maxLength": 1024,
+                                "minLength": 1,
+                                "type": "string",
+                                "nullable": true
+                              },
                               "confidence": {
                                 "maximum": 1,
                                 "minimum": 0,
@@ -19657,8 +19907,15 @@
                               "page": {
                                 "type": "integer"
                               },
+                              "source": {
+                                "type": "string",
+                                "enum": [
+                                  "llm",
+                                  "model"
+                                ]
+                              },
                               "value": {
-                                "maxLength": 512,
+                                "maxLength": 1024,
                                 "minLength": 1,
                                 "type": "string",
                                 "nullable": true
@@ -19695,6 +19952,12 @@
                                     ],
                                     "type": "object",
                                     "properties": {
+                                      "rawValue": {
+                                        "maxLength": 1024,
+                                        "minLength": 1,
+                                        "type": "string",
+                                        "nullable": true
+                                      },
                                       "confidence": {
                                         "maximum": 1,
                                         "minimum": 0,
@@ -19719,8 +19982,15 @@
                                       "page": {
                                         "type": "integer"
                                       },
+                                      "source": {
+                                        "type": "string",
+                                        "enum": [
+                                          "llm",
+                                          "model"
+                                        ]
+                                      },
                                       "value": {
-                                        "maxLength": 512,
+                                        "maxLength": 1024,
                                         "minLength": 1,
                                         "type": "string",
                                         "nullable": true
@@ -19734,12 +20004,82 @@
                             "additionalProperties": false
                           }
                         ]
-                      }
+                      },
+                      "nullable": true
                     },
                     {
                       "type": "object",
-                      "additionalProperties": false
+                      "additionalProperties": false,
+                      "nullable": true
                     }
+                  ]
+                },
+                "preprocessConfig": {
+                  "minProperties": 1,
+                  "type": "object",
+                  "properties": {
+                    "startPage": {
+                      "type": "integer"
+                    },
+                    "pages": {
+                      "maxItems": 100,
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "maxPages": {
+                      "maximum": 100,
+                      "minimum": 1,
+                      "type": "integer"
+                    },
+                    "rotation": {
+                      "type": "integer",
+                      "enum": [
+                        0,
+                        90,
+                        180,
+                        270
+                      ]
+                    },
+                    "autoRotate": {
+                      "type": "boolean"
+                    },
+                    "imageQuality": {
+                      "type": "string",
+                      "enum": [
+                        "LOW",
+                        "HIGH"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "nullable": true
+                },
+                "createdBy": {
+                  "maxLength": 4096,
+                  "type": "string",
+                  "nullable": true
+                },
+                "createdTime": {
+                  "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
+                  "type": "string",
+                  "nullable": true
+                },
+                "documentId": {
+                  "pattern": "^las:document:[a-f0-9]{32}$",
+                  "type": "string"
+                },
+                "predictionId": {
+                  "pattern": "^las:prediction:[a-f0-9]{32}$",
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "pending",
+                    "succeeded",
+                    "failed"
                   ]
                 }
               },
@@ -20063,7 +20403,7 @@
                   "nullable": true
                 },
                 "trainingId": {
-                  "pattern": "^las:model-training:[a-f0-9]{32}$",
+                  "pattern": "^las:model-training:[a-z0-9-_]+$",
                   "type": "string",
                   "nullable": true
                 },
@@ -20122,7 +20462,7 @@
                           "type": "object",
                           "properties": {
                             "n": {
-                              "maximum": 3,
+                              "maximum": 100,
                               "minimum": 1,
                               "type": "integer"
                             },
@@ -20164,7 +20504,7 @@
                             "maxLength": {
                               "type": "integer",
                               "minimum": 1,
-                              "maximum": 512
+                              "maximum": 1024
                             },
                             "enum": {
                               "maxItems": 500,
@@ -20188,6 +20528,23 @@
                                   "type": "null"
                                 }
                               ]
+                            },
+                            "isMultivalue": {
+                              "type": "boolean"
+                            },
+                            "format": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "maxLength": 4096
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "strict": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -20224,7 +20581,7 @@
                                     "maxLength": {
                                       "type": "integer",
                                       "minimum": 1,
-                                      "maximum": 512
+                                      "maximum": 1024
                                     },
                                     "enum": {
                                       "maxItems": 500,
@@ -20248,6 +20605,23 @@
                                           "type": "null"
                                         }
                                       ]
+                                    },
+                                    "isMultivalue": {
+                                      "type": "boolean"
+                                    },
+                                    "format": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string",
+                                          "maxLength": 4096
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "strict": {
+                                      "type": "boolean"
                                     }
                                   },
                                   "required": [
@@ -20267,6 +20641,10 @@
                   },
                   "nullable": true
                 },
+                "version": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
                 "organizationId": {
                   "pattern": "^las:organization:[a-z0-9-_]+$",
                   "type": "string"
@@ -20279,14 +20657,14 @@
                       "type": "integer"
                     },
                     "pages": {
-                      "maxItems": 3,
+                      "maxItems": 100,
                       "type": "array",
                       "items": {
                         "type": "integer"
                       }
                     },
                     "maxPages": {
-                      "maximum": 3,
+                      "maximum": 100,
                       "minimum": 1,
                       "type": "integer"
                     },
@@ -20521,35 +20899,6 @@
         "minProperties": 1,
         "type": "object",
         "properties": {
-          "environmentSecrets": {
-            "type": "array",
-            "items": {
-              "pattern": "^las:secret:[a-f0-9]{32}$",
-              "type": "string"
-            }
-          },
-          "environment": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          },
-          "assets": {
-            "type": "object",
-            "properties": {
-              "jsRemoteComponent": {
-                "pattern": "^las:asset:[a-f0-9]{32}$",
-                "type": "string"
-              }
-            },
-            "additionalProperties": {
-              "pattern": "^las:asset:[a-f0-9]{32}$",
-              "type": "string"
-            }
-          },
-          "outputJsonSchema": {
-            "type": "object"
-          },
           "name": {
             "maxLength": 4096,
             "type": "string",
@@ -20559,9 +20908,6 @@
             "maxLength": 4096,
             "type": "string",
             "nullable": true
-          },
-          "inputJsonSchema": {
-            "type": "object"
           },
           "parameters": {
             "anyOf": [
@@ -20608,6 +20954,31 @@
                       512,
                       1024
                     ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "environmentSecrets": {
+                    "type": "array",
+                    "items": {
+                      "pattern": "^las:secret:[a-f0-9]{32}$",
+                      "type": "string"
+                    },
+                    "nullable": true
+                  },
+                  "environment": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "nullable": true
+                  },
+                  "lambdaId": {
+                    "pattern": "^las:lambda:[a-z0-9-_]+:[a-z0-9-_]+$",
+                    "type": "string"
                   }
                 },
                 "additionalProperties": false
@@ -20926,6 +21297,11 @@
           "monthlyNumberOfTransformationsCreated": {
             "minimum": 0,
             "type": "integer"
+          },
+          "createdTime": {
+            "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
+            "type": "string",
+            "nullable": true
           },
           "planId": {
             "pattern": "^(|las:organization:[a-z0-9-_]+/)las:plan:[a-z0-9-_]+(|:@[a-z0-9-_]+|:[0-9]+)$",
@@ -21291,6 +21667,9 @@
         ],
         "type": "object",
         "properties": {
+          "async": {
+            "type": "boolean"
+          },
           "preprocessConfig": {
             "minProperties": 1,
             "type": "object",
@@ -21299,14 +21678,14 @@
                 "type": "integer"
               },
               "pages": {
-                "maxItems": 3,
+                "maxItems": 100,
                 "type": "array",
                 "items": {
                   "type": "integer"
                 }
               },
               "maxPages": {
-                "maximum": 3,
+                "maximum": 100,
                 "minimum": 1,
                 "type": "integer"
               },
@@ -21333,7 +21712,7 @@
             "additionalProperties": false
           },
           "trainingId": {
-            "pattern": "^las:model-training:[a-f0-9]{32}$",
+            "pattern": "^las:model-training:[a-z0-9-_]+$",
             "type": "string"
           },
           "modelId": {
@@ -21391,7 +21770,7 @@
                     "type": "object",
                     "properties": {
                       "n": {
-                        "maximum": 3,
+                        "maximum": 100,
                         "minimum": 1,
                         "type": "integer"
                       },
@@ -21415,7 +21794,7 @@
             ]
           },
           "maxPages": {
-            "maximum": 3,
+            "maximum": 100,
             "minimum": 1,
             "type": "integer"
           },
@@ -21876,7 +22255,7 @@
                       "type": "object",
                       "properties": {
                         "trainingId": {
-                          "pattern": "^las:model-training:[a-f0-9]{32}$",
+                          "pattern": "^las:model-training:[a-z0-9-_]+$",
                           "type": "string"
                         }
                       },
@@ -21890,7 +22269,7 @@
                   ]
                 },
                 "trainingId": {
-                  "pattern": "^las:model-training:[a-f0-9]{32}$",
+                  "pattern": "^las:model-training:[a-z0-9-_]+$",
                   "type": "string"
                 },
                 "modelId": {
@@ -21940,10 +22319,15 @@
                   "type": "string",
                   "nullable": true
                 },
+                "statistics": {
+                  "type": "object",
+                  "nullable": true
+                },
                 "status": {
                   "type": "string",
                   "enum": [
                     "waiting-for-approval",
+                    "preparing",
                     "pending",
                     "running",
                     "running-final-evaluation",
@@ -21962,6 +22346,7 @@
               "type": "string",
               "enum": [
                 "waiting-for-approval",
+                "preparing",
                 "pending",
                 "running",
                 "running-final-evaluation",
@@ -22034,14 +22419,14 @@
                 "type": "integer"
               },
               "pages": {
-                "maxItems": 3,
+                "maxItems": 100,
                 "type": "array",
                 "items": {
                   "type": "integer"
                 }
               },
               "maxPages": {
-                "maximum": 3,
+                "maximum": 100,
                 "minimum": 1,
                 "type": "integer"
               },
@@ -22068,7 +22453,7 @@
             "additionalProperties": false
           },
           "trainingId": {
-            "pattern": "^las:model-training:[a-f0-9]{32}$",
+            "pattern": "^las:model-training:[a-z0-9-_]+$",
             "type": "string",
             "nullable": true
           },
@@ -22123,7 +22508,7 @@
                     "type": "object",
                     "properties": {
                       "n": {
-                        "maximum": 3,
+                        "maximum": 100,
                         "minimum": 1,
                         "type": "integer"
                       },
@@ -22170,7 +22555,7 @@
                       "maxLength": {
                         "type": "integer",
                         "minimum": 1,
-                        "maximum": 512
+                        "maximum": 1024
                       },
                       "enum": {
                         "maxItems": 500,
@@ -22194,6 +22579,23 @@
                             "type": "null"
                           }
                         ]
+                      },
+                      "isMultivalue": {
+                        "type": "boolean"
+                      },
+                      "format": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 4096
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "strict": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -22230,7 +22632,7 @@
                               "maxLength": {
                                 "type": "integer",
                                 "minimum": 1,
-                                "maximum": 512
+                                "maximum": 1024
                               },
                               "enum": {
                                 "maxItems": 500,
@@ -22254,6 +22656,23 @@
                                     "type": "null"
                                   }
                                 ]
+                              },
+                              "isMultivalue": {
+                                "type": "boolean"
+                              },
+                              "format": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "maxLength": 4096
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "strict": {
+                                "type": "boolean"
                               }
                             },
                             "required": [
@@ -22698,9 +23117,6 @@
         ],
         "type": "object",
         "properties": {
-          "outputJsonSchema": {
-            "type": "object"
-          },
           "name": {
             "maxLength": 4096,
             "type": "string",
@@ -22715,11 +23131,9 @@
             "type": "string",
             "enum": [
               "docker",
-              "manual"
+              "manual",
+              "lambda"
             ]
-          },
-          "inputJsonSchema": {
-            "type": "object"
           },
           "parameters": {
             "anyOf": [
@@ -22771,6 +23185,32 @@
                 "additionalProperties": false
               },
               {
+                "required": [
+                  "lambdaId"
+                ],
+                "type": "object",
+                "properties": {
+                  "environmentSecrets": {
+                    "type": "array",
+                    "items": {
+                      "pattern": "^las:secret:[a-f0-9]{32}$",
+                      "type": "string"
+                    }
+                  },
+                  "environment": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  },
+                  "lambdaId": {
+                    "pattern": "^las:lambda:[a-z0-9-_]+:[a-z0-9-_]+$",
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
                 "type": "object",
                 "properties": {
                   "assets": {
@@ -22792,7 +23232,7 @@
             ]
           },
           "timeoutInSeconds": {
-            "maximum": 3600,
+            "maximum": 10800,
             "minimum": 60,
             "type": "integer"
           }
@@ -22872,6 +23312,11 @@
                     "type": "integer"
                   }
                 },
+                "confidence": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
                 "label": {
                   "maxLength": 36,
                   "minLength": 1,
@@ -22881,7 +23326,7 @@
                 "value": {
                   "anyOf": [
                     {
-                      "maxLength": 512,
+                      "maxLength": 1024,
                       "minLength": 0,
                       "type": "string",
                       "nullable": true
@@ -22935,7 +23380,8 @@
               "application/pdf",
               "image/jpeg",
               "image/png",
-              "image/tiff"
+              "image/tiff",
+              "image/webp"
             ],
             "nullable": true
           },
@@ -22958,6 +23404,10 @@
         ],
         "type": "object",
         "properties": {
+          "output": {
+            "type": "object",
+            "nullable": true
+          },
           "executionId": {
             "pattern": "^las:transition-execution:[a-f0-9]{32}$",
             "type": "string"
@@ -22978,13 +23428,13 @@
               }
             ]
           },
-          "startTime": {
-            "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
+          "logId": {
+            "pattern": "^las:log:[a-f0-9]{32}$",
             "type": "string",
             "nullable": true
           },
-          "logId": {
-            "pattern": "^las:log:[a-f0-9]{32}$",
+          "startTime": {
+            "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
             "type": "string",
             "nullable": true
           },
@@ -23076,6 +23526,10 @@
               ],
               "type": "object",
               "properties": {
+                "output": {
+                  "type": "object",
+                  "nullable": true
+                },
                 "executionId": {
                   "pattern": "^las:transition-execution:[a-f0-9]{32}$",
                   "type": "string"
@@ -23096,13 +23550,13 @@
                     }
                   ]
                 },
-                "startTime": {
-                  "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
+                "logId": {
+                  "pattern": "^las:log:[a-f0-9]{32}$",
                   "type": "string",
                   "nullable": true
                 },
-                "logId": {
-                  "pattern": "^las:log:[a-f0-9]{32}$",
+                "startTime": {
+                  "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
                   "type": "string",
                   "nullable": true
                 },
@@ -23258,6 +23712,11 @@
                 "monthlyNumberOfTransformationsCreated": {
                   "minimum": 0,
                   "type": "integer"
+                },
+                "createdTime": {
+                  "pattern": "^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$",
+                  "type": "string",
+                  "nullable": true
                 },
                 "planId": {
                   "pattern": "^(|las:organization:[a-z0-9-_]+/)las:plan:[a-z0-9-_]+(|:@[a-z0-9-_]+|:[0-9]+)$",
@@ -23475,7 +23934,7 @@
             "nullable": true
           },
           "trainingId": {
-            "pattern": "^las:model-training:[a-f0-9]{32}$",
+            "pattern": "^las:model-training:[a-z0-9-_]+$",
             "type": "string",
             "nullable": true
           },
@@ -23534,7 +23993,7 @@
                     "type": "object",
                     "properties": {
                       "n": {
-                        "maximum": 3,
+                        "maximum": 100,
                         "minimum": 1,
                         "type": "integer"
                       },
@@ -23576,7 +24035,7 @@
                       "maxLength": {
                         "type": "integer",
                         "minimum": 1,
-                        "maximum": 512
+                        "maximum": 1024
                       },
                       "enum": {
                         "maxItems": 500,
@@ -23600,6 +24059,23 @@
                             "type": "null"
                           }
                         ]
+                      },
+                      "isMultivalue": {
+                        "type": "boolean"
+                      },
+                      "format": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 4096
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "strict": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -23636,7 +24112,7 @@
                               "maxLength": {
                                 "type": "integer",
                                 "minimum": 1,
-                                "maximum": 512
+                                "maximum": 1024
                               },
                               "enum": {
                                 "maxItems": 500,
@@ -23660,6 +24136,23 @@
                                     "type": "null"
                                   }
                                 ]
+                              },
+                              "isMultivalue": {
+                                "type": "boolean"
+                              },
+                              "format": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "maxLength": 4096
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "strict": {
+                                "type": "boolean"
                               }
                             },
                             "required": [
@@ -23679,6 +24172,10 @@
             },
             "nullable": true
           },
+          "version": {
+            "minimum": 0,
+            "type": "integer"
+          },
           "organizationId": {
             "pattern": "^las:organization:[a-z0-9-_]+$",
             "type": "string"
@@ -23691,14 +24188,14 @@
                 "type": "integer"
               },
               "pages": {
-                "maxItems": 3,
+                "maxItems": 100,
                 "type": "array",
                 "items": {
                   "type": "integer"
                 }
               },
               "maxPages": {
-                "maximum": 3,
+                "maximum": 100,
                 "minimum": 1,
                 "type": "integer"
               },
@@ -23782,6 +24279,19 @@
             "type": "string",
             "nullable": true
           },
+          "assets": {
+            "type": "object",
+            "properties": {
+              "jsRemoteComponent": {
+                "pattern": "^las:asset:[a-f0-9]{32}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": {
+              "pattern": "^las:asset:[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
           "updatedBy": {
             "maxLength": 4096,
             "type": "string",
@@ -23799,41 +24309,17 @@
               }
             ]
           },
-          "description": {
-            "maxLength": 4096,
-            "type": "string",
-            "nullable": true
-          },
-          "inputJsonSchema": {
-            "type": "object"
-          },
-          "timeoutInSeconds": {
-            "maximum": 3600,
-            "minimum": 60,
-            "type": "integer"
-          },
-          "outputJsonSchema": {
-            "type": "object"
-          },
-          "assets": {
-            "type": "object",
-            "properties": {
-              "jsRemoteComponent": {
-                "pattern": "^las:asset:[a-f0-9]{32}$",
-                "type": "string"
-              }
-            },
-            "additionalProperties": {
-              "pattern": "^las:asset:[a-f0-9]{32}$",
-              "type": "string"
-            }
-          },
           "createdBy": {
             "maxLength": 4096,
             "type": "string",
             "nullable": true
           },
           "name": {
+            "maxLength": 4096,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
             "maxLength": 4096,
             "type": "string",
             "nullable": true
@@ -23847,11 +24333,17 @@
             "type": "string",
             "enum": [
               "docker",
-              "manual"
+              "manual",
+              "lambda"
             ]
           },
           "parameters": {
             "type": "object"
+          },
+          "timeoutInSeconds": {
+            "maximum": 10800,
+            "minimum": 60,
+            "type": "integer"
           }
         },
         "additionalProperties": false
@@ -24090,6 +24582,11 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
+                "confidence": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
                 "pages": {
                   "type": "array",
                   "items": {
@@ -24108,7 +24605,7 @@
                     {
                       "type": "string",
                       "minLength": 0,
-                      "maxLength": 512
+                      "maxLength": 1024
                     },
                     {
                       "type": "null"
@@ -24139,6 +24636,11 @@
                 "type": "object",
                 "additionalProperties": false,
                 "properties": {
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
                   "pages": {
                     "type": "array",
                     "items": {
@@ -24157,7 +24659,7 @@
                       {
                         "type": "string",
                         "minLength": 0,
-                        "maxLength": 512
+                        "maxLength": 1024
                       },
                       {
                         "type": "null"
