@@ -19,8 +19,8 @@ title: REST API
 ### 2024-12-02
 
 - Added `async` to `POST /predictions`. Async predictions are now supported. 
-- Added `error` and `status` to `POST /predictions` output.
-- Changed `inferenceTime` and `predictions` in `POST /predictions` output, they are now optional.
+- Added `error` and `status` to `/predictions`.
+- Changed `inferenceTime` and `predictions` in `/predictions` to be optional.
 - Changed `pages` and `maxPages` in the `preprocessConfig`, so they allow upto 100 pages.
 
 ### 2024-02-05
