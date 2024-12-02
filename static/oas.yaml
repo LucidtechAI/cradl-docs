@@ -798,6 +798,7 @@ components:
           - image/jpeg
           - image/png
           - image/tiff
+          - image/webp
           nullable: true
           type: string
         createdBy:
@@ -826,6 +827,10 @@ components:
           items:
             additionalProperties: false
             properties:
+              confidence:
+                maximum: 1
+                minimum: 0
+                type: number
               label:
                 maxLength: 36
                 minLength: 1
@@ -838,7 +843,7 @@ components:
                 type: array
               value:
                 anyOf:
-                - maxLength: 512
+                - maxLength: 1024
                   minLength: 0
                   nullable: true
                   type: string
@@ -918,6 +923,7 @@ components:
                 - image/jpeg
                 - image/png
                 - image/tiff
+                - image/webp
                 nullable: true
                 type: string
               createdBy:
@@ -946,6 +952,10 @@ components:
                 items:
                   additionalProperties: false
                   properties:
+                    confidence:
+                      maximum: 1
+                      minimum: 0
+                      type: number
                     label:
                       maxLength: 36
                       minLength: 1
@@ -958,7 +968,7 @@ components:
                       type: array
                     value:
                       anyOf:
-                      - maxLength: 512
+                      - maxLength: 1024
                         minLength: 0
                         nullable: true
                         type: string
@@ -1185,10 +1195,19 @@ components:
                     minItems: 1
                     type: array
                     uniqueItems: true
+                  format:
+                    anyOf:
+                    - maxLength: 4096
+                      type: string
+                    - type: 'null'
+                  isMultivalue:
+                    type: boolean
                   maxLength:
-                    maximum: 512
+                    maximum: 1024
                     minimum: 1
                     type: integer
+                  strict:
+                    type: boolean
                   type:
                     enum:
                     - amount
@@ -1223,10 +1242,19 @@ components:
                             minItems: 1
                             type: array
                             uniqueItems: true
+                          format:
+                            anyOf:
+                            - maxLength: 4096
+                              type: string
+                            - type: 'null'
+                          isMultivalue:
+                            type: boolean
                           maxLength:
-                            maximum: 512
+                            maximum: 1024
                             minimum: 1
                             type: integer
+                          strict:
+                            type: boolean
                           type:
                             enum:
                             - amount
@@ -1296,7 +1324,7 @@ components:
                   collapse:
                     type: boolean
                   n:
-                    maximum: 3
+                    maximum: 100
                     minimum: 1
                     type: integer
                 required:
@@ -1322,13 +1350,13 @@ components:
               - HIGH
               type: string
             maxPages:
-              maximum: 3
+              maximum: 100
               minimum: 1
               type: integer
             pages:
               items:
                 type: integer
-              maxItems: 3
+              maxItems: 100
               type: array
             rotation:
               enum:
@@ -1350,7 +1378,7 @@ components:
           type: string
         trainingId:
           nullable: true
-          pattern: ^las:model-training:[a-f0-9]{32}$
+          pattern: ^las:model-training:[a-z0-9-_]+$
           type: string
         updatedBy:
           maxLength: 4096
@@ -1360,6 +1388,9 @@ components:
           nullable: true
           pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
           type: string
+        version:
+          minimum: 0
+          type: integer
       required:
       - createdBy
       - createdTime
@@ -1420,10 +1451,19 @@ components:
                           minItems: 1
                           type: array
                           uniqueItems: true
+                        format:
+                          anyOf:
+                          - maxLength: 4096
+                            type: string
+                          - type: 'null'
+                        isMultivalue:
+                          type: boolean
                         maxLength:
-                          maximum: 512
+                          maximum: 1024
                           minimum: 1
                           type: integer
+                        strict:
+                          type: boolean
                         type:
                           enum:
                           - amount
@@ -1458,10 +1498,19 @@ components:
                                   minItems: 1
                                   type: array
                                   uniqueItems: true
+                                format:
+                                  anyOf:
+                                  - maxLength: 4096
+                                    type: string
+                                  - type: 'null'
+                                isMultivalue:
+                                  type: boolean
                                 maxLength:
-                                  maximum: 512
+                                  maximum: 1024
                                   minimum: 1
                                   type: integer
+                                strict:
+                                  type: boolean
                                 type:
                                   enum:
                                   - amount
@@ -1531,7 +1580,7 @@ components:
                         collapse:
                           type: boolean
                         n:
-                          maximum: 3
+                          maximum: 100
                           minimum: 1
                           type: integer
                       required:
@@ -1557,13 +1606,13 @@ components:
                     - HIGH
                     type: string
                   maxPages:
-                    maximum: 3
+                    maximum: 100
                     minimum: 1
                     type: integer
                   pages:
                     items:
                       type: integer
-                    maxItems: 3
+                    maxItems: 100
                     type: array
                   rotation:
                     enum:
@@ -1585,7 +1634,7 @@ components:
                 type: string
               trainingId:
                 nullable: true
-                pattern: ^las:model-training:[a-f0-9]{32}$
+                pattern: ^las:model-training:[a-z0-9-_]+$
                 type: string
               updatedBy:
                 maxLength: 4096
@@ -1595,6 +1644,9 @@ components:
                 nullable: true
                 pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
                 type: string
+              version:
+                minimum: 0
+                type: integer
             required:
             - createdBy
             - createdTime
@@ -1628,6 +1680,10 @@ components:
         clientId:
           nullable: true
           pattern: ^[0-9a-z]+$
+          type: string
+        createdTime:
+          nullable: true
+          pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
           type: string
         deploymentsAllowed:
           type: object
@@ -1840,6 +1896,10 @@ components:
               clientId:
                 nullable: true
                 pattern: ^[0-9a-z]+$
+                type: string
+              createdTime:
+                nullable: true
+                pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
                 type: string
               deploymentsAllowed:
                 type: object
@@ -2137,6 +2197,10 @@ components:
           items:
             additionalProperties: false
             properties:
+              confidence:
+                maximum: 1
+                minimum: 0
+                type: number
               label:
                 maxLength: 36
                 minLength: 1
@@ -2149,7 +2213,7 @@ components:
                 type: array
               value:
                 anyOf:
-                - maxLength: 512
+                - maxLength: 1024
                   minLength: 0
                   nullable: true
                   type: string
@@ -2206,10 +2270,19 @@ components:
                     minItems: 1
                     type: array
                     uniqueItems: true
+                  format:
+                    anyOf:
+                    - maxLength: 4096
+                      type: string
+                    - type: 'null'
+                  isMultivalue:
+                    type: boolean
                   maxLength:
-                    maximum: 512
+                    maximum: 1024
                     minimum: 1
                     type: integer
+                  strict:
+                    type: boolean
                   type:
                     enum:
                     - amount
@@ -2244,10 +2317,19 @@ components:
                             minItems: 1
                             type: array
                             uniqueItems: true
+                          format:
+                            anyOf:
+                            - maxLength: 4096
+                              type: string
+                            - type: 'null'
+                          isMultivalue:
+                            type: boolean
                           maxLength:
-                            maximum: 512
+                            maximum: 1024
                             minimum: 1
                             type: integer
+                          strict:
+                            type: boolean
                           type:
                             enum:
                             - amount
@@ -2304,7 +2386,7 @@ components:
                   collapse:
                     type: boolean
                   n:
-                    maximum: 3
+                    maximum: 100
                     minimum: 1
                     type: integer
                 required:
@@ -2330,13 +2412,13 @@ components:
               - HIGH
               type: string
             maxPages:
-              maximum: 3
+              maximum: 100
               minimum: 1
               type: integer
             pages:
               items:
                 type: integer
-              maxItems: 3
+              maxItems: 100
               type: array
             rotation:
               enum:
@@ -2350,7 +2432,7 @@ components:
           type: object
         trainingId:
           nullable: true
-          pattern: ^las:model-training:[a-f0-9]{32}$
+          pattern: ^las:model-training:[a-z0-9-_]+$
           type: string
       title: PATCH /models/modelId
       type: object
@@ -2473,36 +2555,14 @@ components:
       additionalProperties: false
       minProperties: 1
       properties:
-        assets:
-          additionalProperties:
-            pattern: ^las:asset:[a-f0-9]{32}$
-            type: string
-          properties:
-            jsRemoteComponent:
-              pattern: ^las:asset:[a-f0-9]{32}$
-              type: string
-          type: object
         description:
           maxLength: 4096
           nullable: true
           type: string
-        environment:
-          additionalProperties:
-            type: string
-          type: object
-        environmentSecrets:
-          items:
-            pattern: ^las:secret:[a-f0-9]{32}$
-            type: string
-          type: array
-        inputJsonSchema:
-          type: object
         name:
           maxLength: 4096
           nullable: true
           type: string
-        outputJsonSchema:
-          type: object
         parameters:
           anyOf:
           - additionalProperties: false
@@ -2537,6 +2597,23 @@ components:
               secretId:
                 nullable: true
                 pattern: ^las:secret:[a-f0-9]{32}$
+                type: string
+            type: object
+          - additionalProperties: false
+            properties:
+              environment:
+                additionalProperties:
+                  type: string
+                nullable: true
+                type: object
+              environmentSecrets:
+                items:
+                  pattern: ^las:secret:[a-f0-9]{32}$
+                  type: string
+                nullable: true
+                type: array
+              lambdaId:
+                pattern: ^las:lambda:[a-z0-9-_]+:[a-z0-9-_]+$
                 type: string
             type: object
           - additionalProperties: false
@@ -3032,6 +3109,7 @@ components:
           - image/jpeg
           - image/png
           - image/tiff
+          - image/webp
           nullable: true
           type: string
         datasetId:
@@ -3045,6 +3123,10 @@ components:
           items:
             additionalProperties: false
             properties:
+              confidence:
+                maximum: 1
+                minimum: 0
+                type: number
               label:
                 maxLength: 36
                 minLength: 1
@@ -3057,7 +3139,7 @@ components:
                 type: array
               value:
                 anyOf:
-                - maxLength: 512
+                - maxLength: 1024
                   minLength: 0
                   nullable: true
                   type: string
@@ -3115,10 +3197,19 @@ components:
                     minItems: 1
                     type: array
                     uniqueItems: true
+                  format:
+                    anyOf:
+                    - maxLength: 4096
+                      type: string
+                    - type: 'null'
+                  isMultivalue:
+                    type: boolean
                   maxLength:
-                    maximum: 512
+                    maximum: 1024
                     minimum: 1
                     type: integer
+                  strict:
+                    type: boolean
                   type:
                     enum:
                     - amount
@@ -3153,10 +3244,19 @@ components:
                             minItems: 1
                             type: array
                             uniqueItems: true
+                          format:
+                            anyOf:
+                            - maxLength: 4096
+                              type: string
+                            - type: 'null'
+                          isMultivalue:
+                            type: boolean
                           maxLength:
-                            maximum: 512
+                            maximum: 1024
                             minimum: 1
                             type: integer
+                          strict:
+                            type: boolean
                           type:
                             enum:
                             - amount
@@ -3213,7 +3313,7 @@ components:
                   collapse:
                     type: boolean
                   n:
-                    maximum: 3
+                    maximum: 100
                     minimum: 1
                     type: integer
                 required:
@@ -3239,13 +3339,13 @@ components:
               - HIGH
               type: string
             maxPages:
-              maximum: 3
+              maximum: 100
               minimum: 1
               type: integer
             pages:
               items:
                 type: integer
-              maxItems: 3
+              maxItems: 100
               type: array
             rotation:
               enum:
@@ -3286,6 +3386,8 @@ components:
     PostPredictions:
       additionalProperties: false
       properties:
+        async:
+          type: boolean
         autoRotate:
           type: boolean
         documentId:
@@ -3297,7 +3399,7 @@ components:
           - HIGH
           type: string
         maxPages:
-          maximum: 3
+          maximum: 100
           minimum: 1
           type: integer
         modelId:
@@ -3331,7 +3433,7 @@ components:
                   collapse:
                     type: boolean
                   n:
-                    maximum: 3
+                    maximum: 100
                     minimum: 1
                     type: integer
                 required:
@@ -3357,13 +3459,13 @@ components:
               - HIGH
               type: string
             maxPages:
-              maximum: 3
+              maximum: 100
               minimum: 1
               type: integer
             pages:
               items:
                 type: integer
-              maxItems: 3
+              maxItems: 100
               type: array
             rotation:
               enum:
@@ -3383,7 +3485,7 @@ components:
           - 270
           type: integer
         trainingId:
-          pattern: ^las:model-training:[a-f0-9]{32}$
+          pattern: ^las:model-training:[a-z0-9-_]+$
           type: string
       required:
       - documentId
@@ -3439,7 +3541,7 @@ components:
           additionalProperties: false
           properties:
             trainingId:
-              pattern: ^las:model-training:[a-f0-9]{32}$
+              pattern: ^las:model-training:[a-z0-9-_]+$
               type: string
           required:
           - trainingId
@@ -3475,14 +3577,10 @@ components:
           maxLength: 4096
           nullable: true
           type: string
-        inputJsonSchema:
-          type: object
         name:
           maxLength: 4096
           nullable: true
           type: string
-        outputJsonSchema:
-          type: object
         parameters:
           anyOf:
           - additionalProperties: false
@@ -3520,6 +3618,23 @@ components:
             type: object
           - additionalProperties: false
             properties:
+              environment:
+                additionalProperties:
+                  type: string
+                type: object
+              environmentSecrets:
+                items:
+                  pattern: ^las:secret:[a-f0-9]{32}$
+                  type: string
+                type: array
+              lambdaId:
+                pattern: ^las:lambda:[a-z0-9-_]+:[a-z0-9-_]+$
+                type: string
+            required:
+            - lambdaId
+            type: object
+          - additionalProperties: false
+            properties:
               assets:
                 additionalProperties:
                   pattern: ^las:asset:[a-f0-9]{32}$
@@ -3531,13 +3646,14 @@ components:
                 type: object
             type: object
         timeoutInSeconds:
-          maximum: 3600
+          maximum: 10800
           minimum: 60
           type: integer
         transitionType:
           enum:
           - docker
           - manual
+          - lambda
           type: string
       required:
       - transitionType
@@ -3673,8 +3789,13 @@ components:
         documentId:
           pattern: ^las:document:[a-f0-9]{32}$
           type: string
+        error:
+          maxLength: 4096
+          nullable: true
+          type: string
         inferenceTime:
           minimum: 0
+          nullable: true
           type: number
         modelId:
           pattern: ^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$
@@ -3711,7 +3832,7 @@ components:
                   collapse:
                     type: boolean
                   n:
-                    maximum: 3
+                    maximum: 100
                     minimum: 1
                     type: integer
                 required:
@@ -3753,8 +3874,18 @@ components:
                     type: array
                   page:
                     type: integer
+                  rawValue:
+                    maxLength: 1024
+                    minLength: 1
+                    nullable: true
+                    type: string
+                  source:
+                    enum:
+                    - llm
+                    - model
+                    type: string
                   value:
-                    maxLength: 512
+                    maxLength: 1024
                     minLength: 1
                     nullable: true
                     type: string
@@ -3797,8 +3928,18 @@ components:
                             type: array
                           page:
                             type: integer
+                          rawValue:
+                            maxLength: 1024
+                            minLength: 1
+                            nullable: true
+                            type: string
+                          source:
+                            enum:
+                            - llm
+                            - model
+                            type: string
                           value:
-                            maxLength: 512
+                            maxLength: 1024
                             minLength: 1
                             nullable: true
                             type: string
@@ -3813,8 +3954,10 @@ components:
                 - label
                 - value
                 type: object
+            nullable: true
             type: array
           - additionalProperties: false
+            nullable: true
             type: object
         preprocessConfig:
           additionalProperties: false
@@ -3829,13 +3972,13 @@ components:
               - HIGH
               type: string
             maxPages:
-              maximum: 3
+              maximum: 100
               minimum: 1
               type: integer
             pages:
               items:
                 type: integer
-              maxItems: 3
+              maxItems: 100
               type: array
             rotation:
               enum:
@@ -3847,13 +3990,18 @@ components:
             startPage:
               type: integer
           type: object
+        status:
+          enum:
+          - pending
+          - succeeded
+          - failed
+          type: string
         trainingId:
           nullable: true
-          pattern: ^las:model-training:[a-f0-9]{32}$
+          pattern: ^las:model-training:[a-z0-9-_]+$
           type: string
       required:
       - documentId
-      - inferenceTime
       - modelId
       - predictionId
       - predictions
@@ -3889,8 +4037,13 @@ components:
               documentId:
                 pattern: ^las:document:[a-f0-9]{32}$
                 type: string
+              error:
+                maxLength: 4096
+                nullable: true
+                type: string
               inferenceTime:
                 minimum: 0
+                nullable: true
                 type: number
               modelId:
                 pattern: ^(|las:organization:[a-z0-9-_]+/)las:model:[a-z0-9-_]+$
@@ -3927,7 +4080,7 @@ components:
                         collapse:
                           type: boolean
                         n:
-                          maximum: 3
+                          maximum: 100
                           minimum: 1
                           type: integer
                       required:
@@ -3969,8 +4122,18 @@ components:
                           type: array
                         page:
                           type: integer
+                        rawValue:
+                          maxLength: 1024
+                          minLength: 1
+                          nullable: true
+                          type: string
+                        source:
+                          enum:
+                          - llm
+                          - model
+                          type: string
                         value:
-                          maxLength: 512
+                          maxLength: 1024
                           minLength: 1
                           nullable: true
                           type: string
@@ -4013,8 +4176,18 @@ components:
                                   type: array
                                 page:
                                   type: integer
+                                rawValue:
+                                  maxLength: 1024
+                                  minLength: 1
+                                  nullable: true
+                                  type: string
+                                source:
+                                  enum:
+                                  - llm
+                                  - model
+                                  type: string
                                 value:
-                                  maxLength: 512
+                                  maxLength: 1024
                                   minLength: 1
                                   nullable: true
                                   type: string
@@ -4029,8 +4202,10 @@ components:
                       - label
                       - value
                       type: object
+                  nullable: true
                   type: array
                 - additionalProperties: false
+                  nullable: true
                   type: object
               preprocessConfig:
                 additionalProperties: false
@@ -4045,13 +4220,13 @@ components:
                     - HIGH
                     type: string
                   maxPages:
-                    maximum: 3
+                    maximum: 100
                     minimum: 1
                     type: integer
                   pages:
                     items:
                       type: integer
-                    maxItems: 3
+                    maxItems: 100
                     type: array
                   rotation:
                     enum:
@@ -4063,13 +4238,18 @@ components:
                   startPage:
                     type: integer
                 type: object
+              status:
+                enum:
+                - pending
+                - succeeded
+                - failed
+                type: string
               trainingId:
                 nullable: true
-                pattern: ^las:model-training:[a-f0-9]{32}$
+                pattern: ^las:model-training:[a-z0-9-_]+$
                 type: string
             required:
             - documentId
-            - inferenceTime
             - modelId
             - predictionId
             - predictions
@@ -4408,9 +4588,13 @@ components:
           maxLength: 4096
           nullable: true
           type: string
+        statistics:
+          nullable: true
+          type: object
         status:
           enum:
           - waiting-for-approval
+          - preparing
           - pending
           - running
           - running-final-evaluation
@@ -4419,7 +4603,7 @@ components:
           - cancelled
           type: string
         trainingId:
-          pattern: ^las:model-training:[a-f0-9]{32}$
+          pattern: ^las:model-training:[a-z0-9-_]+$
           type: string
         updatedBy:
           maxLength: 4096
@@ -4434,7 +4618,7 @@ components:
           - additionalProperties: false
             properties:
               trainingId:
-                pattern: ^las:model-training:[a-f0-9]{32}$
+                pattern: ^las:model-training:[a-z0-9-_]+$
                 type: string
             required:
             - trainingId
@@ -4470,6 +4654,7 @@ components:
           items:
             enum:
             - waiting-for-approval
+            - preparing
             - pending
             - running
             - running-final-evaluation
@@ -4527,9 +4712,13 @@ components:
                 maxLength: 4096
                 nullable: true
                 type: string
+              statistics:
+                nullable: true
+                type: object
               status:
                 enum:
                 - waiting-for-approval
+                - preparing
                 - pending
                 - running
                 - running-final-evaluation
@@ -4538,7 +4727,7 @@ components:
                 - cancelled
                 type: string
               trainingId:
-                pattern: ^las:model-training:[a-f0-9]{32}$
+                pattern: ^las:model-training:[a-z0-9-_]+$
                 type: string
               updatedBy:
                 maxLength: 4096
@@ -4553,7 +4742,7 @@ components:
                 - additionalProperties: false
                   properties:
                     trainingId:
-                      pattern: ^las:model-training:[a-f0-9]{32}$
+                      pattern: ^las:model-training:[a-z0-9-_]+$
                       type: string
                   required:
                   - trainingId
@@ -4736,18 +4925,14 @@ components:
           maxLength: 4096
           nullable: true
           type: string
-        inputJsonSchema:
-          type: object
         name:
           maxLength: 4096
           nullable: true
           type: string
-        outputJsonSchema:
-          type: object
         parameters:
           type: object
         timeoutInSeconds:
-          maximum: 3600
+          maximum: 10800
           minimum: 60
           type: integer
         transitionId:
@@ -4760,6 +4945,7 @@ components:
           enum:
           - docker
           - manual
+          - lambda
           type: string
         updatedBy:
           maxLength: 4096
@@ -4803,6 +4989,9 @@ components:
           nullable: true
           pattern: ^las:log:[a-f0-9]{32}$
           type: string
+        output:
+          nullable: true
+          type: object
         startTime:
           nullable: true
           pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
@@ -4854,6 +5043,9 @@ components:
                 nullable: true
                 pattern: ^las:log:[a-f0-9]{32}$
                 type: string
+              output:
+                nullable: true
+                type: object
               startTime:
                 nullable: true
                 pattern: ^[0-9]{4}-?[0-9]{2}-?[0-9]{2}( |T)?[0-9]{2}:?[0-9]{2}:?[0-9]{2}(.[0-9]{1,6})?(Z|[+][0-9]{2}(:|)[0-9]{2})$
@@ -4918,6 +5110,7 @@ components:
             enum:
             - docker
             - manual
+            - lambda
             type: string
           type: array
         transitions:
@@ -4945,18 +5138,14 @@ components:
                 maxLength: 4096
                 nullable: true
                 type: string
-              inputJsonSchema:
-                type: object
               name:
                 maxLength: 4096
                 nullable: true
                 type: string
-              outputJsonSchema:
-                type: object
               parameters:
                 type: object
               timeoutInSeconds:
-                maximum: 3600
+                maximum: 10800
                 minimum: 60
                 type: integer
               transitionId:
@@ -4969,6 +5158,7 @@ components:
                 enum:
                 - docker
                 - manual
+                - lambda
                 type: string
               updatedBy:
                 maxLength: 4096
@@ -5528,6 +5718,10 @@ components:
       - items:
           additionalProperties: false
           properties:
+            confidence:
+              maximum: 1
+              minimum: 0
+              type: number
             label:
               maxLength: 36
               minLength: 1
@@ -5540,7 +5734,7 @@ components:
               type: array
             value:
               anyOf:
-              - maxLength: 512
+              - maxLength: 1024
                 minLength: 0
                 type: string
               - type: 'null'
@@ -5556,6 +5750,10 @@ components:
           items:
             additionalProperties: false
             properties:
+              confidence:
+                maximum: 1
+                minimum: 0
+                type: number
               label:
                 maxLength: 36
                 minLength: 1
@@ -5568,7 +5766,7 @@ components:
                 type: array
               value:
                 anyOf:
-                - maxLength: 512
+                - maxLength: 1024
                   minLength: 0
                   type: string
                 - type: 'null'
@@ -5631,7 +5829,7 @@ components:
       type: oauth2
 info:
   title: Lucidtech API
-  version: '2024-02-02T13:36:49Z'
+  version: '2024-11-29T08:05:46Z'
 openapi: 3.0.1
 paths:
   /appClients:
@@ -11671,6 +11869,126 @@ paths:
       security:
       - OAuth2:
         - api.lucidtech.ai/predictions:write
+  /predictions/{predictionId}:
+    get:
+      parameters:
+      - in: path
+        name: predictionId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prediction'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 403 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '415':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 415 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+      security:
+      - OAuth2:
+        - api.lucidtech.ai/predictions:read
+    options:
+      parameters:
+      - in: path
+        name: predictionId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Empty'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
   /profiles/{profileId}:
     get:
       parameters:
