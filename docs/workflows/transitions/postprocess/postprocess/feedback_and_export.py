@@ -118,11 +118,13 @@ def feedback_and_export(las_client, event):
 
     response = {
         'documentId': document_id,
-        'datasetId': dataset_id,
         'values': feedback_v1,
         'validatedPredictions': feedback_v2 if feedback_v2 else to_validated_format(predictions, model['fieldConfig']),
         'predictions': predictions
     }
+
+    if dataset_id:
+        response['datasetId'] = dataset_id
 
     webhook_endpoints = []
     if webhooks := os.environ.get('WEBHOOK_ENDPOINTS'):
