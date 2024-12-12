@@ -51,10 +51,10 @@ def _create_prediction(las_client, document_id, model_id, preprocess_config):
     )
 
 
-def get_num_pages(las_client, document_id):
+def get_num_pages(las_client, document_id, max_prediction_pages):
     document = las_client.get_document(document_id)
     pdf = PdfReader(io.BytesIO(base64.b64decode(document['content'])))
-    return min(len(pdf.pages), 100)
+    return min(len(pdf.pages), max_prediction_pages)
 
 
 @las.transition_handler
@@ -75,6 +75,7 @@ def make_predictions(las_client, event):
     preprocess_config = model.get('preprocessConfig', {})
     preprocess_config['maxPages'] = 1
     model_field_config = model.get('fieldConfig', {})
+    max_prediction_pages = model_metadata.get('maxPredictionPages', 100)
     logging.info(f'model metadata: {model_metadata}')
 
     output = {}
@@ -98,7 +99,7 @@ def make_predictions(las_client, event):
             model_id=model_id,
         )
         try:
-            num_pages = get_num_pages(las_client, document_id)
+            num_pages = get_num_pages(las_client, document_id, max_prediction_pages)
         except Exception as e:
             logging.exception(e)
             num_pages = None
@@ -133,7 +134,7 @@ def make_predictions(las_client, event):
         else:
             start_page = 0
             predictions = []
-            while start_page is not None and start_page < model_metadata.get('maxPredictionPages', 100):
+            while start_page is not None and start_page < max_prediction_pages:
                 try:
                     preprocess_config['startPage'] = start_page
                     current_prediction = prediction_fn(preprocess_config=preprocess_config)
