@@ -14,6 +14,24 @@
     },
     {
       "pattern": "^/rest-api-reference"
+    },
+    {
+      "pattern": "^dos.md"
+    },
+    {
+      "pattern": "^sla.md"
+    },
+    {
+      "pattern": "^dpa.md"
+    },
+    {
+      "pattern": "^eula.md"
+    },
+    {
+      "pattern": "^tos.md"
+    },
+    {
+      "pattern": "^privacy-policy.md"
     }
   ],
   "replacementPatterns": [
