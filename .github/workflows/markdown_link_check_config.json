@@ -28,6 +28,9 @@
       "pattern": "^eula.md"
     },
     {
+      "pattern": "^tos.md"
+    },
+    {
       "pattern": "^privacy-policy.md"
     }
   ],
