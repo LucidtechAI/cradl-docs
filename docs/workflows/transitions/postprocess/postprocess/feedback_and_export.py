@@ -123,6 +123,9 @@ def feedback_and_export(las_client, event):
         'predictions': predictions
     }
 
+    if metadata := event.get('metadata'):
+        response['metadata'] = metadata
+
     if dataset_id:
         response['datasetId'] = dataset_id
 
