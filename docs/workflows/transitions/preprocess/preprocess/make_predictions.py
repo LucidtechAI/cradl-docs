@@ -241,6 +241,9 @@ def make_predictions(las_client, event):
             'leadingText': {'value': email_context.get('body') or ''},
         })
 
+    if metadata := event.get('metadata'):
+        output['metadata'] = metadata
+
     logging.info(f'output: {output}')
 
     return {
