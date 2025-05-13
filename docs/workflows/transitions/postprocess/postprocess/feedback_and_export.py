@@ -132,14 +132,14 @@ def feedback_and_export(las_client, event):
     webhook_endpoints = []
     if webhooks := os.environ.get('WEBHOOK_ENDPOINTS'):
         webhook_endpoints = parse_webhook_endpoints(webhooks)
-    elif uri := os.environ.get('WEBHOOK_URI'):
+    elif uri := os.environ.get('WEBHOOK_URI'):  # For backwards compatibility
         webhook_endpoints = [{'uri': uri}]
 
     request_exception = None
     for endpoint in webhook_endpoints:
         logging.info(f'Posting result to {endpoint}...')
         try:
-            res = requests.post(endpoint['uri'], json=response)
+            res = requests.post(endpoint['uri'], json=response, headers=endpoint.get('headers'))
         except (requests.exceptions.RequestException, KeyError) as re:
             logging.exception(re)
             request_exception = re
