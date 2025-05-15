@@ -51,7 +51,7 @@ Next, upload the document that you want to send to the flow. In order to do that
 document handle in the API.
 
 ```bash
-curl -X POST https://api.lucidtech.ai/v1/documents 
+curl -X POST https://api.lucidtech.ai/v1/documents -H 'Authorization: Bearer <your access token>' --json '{}'
 ```
 
 In the response you'll find a `documentId` and a `fileUrl` which we'll need for the next steps.
@@ -66,7 +66,7 @@ In the response you'll find a `documentId` and a `fileUrl` which we'll need for 
 Upload the document from your computer to Cradl AI using the `fileUrl` from the previous step.
 
 ```bash
-curl -X PUT https://files.api.cradl.ai/<your fileId> --data-binary @my-document-file.pdf
+curl -X PUT https://files.api.cradl.ai/<your fileId> -H 'Authorization: Bearer <your access token>' --data-binary @my-document-file.pdf
 ```
 
 <br/>
@@ -77,7 +77,7 @@ After successfully uploading a document to the API, you are now ready to run the
 got from the REST API integration card in the flow builder and the `documentId` from the previous step.
 
 ```bash
-curl -X POST https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions --json '{"documentId": "<your documentId>"}'
+curl -X POST https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions -H 'Authorization: Bearer <your access token>' --json '{"documentId": "<your documentId>"}'
 ```
 
 :::info
@@ -115,7 +115,7 @@ corrections made by a validator. You can now be sure that the extracted data is 
 processing.
 
 ```bash
-curl -X GET https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions/<your executionId>
+curl -X GET https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions/<your executionId> -H 'Authorization: Bearer <your access token>' 
 ```
 
 The response JSON will have a key called `output` which contains the final (validated) results.
@@ -139,7 +139,7 @@ Marking the flow run as `completed` will make it easier for you to track which r
 your system and which ones have not.
 
 ```bash
-curl -X PATCH https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions/<your executionId> --json '{"status": "completed"}'
+curl -X PATCH https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions/<your executionId> -H 'Authorization: Bearer <your access token>' --json '{"status": "completed"}'
 ```
 
 :::
