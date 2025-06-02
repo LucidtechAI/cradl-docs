@@ -77,7 +77,7 @@ After successfully uploading a document to the API, you are now ready to run the
 got from the REST API integration card in the flow builder and the `documentId` from the previous step.
 
 ```bash
-curl -X POST https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions -H 'Authorization: Bearer <your access token>' --json '{"documentId": "<your documentId>"}'
+curl -X POST https://api.lucidtech.ai/v1/workflows/<your workflowId>/executions -H 'Authorization: Bearer <your access token>' --json '{"input": {"documentId": "<your documentId>"}}'
 ```
 
 :::info
