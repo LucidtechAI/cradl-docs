@@ -160,7 +160,13 @@ def make_predictions(las_client, event):
     try:
         if predictions:
             field_config = form_config['config']['fields']
-            predictions, top1_preds = patch_and_filter_predictions(predictions, field_config, labels, model_metadata.get('mergeContinuedLines'), no_empty_prediction_fields)
+            predictions, top1_preds = patch_and_filter_predictions(
+                predictions=predictions, 
+                field_config=field_config, 
+                labels=labels, 
+                merge_continued_lines=model_metadata.get('mergeContinuedLines'), 
+                no_empty_prediction_fields=no_empty_prediction_fields,
+            )
             logging.info(f'patched and filtered predictions {predictions}')
             all_above_threshold_or_optional = True
             if threshold_is_zero_for_all(field_config):
