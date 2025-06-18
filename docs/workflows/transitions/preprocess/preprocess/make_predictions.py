@@ -15,18 +15,13 @@ from .utils import (
     above_threshold_or_optional,
     add_confidence_to_ground_truth,
     create_form_config_from_model,
-    filter_away_low_confidence_lines,
-    filter_by_top1,
     filter_optional_fields,
     format_verified_output,
-    get_column_names,
     get_labels,
     is_enum,
     is_line,
-    concatenate_lines_from_different_pages_and_merge_continued_lines,
-    concatenate_lines_from_different_pages,
     merge_predictions_and_gt,
-    patch_empty_predictions,
+    patch_and_filter_predictions,
     required_labels,
     threshold_is_zero_for_all,
 )
@@ -165,23 +160,14 @@ def make_predictions(las_client, event):
     try:
         if predictions:
             field_config = form_config['config']['fields']
-            column_names = get_column_names(field_config)
-            labels = labels.union(column_names)
-            top1_preds = filter_by_top1(predictions, labels)
-
-            if model_metadata.get('mergeContinuedLines'):
-                predictions = concatenate_lines_from_different_pages_and_merge_continued_lines(
-                    predictions=predictions,
-                    field_config=field_config,
-                )
-            else:
-                predictions = concatenate_lines_from_different_pages(predictions, field_config)
-
-            predictions = patch_empty_predictions(predictions, labels, no_empty_prediction_fields)
-            predictions = filter_away_low_confidence_lines(predictions, field_config)
-
+            predictions, top1_preds = patch_and_filter_predictions(
+                predictions=predictions,
+                field_config=field_config,
+                labels=labels,
+                merge_continued_lines=model_metadata.get('mergeContinuedLines'),
+                no_empty_prediction_fields=no_empty_prediction_fields,
+            )
             logging.info(f'patched and filtered predictions {predictions}')
-
             all_above_threshold_or_optional = True
             if threshold_is_zero_for_all(field_config):
                 needs_validation = False
@@ -206,7 +192,7 @@ def make_predictions(las_client, event):
                     if not above_threshold_or_optional(prediction, field_config):
                         all_above_threshold_or_optional = False
 
-                has_all_required_labels = required_labels(field_config) <= set(map(lambda p: p['label'], predictions))
+                has_all_required_labels = required_labels(field_config) <= set(map(lambda p: p['label'], top1_preds))
                 needs_validation = not has_all_required_labels or not all_above_threshold_or_optional
 
             logging.info(f'All predictions above threshold (or optional): {all_above_threshold_or_optional}')

@@ -9,13 +9,14 @@ from unittest.mock import patch, MagicMock
 
 from ..preprocess.make_predictions import make_predictions
 from ..preprocess.utils import (
-    create_form_config_from_model,
-    filter_by_top1,
     concatenate_lines_from_different_pages_and_merge_continued_lines,
-    patch_empty_predictions,
-    get_labels,
-    get_column_names,
+    create_form_config_from_model,
     filter_away_low_confidence_lines,
+    filter_by_top1,
+    get_column_names,
+    get_labels,
+    patch_and_filter_predictions,
+    patch_empty_predictions,
 )
 
 
@@ -958,3 +959,63 @@ def test_create_form_config_from_model(field_config, form_config):
                     assert conf_levels
                 else:
                     assert conf_levels == form_config[field]['fields'][line_field]['confidenceLevels']['automated']
+
+
+@pytest.fixture
+def form_config_simple():
+    yield base64.b64encode(json.dumps({
+        'config': {
+            'fields': {
+                'total_amount': {
+                    'type': 'amount',
+                    'confidenceLevels': {'automated': 0.98, 'high': 0.97, 'medium': 0.9, 'low': 0.5}
+                },
+                'line_items': {
+                    'type': 'lines',
+                    'fields': {
+                        'subtotal': {
+                            'type': 'string',
+                            'confidenceLevels': {'automated': 0.98, 'high': 0.97, 'medium': 0.9, 'low': 0.5},
+                        }
+                    }
+                }
+            }
+        }
+    }).encode('utf-8'))
+
+
+@pytest.mark.parametrize('predictions', [[
+    {'label': 'total_amount', 'page': 0, 'value': None, 'confidence': 0.99},
+    {'label': 'total_amount', 'page': 1, 'value': '100.00', 'confidence': 0.35},
+    {'label': 'line_items', 'value': [
+        [
+            {'label': 'subtotal', 'page': 0, 'value': '50.00', 'confidence': 0.99},
+        ], [
+            {'label': 'subtotal', 'page': 0, 'value': '30.00', 'confidence': 0.99},
+        ], [],
+    ]},
+    {'label': 'line_items', 'value': [
+        [
+            {'label': 'subtotal', 'page': 1, 'value': '72.15', 'confidence': 0.9},
+        ],
+    ]},
+]])
+@pytest.mark.parametrize('no_empty_prediction_fields', [{'total_amount', 'line_items'}, {}])
+def test_patch_and_filter(form_config_simple, predictions, no_empty_prediction_fields):
+    form_config = json.loads(base64.b64decode(form_config_simple))
+    field_config = form_config['config']['fields']
+    labels = get_labels(field_config)
+    _, top_1 = patch_and_filter_predictions(predictions, field_config, labels, False, no_empty_prediction_fields)
+    best_total_amount = [p for p in top_1 if p['label'] == 'total_amount']
+    assert len(best_total_amount) == 1
+    # If a field is part of no_empty_prediction_fields,
+    # it means that there exists at least one page with a prediction
+    # If a field is not part of no_empty_prediction_fields,
+    # it means that there is no prediction for that field on any page
+    # This would not be the case for the predictions above,
+    # but faking it will make the best_total_amount None since it has the highest confidence.
+    assert best_total_amount[0]['value'] == ('100.00' if no_empty_prediction_fields else None)
+    line_items = [p for p in top_1 if p['label'] == 'line_items']
+    assert len(line_items) == 1
+    line_values = line_items[0]['value']
+    assert [line_candidate for line_candidate in line_values if line_candidate[0]['page'] == 1]

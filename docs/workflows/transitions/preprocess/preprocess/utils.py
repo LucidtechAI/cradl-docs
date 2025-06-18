@@ -85,6 +85,25 @@ def filter_by_top1(predictions, labels):
     return result
 
 
+def patch_and_filter_predictions(predictions, field_config, labels, merge_continued_lines, no_empty_prediction_fields):
+    column_names = get_column_names(field_config)
+    labels = labels.union(column_names)
+
+    if merge_continued_lines:
+        predictions = concatenate_lines_from_different_pages_and_merge_continued_lines(
+            predictions=predictions,
+            field_config=field_config,
+        )
+    else:
+        predictions = concatenate_lines_from_different_pages(predictions, field_config)
+
+    predictions = patch_empty_predictions(predictions, labels, no_empty_prediction_fields)
+    predictions = filter_away_low_confidence_lines(predictions, field_config)
+    top1_preds = filter_by_top1(predictions, labels)
+
+    return predictions, top1_preds
+
+
 def above_threshold_or_optional(prediction, field_config):
     label, confidence = prediction['label'], prediction.get('confidence')
     if label not in field_config:
