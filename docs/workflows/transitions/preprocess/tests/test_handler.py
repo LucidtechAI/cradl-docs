@@ -1008,11 +1008,11 @@ def test_patch_and_filter(form_config_simple, predictions, no_empty_prediction_f
     _, top_1 = patch_and_filter_predictions(predictions, field_config, labels, False, no_empty_prediction_fields)
     best_total_amount = [p for p in top_1 if p['label'] == 'total_amount']
     assert len(best_total_amount) == 1
-    # If a field is part of no_empty_prediction_fields, 
+    # If a field is part of no_empty_prediction_fields,
     # it means that there exists at least one page with a prediction
-    # If a field is not part of no_empty_prediction_fields, 
+    # If a field is not part of no_empty_prediction_fields,
     # it means that there is no prediction for that field on any page
-    # This would not be the case for the predictions above, 
+    # This would not be the case for the predictions above,
     # but faking it will make the best_total_amount None since it has the highest confidence.
     assert best_total_amount[0]['value'] == ('100.00' if no_empty_prediction_fields else None)
     line_items = [p for p in top_1 if p['label'] == 'line_items']
