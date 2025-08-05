@@ -203,7 +203,7 @@ def make_predictions(las_client, event):
                         prediction['confidence'] = 0.0
                     if not above_threshold_or_optional(prediction, field_config):
                         all_above_threshold_or_optional = False
-                _required_labels = required_labels(model_field_config)
+                _required_labels = required_labels(field_config)
                 _top_1_labels = set(map(lambda p: p['label'], top1_preds))
                 has_all_required_labels = _required_labels <= _top_1_labels
                 needs_validation = not has_all_required_labels or not all_above_threshold_or_optional
