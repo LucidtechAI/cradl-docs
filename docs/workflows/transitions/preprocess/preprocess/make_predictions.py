@@ -52,6 +52,16 @@ def get_num_pages(las_client, document_id, max_prediction_pages):
     return min(len(pdf.pages), max_prediction_pages)
 
 
+def add_info_from_field_config(form_config, field_config):
+    try:
+        for key, value in field_config.items():
+            form_config['config']['fields'][key]['required'] = value.get('required', True)
+        return form_config
+    except Exception as e:
+        logging.error(f'Error adding info from field config: {e}')
+        return form_config
+
+
 @las.transition_handler
 def make_predictions(las_client, event):
     document_id = event['documentId']
@@ -83,6 +93,8 @@ def make_predictions(las_client, event):
         # model has been updated, but form config has not been updated
         form_config = create_form_config_from_model(model_field_config, form_config)
         logging.info(f'\nlabels in fieldConfig does not match form_config. Updated form_config used is: {form_config}')
+
+    form_config = add_info_from_field_config(form_config, model_field_config)
 
     no_empty_prediction_fields = set()
 
@@ -191,9 +203,12 @@ def make_predictions(las_client, event):
                         prediction['confidence'] = 0.0
                     if not above_threshold_or_optional(prediction, field_config):
                         all_above_threshold_or_optional = False
-
-                has_all_required_labels = required_labels(field_config) <= set(map(lambda p: p['label'], top1_preds))
+                _required_labels = required_labels(field_config)
+                _top_1_labels = set(map(lambda p: p['label'], top1_preds))
+                has_all_required_labels = _required_labels <= _top_1_labels
                 needs_validation = not has_all_required_labels or not all_above_threshold_or_optional
+                logging.info(f'required labels: {_required_labels}')
+                logging.info(f"existing labels: {_top_1_labels}")
 
             logging.info(f'All predictions above threshold (or optional): {all_above_threshold_or_optional}')
             logging.info(f'All required labels exist: {has_all_required_labels}')

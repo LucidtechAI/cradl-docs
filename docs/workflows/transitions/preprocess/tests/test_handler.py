@@ -77,7 +77,7 @@ def simple_model_field_config():
     return {
         'total_amount': {},
         'due_date': {},
-        'invoice_id': {},
+        'invoice_id': {'required': False},
         'currency': {},
         'line_items': {
             'type': 'lines',

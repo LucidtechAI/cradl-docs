@@ -1,6 +1,9 @@
 {
   "ignorePatterns": [
     {
+      "pattern": "^https://docs.lucidtech.ai/getting-started/tutorials/"
+    },
+    {
       "pattern": "^https://sourcey.com/moxygen"
     },
     {

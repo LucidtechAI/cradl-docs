@@ -105,14 +105,15 @@ def patch_and_filter_predictions(predictions, field_config, labels, merge_contin
 
 
 def above_threshold_or_optional(prediction, field_config):
-    label, confidence = prediction['label'], prediction.get('confidence')
+    label, confidence, value = prediction['label'], prediction.get('confidence'), prediction.get('value')
     if label not in field_config:
         return False
 
     threshold = field_config[label]['confidenceLevels']
     is_optional = not field_config[label].get('required', True)
+    valid_optional_prediction = confidence < threshold['low'] or not value
 
-    return (threshold['automated'] <= confidence) or (is_optional and confidence < threshold['low'])
+    return (threshold['automated'] <= confidence) or (is_optional and valid_optional_prediction)
 
 
 def threshold_is_zero_for_all(field_config):
